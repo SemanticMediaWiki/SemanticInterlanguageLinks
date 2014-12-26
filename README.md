@@ -67,7 +67,7 @@ vix tantas habemus tincidunt.
 
 `$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;` is being set to be the default value to improve query lookups during each page view with cache invalidation being carried out during any delete, change or move action.
 
-`$GLOBALS['wgHideInterlanguageLinks']` is being set no sitelinks or annotations are created.
+`$GLOBALS['wgHideInterlanguageLinks'] = true` is being set no sitelinks or annotations are created.
 
 ## Contribution and support
 
