@@ -1,0 +1,55 @@
+{
+	"name": "mediawiki/semantic-interlanguage-links",
+	"type": "mediawiki-extension",
+	"description": "A Semantic Mediawiki extension to create and manage interlanguage links.",
+	"keywords": [
+		"smw",
+		"semantic mediawiki",
+		"wiki",
+		"mediawiki",
+		"localization"
+	],
+	"homepage": "https://semantic-mediawiki.org/wiki/Extension:SemanticInterlanguageLinks",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "mwjames",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "semediawiki-user@lists.sourceforge.net",
+		"issues": "https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/issues",
+		"irc": "irc://irc.freenode.net/semantic-mediawiki",
+		"forum": "https://semantic-mediawiki.org/wiki/semantic-mediawiki.org_talk:Community_portal",
+		"wiki": "https://semantic-mediawiki.org/wiki/",
+		"source": "https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks"
+	},
+	"require": {
+		"php": ">=5.3.0",
+		"composer/installers": "1.*,>=1.0.1",
+		"mediawiki/semantic-media-wiki": "~2.1"
+	},
+	"require-dev": {
+		"mediawiki/semantic-media-wiki": "@dev"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.x-dev"
+		}
+	},
+	"autoload": {
+		"files" : [
+			"SemanticInterlanguageLinks.php"
+		],
+		"psr-4": {
+			"SIL\\": "src/"
+		}
+	},
+	"config": {
+		"process-timeout": 0
+	},
+	"scripts":{
+		"phpunit": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist"
+	}
+}

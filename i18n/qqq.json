@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"mwjames"
+		]
+	},
+	"sil-desc": "{{desc|name=Semantic Interlanguage Links|url=https://www.mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links}}\nA \" to deploy language links effortless using Semantic MedaWiki.",
+	"sil-property-alias-code": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
+	"sil-property-alias-ref": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
+	"sil-property-alias-container": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
+	"sil-hideinterlanguagelinks": "An error message caused by the wgHideInterlanguageLinkss setting.",
+	"sil-invalidlanguagecode": "An error message caused by the INTERLANGUAGELINK parser function.",
+	"sil-languagetargetcombination-exists": "An error message caused by the INTERLANGUAGELINK parser function."
+}
