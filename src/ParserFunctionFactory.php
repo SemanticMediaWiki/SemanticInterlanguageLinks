@@ -19,7 +19,7 @@ class ParserFunctionFactory {
 	 *
 	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
 	 *
-	 * @return boolean
+	 * @return array
 	 */
 	public function newInterlanguageLinkParserFunction( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
@@ -49,6 +49,28 @@ class ParserFunctionFactory {
 		};
 
 		return array( 'interlanguagelink', $interlanguageLinkParserFunctionHandler, Parser::SFH_NO_HASH );
+	}
+
+	/**
+	 * @since  1.0
+	 *
+	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
+	 *
+	 * @return array
+	 */
+	public function newInterlanguageListParserFunction( InterlanguageLinksLookup $interlanguageLinksLookup ) {
+
+		$interlanguageListParserFunctionHandler = function( $parser, $target, $template = '' ) use ( $interlanguageLinksLookup ) {
+
+			$interlanguageListParserFunction = new InterlanguageListParserFunction(
+				$parser,
+				$interlanguageLinksLookup
+			);
+
+			return $interlanguageListParserFunction->parse( $target, $template );
+		};
+
+		return array( 'interlanguagelist', $interlanguageListParserFunctionHandler, Parser::SFH_NO_HASH );
 	}
 
 }
