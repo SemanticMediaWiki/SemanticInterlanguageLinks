@@ -67,4 +67,38 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testNewInterlanguageListParserFunctionDefinition() {
+
+		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$parser = new Parser();
+		$parser->setTitle( Title::newFromText( __METHOD__ ) );
+		$parser->Options( new ParserOptions() );
+		$parser->clearState();
+
+		$instance = new ParserFunctionFactory();
+
+		list( $name, $definition, $flag ) = $instance->newInterlanguageListParserFunction(
+			$interlanguageLinksLookup
+		);
+
+		$this->assertEquals(
+			'interlanguagelist',
+			$name
+		);
+
+		$this->assertInstanceOf(
+			'\Closure',
+			$definition
+		);
+
+		$text = '';
+
+		$this->assertNotEmpty(
+			call_user_func_array( $definition, array( $parser, $text ) )
+		);
+	}
+
 }

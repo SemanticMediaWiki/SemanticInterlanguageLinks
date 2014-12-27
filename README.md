@@ -40,7 +40,13 @@ The recommended way to install Semantic Interlanguage Links is by using [Compose
 
 The parser function `{{INTERLANGUAGELINK: language code  | interlanguage reference }}` provides in-text annotation support with the first argument being a language code (e.g `es`, `ja`) while the second argument is defined as `interlanguage reference` pointer that can be described by an arbitrary identifier to connect pages for different languages with similar content.
 
-The page content language is deduced from the annotation made by `INTERLANGUAGELINK` and will be set automatically (e.g. to display correct language directionality) together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
+The parser function `{{INTERLANGUAGELIST: interlanguage reference | template }}` can generate a customizable language target link list for the selected `interlanguage reference` to be available as wikitext inclusion using a template with the following parameters:
+- `target-link` being the target link
+- `lang-code` the language code
+- `lang-name` representing the localized language name for the language code
+- `list-pos` declaring the list position
+
+The page content language is deduced from the `INTERLANGUAGELINK` created annotation and will be set automatically together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
 
 `Page content language`, `Interlanguage reference`, and `Has interlanguage links` are deployed as predefined properties which can be used to create customized `#ask` queries.
 
@@ -57,17 +63,21 @@ vix tantas habemus tincidunt.
 ```
 ```text
 == Bar ==
+{{INTERLANGUAGELIST:Lorem ipsum|InterlanguageLinks}}
+
 真リ議著ぞねおへ司末ゅ自門学15根然6債モカナツ意集ソタロル就海ホルトヤ討舎ニ制置だみくろ冬場ヲフ針哲ソセモ
 決見ク指47返もスごち貨仙届角夜おいっす。
 
 {{INTERLANGUAGELINK:ja|Lorem ipsum}}
 ```
 
+The `Template:InterlanguageLinks` with `<includeonly><span style="margin-right: 10px">[[{{{target-link}}}|{{{lang-name}}}]]</span></includeonly>` will output all available links to the `Lorem ipsum` reference on top of the page `Bar`.
+
 ### Configuration
 
 `$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;` is being set to be the default value to improve query lookups during each page view with cache invalidation being carried out during any delete, change or move action.
 
-`$GLOBALS['wgHideInterlanguageLinks']` is being set no sitelinks or annotations are created.
+`$GLOBALS['wgHideInterlanguageLinks'] = true` is being set no sitelinks and annotations are created.
 
 ## Contribution and support
 

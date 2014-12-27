@@ -8,7 +8,10 @@
 	"sil-property-alias-code": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
 	"sil-property-alias-ref": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
 	"sil-property-alias-container": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
-	"sil-hideinterlanguagelinks": "An error message caused by the wgHideInterlanguageLinkss setting.",
-	"sil-invalidlanguagecode": "An error message caused by the INTERLANGUAGELINK parser function.",
-	"sil-languagetargetcombination-exists": "An error message caused by the INTERLANGUAGELINK parser function."
+	"sil-interlanguagelink-hideinterlanguagelinks": "An error message caused by the INTERLANGUAGELINK parser function due to the wgHideInterlanguageLinkss setting.",
+	"sil-interlanguagelink-multiplecalls": "An error message caused by the INTERLANGUAGELINK parser function.",
+	"sil-interlanguagelink-invalidlanguagecode": "An error message caused by the INTERLANGUAGELINK parser function.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "An error message caused by the INTERLANGUAGELINK parser function.",
+	"sil-interlanguagelist-missing-linkreference": "An error message caused by the INTERLANGUAGELIST parser function.",
+	"sil-interlanguagelist-missing-template": "An error message caused by the INTERLANGUAGELIST parser function."
 }

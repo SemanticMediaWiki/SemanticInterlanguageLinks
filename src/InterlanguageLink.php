@@ -21,7 +21,7 @@ class InterlanguageLink {
 	/**
 	 * @var string
 	 */
-	private $languageCode;
+	private $languageCode = '';
 
 	/**
 	 * @var Title

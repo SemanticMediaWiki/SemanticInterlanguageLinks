@@ -10,4 +10,5 @@ $magicWords = array();
  */
 $magicWords['en'] = array(
 	'interlanguagelink' => array( 1, 'INTERLANGUAGELINK:' ),
+	'interlanguagelist' => array( 1, 'INTERLANGUAGELIST:' ),
 );

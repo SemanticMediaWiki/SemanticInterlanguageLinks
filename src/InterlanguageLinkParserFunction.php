@@ -2,9 +2,7 @@
 
 namespace SIL;
 
-use SMW\ParserData;
 use SMW\Cache\FixedInMemoryCache;
-use SMW\Store;
 
 use Title;
 use Language;
@@ -78,21 +76,15 @@ class InterlanguageLinkParserFunction {
 	public function parse( $languageCode, $linkReference ) {
 
 		if ( $this->hideInterlanguageLinks ) {
-			return $this->createErrorMessageFor( 'sil-hideinterlanguagelinks' );
+			return $this->createErrorMessageFor( 'sil-interlanguagelink-hideinterlanguagelinks' );
 		}
 
-		if ( $this->getInMemoryParserTracker()->contains( $this->title->getPrefixedDBKey() ) ) {
-
-			// Ignore the entry for the same combination
-			if ( $this->getInMemoryParserTracker()->fetch( $this->title->getPrefixedDBKey() ) === $languageCode . '#' . $linkReference ) {
-				return;
-			}
-
-			return $this->createErrorMessageFor( 'sil-parser-multiplecalls' );
+		if ( ( $result = $this->checkIfIMultipleParserCallsOccurred( $languageCode, $linkReference ) ) !== false ) {
+			return $result;
 		}
 
 		if ( !$this->isSupportedLanguage( $languageCode ) ) {
-			return $this->createErrorMessageFor( 'sil-invalidlanguagecode', $languageCode );
+			return $this->createErrorMessageFor( 'sil-interlanguagelink-invalidlanguagecode', $languageCode );
 		}
 
 		$interlanguageLink = new InterlanguageLink(
@@ -101,6 +93,20 @@ class InterlanguageLinkParserFunction {
 		);
 
 		return $this->createSiteLanguageLinks( $interlanguageLink );
+	}
+
+	private function checkIfIMultipleParserCallsOccurred( $languageCode, $linkReference ) {
+
+		if ( !$this->getInMemoryParserTracker()->contains( $this->title->getPrefixedDBKey() ) ) {
+			return false;
+		}
+
+		// Ignore an entry for the same combination
+		if ( $this->getInMemoryParserTracker()->fetch( $this->title->getPrefixedDBKey() ) === $languageCode . '#' . $linkReference ) {
+			return '';
+		}
+
+		return $this->createErrorMessageFor( 'sil-interlanguagelink-multiplecalls' );
 	}
 
 	private function createSiteLanguageLinks( InterlanguageLink $interlanguageLink ) {
@@ -113,7 +119,7 @@ class InterlanguageLinkParserFunction {
 
 		if ( $knownTargetLink ) {
 			return $this->createErrorMessageFor(
-				'sil-languagetargetcombination-exists',
+				'sil-interlanguagelink-languagetargetcombination-exists',
 				$interlanguageLink->getLanguageCode(),
 				$interlanguageLink->getLinkReference()->getPrefixedText(),
 				$knownTargetLink,

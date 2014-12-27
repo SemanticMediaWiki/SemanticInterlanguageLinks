@@ -21,18 +21,18 @@ call_user_func( function () {
 
 	define( 'SIL_VERSION', '1.0-alpha' );
 
-	// register the extension
+	// Register extension info
 	$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
 		'path'           => __FILE__,
 		'name'           => 'Semantic Interlanguage Links',
-		'author' => array( 'mwjames' ),
+		'author'         => array( 'mwjames' ),
 		'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
 		'descriptionmsg' => 'sil-desc',
 		'version'        => SIL_VERSION,
 		'license-name'   => 'GPL-2.0+',
 	);
 
-	// register message files
+	// Register message files
 	$GLOBALS['wgMessagesDirs']['semanticinterlanguagelinks'] = __DIR__ . '/i18n';
 	$GLOBALS['wgExtensionMessagesFiles']['semanticinterlanguagelinks-magic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
 
@@ -43,6 +43,7 @@ call_user_func( function () {
 
 	$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;
 
+	// Finalize extension setup
 	$GLOBALS['wgExtensionFunctions'][] = function() {
 
 		$hookRegistry = new HookRegistry(
