@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"kghbln"
+		]
+	},
+	"sil-desc": "Ermöglicht das Erstellen und Verwalten von Links zwischen einzelnen Sprachversionen einer Seite",
+	"sil-property-alias-language": "Ist Seiteninhaltssprache",
+	"sil-property-alias-reference": "Ist Sprachreferenz",
+	"sil-property-alias-container": "Ist Sprachlink",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden, da dies so mit Konfigurationsparameter „wgHideInterlanguageLinks“ festgelegt wurde.",
+	"sil-interlanguagelink-invalidlanguagecode": "„$1“ ist kein gültiger Sprachcode.",
+	"sil-interlanguagelink-multiplecalls": "Die Parserfunktion „INTERLANGUAGELINK“ wird auf dieser Seite mehrere Male genutzt, was nicht zulässig ist.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Die Sprachzuordungskombination „$1“:„$2“ wurde für Seite „$3“ bereits festgelegt, sodaß keine weitere identische Annotation gespeichert wurde.",
+	"sil-interlanguagelist-missing-linkreference": "Mit dieser Parserfunktion wurde keine gültige Sprachreferenz angegeben.",
+	"sil-interlanguagelist-missing-template": "Mit dieser Parserfunktion wurde keine gültige Ausgabevorlage festgelegt."
+}
