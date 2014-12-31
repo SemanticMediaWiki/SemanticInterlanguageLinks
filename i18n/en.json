@@ -4,15 +4,14 @@
 			"mwjames"
 		]
 	},
-	"sil-desc": "A [https://semantic-mediawiki.org Semantic MediaWiki] extension to create and manage interlanguage links.",
+	"sil-desc": "A [https://semantic-mediawiki.org Semantic MediaWiki] extension to create and manage interlanguage links",
 	"sil-property-alias-language": "Page content language",
 	"sil-property-alias-reference": "Interlanguage reference",
 	"sil-property-alias-container": "Has interlanguage links",
 	"sil-interlanguagelink-hideinterlanguagelinks": "The parser function cannot be used because \"wgHideInterlanguageLinks\" is set.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" was not recognized as valid language code.",
-	"sil-interlanguagelink-multiplecalls": "The \"INTERLANGUAGELINK\" parser function was called muliple times on this page.",
+	"sil-interlanguagelink-multiplecalls": "The \"INTERLANGUAGELINK\" parser function was called muliple times on this page which is not possible.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "The combination \"$1\":\"$2\" already exsits for page \"$3\" therefore no additional interlanguage annotation was created.",
 	"sil-interlanguagelist-missing-linkreference": "The parser function is missing a valid reference.",
 	"sil-interlanguagelist-missing-template": "The parser function is missing an output template."
-
 }
