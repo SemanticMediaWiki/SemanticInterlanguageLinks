@@ -13,5 +13,6 @@
 	"sil-interlanguagelink-multiplecalls": "The \"INTERLANGUAGELINK\" parser function was called muliple times on this page which is not possible.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "The combination \"$1\":\"$2\" already exsits for page \"$3\" therefore no additional interlanguage annotation was created.",
 	"sil-interlanguagelist-missing-linkreference": "The parser function is missing a valid reference.",
-	"sil-interlanguagelist-missing-template": "The parser function is missing an output template."
+	"sil-interlanguagelist-missing-template": "The parser function is missing an output template.",
+	"sil-interlanguageparser-linkreference-error": "The parser function had a problem to create a title object from \"$1\"."
 }

@@ -32,11 +32,11 @@ class InterlanguageLink {
 	 * @since 1.0
 	 *
 	 * @param string $languageCode
-	 * @param string $linkReference
+	 * @param Title|string $linkReference
 	 */
 	public function __construct( $languageCode, $linkReference ) {
 		$this->languageCode = $languageCode;
-		$this->linkReference = Title::newFromText( $linkReference );
+		$this->linkReference = $linkReference instanceOf Title ? $linkReference : Title::newFromText( $linkReference );
 	}
 
 	/**

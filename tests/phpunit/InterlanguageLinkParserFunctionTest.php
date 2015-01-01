@@ -40,7 +40,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testParseToCreateErrorMessage() {
+	public function testTryParseThatCausesErrorMessage() {
 
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
@@ -77,6 +77,11 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertContains(
 			'span class="error"',
 			$instance->parse( '', 'Foo' )
+		);
+
+		$this->assertContains(
+			'span class="error"',
+			$instance->parse( 'en', '{[[:Template:Foo]]' )
 		);
 	}
 

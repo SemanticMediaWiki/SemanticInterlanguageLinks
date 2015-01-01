@@ -5,6 +5,8 @@ namespace SIL\Tests;
 use SIL\InterlanguageLink;
 use SIL\PropertyRegistry;
 
+use Title;
+
 /**
  * @covers \SIL\InterlanguageLink
  *
@@ -92,6 +94,25 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 		$this->assertContains(
 			'sil.en',
 			$instance->getContainerId()
+		);
+	}
+
+	public function testGetLinkReference() {
+
+		$linkReference = Title::newFromText( __METHOD__ );
+
+		$instance = new InterlanguageLink( 'en', $linkReference );
+
+		$this->assertSame(
+			$linkReference,
+			$instance->getLinkReference()
+		);
+
+		$instance = new InterlanguageLink( 'en', __METHOD__ );
+
+		$this->assertEquals(
+			$linkReference,
+			$instance->getLinkReference()
 		);
 	}
 

@@ -53,11 +53,17 @@ class InterlanguageListParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguagelist-missing-template' );
 		}
 
-		$languageCode = $this->interlanguageLinksLookup->getPageLanguageForTarget( Title::newFromText( $linkReference ) );
+		$title = Title::newFromText( $linkReference );
+
+		if ( $title === null ) {
+			return $this->createErrorMessageFor( 'sil-interlanguageparser-linkreference-error', $linkReference );
+		}
+
+		$languageCode = $this->interlanguageLinksLookup->getPageLanguageForTarget( $title );
 
 		$interlanguageLink = new InterlanguageLink(
 			$languageCode,
-			$linkReference
+			$title
 		);
 
 		$languageTargetLinks = $this->getLanguageTargetLinks( $interlanguageLink );
@@ -104,8 +110,8 @@ class InterlanguageListParserFunction {
 		return $result;
 	}
 
-	private function createErrorMessageFor( $messageKey ) {
-		return '<span class="error">' . wfMessage( $messageKey )->inContentLanguage()->text() . '</span>';
+	private function createErrorMessageFor( $messageKey, $arg1 = '' ) {
+		return '<span class="error">' . wfMessage( $messageKey, $arg1 )->inContentLanguage()->text() . '</span>';
 	}
 
 }

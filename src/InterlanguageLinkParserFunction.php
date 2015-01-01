@@ -87,9 +87,15 @@ class InterlanguageLinkParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguagelink-invalidlanguagecode', $languageCode );
 		}
 
+		$title = Title::newFromText( $linkReference );
+
+		if ( $title === null ) {
+			return $this->createErrorMessageFor( 'sil-interlanguageparser-linkreference-error', $linkReference );
+		}
+
 		$interlanguageLink = new InterlanguageLink(
 			wfBCP47( $languageCode ),
-			$linkReference
+			$title
 		);
 
 		return $this->createSiteLanguageLinks( $interlanguageLink );
