@@ -77,7 +77,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
-			->method( 'getPageLanguageForTarget' )
+			->method( 'tryCachedPageLanguageForTarget' )
 			->with( $this->equalTo( \Title::newFromText( 'Foo' ) ) )
 			->will( $this->returnValue( false ) );
 
@@ -111,7 +111,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
-			->method( 'getPageLanguageForTarget' )
+			->method( 'tryCachedPageLanguageForTarget' )
 			->with( $this->equalTo( \Title::newFromText( 'Foo' ) ) )
 			->will( $this->returnValue( false ) );
 

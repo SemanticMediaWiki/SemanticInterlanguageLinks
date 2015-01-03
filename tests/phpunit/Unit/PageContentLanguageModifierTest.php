@@ -91,7 +91,7 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
-			->method( 'getPageLanguageForTarget' )
+			->method( 'tryCachedPageLanguageForTarget' )
 			->will( $this->returnValue(  'lo' ) );
 
 		$instance = new PageContentLanguageModifier( $interlanguageLinksLookup, $title );

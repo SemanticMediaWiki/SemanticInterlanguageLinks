@@ -57,9 +57,6 @@ class CachedLanguageTargetLinks {
 			$this->getSiteCacheKey( $interlanguageLink->getLinkReference()->getPrefixedText() )
 		);
 
-		if ( $cachedLanguageTargetLinks === false ) {
-			return false;
-		}
 
 		if ( !isset( $cachedLanguageTargetLinks[ $interlanguageLink->getLanguageCode() ] ) ) {
 			return false;
@@ -133,6 +130,8 @@ class CachedLanguageTargetLinks {
 
 	/**
 	 * @since 1.0
+	 *
+	 * @param Title $title
 	 */
 	public function deletePageLanguageForTargetFromCache( Title $title ) {
 

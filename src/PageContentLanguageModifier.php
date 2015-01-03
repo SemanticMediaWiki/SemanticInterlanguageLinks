@@ -78,7 +78,7 @@ class PageContentLanguageModifier {
 			return true;
 		}
 
-		$cachedLanguageCode = $this->interlanguageLinksLookup->getPageLanguageForTarget( $this->title );
+		$cachedLanguageCode = $this->interlanguageLinksLookup->tryCachedPageLanguageForTarget( $this->title );
 
 		if ( $cachedLanguageCode ) {
 			$pageLanguage = $this->addLanguageToInMemoryCache( $this->title, $cachedLanguageCode );

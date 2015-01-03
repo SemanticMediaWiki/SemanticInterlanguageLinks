@@ -182,13 +182,17 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testQueryLanguageLinks() {
+	public function testVerifyQueryStringByQueryingLanguageTargetLinks() {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$verifyQueryCallback = function( $query ) {
 			return $query->getQueryString() === '[[Interlanguage reference::Foo]]';
 		};
+
+		$queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+			->disableOriginalConstructor()
+			->getMock();
 
 		$cachedLanguageTargetLinks = $this->getMockBuilder( '\SIL\CachedLanguageTargetLinks' )
 			->disableOriginalConstructor()
@@ -200,12 +204,13 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store->expects( $this->once() )
 			->method( 'getQueryResult' )
-			->with( $this->callback( $verifyQueryCallback ) );
+			->with( $this->callback( $verifyQueryCallback ) )
+			->will( $this->returnValue( $queryResult ) );
 
 		$instance = new InterlanguageLinksLookup( $cachedLanguageTargetLinks );
 		$instance->setStore( $store );
 
-		$instance->queryOtherTargetLinksForInterlanguageLink( $interlanguageLink );
+		$instance->queryLanguageTargetLinks( $interlanguageLink );
 	}
 
 	public function testQueryLanguageTargetLinks() {
@@ -278,7 +283,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance->tryCachedLanguageTargetLinks( $interlanguageLink );
 	}
 
-	public function testGetPageLanguageForTarget() {
+	public function testTryCachedPageLanguageForTarget() {
 
 		$target = Title::newFromText( 'Foo' );
 
@@ -295,7 +300,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			'en',
-			$instance->getPageLanguageForTarget( $target )
+			$instance->tryCachedPageLanguageForTarget( $target )
 		);
 	}
 

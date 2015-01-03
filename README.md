@@ -46,10 +46,6 @@ The parser function `{{INTERLANGUAGELIST: interlanguage reference | template }}`
 - `lang-name` representing the localized language name for the language code
 - `list-pos` declaring the list position
 
-The page content language is deduced from the `INTERLANGUAGELINK` created annotation and will be set automatically together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
-
-`Page content language`, `Interlanguage reference`, and `Has interlanguage links` are deployed as predefined properties which can be used to create customized `#ask` queries.
-
 ### Example
 
 If `Foo` and `Bar` share the same reference (`Lorem ipsum`) for a non-existing language assignment then both will link to each other and be available through the sitelink navigation and as property annotation.
@@ -72,6 +68,14 @@ vix tantas habemus tincidunt.
 ```
 
 The `Template:InterlanguageLinks` with `<includeonly><span style="margin-right: 10px">[[{{{target-link}}}|{{{lang-name}}}]]</span></includeonly>` will output all available links to the `Lorem ipsum` reference on top of the page `Bar`.
+
+### Other features
+
+The page content language is deduced from the `INTERLANGUAGELINK` created annotation and will be set automatically together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
+
+`Page content language`, `Interlanguage reference`, and `Has interlanguage links` are deployed as predefined properties which can be used to create customized `#ask` queries.
+
+SIL provides a `by Language` `Special:Search` filtering option to match interlanguage property annotations for pre-selected articles. If the `by Language` profile is used together with a specific language filter then any pre-selected article (provided by the `SearchEngine`) that does not match the language will be excluded from the result list.
 
 ### Configuration
 
