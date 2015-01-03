@@ -14,5 +14,9 @@
 	"sil-interlanguagelink-languagetargetcombination-exists": "An error message caused by the INTERLANGUAGELINK parser function.",
 	"sil-interlanguagelist-missing-linkreference": "An error message caused by the INTERLANGUAGELIST parser function.",
 	"sil-interlanguagelist-missing-template": "An error message caused by the INTERLANGUAGELIST parser function.",
-	"sil-interlanguageparser-linkreference-error": "An error message caused by a parser function."
+	"sil-interlanguageparser-linkreference-error": "An error message caused by a parser function.",
+	"sil-search-profile":"A label displayed on the Special:Search page.",
+	"sil-search-profile-tooltip":"A label displayed on the Special:Search page.",
+	"sil-search-languagefilter-label":"A label displayed on the Special:Search page.",
+	"sil-search-nolanguagefilter":"A label displayed on the Special:Search page."
 }

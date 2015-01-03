@@ -28,19 +28,22 @@ class PropertyRegistry {
 			self::SIL_LANG => array(
 				'label' => SIL_PROP_LANG,
 				'type'  => '_txt',
-				'alias' => wfMessage( 'sil-property-alias-language' )->text()
+				'alias' => wfMessage( 'sil-property-alias-language' )->text(),
+				'visibility' => true
 			),
 
 			self::SIL_REF => array(
 				'label' => SIL_PROP_REF,
 				'type'  => '_wpg',
-				'alias' => wfMessage( 'sil-property-alias-reference' )->text()
+				'alias' => wfMessage( 'sil-property-alias-reference' )->text(),
+				'visibility' => true
 			),
 
 			self::SIL_CONTAINER => array(
 				'label' => SIL_PROP_CONTAINER,
 				'type'  => '__sob',
-				'alias' => wfMessage( 'sil-property-alias-container' )->text()
+				'alias' => wfMessage( 'sil-property-alias-container' )->text(),
+				'visibility' => false
 			),
 		);
 
@@ -50,7 +53,7 @@ class PropertyRegistry {
 				$propertyId,
 				$definition['type'],
 				$definition['label'],
-				true
+				$definition['visibility']
 			);
 
 			DIProperty::registerPropertyAlias(

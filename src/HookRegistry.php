@@ -3,6 +3,8 @@
 namespace SIL;
 
 use SMW\Store;
+use SIL\Search\SearchResultModifier;
+use SIL\Search\LanguageResultMatchFinder;
 
 use Parser;
 use BagOStuff;
@@ -54,6 +56,10 @@ class HookRegistry {
 		);
 
 		$interlanguageLinksLookup->setStore( $this->store );
+
+		$searchResultModifier = new SearchResultModifier(
+			new LanguageResultMatchFinder( $interlanguageLinksLookup )
+		);
 
 		/**
 		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks.md
@@ -146,6 +152,27 @@ class HookRegistry {
 			$pageContentLanguageModifier->modifyLanguage( $pageLang );
 
 			return true;
+		};
+
+		/**
+		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfiles
+		 */
+		$wgHooks['SpecialSearchProfiles'][] = function ( array &$profiles ) use ( $searchResultModifier ) {
+			return $searchResultModifier->addSearchProfile( $profiles );
+		};
+
+		/**
+		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfileForm
+		 */
+		$wgHooks['SpecialSearchProfileForm'][] = function ( $search, &$form, $profile, $term, $opts ) use ( $searchResultModifier ) {
+			return $searchResultModifier->addSearchProfileForm( $search, $profile, $form, $opts );
+		};
+
+		/**
+		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchResults
+		 */
+		$wgHooks['SpecialSearchResults'][] = function ( $term, &$titleMatches, &$textMatches ) use ( $searchResultModifier ) {
+			return $searchResultModifier->applyPostFilterToResultMatches( $GLOBALS['wgRequest'], $titleMatches, $textMatches );
 		};
 
 		return true;

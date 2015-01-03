@@ -59,7 +59,7 @@ class InterlanguageListParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguageparser-linkreference-error', $linkReference );
 		}
 
-		$languageCode = $this->interlanguageLinksLookup->getPageLanguageForTarget( $title );
+		$languageCode = $this->interlanguageLinksLookup->tryCachedPageLanguageForTarget( $title );
 
 		$interlanguageLink = new InterlanguageLink(
 			$languageCode,

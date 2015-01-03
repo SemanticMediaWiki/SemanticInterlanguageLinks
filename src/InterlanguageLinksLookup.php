@@ -59,10 +59,35 @@ class InterlanguageLinksLookup {
 	 *
 	 * @param InterlanguageLink $interlanguageLink
 	 *
-	 * @return array
+	 * @return boolean|array
 	 */
 	public function tryCachedLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {
 		return $this->cachedLanguageTargetLinks->getLanguageTargetLinksFromCache( $interlanguageLink );
+	}
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param Title $title
+	 *
+	 * @return boolean|string
+	 */
+	public function tryCachedPageLanguageForTarget( Title $title ) {
+		return $this->cachedLanguageTargetLinks->getPageLanguageFromCache( $title );
+	}
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param Title $title
+	 */
+	public function doInvalidateCachedLanguageTargetLinks( Title $title ) {
+
+		$this->cachedLanguageTargetLinks
+			->deleteLanguageTargetLinksFromCache( $this->findLinkReferencesForTarget( $title ) );
+
+		$this->cachedLanguageTargetLinks
+			->deletePageLanguageForTargetFromCache( $title );
 	}
 
 	/**
@@ -97,31 +122,6 @@ class InterlanguageLinksLookup {
 		);
 
 		return $languageTargetLinks;
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param Title $title
-	 */
-	public function doInvalidateCachedLanguageTargetLinks( Title $title ) {
-
-		$this->cachedLanguageTargetLinks
-			->deleteLanguageTargetLinksFromCache( $this->findLinkReferencesForTarget( $title ) );
-
-		$this->cachedLanguageTargetLinks
-			->deletePageLanguageForTargetFromCache( $title );
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param Title $title
-	 *
-	 * @return string
-	 */
-	public function getPageLanguageForTarget( Title $title ) {
-		return $this->cachedLanguageTargetLinks->getPageLanguageFromCache( $title );
 	}
 
 	/**
@@ -192,13 +192,9 @@ class InterlanguageLinksLookup {
 	}
 
 	/**
-	 * @since 1.0
-	 *
-	 * @param InterlanguageLink $interlanguageLink
-	 *
 	 * @return QueryResult
 	 */
-	public function queryOtherTargetLinksForInterlanguageLink( InterlanguageLink $interlanguageLink ) {
+	private function queryOtherTargetLinksForInterlanguageLink( InterlanguageLink $interlanguageLink ) {
 
 		$description = new Conjunction();
 

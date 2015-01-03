@@ -70,26 +70,8 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertHookIsExcutable(
 			$wgHooks,
-			'smwInitProperties',
-			array()
-		);
-
-		$this->assertHookIsExcutable(
-			$wgHooks,
 			'ParserFirstCallInit',
 			array( &$parser )
-		);
-
-		$this->assertHookIsExcutable(
-			$wgHooks,
-			'SMW::SQLStore::BeforeDeleteSubjectComplete',
-			array( $store, $title )
-		);
-
-		$this->assertHookIsExcutable(
-			$wgHooks,
-			'SMW::SQLStore::BeforeChangeTitleComplete',
-			array( $store, $title, $title, 0, 0 )
 		);
 
 		$this->assertHookIsExcutable(
@@ -112,6 +94,90 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			$wgHooks,
 			'PageContentLanguage',
 			array( $title, &$pageLang )
+		);
+	}
+
+	public function testRegisterSemanticMediaWikiRelatedHooks() {
+
+		$title = Title::newFromText( __METHOD__ );
+
+		$store = $this->getMockBuilder( '\SMW\Store' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$cache = $this->getMockBuilder( '\BagOStuff' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$wgHooks = array();
+
+		$instance = new HookRegistry( $store, $cache );
+		$instance->register( $wgHooks );
+
+		$this->assertHookIsExcutable(
+			$wgHooks,
+			'smwInitProperties',
+			array()
+		);
+
+		$this->assertHookIsExcutable(
+			$wgHooks,
+			'SMW::SQLStore::BeforeDeleteSubjectComplete',
+			array( $store, $title )
+		);
+
+		$this->assertHookIsExcutable(
+			$wgHooks,
+			'SMW::SQLStore::BeforeChangeTitleComplete',
+			array( $store, $title, $title, 0, 0 )
+		);
+	}
+
+	public function testRegisterSearchRelatedHooks() {
+
+		$store = $this->getMockBuilder( '\SMW\Store' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$cache = $this->getMockBuilder( '\BagOStuff' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$search = $this->getMockBuilder( '\SpecialSearch' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$wgHooks = array();
+
+		$instance = new HookRegistry( $store, $cache );
+		$instance->register( $wgHooks );
+
+		$profiles = array();
+
+		$this->assertHookIsExcutable(
+			$wgHooks,
+			'SpecialSearchProfiles',
+			array( &$profiles )
+		);
+
+		$form = '';
+		$profile = '';
+		$term = '';
+		$opts = array();
+
+		$this->assertHookIsExcutable(
+			$wgHooks,
+			'SpecialSearchProfileForm',
+			array( $search, &$form, $profile, $term, $opts )
+		);
+
+		$titleMatches = false;
+		$textMatches = false;
+
+		$this->assertHookIsExcutable(
+			$wgHooks,
+			'SpecialSearchResults',
+			array( $search, &$titleMatches, &$textMatches )
 		);
 	}
 
