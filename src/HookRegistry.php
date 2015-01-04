@@ -47,7 +47,7 @@ class HookRegistry {
 	 */
 	public function register( &$wgHooks ) {
 
-		$cachedLanguageTargetLinks = new CachedLanguageTargetLinks(
+		$cachedLanguageTargetLinks = new LanguageTargetLinkCache(
 			$this->cache
 		);
 

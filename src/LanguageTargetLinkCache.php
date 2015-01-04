@@ -13,7 +13,7 @@ use Title;
  *
  * @author mwjames
  */
-class CachedLanguageTargetLinks {
+class LanguageTargetLinkCache {
 
 	const VERSION = 'dec.2014';
 

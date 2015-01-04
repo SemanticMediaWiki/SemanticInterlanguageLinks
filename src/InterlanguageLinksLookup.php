@@ -27,7 +27,7 @@ use Language;
 class InterlanguageLinksLookup {
 
 	/**
-	 * @var CachedLanguageTargetLinks
+	 * @var LanguageTargetLinkCache
 	 */
 	private $cachedLanguageTargetLinks;
 
@@ -39,9 +39,9 @@ class InterlanguageLinksLookup {
 	/**
 	 * @since 1.0
 	 *
-	 * @param CachedLanguageTargetLinks $cachedLanguageTargetLinks
+	 * @param LanguageTargetLinkCache $cachedLanguageTargetLinks
 	 */
-	public function __construct( CachedLanguageTargetLinks $cachedLanguageTargetLinks ) {
+	public function __construct( LanguageTargetLinkCache $cachedLanguageTargetLinks ) {
 		$this->cachedLanguageTargetLinks = $cachedLanguageTargetLinks;
 	}
 
