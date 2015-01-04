@@ -150,39 +150,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	/**
-	 * @dataProvider invalidLanguageCodeProvider
-	 */
-	public function testTryPostFilteringForSILProfileByInvalidLanguageCode( $invalidLanguageCode ) {
-
-		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$instance = new SearchResultModifier( $languageResultMatchFinder );
-
-		$request = $this->getMockBuilder( '\WebRequest' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$request->expects( $this->at( 0 ) )
-			->method( 'getVal' )
-			->with( $this->equalTo( 'profile' ) )
-			->will( $this->returnValue( 'sil' ) );
-
-		$request->expects( $this->at( 1 ) )
-			->method( 'getVal' )
-			->with( $this->equalTo( 'languagefilter' ) )
-			->will( $this->returnValue( $invalidLanguageCode ) );
-
-		$titleMatches = false;
-		$textMatches = false;
-
-		$this->assertFalse(
-			$instance->applyLanguageFilterToResultMatches( $request, $titleMatches, $textMatches )
-		);
-	}
-
 	public function testTryPostFilteringForSILProfileByValidLanguageCode() {
 
 		$titleMatches = $this->getMockBuilder( '\SearchResultSet' )
@@ -226,12 +193,46 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider invalidLanguageCodeProvider
+	 */
+	public function testTryPostFilteringForSILProfileByInvalidLanguageCode( $invalidLanguageCode ) {
+
+		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$instance = new SearchResultModifier( $languageResultMatchFinder );
+
+		$request = $this->getMockBuilder( '\WebRequest' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$request->expects( $this->at( 0 ) )
+			->method( 'getVal' )
+			->with( $this->equalTo( 'profile' ) )
+			->will( $this->returnValue( 'sil' ) );
+
+		$request->expects( $this->at( 1 ) )
+			->method( 'getVal' )
+			->with( $this->equalTo( 'languagefilter' ) )
+			->will( $this->returnValue( $invalidLanguageCode ) );
+
+		$titleMatches = false;
+		$textMatches = false;
+
+		$this->assertFalse(
+			$instance->applyLanguageFilterToResultMatches( $request, $titleMatches, $textMatches )
+		);
+	}
+
 	public function invalidLanguageCodeProvider() {
 
 		$provider = array(
 			array( null ),
 			array( '' ),
-			array( false )
+			array( false ),
+			array( '-' )
 		);
 
 		return $provider;
