@@ -5,7 +5,6 @@ namespace SIL;
 use SMW\Store;
 use SMW\DIWikiPage;
 use SMW\DIProperty;
-use SMW\Cache\FixedInMemoryCache;
 
 use Title;
 
@@ -31,11 +30,6 @@ class PageContentLanguageModifier {
 	private $title;
 
 	/**
-	 * @var FixedInMemoryCache|null
-	 */
-	private static $inMemoryPageLanguageCache = null;
-
-	/**
 	 * @since 1.0
 	 *
 	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
@@ -44,25 +38,6 @@ class PageContentLanguageModifier {
 	public function __construct( InterlanguageLinksLookup $interlanguageLinksLookup, Title $title ) {
 		$this->interlanguageLinksLookup = $interlanguageLinksLookup;
 		$this->title = $title;
-	}
-	/**
-	 * @since 1.0
-	 */
-	public function clear() {
-		self::$inMemoryPageLanguageCache = null;
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param Title $title
-	 * @param $languageCode
-	 *
-	 * @return string
-	 */
-	public function addLanguageToInMemoryCache( Title $title, $languageCode ) {
-		$this->getInMemoryPageLanguageCache()->save( $title->getPrefixedDBKey(), $languageCode );
-		return $languageCode;
 	}
 
 	/**
@@ -74,47 +49,13 @@ class PageContentLanguageModifier {
 	 */
 	public function modifyLanguage( &$pageLanguage ) {
 
-		if ( $this->tryPageLanguageFromInMemoryCache( $pageLanguage ) ) {
-			return true;
-		}
+		$lookupLanguageCode = $this->interlanguageLinksLookup->findPageLanguageForTarget( $this->title );
 
-		$lookupLanguageCode = $this->interlanguageLinksLookup->findLastPageLanguageForTarget( $this->title );
-
-		$this->addLanguageToInMemoryCache( $this->title, $lookupLanguageCode );
-
-		if ( $lookupLanguageCode === null || $lookupLanguageCode === '' ) {
-			return true;
-		}
-
-		$pageLanguage = $lookupLanguageCode;
-
-		return true;
-	}
-
-	private function tryPageLanguageFromInMemoryCache( &$pageLanguage ) {
-
-		if ( !$this->getInMemoryPageLanguageCache()->contains( $this->title->getPrefixedDBKey() ) ) {
-			return false;
-		}
-
-		$cachedLanguageCode = $this->getInMemoryPageLanguageCache()->fetch( $this->title->getPrefixedDBKey() );
-
-		if ( $cachedLanguageCode !== '' ) {
-			$pageLanguage = $cachedLanguageCode;
+		if ( $lookupLanguageCode !== '' ) {
+			$pageLanguage = $lookupLanguageCode;
 		}
 
 		return true;
-	}
-
-	private function getInMemoryPageLanguageCache() {
-
-		// Use the FixedInMemoryCache to ensure that during a job run the array is not hit by any
-		// memory leak and limited to a fixed size
-		if ( self::$inMemoryPageLanguageCache === null ) {
-			self::$inMemoryPageLanguageCache = new FixedInMemoryCache( 50 );
-		}
-
-		return self::$inMemoryPageLanguageCache;
 	}
 
 }

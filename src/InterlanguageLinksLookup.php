@@ -56,34 +56,12 @@ class InterlanguageLinksLookup {
 	/**
 	 * @since 1.0
 	 *
-	 * @param InterlanguageLink $interlanguageLink
-	 *
-	 * @return boolean|array
-	 */
-	public function tryCachedLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {
-		return $this->languageTargetLinksCache->getLanguageTargetLinksFromCache( $interlanguageLink );
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @param Title $title
-	 *
-	 * @return boolean|string
-	 */
-	public function tryCachedPageLanguageForTarget( Title $title ) {
-		return $this->languageTargetLinksCache->getPageLanguageFromCache( $title );
-	}
-
-	/**
-	 * @since 1.0
-	 *
 	 * @param Title $title
 	 */
-	public function doInvalidateCachedLanguageTargetLinks( Title $title ) {
+	public function invalidateLookupCache( Title $title ) {
 
 		$this->languageTargetLinksCache
-			->deleteLanguageTargetLinksFromCache( $this->findAllReferenceTargetLinksFor( $title ) );
+			->deleteLanguageTargetLinksFromCache( $this->findFullListOfReferenceTargetLinks( $title ) );
 
 		$this->languageTargetLinksCache
 			->deletePageLanguageForTargetFromCache( $title );
@@ -99,7 +77,9 @@ class InterlanguageLinksLookup {
 	 */
 	public function queryLanguageTargetLinks( InterlanguageLink $interlanguageLink, Title $target = null ) {
 
-		$languageTargetLinks = $this->tryCachedLanguageTargetLinks( $interlanguageLink );
+		$languageTargetLinks = $this->languageTargetLinksCache->getLanguageTargetLinksFromCache(
+			$interlanguageLink
+		);
 
 		if ( is_array( $languageTargetLinks ) && $languageTargetLinks !== array() ) {
 			return $languageTargetLinks;
@@ -133,37 +113,20 @@ class InterlanguageLinksLookup {
 	 *
 	 * @return string
 	 */
-	public function findLastPageLanguageForTarget( Title $title ) {
+	public function findPageLanguageForTarget( Title $title ) {
 
-		$cachedLanguageCode = $this->tryCachedPageLanguageForTarget( $title );
+		$lookupLanguageCode = $this->languageTargetLinksCache->getPageLanguageFromCache( $title );
 
-		if ( $cachedLanguageCode ) {
-			return $cachedLanguageCode;
+		if ( $lookupLanguageCode === false || $lookupLanguageCode === null ) {
+			$lookupLanguageCode = $this->lookupLastPageLanguageForTarget( $title );
 		}
 
-		$propertyValues = $this->store->getPropertyValues(
-			DIWikiPage::newFromTitle( $title ),
-			new DIProperty( PropertyRegistry::SIL_CONTAINER )
+		$this->languageTargetLinksCache->updatePageLanguageToCache(
+			$title,
+			$lookupLanguageCode
 		);
 
-		if ( !is_array( $propertyValues ) || $propertyValues === array() ) {
-			return '';
-		}
-
-		$containerSubject = end( $propertyValues );
-
-		$propertyValues = $this->store->getPropertyValues(
-			$containerSubject,
-			new DIProperty( PropertyRegistry::SIL_LANG )
-		);
-
-		$languageCodeValue = end( $propertyValues );
-
-		if ( $languageCodeValue instanceOf DIBlob ) {
-			return $languageCodeValue->getString();
-		}
-
-		return '';
+		return $lookupLanguageCode;
 	}
 
 	/**
@@ -173,7 +136,7 @@ class InterlanguageLinksLookup {
 	 *
 	 * @return DIWikiPage[]|[]
 	 */
-	public function findAllReferenceTargetLinksFor( Title $title ) {
+	public function findFullListOfReferenceTargetLinks( Title $title ) {
 
 		$linkReferences = array();
 
@@ -252,6 +215,33 @@ class InterlanguageLinksLookup {
 				$languageTargetLinks[ $dataValue->getWikiValue() ] = $row->getResultSubject()->getTitle();
 			}
 		}
+	}
+
+	private function lookupLastPageLanguageForTarget( Title $title ) {
+
+		$propertyValues = $this->store->getPropertyValues(
+			DIWikiPage::newFromTitle( $title ),
+			new DIProperty( PropertyRegistry::SIL_CONTAINER )
+		);
+
+		if ( !is_array( $propertyValues ) || $propertyValues === array() ) {
+			return '';
+		}
+
+		$containerSubject = end( $propertyValues );
+
+		$propertyValues = $this->store->getPropertyValues(
+			$containerSubject,
+			new DIProperty( PropertyRegistry::SIL_LANG )
+		);
+
+		$languageCodeValue = end( $propertyValues );
+
+		if ( $languageCodeValue instanceOf DIBlob ) {
+			return $languageCodeValue->getString();
+		}
+
+		return '';
 	}
 
 }

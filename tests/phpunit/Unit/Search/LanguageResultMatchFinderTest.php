@@ -84,8 +84,8 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$interlanguageLinksLookup->expects( $this->once() )
-			->method( 'findLastPageLanguageForTarget' )
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+			->method( 'findPageLanguageForTarget' )
 			->with( $this->equalTo( $title ) )
 			->will( $this->returnValue( 'mhr' ) );
 

@@ -3,7 +3,6 @@
 namespace SIL\Search;
 
 use SIL\InterlanguageLinksLookup;
-use SMW\Cache\FixedInMemoryCache;
 
 use SearchResultSet;
 use Title;
@@ -20,11 +19,6 @@ class LanguageResultMatchFinder {
 	 * @var InterlanguageLinksLookup|null
 	 */
 	private $interlanguageLinksLookup = null;
-
-	/**
-	 * @var FixedInMemoryCache|null
-	 */
-	private static $inMemoryPageLanguageCache = null;
 
 	/**
 	 * @since 1.0
@@ -51,16 +45,11 @@ class LanguageResultMatchFinder {
 
 			$title = $searchresult->getTitle();
 
-			$pageLanguage = $this->findPageLanguageForTarget( $title );
+			$pageLanguage = $this->interlanguageLinksLookup->findPageLanguageForTarget( $title );
 
 			if ( $pageLanguage === $languageCode ) {
 				$mappedMatches[] = $searchresult;
 			}
-
-			$this->getInMemoryPageLanguageCache()->save(
-				$title->getPrefixedDBKey(),
-				$pageLanguage
-			);
 		}
 
 		if ( $mappedMatches === array() ) {
@@ -68,35 +57,6 @@ class LanguageResultMatchFinder {
 		}
 
 		return new MappedSearchResultSet( $mappedMatches, $matches->termMatches() );
-	}
-
-	private function findPageLanguageForTarget( Title $title ) {
-
-		$pageLanguage = $this->tryPageLanguageFromInMemoryCache( $title );
-
-		if( $pageLanguage === false ) {
-			$pageLanguage = $this->interlanguageLinksLookup->findLastPageLanguageForTarget( $title );
-		}
-
-		return $pageLanguage;
-	}
-
-	private function tryPageLanguageFromInMemoryCache( Title $title ) {
-
-		if ( !$this->getInMemoryPageLanguageCache()->contains( $title->getPrefixedDBKey() ) ) {
-			return false;
-		}
-
-		return $this->getInMemoryPageLanguageCache()->fetch( $title->getPrefixedDBKey() );
-	}
-
-	private function getInMemoryPageLanguageCache() {
-
-		if ( self::$inMemoryPageLanguageCache === null ) {
-			self::$inMemoryPageLanguageCache = new FixedInMemoryCache( 500 );
-		}
-
-		return self::$inMemoryPageLanguageCache;
 	}
 
 }

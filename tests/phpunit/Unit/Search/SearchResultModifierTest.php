@@ -153,7 +153,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider invalidLanguageCodeProvider
 	 */
-	public function testTryPostFilteringForSILProfileByInvalidLanguageCode( $languageCode ) {
+	public function testTryPostFilteringForSILProfileByInvalidLanguageCode( $invalidLanguageCode ) {
 
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
@@ -173,7 +173,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		$request->expects( $this->at( 1 ) )
 			->method( 'getVal' )
 			->with( $this->equalTo( 'languagefilter' ) )
-			->will( $this->returnValue( $languageCode ) );
+			->will( $this->returnValue( $invalidLanguageCode ) );
 
 		$titleMatches = false;
 		$textMatches = false;
@@ -228,12 +228,10 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 	public function invalidLanguageCodeProvider() {
 
-		$provider = array();
-
-		$provider[] = array(
-			null,
-			'',
-			'-'
+		$provider = array(
+			array( null ),
+			array( '' ),
+			array( false )
 		);
 
 		return $provider;
