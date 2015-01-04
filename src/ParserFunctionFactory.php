@@ -23,7 +23,7 @@ class ParserFunctionFactory {
 	 */
 	public function newInterlanguageLinkParserFunction( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
-		$interlanguageLinkParserFunctionHandler = function( $parser, $text, $uarg = '' ) use ( $interlanguageLinksLookup ) {
+		$interlanguageLinkParserFunctionHandler = function( $parser, $languageCode, $linkReference = '' ) use ( $interlanguageLinksLookup ) {
 
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
@@ -45,7 +45,7 @@ class ParserFunctionFactory {
 
 			$interlanguageLinkParserFunction->setInterlanguageLinksState( $GLOBALS['wgHideInterlanguageLinks'] );
 
-			return $interlanguageLinkParserFunction->parse( $text, $uarg );
+			return $interlanguageLinkParserFunction->parse( $languageCode, $linkReference );
 		};
 
 		return array( 'interlanguagelink', $interlanguageLinkParserFunctionHandler, Parser::SFH_NO_HASH );

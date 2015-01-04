@@ -59,10 +59,8 @@ class InterlanguageListParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguageparser-linkreference-error', $linkReference );
 		}
 
-		$languageCode = $this->interlanguageLinksLookup->tryCachedPageLanguageForTarget( $title );
-
 		$interlanguageLink = new InterlanguageLink(
-			$languageCode,
+			null,
 			$title
 		);
 
@@ -73,11 +71,7 @@ class InterlanguageListParserFunction {
 
 	private function getLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {
 
-		$languageTargetLinks = $this->interlanguageLinksLookup->tryCachedLanguageTargetLinks( $interlanguageLink );
-
-		if ( !is_array( $languageTargetLinks ) || $languageTargetLinks === array() ) {
-			$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks( $interlanguageLink );
-		}
+		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks( $interlanguageLink );
 
 		ksort( $languageTargetLinks );
 

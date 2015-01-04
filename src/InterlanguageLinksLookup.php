@@ -16,7 +16,6 @@ use SMWQuery as Query;
 use SMWDIBlob as DIBlob;
 
 use Title;
-use Language;
 
 /**
  * @license GNU GPL v2+
@@ -99,6 +98,12 @@ class InterlanguageLinksLookup {
 	 */
 	public function queryLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {
 
+		$languageTargetLinks = $this->tryCachedLanguageTargetLinks( $interlanguageLink );
+
+		if ( is_array( $languageTargetLinks ) && $languageTargetLinks !== array() ) {
+			return $languageTargetLinks;
+		}
+
 		$languageTargetLinks = array();
 
 		$queryResult = $this->queryOtherTargetLinksForInterlanguageLink( $interlanguageLink );
@@ -132,6 +137,12 @@ class InterlanguageLinksLookup {
 	 * @return string
 	 */
 	public function findLastPageLanguageForTarget( Title $title ) {
+
+		$cachedLanguageCode = $this->tryCachedPageLanguageForTarget( $title );
+
+		if ( $cachedLanguageCode ) {
+			return $cachedLanguageCode;
+		}
 
 		$propertyValues = $this->store->getPropertyValues(
 			DIWikiPage::newFromTitle( $title ),

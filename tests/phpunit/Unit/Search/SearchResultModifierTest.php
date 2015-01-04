@@ -146,7 +146,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		$textMatches = false;
 
 		$this->assertFalse(
-			$instance->applyPostFilterToResultMatches( $request, $titleMatches, $textMatches )
+			$instance->applyLanguageFilterToResultMatches( $request, $titleMatches, $textMatches )
 		);
 	}
 
@@ -179,7 +179,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		$textMatches = false;
 
 		$this->assertFalse(
-			$instance->applyPostFilterToResultMatches( $request, $titleMatches, $textMatches )
+			$instance->applyLanguageFilterToResultMatches( $request, $titleMatches, $textMatches )
 		);
 	}
 
@@ -222,7 +222,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( 'en' ) );
 
 		$this->assertTrue(
-			$instance->applyPostFilterToResultMatches( $request, $titleMatches, $textMatches )
+			$instance->applyLanguageFilterToResultMatches( $request, $titleMatches, $textMatches )
 		);
 	}
 

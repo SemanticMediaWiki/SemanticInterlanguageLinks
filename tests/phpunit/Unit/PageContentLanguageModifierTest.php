@@ -74,7 +74,7 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testModifyLanguageFromPresistentCache() {
+	public function testModifyLanguageFromMatchedLookup() {
 
 		$pageLanguage = '';
 
@@ -91,7 +91,7 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
-			->method( 'tryCachedPageLanguageForTarget' )
+			->method( 'findLastPageLanguageForTarget' )
 			->will( $this->returnValue(  'lo' ) );
 
 		$instance = new PageContentLanguageModifier( $interlanguageLinksLookup, $title );

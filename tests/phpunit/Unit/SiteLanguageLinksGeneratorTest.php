@@ -39,7 +39,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testAddLanguageTargetLinksToOutputFromCachedSiteLinks() {
+	public function testAddLanguageTargetLinksToOutput() {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -55,7 +55,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
-			->method( 'tryCachedLanguageTargetLinks' )
+			->method( 'queryLanguageTargetLinks' )
 			->with( $this->equalTo( $interlanguageLink ) )
 			->will( $this->returnValue( array( 'fr' => 'Bar' ) ) );
 
@@ -83,7 +83,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
-			->method( 'tryCachedLanguageTargetLinks' )
+			->method( 'queryLanguageTargetLinks' )
 			->with( $this->equalTo( $interlanguageLink ) )
 			->will( $this->returnValue( array( 'en' => \Title::newFromText( 'Foo' ) ) ) );
 

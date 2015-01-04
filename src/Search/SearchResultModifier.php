@@ -114,7 +114,7 @@ class SearchResultModifier {
 	 *
 	 * @return boolean
 	 */
-	public function applyPostFilterToResultMatches( $request, &$titleMatches, &$textMatches ) {
+	public function applyLanguageFilterToResultMatches( $request, &$titleMatches, &$textMatches ) {
 
 		if ( $request->getVal( 'profile' ) !== 'sil' ) {
 			return false;

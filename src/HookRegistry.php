@@ -172,7 +172,7 @@ class HookRegistry {
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchResults
 		 */
 		$wgHooks['SpecialSearchResults'][] = function ( $term, &$titleMatches, &$textMatches ) use ( $searchResultModifier ) {
-			return $searchResultModifier->applyPostFilterToResultMatches( $GLOBALS['wgRequest'], $titleMatches, $textMatches );
+			return $searchResultModifier->applyLanguageFilterToResultMatches( $GLOBALS['wgRequest'], $titleMatches, $textMatches );
 		};
 
 		return true;

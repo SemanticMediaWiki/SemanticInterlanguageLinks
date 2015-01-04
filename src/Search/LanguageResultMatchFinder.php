@@ -74,10 +74,6 @@ class LanguageResultMatchFinder {
 
 		$pageLanguage = $this->tryPageLanguageFromInMemoryCache( $title );
 
-		if ( $pageLanguage === false ) {
-			$pageLanguage = $this->interlanguageLinksLookup->tryCachedPageLanguageForTarget( $title );
-		}
-
 		if( $pageLanguage === false ) {
 			$pageLanguage = $this->interlanguageLinksLookup->findLastPageLanguageForTarget( $title );
 		}

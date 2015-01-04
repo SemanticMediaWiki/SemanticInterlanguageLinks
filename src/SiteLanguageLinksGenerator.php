@@ -46,14 +46,6 @@ class SiteLanguageLinksGenerator {
 	 */
 	public function addLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink ) {
 
-		$languageTargetLinks = $this->interlanguageLinksLookup->tryCachedLanguageTargetLinks( $interlanguageLink );
-
-		if ( is_array( $languageTargetLinks ) ) {
-			return $this->addLanguageLinksToOutput(
-				$this->sanitizeLanguageTargetLinks( $interlanguageLink, $languageTargetLinks )
-			);
-		}
-
 		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks( $interlanguageLink );
 
 		$this->addLanguageLinksToOutput(
@@ -116,9 +108,14 @@ class SiteLanguageLinksGenerator {
 		}
 	}
 
-	private function doPurgeParserCache( $referencesByLanguageCode ) {
-		foreach ( $referencesByLanguageCode as $title ) {
-			$title->invalidateCache();
+	private function doPurgeParserCache( $languageTargetLinks ) {
+		foreach ( $languageTargetLinks as $languageTargetLink ) {
+
+			if ( !$languageTargetLink instanceof Title ) {
+				continue;
+			}
+
+			$languageTargetLink->invalidateCache();
 		}
 	}
 

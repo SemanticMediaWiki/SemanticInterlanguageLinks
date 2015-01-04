@@ -261,7 +261,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance->queryLanguageTargetLinks( $interlanguageLink );
 	}
 
-	public function testGetLanguageTargetLinks() {
+	public function testGetLanguageTargetLinksFromCache() {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -280,7 +280,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( $languageTargetLinks ) );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
-		$instance->tryCachedLanguageTargetLinks( $interlanguageLink );
+		$instance->queryLanguageTargetLinks( $interlanguageLink );
 	}
 
 	public function testTryCachedPageLanguageForTarget() {
