@@ -27,9 +27,9 @@ use Language;
 class InterlanguageLinksLookup {
 
 	/**
-	 * @var LanguageTargetLinkCache
+	 * @var LanguageTargetLinksCache
 	 */
-	private $cachedLanguageTargetLinks;
+	private $languageTargetLinksCache;
 
 	/**
 	 * @var Store
@@ -39,10 +39,10 @@ class InterlanguageLinksLookup {
 	/**
 	 * @since 1.0
 	 *
-	 * @param LanguageTargetLinkCache $cachedLanguageTargetLinks
+	 * @param LanguageTargetLinksCache $languageTargetLinksCache
 	 */
-	public function __construct( LanguageTargetLinkCache $cachedLanguageTargetLinks ) {
-		$this->cachedLanguageTargetLinks = $cachedLanguageTargetLinks;
+	public function __construct( LanguageTargetLinksCache $languageTargetLinksCache ) {
+		$this->languageTargetLinksCache = $languageTargetLinksCache;
 	}
 
 	/**
@@ -62,7 +62,7 @@ class InterlanguageLinksLookup {
 	 * @return boolean|array
 	 */
 	public function tryCachedLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {
-		return $this->cachedLanguageTargetLinks->getLanguageTargetLinksFromCache( $interlanguageLink );
+		return $this->languageTargetLinksCache->getLanguageTargetLinksFromCache( $interlanguageLink );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class InterlanguageLinksLookup {
 	 * @return boolean|string
 	 */
 	public function tryCachedPageLanguageForTarget( Title $title ) {
-		return $this->cachedLanguageTargetLinks->getPageLanguageFromCache( $title );
+		return $this->languageTargetLinksCache->getPageLanguageFromCache( $title );
 	}
 
 	/**
@@ -83,10 +83,10 @@ class InterlanguageLinksLookup {
 	 */
 	public function doInvalidateCachedLanguageTargetLinks( Title $title ) {
 
-		$this->cachedLanguageTargetLinks
+		$this->languageTargetLinksCache
 			->deleteLanguageTargetLinksFromCache( $this->findLinkReferencesForTarget( $title ) );
 
-		$this->cachedLanguageTargetLinks
+		$this->languageTargetLinksCache
 			->deletePageLanguageForTargetFromCache( $title );
 	}
 
@@ -116,7 +116,7 @@ class InterlanguageLinksLookup {
 			}
 		}
 
-		$this->cachedLanguageTargetLinks->saveLanguageTargetLinksToCache(
+		$this->languageTargetLinksCache->saveLanguageTargetLinksToCache(
 			$interlanguageLink,
 			$languageTargetLinks
 		);

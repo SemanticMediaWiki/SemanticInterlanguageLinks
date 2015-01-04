@@ -47,12 +47,12 @@ class HookRegistry {
 	 */
 	public function register( &$wgHooks ) {
 
-		$cachedLanguageTargetLinks = new LanguageTargetLinkCache(
+		$languageTargetLinksCache = new LanguageTargetLinksCache(
 			$this->cache
 		);
 
 		$interlanguageLinksLookup = new InterlanguageLinksLookup(
-			$cachedLanguageTargetLinks
+			$languageTargetLinksCache
 		);
 
 		$interlanguageLinksLookup->setStore( $this->store );
