@@ -42,11 +42,15 @@ class SiteLanguageLinksGenerator {
 	/**
 	 * @since 1.0
 	 *
-	 * @param  InterlanguageLink $interlanguageLink
+	 * @param InterlanguageLink $interlanguageLink
+	 * @param Title|null $target
 	 */
-	public function addLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink ) {
+	public function addLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink, Title $target = null ) {
 
-		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks( $interlanguageLink );
+		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks(
+			$interlanguageLink,
+			$target
+		);
 
 		$this->addLanguageLinksToOutput(
 			$this->sanitizeLanguageTargetLinks( $interlanguageLink, $languageTargetLinks )

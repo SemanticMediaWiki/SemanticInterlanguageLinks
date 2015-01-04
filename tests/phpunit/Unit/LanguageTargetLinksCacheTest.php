@@ -82,6 +82,23 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testTryToGetLanguageTargetLinksForNullLanguageCode() {
+
+		$interlanguageLink = new InterlanguageLink( null, 'Foo' );
+
+		$languageTargetLinks = array(
+			'bo' => 'Bar'
+		);
+
+		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
+		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
+
+		$this->assertEquals(
+			$languageTargetLinks,
+			$instance->getLanguageTargetLinksFromCache( $interlanguageLink )
+		);
+	}
+
 	public function testTryToGetLanguageTargetLinksFromEmptyLinksCache() {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );

@@ -83,7 +83,7 @@ class InterlanguageLinksLookup {
 	public function doInvalidateCachedLanguageTargetLinks( Title $title ) {
 
 		$this->languageTargetLinksCache
-			->deleteLanguageTargetLinksFromCache( $this->findLinkReferencesForTarget( $title ) );
+			->deleteLanguageTargetLinksFromCache( $this->findAllReferenceTargetLinksFor( $title ) );
 
 		$this->languageTargetLinksCache
 			->deletePageLanguageForTargetFromCache( $title );
@@ -93,10 +93,11 @@ class InterlanguageLinksLookup {
 	 * @since 1.0
 	 *
 	 * @param InterlanguageLink $interlanguageLink
+	 * @param Title|null $target
 	 *
 	 * @return array
 	 */
-	public function queryLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {
+	public function queryLanguageTargetLinks( InterlanguageLink $interlanguageLink, Title $target = null ) {
 
 		$languageTargetLinks = $this->tryCachedLanguageTargetLinks( $interlanguageLink );
 
@@ -106,20 +107,16 @@ class InterlanguageLinksLookup {
 
 		$languageTargetLinks = array();
 
-		$queryResult = $this->queryOtherTargetLinksForInterlanguageLink( $interlanguageLink );
-
-		while ( $resultArray = $queryResult->getNext() ) {
-			foreach ( $resultArray as $row ) {
-
-				$dataValue = $row->getNextDataValue();
-
-				if ( $dataValue === false ) {
-					continue;
-				}
-
-				$languageTargetLinks[ $dataValue->getWikiValue() ] = $row->getResultSubject()->getTitle();
-			}
+		if ( $target !== null && $interlanguageLink->getLanguageCode() !== '' ) {
+			$languageTargetLinks[ $interlanguageLink->getLanguageCode() ] = $target;
 		}
+
+		$queryResult = $this->getQueryResultForInterlanguageLink( $interlanguageLink );
+
+		$this->iterateQueryResultToFindLanguageTargetLinks(
+			$queryResult,
+			$languageTargetLinks
+		);
 
 		$this->languageTargetLinksCache->saveLanguageTargetLinksToCache(
 			$interlanguageLink,
@@ -176,7 +173,7 @@ class InterlanguageLinksLookup {
 	 *
 	 * @return DIWikiPage[]|[]
 	 */
-	public function findLinkReferencesForTarget( Title $title ) {
+	public function findAllReferenceTargetLinksFor( Title $title ) {
 
 		$linkReferences = array();
 
@@ -205,7 +202,7 @@ class InterlanguageLinksLookup {
 	/**
 	 * @return QueryResult
 	 */
-	private function queryOtherTargetLinksForInterlanguageLink( InterlanguageLink $interlanguageLink ) {
+	private function getQueryResultForInterlanguageLink( InterlanguageLink $interlanguageLink ) {
 
 		$description = new Conjunction();
 
@@ -239,6 +236,22 @@ class InterlanguageLinksLookup {
 		// set query limit to certain threshold
 
 		return $this->store->getQueryResult( $query );
+	}
+
+	private function iterateQueryResultToFindLanguageTargetLinks( $queryResult, array &$languageTargetLinks ) {
+
+		while ( $resultArray = $queryResult->getNext() ) {
+			foreach ( $resultArray as $row ) {
+
+				$dataValue = $row->getNextDataValue();
+
+				if ( $dataValue === false ) {
+					continue;
+				}
+
+				$languageTargetLinks[ $dataValue->getWikiValue() ] = $row->getResultSubject()->getTitle();
+			}
+		}
 	}
 
 }

@@ -9,7 +9,6 @@ use SMW\DIWikiPage;
 use SMWDIBlob as DIBlob;
 
 use Title;
-use RuntimeException;
 
 /**
  * @license GNU GPL v2+
