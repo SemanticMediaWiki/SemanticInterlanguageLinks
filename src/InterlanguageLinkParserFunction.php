@@ -118,7 +118,7 @@ class InterlanguageLinkParserFunction {
 	private function createSiteLanguageLinks( InterlanguageLink $interlanguageLink ) {
 
 		$this->siteLanguageLinksGenerator
-			->addLanguageTargetLinksToOutput( $interlanguageLink );
+			->addLanguageTargetLinksToOutput( $interlanguageLink, $this->title );
 
 		$knownTargetLink = $this->siteLanguageLinksGenerator
 			->checkIfTargetIsKnownForCurrentLanguage( $this->title );

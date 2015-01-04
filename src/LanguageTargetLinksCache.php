@@ -57,6 +57,9 @@ class LanguageTargetLinksCache {
 			$this->getSiteCacheKey( $interlanguageLink->getLinkReference()->getPrefixedText() )
 		);
 
+		if ( $interlanguageLink->getLanguageCode() === null ) {
+			return $cachedLanguageTargetLinks;
+		}
 
 		if ( !isset( $cachedLanguageTargetLinks[ $interlanguageLink->getLanguageCode() ] ) ) {
 			return false;

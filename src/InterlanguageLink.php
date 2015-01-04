@@ -19,7 +19,7 @@ use Title;
 class InterlanguageLink {
 
 	/**
-	 * @var string
+	 * @var string|null
 	 */
 	private $languageCode = '';
 
@@ -31,10 +31,10 @@ class InterlanguageLink {
 	/**
 	 * @since 1.0
 	 *
-	 * @param string $languageCode
+	 * @param string|null $languageCode
 	 * @param Title|string $linkReference
 	 */
-	public function __construct( $languageCode, $linkReference ) {
+	public function __construct( $languageCode = null, $linkReference ) {
 		$this->languageCode = $languageCode;
 		$this->linkReference = $linkReference instanceOf Title ? $linkReference : Title::newFromText( $linkReference );
 	}

@@ -78,14 +78,8 @@ class PageContentLanguageModifier {
 			return true;
 		}
 
-		$cachedLanguageCode = $this->interlanguageLinksLookup->tryCachedPageLanguageForTarget( $this->title );
-
-		if ( $cachedLanguageCode ) {
-			$pageLanguage = $this->addLanguageToInMemoryCache( $this->title, $cachedLanguageCode );
-			return true;
-		}
-
 		$lookupLanguageCode = $this->interlanguageLinksLookup->findLastPageLanguageForTarget( $this->title );
+
 		$this->addLanguageToInMemoryCache( $this->title, $lookupLanguageCode );
 
 		if ( $lookupLanguageCode === null || $lookupLanguageCode === '' ) {

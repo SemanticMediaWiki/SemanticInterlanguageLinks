@@ -31,6 +31,8 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	protected function setUp() {
 		parent::setUp();
 
+		\ObjectCache::clear();
+
 		$this->pageCreator = UtilityFactory::getInstance()->newpageCreator();
 		$this->semanticDataValidator = UtilityFactory::getInstance()->newValidatorFactory()->newSemanticDataValidator();
 	}

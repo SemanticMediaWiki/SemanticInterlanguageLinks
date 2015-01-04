@@ -42,19 +42,15 @@ class SiteLanguageLinksGenerator {
 	/**
 	 * @since 1.0
 	 *
-	 * @param  InterlanguageLink $interlanguageLink
+	 * @param InterlanguageLink $interlanguageLink
+	 * @param Title|null $target
 	 */
-	public function addLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink ) {
+	public function addLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink, Title $target = null ) {
 
-		$languageTargetLinks = $this->interlanguageLinksLookup->tryCachedLanguageTargetLinks( $interlanguageLink );
-
-		if ( is_array( $languageTargetLinks ) ) {
-			return $this->addLanguageLinksToOutput(
-				$this->sanitizeLanguageTargetLinks( $interlanguageLink, $languageTargetLinks )
-			);
-		}
-
-		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks( $interlanguageLink );
+		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks(
+			$interlanguageLink,
+			$target
+		);
 
 		$this->addLanguageLinksToOutput(
 			$this->sanitizeLanguageTargetLinks( $interlanguageLink, $languageTargetLinks )
@@ -116,9 +112,14 @@ class SiteLanguageLinksGenerator {
 		}
 	}
 
-	private function doPurgeParserCache( $referencesByLanguageCode ) {
-		foreach ( $referencesByLanguageCode as $title ) {
-			$title->invalidateCache();
+	private function doPurgeParserCache( $languageTargetLinks ) {
+		foreach ( $languageTargetLinks as $languageTargetLink ) {
+
+			if ( !$languageTargetLink instanceof Title ) {
+				continue;
+			}
+
+			$languageTargetLink->invalidateCache();
 		}
 	}
 
