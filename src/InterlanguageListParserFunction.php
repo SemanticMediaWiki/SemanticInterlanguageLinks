@@ -59,6 +59,8 @@ class InterlanguageListParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguageparser-linkreference-error', $linkReference );
 		}
 
+		// `null` indicates to the lookup interface to return all matches regardless
+		// of any language code
 		$interlanguageLink = new InterlanguageLink(
 			null,
 			$title

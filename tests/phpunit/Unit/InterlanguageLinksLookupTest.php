@@ -67,7 +67,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			'ja',
-			$instance->findLastPageLanguageForTarget( $title )
+			$instance->findPageLanguageForTarget( $title )
 		);
 	}
 
@@ -97,7 +97,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance->setStore( $store );
 
 		$this->assertEmpty(
-			$instance->findLastPageLanguageForTarget( $title )
+			$instance->findPageLanguageForTarget( $title )
 		);
 	}
 
@@ -122,7 +122,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance->setStore( $store );
 
 		$this->assertEmpty(
-			$instance->findLastPageLanguageForTarget( $title )
+			$instance->findPageLanguageForTarget( $title )
 		);
 	}
 
@@ -148,11 +148,11 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			'foo',
-			$instance->findLastPageLanguageForTarget( $target )
+			$instance->findPageLanguageForTarget( $target )
 		);
 	}
 
-	public function testFindAllReferenceTargetLinksForSpecificTarget() {
+	public function testFindFullListOfReferenceTargetLinksSpecificTarget() {
 
 		$title = Title::newFromText( __METHOD__ );
 
@@ -179,7 +179,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			array( new DIWikiPage( 'Bar', NS_MAIN ) ),
-			$instance->findAllReferenceTargetLinksFor( $title )
+			$instance->findFullListOfReferenceTargetLinks( $title )
 		);
 	}
 
@@ -204,7 +204,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance->setStore( $store );
 
 		$this->assertEmpty(
-			$instance->findAllReferenceTargetLinksFor( $title )
+			$instance->findFullListOfReferenceTargetLinks( $title )
 		);
 	}
 
@@ -360,11 +360,14 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 			->with( $this->equalTo( $target ) )
 			->will( $this->returnValue( 'en' ) );
 
+		$languageTargetLinksCache->expects( $this->once() )
+			->method( 'updatePageLanguageToCache' );
+
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 
 		$this->assertEquals(
 			'en',
-			$instance->tryCachedPageLanguageForTarget( $target )
+			$instance->findPageLanguageForTarget( $target )
 		);
 	}
 
@@ -390,7 +393,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
 
-		$instance->doInvalidateCachedLanguageTargetLinks( $target );
+		$instance->invalidateLookupCache( $target );
 	}
 
 }

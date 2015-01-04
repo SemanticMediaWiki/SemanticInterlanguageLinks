@@ -61,12 +61,22 @@ class HookRegistry {
 			new LanguageResultMatchFinder( $interlanguageLinksLookup )
 		);
 
+		$propertyRegistry = new PropertyRegistry();
+
 		/**
 		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks.md
 		 */
-		$wgHooks['smwInitProperties'][] = function () {
-			return PropertyRegistry::register();
+		$wgHooks['smwInitProperties'][] = function () use ( $propertyRegistry ) {
+			return $propertyRegistry->register();
 		};
+
+		$this->registerInterlanguageParserHooks( $interlanguageLinksLookup, $wgHooks );
+		$this->registerSpecialSearchHooks( $searchResultModifier, $wgHooks );
+
+		return true;
+	}
+
+	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup, &$wgHooks ) {
 
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
@@ -96,7 +106,7 @@ class HookRegistry {
 		$wgHooks['SMW::SQLStore::BeforeDeleteSubjectComplete'][] = function ( $store, $title ) use ( $interlanguageLinksLookup ) {
 
 			$interlanguageLinksLookup->setStore( $store );
-			$interlanguageLinksLookup->doInvalidateCachedLanguageTargetLinks( $title );
+			$interlanguageLinksLookup->invalidateLookupCache( $title );
 
 			return true;
 		};
@@ -108,8 +118,8 @@ class HookRegistry {
 
 			$interlanguageLinksLookup->setStore( $store );
 
-			$interlanguageLinksLookup->doInvalidateCachedLanguageTargetLinks( $oldTitle );
-			$interlanguageLinksLookup->doInvalidateCachedLanguageTargetLinks( $newTitle );
+			$interlanguageLinksLookup->invalidateLookupCache( $oldTitle );
+			$interlanguageLinksLookup->invalidateLookupCache( $newTitle );
 
 			return true;
 		};
@@ -119,7 +129,7 @@ class HookRegistry {
 		 */
 		$wgHooks['NewRevisionFromEditComplete'][] = function ( $wikiPage ) use ( $interlanguageLinksLookup ) {
 
-			$interlanguageLinksLookup->doInvalidateCachedLanguageTargetLinks( $wikiPage->getTitle() );
+			$interlanguageLinksLookup->invalidateLookupCache( $wikiPage->getTitle() );
 
 			return true;
 		};
@@ -153,29 +163,50 @@ class HookRegistry {
 
 			return true;
 		};
+	}
+
+	private function registerSpecialSearchHooks( SearchResultModifier $searchResultModifier, &$wgHooks ) {
 
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfiles
 		 */
 		$wgHooks['SpecialSearchProfiles'][] = function ( array &$profiles ) use ( $searchResultModifier ) {
-			return $searchResultModifier->addSearchProfile( $profiles );
+
+			$searchProfile = $searchResultModifier->addSearchProfile(
+				$profiles
+			);
+
+			return $searchProfile;
 		};
 
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfileForm
 		 */
 		$wgHooks['SpecialSearchProfileForm'][] = function ( $search, &$form, $profile, $term, $opts ) use ( $searchResultModifier ) {
-			return $searchResultModifier->addSearchProfileForm( $search, $profile, $form, $opts );
+
+			$searchProfileForm = $searchResultModifier->addSearchProfileForm(
+				$search,
+				$profile,
+				$form,
+				$opts
+			);
+
+			return $searchProfileForm;
 		};
 
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchResults
 		 */
 		$wgHooks['SpecialSearchResults'][] = function ( $term, &$titleMatches, &$textMatches ) use ( $searchResultModifier ) {
-			return $searchResultModifier->applyLanguageFilterToResultMatches( $GLOBALS['wgRequest'], $titleMatches, $textMatches );
-		};
 
-		return true;
+			$resultMatches = $searchResultModifier->applyLanguageFilterToResultMatches(
+				$GLOBALS['wgRequest'],
+				$titleMatches,
+				$textMatches
+			);
+
+			return $resultMatches;
+		};
 	}
 
 }

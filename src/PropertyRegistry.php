@@ -21,7 +21,7 @@ class PropertyRegistry {
 	 *
 	 * @return boolean
 	 */
-	public static function register() {
+	public function register() {
 
 		$propertyDefinitions = array(
 

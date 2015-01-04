@@ -112,7 +112,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testDeleteLanguageTargetLinksToMatchAvailableCache() {
+	public function testDeleteLanguageTargetLinks() {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -135,7 +135,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testDeletePageLanguageToMatchAvailableCache() {
+	public function testDeletePageLanguageForMatchedTarget() {
 
 		$title = Title::newFromText( 'Bar', NS_HELP );
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
@@ -167,7 +167,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testNotDeleteLanguageTargetLinksForNotMatchedCacheEntry() {
+	public function testNoLanguageTargetLinksDeleteForNonMatchedTarget() {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -191,6 +191,29 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			$languageTargetLinks,
 			$instance->getLanguageTargetLinksFromCache( $interlanguageLink )
 		);
+	}
+
+	public function testGetPageLanguageFromTwoTierCache() {
+
+		$title = Title::newFromText( 'Bar', NS_HELP );
+
+		$cache = $this->getMockBuilder( '\BagOStuff' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$cache->expects( $this->once() )
+			->method( 'get' )
+			->will( $this->returnValue( 'bo' ) );
+
+		$instance = new LanguageTargetLinksCache( $cache );
+
+		$this->assertEquals(
+			'bo',
+			$instance->getPageLanguageFromCache( $title )
+		);
+
+		$instance->updatePageLanguageToCache( $title, 'bo' );
+		$instance->getPageLanguageFromCache( $title );
 	}
 
 }
