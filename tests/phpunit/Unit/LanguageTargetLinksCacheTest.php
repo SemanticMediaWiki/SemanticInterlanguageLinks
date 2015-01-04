@@ -2,7 +2,7 @@
 
 namespace SIL\Tests;
 
-use SIL\CachedLanguageTargetLinks;
+use SIL\LanguageTargetLinksCache;
 use SIL\InterlanguageLink;
 
 use SMW\DIWikiPage;
@@ -11,7 +11,7 @@ use HashBagOStuff;
 use Title;
 
 /**
- * @covers \SIL\CachedLanguageTargetLinks
+ * @covers \SIL\LanguageTargetLinksCache
  *
  * @group semantic-interlanguage-links
  *
@@ -20,7 +20,7 @@ use Title;
  *
  * @author mwjames
  */
-class CachedLanguageTargetLinksTest extends \PHPUnit_Framework_TestCase {
+class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
@@ -29,8 +29,8 @@ class CachedLanguageTargetLinksTest extends \PHPUnit_Framework_TestCase {
 			->getMockForAbstractClass();
 
 		$this->assertInstanceOf(
-			'\SIL\CachedLanguageTargetLinks',
-			new CachedLanguageTargetLinks( $cache )
+			'\SIL\LanguageTargetLinksCache',
+			new LanguageTargetLinksCache( $cache )
 		);
 	}
 
@@ -43,7 +43,7 @@ class CachedLanguageTargetLinksTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new CachedLanguageTargetLinks( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertEquals(
@@ -74,7 +74,7 @@ class CachedLanguageTargetLinksTest extends \PHPUnit_Framework_TestCase {
 			'bo' => 'Bar'
 		);
 
-		$instance = new CachedLanguageTargetLinks( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertFalse(
@@ -87,7 +87,7 @@ class CachedLanguageTargetLinksTest extends \PHPUnit_Framework_TestCase {
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 		$languageTargetLinks = array();
 
-		$instance = new CachedLanguageTargetLinks( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertFalse(
@@ -104,7 +104,7 @@ class CachedLanguageTargetLinksTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new CachedLanguageTargetLinks( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$linkReferences = array(
@@ -130,7 +130,7 @@ class CachedLanguageTargetLinksTest extends \PHPUnit_Framework_TestCase {
 
 		$cache = new HashBagOStuff();
 
-		$instance = new CachedLanguageTargetLinks( $cache );
+		$instance = new LanguageTargetLinksCache( $cache );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertEquals(
@@ -159,7 +159,7 @@ class CachedLanguageTargetLinksTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new CachedLanguageTargetLinks( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$linkReferences = array(

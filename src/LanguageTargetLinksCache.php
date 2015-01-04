@@ -13,9 +13,9 @@ use Title;
  *
  * @author mwjames
  */
-class CachedLanguageTargetLinks {
+class LanguageTargetLinksCache {
 
-	const VERSION = 'dec.2014';
+	const VERSION = 'jan.2015';
 
 	/**
 	 * @var BagOstuff
