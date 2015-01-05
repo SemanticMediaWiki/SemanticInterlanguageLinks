@@ -25,7 +25,7 @@ call_user_func( function () {
 	$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
 		'path'           => __FILE__,
 		'name'           => 'Semantic Interlanguage Links',
-		'author'         => array( 'mwjames' ),
+		'author'         => array( 'James Hong Kong' ),
 		'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
 		'descriptionmsg' => 'sil-desc',
 		'version'        => SIL_VERSION,
