@@ -95,6 +95,14 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			'PageContentLanguage',
 			array( $title, &$pageLang )
 		);
+
+		$page = '';
+
+		$this->assertHookIsExcutable(
+			$wgHooks,
+			'ArticleFromTitle',
+			array( $title, &$page )
+		);
 	}
 
 	public function testRegisterSemanticMediaWikiRelatedHooks() {
