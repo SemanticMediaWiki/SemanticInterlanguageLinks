@@ -90,7 +90,10 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testParseForValidLanguageTargetLinks() {
+	/**
+	 * @dataProvider languageTargetLinksTemplateProvider
+	 */
+	public function testParseForValidLanguageTargetLinks( $targetLink, $expected ) {
 
 		$parser = new \Parser();
 		$parser->setTitle( \Title::newFromText( __METHOD__ ) );
@@ -103,9 +106,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
-			->will( $this->returnValue( array(
-				'en' => 'test',
-				'ja' => \Title::newFromText( 'テスト' ) ) ) );
+			->will( $this->returnValue( $targetLink ) );
 
 		$instance = new InterlanguageListParserFunction(
 			$parser,
@@ -113,18 +114,6 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$text = $instance->parse( 'Foo', 'FakeTemplate' );
-
-		$expected = '{{FakeTemplate' .
-			'|list-pos=0' .
-			'|target-link=test' .
-			'|lang-code=en' .
-			'|lang-name=English' .
-		'}}' . '{{FakeTemplate' .
-			'|list-pos=1' .
-			'|target-link=テスト' .
-			'|lang-code=ja' .
-			'|lang-name=日本語' .
-		'}}';
 
 		$this->assertInternalType(
 			'array',
@@ -135,6 +124,58 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$expected,
 			$text[0]
 		);
+	}
+
+	public function languageTargetLinksTemplateProvider() {
+
+		$provider = array();
+
+		$provider[] = array(
+			array( 'en' => 'test' ),
+			'{{FakeTemplate' .
+			'|list-pos=0' .
+			'|target-link=Test' .
+			'|lang-code=en' .
+			'|lang-name=English}}'
+		);
+
+		$provider[] = array(
+			array( 'ja' => \Title::newFromText( 'テスト' ) ),
+			'{{FakeTemplate' .
+			'|list-pos=0' .
+			'|target-link=テスト' .
+			'|lang-code=ja' .
+			'|lang-name=日本語}}'
+		);
+
+		$provider[] = array(
+			array( 'zh-hans' => \Title::newFromText( '分类：汉字' ) ),
+			'{{FakeTemplate' .
+			'|list-pos=0' .
+			'|target-link=分类：汉字' .
+			'|lang-code=zh-Hans' .
+			'|lang-name=中文（简体）‎}}'
+		);
+
+		$provider[] = array(
+			array( 'zh-hans' => \Title::newFromText( 'Category:汉字' ) ),
+			'{{FakeTemplate' .
+			'|list-pos=0' .
+			'|target-link=:Category:汉字' .
+			'|lang-code=zh-Hans' .
+			'|lang-name=中文（简体）‎}}'
+		);
+
+		$provider[] = array(
+			array( 'de' => 'Category:Foo' ),
+			'{{FakeTemplate' .
+			'|list-pos=0' .
+			'|target-link=:Category:Foo' .
+			'|lang-code=de' .
+			'|lang-name=Deutsch}}'
+		);
+
+		return $provider;
 	}
 
 }
