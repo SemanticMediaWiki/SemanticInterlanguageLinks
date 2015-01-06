@@ -71,7 +71,7 @@ vix tantas habemus tincidunt.
 
 The `Template:InterlanguageLinks` with `<includeonly><span style="margin-right: 10px">[[{{{target-link}}}|{{{lang-name}}}]]</span></includeonly>` will output all available links to the `Lorem ipsum` reference on top of the page `Bar`.
 
-A short [video](https://vimeo.com/108833255) is provided to demonstrate "How SIL is going to work" without much user interaction.
+A short [video](https://vimeo.com/108833255) demonstrates "How SIL works" without much user interaction or complex procedures.
 
 ### Other features
 
