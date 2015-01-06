@@ -42,6 +42,7 @@ call_user_func( function () {
 	define( 'SIL_PROP_LANG', 'Page content language' );
 
 	$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;
+	$GLOBALS['egSILUseCategoryFilterByLanguage'] = true;
 
 	// Finalize extension setup
 	$GLOBALS['wgExtensionFunctions'][] = function() {

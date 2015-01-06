@@ -46,6 +46,8 @@ The parser function `{{INTERLANGUAGELIST: interlanguage reference | template }}`
 - `lang-name` representing the localized language name for the language code
 - `list-pos` declaring the list position
 
+SIL expects that only one specific language is asssigned to a content page and if multiple assignments are made an error notice will be displayed.
+
 ### Example
 
 If `Foo` and `Bar` share the same reference (`Lorem ipsum`) for a non-existing language assignment then both will link to each other and be available through the sitelink navigation and as property annotation.
@@ -69,19 +71,23 @@ vix tantas habemus tincidunt.
 
 The `Template:InterlanguageLinks` with `<includeonly><span style="margin-right: 10px">[[{{{target-link}}}|{{{lang-name}}}]]</span></includeonly>` will output all available links to the `Lorem ipsum` reference on top of the page `Bar`.
 
+A short [video](https://vimeo.com/108833255) is provided to demonstrate "How SIL is going to work" without much user interaction.
+
 ### Other features
 
-The page content language is deduced from the `INTERLANGUAGELINK` created annotation and will be set automatically together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
+The page content language is set from the `INTERLANGUAGELINK` created annotation together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
 
 `Page content language`, `Interlanguage reference`, and `Has interlanguage links` are deployed as predefined properties which can be used to create customized `#ask` queries.
 
 SIL provides a `by Language` `Special:Search` filtering option to match interlanguage property annotations for pre-selected articles. If the `by Language` profile is used together with a specific language filter then any pre-selected article (provided by the `SearchEngine`) that does not match the language will be excluded from the result list.
 
+A category page will only display pages that match the annotated category page content language property. In cases where no language has been assigned (or filtering has been disabled), the category is to display all pages without any filtering.
+
 ### Configuration
 
 `$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;` is being set to be the default value to improve query lookups during each page view with cache invalidation being carried out during any delete, change or move action.
 
-`$GLOBALS['wgHideInterlanguageLinks'] = true` is being set no sitelinks and annotations are created.
+In case `$GLOBALS['wgHideInterlanguageLinks']` is enabled, no sitelinks or annotations are created.
 
 ## Contribution and support
 

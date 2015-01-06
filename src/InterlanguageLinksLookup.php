@@ -115,6 +115,9 @@ class InterlanguageLinksLookup {
 	 */
 	public function findPageLanguageForTarget( Title $title ) {
 
+		// @note $title->getPageLanguage()->getLanguageCode() cannot be called
+		// here as this would cause a recursive chain
+
 		$lookupLanguageCode = $this->languageTargetLinksCache->getPageLanguageFromCache( $title );
 
 		if ( $lookupLanguageCode === false || $lookupLanguageCode === null ) {

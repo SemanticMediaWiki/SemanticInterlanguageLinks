@@ -20,7 +20,7 @@ class LanguageTargetLinksCache {
 	 * Stable cache auxiliary identifier, to be changed in cases where the
 	 * cache key needs an auto-update
 	 */
-	const VERSION = 'jan.2015';
+	const VERSION = '2015.01.07';
 
 	/**
 	 * @var BagOstuff

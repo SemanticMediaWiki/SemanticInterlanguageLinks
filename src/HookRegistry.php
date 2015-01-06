@@ -5,6 +5,7 @@ namespace SIL;
 use SMW\Store;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
+use SIL\Category\CategoryPageByLanguage;
 
 use Parser;
 use BagOStuff;
@@ -68,6 +69,18 @@ class HookRegistry {
 		 */
 		$wgHooks['smwInitProperties'][] = function () use ( $propertyRegistry ) {
 			return $propertyRegistry->register();
+		};
+
+		/**
+		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ArticleFromTitle
+		 */
+		$wgHooks['ArticleFromTitle'][] = function ( $title, &$page ) use( $interlanguageLinksLookup ) {
+
+			$categoryPageByLanguage = new CategoryPageByLanguage( $title );
+			$categoryPageByLanguage->setCategoryFilterByLanguageState( $GLOBALS['egSILUseCategoryFilterByLanguage'] );
+			$categoryPageByLanguage->modifyCategoryView( $page, $interlanguageLinksLookup );
+
+			return true;
 		};
 
 		$this->registerInterlanguageParserHooks( $interlanguageLinksLookup, $wgHooks );
