@@ -91,8 +91,8 @@ class InterlanguageListParserFunction {
 			$wikitext = '';
 
 			$wikitext .= "|list-pos=" . $i++;
-			$wikitext .= "|target-link=" . $targetLink;
-			$wikitext .= "|lang-code=" . $languageCode;
+			$wikitext .= "|target-link=" . $this->modifyTargetLink( $targetLink );
+			$wikitext .= "|lang-code=" . wfBCP47( $languageCode );
 			$wikitext .= "|lang-name=" . Language::fetchLanguageName( $languageCode );
 
 			$templateText .= '{{' . $template . $wikitext . '}}';
@@ -104,6 +104,15 @@ class InterlanguageListParserFunction {
 		}
 
 		return $result;
+	}
+
+	private function modifyTargetLink( $targetLink ) {
+
+		if ( !$targetLink instanceOf Title ) {
+			$targetLink = Title::newFromText( $targetLink );
+		}
+
+		return ( $targetLink->getNamespace() === NS_CATEGORY ? ':' : '' ) . $targetLink->getPrefixedText();
 	}
 
 	private function createErrorMessageFor( $messageKey, $arg1 = '' ) {
