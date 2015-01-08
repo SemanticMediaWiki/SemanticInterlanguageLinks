@@ -18,5 +18,6 @@
 	"sil-search-profile":"A label displayed on the Special:Search page.",
 	"sil-search-profile-tooltip":"A label displayed on the Special:Search page.",
 	"sil-search-languagefilter-label":"A label displayed on the Special:Search page.",
-	"sil-search-nolanguagefilter":"A label displayed on the Special:Search page."
+	"sil-search-nolanguagefilter":"A label displayed on the Special:Search page.",
+	"sil-categorypage-languagefilter-active": "A message shown on the category page"
 }
