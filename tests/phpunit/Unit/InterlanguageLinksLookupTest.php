@@ -6,6 +6,8 @@ use SIL\InterlanguageLinksLookup;
 use SIL\InterlanguageLink;
 
 use SMW\DIWikiPage;
+use SMW\PropertyRegistry;
+
 use SMWDIBlob as DIBlob;
 
 use Title;
@@ -394,6 +396,36 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance->setStore( $store );
 
 		$instance->invalidateLookupCache( $target );
+	}
+
+	public function testTryLookupForUngregisteredProperty() {
+
+		PropertyRegistry::clear();
+
+		$GLOBALS['wgHooks']['smwInitProperties'] = array();
+		$GLOBALS['wgHooks']['SMW::Property::initProperties'] = array();
+
+		$target = Title::newFromText( 'Foo' );
+
+		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$languageTargetLinksCache->expects( $this->once() )
+			->method( 'getPageLanguageFromCache' );
+
+		$store = $this->getMockBuilder( '\SMW\Store' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
+		$instance->setStore( $store );
+
+		$this->assertEmpty(
+			$instance->findPageLanguageForTarget( $target )
+		);
+
+		PropertyRegistry::clear();
 	}
 
 }

@@ -222,9 +222,15 @@ class InterlanguageLinksLookup {
 
 	private function lookupLastPageLanguageForTarget( Title $title ) {
 
+		try{
+			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
+		} catch ( \Exception $e ) {
+			return '';
+		}
+
 		$propertyValues = $this->store->getPropertyValues(
 			DIWikiPage::newFromTitle( $title ),
-			new DIProperty( PropertyRegistry::SIL_CONTAINER )
+			$property
 		);
 
 		if ( !is_array( $propertyValues ) || $propertyValues === array() ) {
