@@ -414,15 +414,32 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$languageTargetLinksCache->expects( $this->once() )
 			->method( 'getPageLanguageFromCache' );
 
-		$store = $this->getMockBuilder( '\SMW\Store' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
-
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
-		$instance->setStore( $store );
 
 		$this->assertEmpty(
 			$instance->findPageLanguageForTarget( $target )
+		);
+
+		PropertyRegistry::clear();
+	}
+
+	public function testTryFindListOfReferenceTargetLinksForUngregisteredProperty() {
+
+		PropertyRegistry::clear();
+
+		$GLOBALS['wgHooks']['smwInitProperties'] = array();
+		$GLOBALS['wgHooks']['SMW::Property::initProperties'] = array();
+
+		$target = Title::newFromText( 'Foo' );
+
+		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
+
+		$this->assertEmpty(
+			$instance->findFullListOfReferenceTargetLinks( $target )
 		);
 
 		PropertyRegistry::clear();

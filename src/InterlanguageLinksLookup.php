@@ -143,9 +143,15 @@ class InterlanguageLinksLookup {
 
 		$linkReferences = array();
 
+		try{
+			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
+		} catch ( \Exception $e ) {
+			return $linkReferences;
+		}
+
 		$propertyValues = $this->store->getPropertyValues(
 			DIWikiPage::newFromTitle( $title ),
-			new DIProperty( PropertyRegistry::SIL_CONTAINER )
+			$property
 		);
 
 		if ( !is_array( $propertyValues ) || $propertyValues === array() ) {
