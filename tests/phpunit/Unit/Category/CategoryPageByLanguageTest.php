@@ -106,7 +106,7 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$interlanguageLinksLookup->expects( $this->once() )
+		$interlanguageLinksLookup->expects( $this->exactly( 2 ) )
 				->method( 'findPageLanguageForTarget' )
 				->will( $this->returnValue( 'foo' ) );
 
@@ -134,6 +134,37 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 		$instance->openShowCategory();
 	}
 
+	public function testNoInfoMessageByOpenShowCategoryForNonAvailableLanguage() {
+
+		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
+
+		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$interlanguageLinksLookup->expects( $this->never() )
+				->method( 'findPageLanguageForTarget' )
+				->will( $this->returnValue( false ) );
+
+		$outputPage = $this->getMockBuilder( '\OutputPage' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$context = $this->getMockBuilder( '\IContextSource' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$context->expects( $this->never() )
+				->method( 'getOutput' );
+
+		$instance = new CategoryPageByLanguage( $title );
+
+		$instance->setContext( $context );
+		$instance->setCategoryFilterByLanguageState( true );
+
+		$instance->openShowCategory();
+	}
+
 	public function testNoInfoMessageByOpenShowCategory() {
 
 		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
@@ -147,8 +178,7 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$context->expects( $this->never() )
-				->method( 'getOutput' )
-				->will( $this->returnValue( $outputPage ) );
+				->method( 'getOutput' );
 
 		$instance = new CategoryPageByLanguage( $title );
 

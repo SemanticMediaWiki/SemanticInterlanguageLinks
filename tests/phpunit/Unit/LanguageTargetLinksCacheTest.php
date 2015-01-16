@@ -7,6 +7,8 @@ use SIL\InterlanguageLink;
 
 use SMW\DIWikiPage;
 
+use Onoi\Cache\CacheFactory;
+
 use HashBagOStuff;
 use Title;
 
@@ -22,9 +24,17 @@ use Title;
  */
 class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
+	private $cache;
+
+	protected function setUp() {
+		parent::setUp();
+
+		$this->cache = CacheFactory::getInstance()->newMediaWikiCache( new HashBagOStuff() );
+	}
+
 	public function testCanConstruct() {
 
-		$cache = $this->getMockBuilder( '\BagOStuff' )
+		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
@@ -43,7 +53,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( $this->cache );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertEquals(
@@ -74,7 +84,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'bo' => 'Bar'
 		);
 
-		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( $this->cache );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertFalse(
@@ -90,7 +100,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'bo' => 'Bar'
 		);
 
-		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( $this->cache );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertEquals(
@@ -104,7 +114,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 		$languageTargetLinks = array();
 
-		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( $this->cache );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertFalse(
@@ -121,7 +131,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( $this->cache );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$linkReferences = array(
@@ -145,9 +155,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$cache = new HashBagOStuff();
-
-		$instance = new LanguageTargetLinksCache( $cache );
+		$instance = new LanguageTargetLinksCache( $this->cache );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$this->assertEquals(
@@ -176,7 +184,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new LanguageTargetLinksCache( new HashBagOStuff() );
+		$instance = new LanguageTargetLinksCache( $this->cache );
 		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
 
 		$linkReferences = array(
@@ -193,27 +201,23 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testGetPageLanguageFromTwoTierCache() {
+	public function testUpdatePageLanguageToCache() {
 
 		$title = Title::newFromText( 'Bar', NS_HELP );
 
-		$cache = $this->getMockBuilder( '\BagOStuff' )
+		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
 		$cache->expects( $this->once() )
-			->method( 'get' )
-			->will( $this->returnValue( 'bo' ) );
+			->method( 'save' )
+			->with(
+				$this->anything(),
+				$this->equalTo( 'bo' ) );
 
 		$instance = new LanguageTargetLinksCache( $cache );
 
-		$this->assertEquals(
-			'bo',
-			$instance->getPageLanguageFromCache( $title )
-		);
-
 		$instance->updatePageLanguageToCache( $title, 'bo' );
-		$instance->getPageLanguageFromCache( $title );
 	}
 
 }

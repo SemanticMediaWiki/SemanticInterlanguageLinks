@@ -25,6 +25,8 @@ use Title;
  */
 class InterlanguageLinksLookup {
 
+	const NO_LANG = '-';
+
 	/**
 	 * @var LanguageTargetLinksCache
 	 */
@@ -120,16 +122,22 @@ class InterlanguageLinksLookup {
 
 		$lookupLanguageCode = $this->languageTargetLinksCache->getPageLanguageFromCache( $title );
 
-		if ( $lookupLanguageCode === false || $lookupLanguageCode === null ) {
-			$lookupLanguageCode = $this->lookupLastPageLanguageForTarget( $title );
+		if ( $lookupLanguageCode === self::NO_LANG ) {
+			return '';
 		}
+
+		if ( $lookupLanguageCode !== '' && $lookupLanguageCode !== null && $lookupLanguageCode !== false ) {
+			return $lookupLanguageCode;
+		}
+
+		$lookupLanguageCode = $this->lookupLastPageLanguageForTarget( $title );
 
 		$this->languageTargetLinksCache->updatePageLanguageToCache(
 			$title,
 			$lookupLanguageCode
 		);
 
-		return $lookupLanguageCode;
+		return $lookupLanguageCode === self::NO_LANG ? '' : $lookupLanguageCode;
 	}
 
 	/**
@@ -231,7 +239,7 @@ class InterlanguageLinksLookup {
 		try{
 			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
 		} catch ( \Exception $e ) {
-			return '';
+			return self::NO_LANG;
 		}
 
 		$propertyValues = $this->store->getPropertyValues(
@@ -240,7 +248,7 @@ class InterlanguageLinksLookup {
 		);
 
 		if ( !is_array( $propertyValues ) || $propertyValues === array() ) {
-			return '';
+			return self::NO_LANG;
 		}
 
 		$containerSubject = end( $propertyValues );
@@ -256,7 +264,7 @@ class InterlanguageLinksLookup {
 			return $languageCodeValue->getString();
 		}
 
-		return '';
+		return self::NO_LANG;
 	}
 
 }

@@ -5,6 +5,8 @@ namespace SIL\Category;
 use SIL\InterlanguageLinksLookup;
 
 use CategoryPage;
+use Title;
+use Html;
 
 /**
  * Modifies the content display of a category page
@@ -45,13 +47,13 @@ class CategoryPageByLanguage extends CategoryPage {
 	 */
 	public function openShowCategory() {
 
-		if ( $this->interlanguageLinksLookup !== null && $this->interlanguageLinksLookup->findPageLanguageForTarget( $this->getTitle() ) !== '' ) {
+		if ( $this->hasPageLanguageForTarget( $this->getTitle() ) ) {
 
 			// If findPageLanguageForTarget returned a positive result
 			// then Title::getPageLanguage contains the expected language
 			// setting due to usage of the PageContentLanguage hook
 
-			$html = \Html::element(
+			$html = Html::element(
 				'div',
 				array(
 					'id'    => 'sil-categorypage-languagefilter',
@@ -83,6 +85,11 @@ class CategoryPageByLanguage extends CategoryPage {
 		// as it is the only way to inject a dependency by the time the
 		// CategoryViewerByLanguage object is created
 		$this->getTitle()->interlanguageLinksLookup = $this->interlanguageLinksLookup;
+	}
+
+	private function hasPageLanguageForTarget( Title $title ) {
+		return $this->interlanguageLinksLookup !== null &&
+			$this->interlanguageLinksLookup->findPageLanguageForTarget( $title ) !== '';
 	}
 
 }

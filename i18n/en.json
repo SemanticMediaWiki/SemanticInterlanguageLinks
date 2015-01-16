@@ -20,5 +20,5 @@
 	"sil-search-profile-tooltip":"Filter articles by language annotation",
 	"sil-search-languagefilter-label":"Filter by Language",
 	"sil-search-nolanguagefilter":"No language filter",
-	"sil-categorypage-languagefilter-active":"This category contains information that are filtered by language."
+	"sil-categorypage-languagefilter-active":"This category contains information (page, subcategory, and image) that is filtered by language."
 }

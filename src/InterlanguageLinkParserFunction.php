@@ -2,7 +2,7 @@
 
 namespace SIL;
 
-use SMW\Cache\FixedInMemoryCache;
+use Onoi\Cache\CacheFactory;
 
 use Title;
 use Language;
@@ -161,7 +161,7 @@ class InterlanguageLinkParserFunction {
 		// Use the FixedInMemoryCache to ensure that during a job run the array is not hit by any
 		// memory leak and limited to a fixed size
 		if ( self::$inMemoryParserTracker === null ) {
-			self::$inMemoryParserTracker = new FixedInMemoryCache( 50 );
+			self::$inMemoryParserTracker = CacheFactory::getInstance()->newFixedInMemoryCache( 50 );
 		}
 
 		return self::$inMemoryParserTracker;

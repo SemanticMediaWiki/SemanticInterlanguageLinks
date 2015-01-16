@@ -2,13 +2,14 @@
 
 namespace SIL;
 
+use Onoi\Cache\Cache;
+
 use SMW\Store;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
 use SIL\Category\CategoryPageByLanguage;
 
 use Parser;
-use BagOStuff;
 
 /**
  * @license GNU GPL v2+
@@ -24,7 +25,7 @@ class HookRegistry {
 	private $store;
 
 	/**
-	 * @var BagOStuff
+	 * @var Cache
 	 */
 	private $cache;
 
@@ -32,9 +33,9 @@ class HookRegistry {
 	 * @since 1.0
 	 *
 	 * @param Store $store
-	 * @param BagOStuff $cache
+	 * @param Cache $cache
 	 */
-	public function __construct( Store $store, BagOStuff $cache ) {
+	public function __construct( Store $store, Cache $cache ) {
 		$this->store = $store;
 		$this->cache = $cache;
 	}

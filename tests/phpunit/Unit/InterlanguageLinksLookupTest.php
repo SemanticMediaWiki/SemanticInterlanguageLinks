@@ -362,9 +362,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 			->with( $this->equalTo( $target ) )
 			->will( $this->returnValue( 'en' ) );
 
-		$languageTargetLinksCache->expects( $this->once() )
-			->method( 'updatePageLanguageToCache' );
-
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 
 		$this->assertEquals(
@@ -372,6 +369,27 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 			$instance->findPageLanguageForTarget( $target )
 		);
 	}
+/*
+	public function testTryFalseCachedPageLanguageForTarget() {
+
+		$target = Title::newFromText( 'Foo' );
+
+		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$languageTargetLinksCache->expects( $this->once() )
+			->method( 'getPageLanguageFromCache' )
+			->with( $this->equalTo( $target ) )
+			->will( $this->returnValue( false ) );
+
+		$languageTargetLinksCache->expects( $this->once() )
+			->method( 'updatePageLanguageToCache' );
+
+		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
+		$instance->findPageLanguageForTarget( $target );
+	}
+*/
 
 	public function testInvalidateCachedLanguageTargetLinks() {
 
