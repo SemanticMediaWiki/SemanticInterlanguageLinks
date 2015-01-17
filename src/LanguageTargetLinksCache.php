@@ -2,10 +2,10 @@
 
 namespace SIL;
 
-use SMW\DIWikiPage;
-use SMW\Cache\FixedInMemoryCache;
+use Onoi\Cache\Cache;
 
-use BagOstuff;
+use SMW\DIWikiPage;
+
 use Title;
 
 /**
@@ -20,31 +20,34 @@ class LanguageTargetLinksCache {
 	 * Stable cache auxiliary identifier, to be changed in cases where the
 	 * cache key needs an auto-update
 	 */
-	const VERSION = '2015.01.07';
+	const VERSION = '2015.01.17';
 
 	/**
-	 * @var BagOstuff
+	 * @var Cache
 	 */
 	private $cache;
 
 	/**
-	 * @var FixedInMemoryCache|null
+	 * @var string|null
 	 */
-	private $inMemoryPageLanguageCache = null;
+	private $cachePrefix = null;
 
 	/**
 	 * @since 1.0
 	 *
-	 * @param BagOstuff $cache
-	 * @param FixedInMemoryCache|null $inMemoryPageLanguageCache
+	 * @param Cache $cache
 	 */
-	public function __construct( BagOstuff $cache, FixedInMemoryCache $inMemoryPageLanguageCache = null ) {
+	public function __construct( Cache $cache ) {
 		$this->cache = $cache;
-		$this->inMemoryPageLanguageCache = $inMemoryPageLanguageCache;
+	}
 
-		if ( $this->inMemoryPageLanguageCache === null ) {
-			$this->inMemoryPageLanguageCache = new FixedInMemoryCache( 500 );
-		}
+	/**
+	 * @since 1.0
+	 *
+	 * @param string $cachePrefix
+	 */
+	public function setCachePrefix( $cachePrefix ) {
+		$this->cachePrefix = $cachePrefix;
 	}
 
 	/**
@@ -56,17 +59,13 @@ class LanguageTargetLinksCache {
 	 */
 	public function getPageLanguageFromCache( Title $title ) {
 
-		$pageCacheKey = $this->getPageCacheKey( $title->getPrefixedText() );
+		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
 
-		if ( $this->inMemoryPageLanguageCache->contains( $pageCacheKey ) ) {
-			return $this->inMemoryPageLanguageCache->fetch( $pageCacheKey );
-		}
-
-		$pageLanguage = $this->cache->get(
-			$pageCacheKey
+		$pageCacheKey = $this->getPageCacheKey(
+			$title->getPrefixedText()
 		);
 
-		return $pageLanguage;
+		return isset( $pageLanguageCacheBlob[ $pageCacheKey ] ) ? $pageLanguageCacheBlob[ $pageCacheKey ] : false;
 	}
 
 	/**
@@ -77,11 +76,12 @@ class LanguageTargetLinksCache {
 	 */
 	public function updatePageLanguageToCache( Title $title, $languageCode ) {
 
-		$pageCacheKey = $this->getPageCacheKey( $title->getPrefixedText() );
+		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
+		$pageLanguageCacheBlob[ $this->getPageCacheKey( $title->getPrefixedText() ) ] = $languageCode;
 
-		$this->inMemoryPageLanguageCache->save(
-			$pageCacheKey,
-			$languageCode
+		$this->cache->save(
+			$this->getPageLanguageCacheBlobKey(),
+			$pageLanguageCacheBlob
 		);
 	}
 
@@ -94,7 +94,7 @@ class LanguageTargetLinksCache {
 	 */
 	public function getLanguageTargetLinksFromCache( InterlanguageLink $interlanguageLink ) {
 
-		$cachedLanguageTargetLinks = $this->cache->get(
+		$cachedLanguageTargetLinks = $this->cache->fetch(
 			$this->getSiteCacheKey( $interlanguageLink->getLinkReference()->getPrefixedText() )
 		);
 
@@ -132,14 +132,21 @@ class LanguageTargetLinksCache {
 			return;
 		}
 
-		$this->cache->set(
+		$this->cache->save(
 			$this->getSiteCacheKey( $interlanguageLink->getLinkReference()->getPrefixedText() ),
 			$normalizedLanguageTargetLinks
 		);
 
+		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
+
 		foreach ( $normalizedLanguageTargetLinks as $languageCode => $title ) {
-			$this->cache->set( $this->getPageCacheKey( $title ), $languageCode );
+			$pageLanguageCacheBlob[ $this->getPageCacheKey( $title ) ] = $languageCode;
 		}
+
+		$this->cache->save(
+			$this->getPageLanguageCacheBlobKey(),
+			$pageLanguageCacheBlob
+		);
 	}
 
 	/**
@@ -156,7 +163,7 @@ class LanguageTargetLinksCache {
 			}
 
 			$siteCacheKey = $this->getSiteCacheKey( $linkReference->getTitle()->getPrefixedText() );
-			$cachedLanguageTargetLinks = $this->cache->get( $siteCacheKey );
+			$cachedLanguageTargetLinks = $this->cache->fetch( $siteCacheKey );
 
 			if ( !is_array( $cachedLanguageTargetLinks ) ) {
 				continue;
@@ -179,27 +186,45 @@ class LanguageTargetLinksCache {
 	 */
 	public function deletePageLanguageForTargetFromCache( Title $title ) {
 
-		$pageCacheKey = $this->getPageCacheKey( $title->getPrefixedText() );
+		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
+		unset( $pageLanguageCacheBlob[ $this->getPageCacheKey( $title->getPrefixedText() ) ] );
 
-		if ( $this->cache->get( $pageCacheKey ) ) {
-			$this->cache->delete( $pageCacheKey );
-		}
-
-		$this->inMemoryPageLanguageCache->delete(
-			$pageCacheKey
+		$this->cache->save(
+			$this->getPageLanguageCacheBlobKey(),
+			$pageLanguageCacheBlob
 		);
 	}
 
+	private function getPageLanguageCacheBlob() {
+
+		$pageLanguageCacheBlob = $this->cache->fetch( $this->getPageLanguageCacheBlobKey() );
+
+		if ( $pageLanguageCacheBlob === false ) {
+			$pageLanguageCacheBlob = array();
+		}
+
+		return $pageLanguageCacheBlob;
+	}
+
 	private function getSiteCacheKey( $key ) {
-		return $this->getCachePrefix() . ':' . 'sil:' . 's:' . md5( $key . self::VERSION );
+		return $this->getCachePrefix() . 's:' . md5( $key . self::VERSION );
+	}
+
+	private function getPageLanguageCacheBlobKey() {
+		return $this->getCachePrefix() . 'b:' . md5( 'blob' . self::VERSION );
 	}
 
 	private function getPageCacheKey( $key ) {
-		return $this->getCachePrefix() . ':' . 'sil:' . 'p:' . md5( $key . self::VERSION );
+		return $this->getCachePrefix() . 'p:' . md5( $key . self::VERSION );
 	}
 
 	private function getCachePrefix() {
-		return $GLOBALS['wgCachePrefix'] === false ? wfWikiID() : $GLOBALS['wgCachePrefix'];
+
+		if ( $this->cachePrefix === null ) {
+			$this->cachePrefix = ( $GLOBALS['wgCachePrefix'] === false ? wfWikiID() : $GLOBALS['wgCachePrefix'] ) . ':' . 'sil:';
+		}
+
+		return $this->cachePrefix;
 	}
 
 }

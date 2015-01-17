@@ -4,7 +4,6 @@ namespace SIL\Tests;
 
 use SIL\HookRegistry;
 
-use HashBagOStuff;
 use Title;
 
 /**
@@ -25,7 +24,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
-		$cache = $this->getMockBuilder( '\BagOStuff' )
+		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
@@ -55,7 +54,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
-		$cache = $this->getMockBuilder( '\BagOStuff' )
+		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
@@ -113,7 +112,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
-		$cache = $this->getMockBuilder( '\BagOStuff' )
+		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
@@ -147,7 +146,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
-		$cache = $this->getMockBuilder( '\BagOStuff' )
+		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 

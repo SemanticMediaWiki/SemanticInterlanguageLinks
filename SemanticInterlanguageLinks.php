@@ -3,6 +3,8 @@
 use SIL\HookRegistry;
 use SMW\ApplicationFactory;
 
+use Onoi\Cache\CacheFactory;
+
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/
  *
@@ -47,9 +49,16 @@ call_user_func( function () {
 	// Finalize extension setup
 	$GLOBALS['wgExtensionFunctions'][] = function() {
 
+		$cacheFactory = new CacheFactory();
+
+		$compositeCache = $cacheFactory->newCompositeCache( array(
+			$cacheFactory->newFixedInMemoryCache( 500 ),
+			$cacheFactory->newMediaWikiCache( ObjectCache::getInstance( $GLOBALS['egSILCacheType'] ) )
+		) );
+
 		$hookRegistry = new HookRegistry(
 			ApplicationFactory::getInstance()->getStore(),
-			ObjectCache::getInstance( $GLOBALS['egSILCacheType'] )
+			$compositeCache
 		);
 
 		$hookRegistry->register( $GLOBALS['wgHooks'] );

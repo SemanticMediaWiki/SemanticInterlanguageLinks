@@ -22,7 +22,8 @@ function installToMediaWikiRoot {
 		composer require 'mediawiki/semantic-interlanguage-links='$SIL --prefer-source --update-with-dependencies
 	else
 		composer init --stability dev
-		composer require mediawiki/semantic-interlanguage-links "dev-master" --prefer-source --dev
+		composer require mediawiki/semantic-interlanguage-links "dev-master" --prefer-source --dev --update-with-dependencies
+		composer require onoi/cache "~1.0" --prefer-source --dev
 
 		cd extensions
 		cd SemanticInterlanguageLinks
