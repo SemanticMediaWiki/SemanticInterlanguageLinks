@@ -7,9 +7,7 @@ use Onoi\Cache\Cache;
 use SMW\Store;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
-use SIL\Category\CategoryPageByLanguage;
-
-use Parser;
+use SIL\Category\ByLanguageCategoryPage;
 
 /**
  * @license GNU GPL v2+
@@ -77,9 +75,9 @@ class HookRegistry {
 		 */
 		$wgHooks['ArticleFromTitle'][] = function ( $title, &$page ) use( $interlanguageLinksLookup ) {
 
-			$categoryPageByLanguage = new CategoryPageByLanguage( $title );
-			$categoryPageByLanguage->setCategoryFilterByLanguageState( $GLOBALS['egSILUseCategoryFilterByLanguage'] );
-			$categoryPageByLanguage->modifyCategoryView( $page, $interlanguageLinksLookup );
+			$byLanguageCategoryPage = new ByLanguageCategoryPage( $title );
+			$byLanguageCategoryPage->setCategoryFilterByLanguageState( $GLOBALS['egSILUseCategoryFilterByLanguage'] );
+			$byLanguageCategoryPage->modifyCategoryView( $page, $interlanguageLinksLookup );
 
 			return true;
 		};

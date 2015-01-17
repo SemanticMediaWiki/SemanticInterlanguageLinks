@@ -2,10 +2,10 @@
 
 namespace SIL\Tests\Category;
 
-use SIL\Category\CategoryPageByLanguage;
+use SIL\Category\ByLanguageCategoryPage;
 
 /**
- * @covers \SIL\Category\CategoryPageByLanguage
+ * @covers \SIL\Category\ByLanguageCategoryPage
  *
  * @group semantic-interlanguage-links
  *
@@ -14,23 +14,23 @@ use SIL\Category\CategoryPageByLanguage;
  *
  * @author mwjames
  */
-class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
+class ByLanguageCategoryPageTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
-		$categoryPageByLanguage = $this->getMockBuilder( '\SIL\Category\CategoryPageByLanguage' )
+		$ByLanguageCategoryPage = $this->getMockBuilder( '\SIL\Category\ByLanguageCategoryPage' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$this->assertInstanceOf(
-			'\SIL\Category\CategoryPageByLanguage',
-			$categoryPageByLanguage
+			'\SIL\Category\ByLanguageCategoryPage',
+			$ByLanguageCategoryPage
 		);
 	}
 
 	public function testDisabledCategoryFilter() {
 
-		$instance = new CategoryPageByLanguage( \Title::newFromText( 'Foo', NS_CATEGORY ) );
+		$instance = new ByLanguageCategoryPage( \Title::newFromText( 'Foo', NS_CATEGORY ) );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -49,7 +49,7 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 
 	public function testDisabledForNonCategoryNamespace() {
 
-		$instance = new CategoryPageByLanguage( \Title::newFromText( 'Foo', NS_MAIN ) );
+		$instance = new ByLanguageCategoryPage( \Title::newFromText( 'Foo', NS_MAIN ) );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -78,7 +78,7 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$instance = new CategoryPageByLanguage( $title );
+		$instance = new ByLanguageCategoryPage( $title );
 
 		$instance->setContext( $context );
 		$instance->setCategoryFilterByLanguageState( true );
@@ -88,7 +88,7 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 		$instance->modifyCategoryView( $article, $interlanguageLinksLookup );
 
 		$this->assertInstanceOf(
-			'\SIL\Category\CategoryPageByLanguage',
+			'\SIL\Category\ByLanguageCategoryPage',
 			$article
 		);
 
@@ -122,7 +122,7 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 				->method( 'getOutput' )
 				->will( $this->returnValue( $outputPage ) );
 
-		$instance = new CategoryPageByLanguage( $title );
+		$instance = new ByLanguageCategoryPage( $title );
 
 		$instance->setContext( $context );
 		$instance->setCategoryFilterByLanguageState( true );
@@ -153,7 +153,7 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 		$context->expects( $this->never() )
 				->method( 'getOutput' );
 
-		$instance = new CategoryPageByLanguage( $title );
+		$instance = new ByLanguageCategoryPage( $title );
 
 		$instance->setContext( $context );
 		$instance->setCategoryFilterByLanguageState( true );
@@ -172,7 +172,7 @@ class CategoryPageByLanguageTest extends \PHPUnit_Framework_TestCase {
 		$context->expects( $this->never() )
 				->method( 'getOutput' );
 
-		$instance = new CategoryPageByLanguage( $title );
+		$instance = new ByLanguageCategoryPage( $title );
 
 		$instance->setContext( $context );
 		$instance->openShowCategory();

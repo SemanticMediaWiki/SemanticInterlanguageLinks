@@ -14,7 +14,7 @@ use Category;
  *
  * @author mwjames
  */
-class CategoryViewerByLanguage extends CategoryViewer {
+class ByLanguageCategoryViewer extends CategoryViewer {
 
 	/**
 	 * @see CategoryViewer::addImage

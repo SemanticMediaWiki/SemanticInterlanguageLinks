@@ -5,8 +5,6 @@ namespace SIL\Tests\Integration;
 use SMW\Tests\MwDBaseUnitTestCase;
 use SMW\Tests\Utils\UtilityFactory;
 
-use SIL\Category\CategoryPageByLanguage;
-
 use Title;
 use Article;
 use RequestContext;
@@ -23,15 +21,13 @@ use RequestContext;
  *
  * @author mwjames
  */
-class CategoryViewerByLanguageIntegrationTest extends MwDBaseUnitTestCase {
+class ByLanguageCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
 
 	private $pageCreator;
 	private $subjects = array();
 
 	protected function setUp() {
 		parent::setUp();
-
-		\ObjectCache::clear();
 
 		$this->pageCreator = UtilityFactory::getInstance()->newpageCreator();
 	}
