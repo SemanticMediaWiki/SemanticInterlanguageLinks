@@ -16,12 +16,12 @@ use Html;
  *
  * @author mwjames
  */
-class CategoryPageByLanguage extends CategoryPage {
+class ByLanguageCategoryPage extends CategoryPage {
 
 	/**
 	 * @see CategoryPage::$mCategoryViewerClass
 	 */
-	protected $mCategoryViewerClass = '\SIL\Category\CategoryViewerByLanguage';
+	protected $mCategoryViewerClass = '\SIL\Category\ByLanguageCategoryViewer';
 
 	/**
 	 * @var boolean

@@ -2,12 +2,12 @@
 
 namespace SIL\Tests\Category;
 
-use SIL\Category\CategoryViewerByLanguage;
+use SIL\Category\ByLanguageCategoryViewer;
 
 use Title;
 
 /**
- * @covers \SIL\Category\CategoryViewerByLanguage
+ * @covers \SIL\Category\ByLanguageCategoryViewer
  *
  * @group semantic-interlanguage-links
  *
@@ -16,7 +16,7 @@ use Title;
  *
  * @author mwjames
  */
-class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
+class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 	private $context;
 
@@ -37,8 +37,8 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$this->assertInstanceOf(
-			'\SIL\Category\CategoryViewerByLanguage',
-			new CategoryViewerByLanguage( $title, $this->context )
+			'\SIL\Category\ByLanguageCategoryViewer',
+			new ByLanguageCategoryViewer( $title, $this->context )
 		);
 	}
 
@@ -47,7 +47,7 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar' );
 
-		$instance = new CategoryViewerByLanguage(
+		$instance = new ByLanguageCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -64,7 +64,7 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar', NS_FILE );
 
-		$instance = new CategoryViewerByLanguage(
+		$instance = new ByLanguageCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -95,7 +95,7 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new CategoryViewerByLanguage(
+		$instance = new ByLanguageCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -119,7 +119,7 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getTitle' )
 			->will( $this->returnValue( Title::newFromText( 'Bar' ) ) );
 
-		$instance = new CategoryViewerByLanguage(
+		$instance = new ByLanguageCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -157,7 +157,7 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getTitle' )
 			->will( $this->returnValue( Title::newFromText( 'Bar' ) ) );
 
-		$instance = new CategoryViewerByLanguage(
+		$instance = new ByLanguageCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -185,7 +185,7 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new CategoryViewerByLanguage(
+		$instance = new ByLanguageCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -218,7 +218,7 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new CategoryViewerByLanguage(
+		$instance = new ByLanguageCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -251,7 +251,7 @@ class CategoryViewerByLanguageTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new CategoryViewerByLanguage(
+		$instance = new ByLanguageCategoryViewer(
 			$title,
 			$this->context
 		);
