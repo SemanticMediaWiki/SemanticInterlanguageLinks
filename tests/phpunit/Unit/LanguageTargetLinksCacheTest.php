@@ -209,13 +209,15 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
+		// If the VERSION changed then the id has to be changed as well
 		$cache->expects( $this->once() )
 			->method( 'save' )
 			->with(
 				$this->anything(),
-				$this->equalTo( 'bo' ) );
+				$this->equalTo( array( 'foo:p:50a90c1c2d8e371330b1230d48ba940b' => 'bo' ) ) );
 
 		$instance = new LanguageTargetLinksCache( $cache );
+		$instance->setCachePrefix( 'foo:' );
 
 		$instance->updatePageLanguageToCache( $title, 'bo' );
 	}

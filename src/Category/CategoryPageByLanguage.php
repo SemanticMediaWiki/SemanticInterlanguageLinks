@@ -88,8 +88,7 @@ class CategoryPageByLanguage extends CategoryPage {
 	}
 
 	private function hasPageLanguageForTarget( Title $title ) {
-		return $this->interlanguageLinksLookup !== null &&
-			$this->interlanguageLinksLookup->findPageLanguageForTarget( $title ) !== '';
+		return $this->interlanguageLinksLookup !== null && $this->interlanguageLinksLookup->findPageLanguageForTarget( $title ) !== '';
 	}
 
 }
