@@ -20,6 +20,16 @@ use ParserOptions;
  */
 class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 
+	private $parser;
+
+	protected function setUp() {
+		parent::setUp();
+
+		$this->parser = new Parser();
+		$this->parser->Options( new ParserOptions() );
+		$this->parser->clearState();
+	}
+
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
@@ -34,20 +44,12 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$cachedSiteLanguageTargetLinks = $this->getMockBuilder( '\SIL\CachedSiteLanguageTargetLinks' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$parser = new Parser();
-		$parser->setTitle( Title::newFromText( __METHOD__ ) );
-		$parser->Options( new ParserOptions() );
-		$parser->clearState();
+		$this->parser->setTitle( Title::newFromText( __METHOD__ ) );
 
 		$instance = new ParserFunctionFactory();
 
-		list( $name, $definition, $flag ) = $instance->newInterlanguageLinkParserFunction(
-			$interlanguageLinksLookup,
-			$cachedSiteLanguageTargetLinks
+		list( $name, $definition, $flag ) = $instance->newInterlanguageLinkParserFunctionDefinition(
+			$interlanguageLinksLookup
 		);
 
 		$this->assertEquals(
@@ -63,7 +65,7 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 		$text = '';
 
 		$this->assertNotEmpty(
-			call_user_func_array( $definition, array( $parser, $text ) )
+			call_user_func_array( $definition, array( $this->parser, $text ) )
 		);
 	}
 
@@ -73,14 +75,11 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$parser = new Parser();
-		$parser->setTitle( Title::newFromText( __METHOD__ ) );
-		$parser->Options( new ParserOptions() );
-		$parser->clearState();
+		$this->parser->setTitle( Title::newFromText( __METHOD__ ) );
 
 		$instance = new ParserFunctionFactory();
 
-		list( $name, $definition, $flag ) = $instance->newInterlanguageListParserFunction(
+		list( $name, $definition, $flag ) = $instance->newInterlanguageListParserFunctionDefinition(
 			$interlanguageLinksLookup
 		);
 
@@ -97,7 +96,7 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 		$text = '';
 
 		$this->assertNotEmpty(
-			call_user_func_array( $definition, array( $parser, $text ) )
+			call_user_func_array( $definition, array( $this->parser, $text ) )
 		);
 	}
 

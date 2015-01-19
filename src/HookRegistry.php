@@ -97,13 +97,13 @@ class HookRegistry {
 
 			$parserFunctionFactory = new ParserFunctionFactory();
 
-			list( $name, $definition, $flag ) = $parserFunctionFactory->newInterlanguageLinkParserFunction(
+			list( $name, $definition, $flag ) = $parserFunctionFactory->newInterlanguageLinkParserFunctionDefinition(
 				$interlanguageLinksLookup
 			);
 
 			$parser->setFunctionHook( $name, $definition, $flag );
 
-			list( $name, $definition, $flag ) = $parserFunctionFactory->newInterlanguageListParserFunction(
+			list( $name, $definition, $flag ) = $parserFunctionFactory->newInterlanguageListParserFunctionDefinition(
 				$interlanguageLinksLookup
 			);
 

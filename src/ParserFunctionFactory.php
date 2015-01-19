@@ -21,9 +21,9 @@ class ParserFunctionFactory {
 	 *
 	 * @return array
 	 */
-	public function newInterlanguageLinkParserFunction( InterlanguageLinksLookup $interlanguageLinksLookup ) {
+	public function newInterlanguageLinkParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
-		$interlanguageLinkParserFunctionHandler = function( $parser, $languageCode, $linkReference = '' ) use ( $interlanguageLinksLookup ) {
+		$interlanguageLinkParserFunctionDefinition = function( $parser, $languageCode, $linkReference = '' ) use ( $interlanguageLinksLookup ) {
 
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
@@ -48,7 +48,7 @@ class ParserFunctionFactory {
 			return $interlanguageLinkParserFunction->parse( $languageCode, $linkReference );
 		};
 
-		return array( 'interlanguagelink', $interlanguageLinkParserFunctionHandler, Parser::SFH_NO_HASH );
+		return array( 'interlanguagelink', $interlanguageLinkParserFunctionDefinition, Parser::SFH_NO_HASH );
 	}
 
 	/**
@@ -58,9 +58,9 @@ class ParserFunctionFactory {
 	 *
 	 * @return array
 	 */
-	public function newInterlanguageListParserFunction( InterlanguageLinksLookup $interlanguageLinksLookup ) {
+	public function newInterlanguageListParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
-		$interlanguageListParserFunctionHandler = function( $parser, $target, $template = '' ) use ( $interlanguageLinksLookup ) {
+		$interlanguageListParserFunctionDefinition = function( $parser, $target, $template = '' ) use ( $interlanguageLinksLookup ) {
 
 			$interlanguageListParserFunction = new InterlanguageListParserFunction(
 				$parser,
@@ -70,7 +70,7 @@ class ParserFunctionFactory {
 			return $interlanguageListParserFunction->parse( $target, $template );
 		};
 
-		return array( 'interlanguagelist', $interlanguageListParserFunctionHandler, Parser::SFH_NO_HASH );
+		return array( 'interlanguagelist', $interlanguageListParserFunctionDefinition, Parser::SFH_NO_HASH );
 	}
 
 }
