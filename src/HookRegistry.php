@@ -219,6 +219,19 @@ class HookRegistry {
 		};
 
 		/**
+		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchPowerBox
+		 */
+		$wgHooks['SpecialSearchPowerBox'][] = function ( &$showSections, $term, $opts ) use ( $searchResultModifier ) {
+
+			$searchResultModifier->addLanguageFilterToPowerBox(
+				$GLOBALS['wgRequest'],
+				$showSections
+			);
+
+			return true;
+		};
+
+		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchResults
 		 */
 		$wgHooks['SpecialSearchResults'][] = function ( $term, &$titleMatches, &$textMatches ) use ( $searchResultModifier ) {
