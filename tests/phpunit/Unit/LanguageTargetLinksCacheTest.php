@@ -4,6 +4,7 @@ namespace SIL\Tests;
 
 use SIL\LanguageTargetLinksCache;
 use SIL\InterlanguageLink;
+use SIL\CacheKeyGenerator;
 
 use SMW\DIWikiPage;
 
@@ -38,9 +39,13 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
+		$cacheKeyGenerator = $this->getMockBuilder( '\SIL\CacheKeyGenerator' )
+			->disableOriginalConstructor()
+			->getMock();
+
 		$this->assertInstanceOf(
 			'\SIL\LanguageTargetLinksCache',
-			new LanguageTargetLinksCache( $cache )
+			new LanguageTargetLinksCache( $cache, $cacheKeyGenerator )
 		);
 	}
 
@@ -56,7 +61,11 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new LanguageTargetLinksCache( $this->cache );
+		$instance = new LanguageTargetLinksCache(
+			$this->cache,
+			new CacheKeyGenerator()
+		);
+
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
 		$instance->saveLanguageTargetLinksToCache(
@@ -95,7 +104,11 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'bo' => 'Bar'
 		);
 
-		$instance = new LanguageTargetLinksCache( $this->cache );
+		$instance = new LanguageTargetLinksCache(
+			$this->cache,
+			new CacheKeyGenerator()
+		);
+
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
 		$instance->saveLanguageTargetLinksToCache(
@@ -119,7 +132,11 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'bo' => 'Bar'
 		);
 
-		$instance = new LanguageTargetLinksCache( $this->cache );
+		$instance = new LanguageTargetLinksCache(
+			$this->cache,
+			new CacheKeyGenerator()
+		);
+
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
 		$instance->saveLanguageTargetLinksToCache(
@@ -141,7 +158,11 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 		$languageTargetLinks = array();
 
-		$instance = new LanguageTargetLinksCache( $this->cache );
+		$instance = new LanguageTargetLinksCache(
+			$this->cache,
+			new CacheKeyGenerator()
+		);
+
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
 		$instance->saveLanguageTargetLinksToCache(
@@ -166,7 +187,11 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new LanguageTargetLinksCache( $this->cache );
+		$instance = new LanguageTargetLinksCache(
+			$this->cache,
+			new CacheKeyGenerator()
+		);
+
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
 		$instance->saveLanguageTargetLinksToCache(
@@ -200,7 +225,11 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new LanguageTargetLinksCache( $this->cache );
+		$instance = new LanguageTargetLinksCache(
+			$this->cache,
+			new CacheKeyGenerator()
+		);
+
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
 		$instance->saveLanguageTargetLinksToCache(
@@ -237,7 +266,11 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			'en' => Title::newFromText( 'Foo' )
 		);
 
-		$instance = new LanguageTargetLinksCache( $this->cache );
+		$instance = new LanguageTargetLinksCache(
+			$this->cache,
+			new CacheKeyGenerator()
+		);
+
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
 		$instance->saveLanguageTargetLinksToCache(
@@ -264,13 +297,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testUpdatePageLanguageToCache( $pageLanguageCacheStrategy ) {
 
-		// If the VERSION changed then the id's need to be changed as well
-		if ( $pageLanguageCacheStrategy !== 'blob' ) {
-			$id = 'foo:p:';
-			$data = 'bo';
-		} else{
-			$id = 'foo:b:';
-			$data = array( 'foo:p:ddc35f88fa71b6ef142ae61f35364653' => 'bo' );
+		$id = 'foo:sil:p:';
+		$data = 'bo';
+
+		if ( $pageLanguageCacheStrategy === 'blob' ) {
+			$id = 'foo:sil:b:';
+			$data = array( 'foo:sil:p:ddc35f88fa71b6ef142ae61f35364653' => 'bo' );
 		}
 
 		$title = Title::newFromText( 'Bar', NS_MAIN );
@@ -285,9 +317,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 				$this->stringContains( $id ) ,
 				$this->equalTo( $data ) );
 
-		$instance = new LanguageTargetLinksCache( $cache );
+		$cacheKeyGenerator = new CacheKeyGenerator();
+		$cacheKeyGenerator->setAuxiliaryVersionModifier( '20150122' );
+		$cacheKeyGenerator->setCachePrefix( 'foo' );
+
+		$instance = new LanguageTargetLinksCache( $cache, $cacheKeyGenerator );
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
-		$instance->setCachePrefix( 'foo:' );
 
 		$instance->updatePageLanguageToCache( $title, 'bo' );
 	}

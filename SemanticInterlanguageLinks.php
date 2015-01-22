@@ -56,9 +56,12 @@ call_user_func( function () {
 			$cacheFactory->newMediaWikiCache( ObjectCache::getInstance( $GLOBALS['egSILCacheType'] ) )
 		) );
 
+		$cachePrefix = $GLOBALS['wgCachePrefix'] === false ? wfWikiID() : $GLOBALS['wgCachePrefix'];
+
 		$hookRegistry = new HookRegistry(
 			ApplicationFactory::getInstance()->getStore(),
-			$compositeCache
+			$compositeCache,
+			$cachePrefix
 		);
 
 		$hookRegistry->register( $GLOBALS['wgHooks'] );

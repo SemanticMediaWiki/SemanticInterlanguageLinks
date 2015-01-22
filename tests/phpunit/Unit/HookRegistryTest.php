@@ -30,7 +30,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf(
 			'\SIL\HookRegistry',
-			new HookRegistry( $store, $cache )
+			new HookRegistry( $store, $cache, 'foo' )
 		);
 	}
 
@@ -60,7 +60,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$wgHooks = array();
 
-		$instance = new HookRegistry( $store, $cache );
+		$instance = new HookRegistry( $store, $cache, 'foo' );
 		$instance->register( $wgHooks );
 
 		$this->assertNotEmpty(
@@ -118,7 +118,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$wgHooks = array();
 
-		$instance = new HookRegistry( $store, $cache );
+		$instance = new HookRegistry( $store, $cache, 'foo' );
 		$instance->register( $wgHooks );
 
 		$this->assertHookIsExcutable(
@@ -156,7 +156,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$wgHooks = array();
 
-		$instance = new HookRegistry( $store, $cache );
+		$instance = new HookRegistry( $store, $cache, 'foo' );
 		$instance->register( $wgHooks );
 
 		$profiles = array();

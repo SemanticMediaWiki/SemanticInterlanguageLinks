@@ -72,7 +72,7 @@ class InterlanguageLinksLookup {
 	/**
 	 * @since 1.0
 	 *
-	 * @param Title $title|null
+	 * @param Title|null $title
 	 * @param string $languageCode
 	 */
 	public function updatePageLanguageToLookupCache( Title $title = null, $languageCode ) {

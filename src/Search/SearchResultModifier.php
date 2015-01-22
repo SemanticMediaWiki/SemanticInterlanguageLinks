@@ -89,7 +89,7 @@ class SearchResultModifier {
 	/**
 	 * @since 1.0
 	 *
-	 * @param string $defaultLanguagefilter,
+	 * @param string $defaultLanguagefilter
 	 *
 	 * @return string
 	 */
