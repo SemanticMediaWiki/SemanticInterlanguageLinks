@@ -42,7 +42,7 @@ class SearchResultModifier {
 		$profiles['sil'] = array(
 			'message' => 'sil-search-profile',
 			'tooltip' => 'sil-search-profile-tooltip',
-			'namespaces' => SpecialSearch::NAMESPACES_CURRENT
+			'namespaces' => \SearchEngine::defaultNamespaces()
 		);
 
 		return true;
@@ -77,12 +77,30 @@ class SearchResultModifier {
 			$search->setExtraParam( 'languagefilter', $languagefilter );
 		}
 
+		$params = array( 'id' => 'mw-searchoptions' );
+
+		$form = Xml::fieldset( false, false, $params ) .
+			$hidden . $this->createHtmlLanguageFilterSelector( $languagefilter ) .
+			Html::closeElement( 'fieldset' );
+
+		return false;
+	}
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param string $defaultLanguagefilter
+	 *
+	 * @return string
+	 */
+	public function createHtmlLanguageFilterSelector( $defaultLanguagefilter ) {
+
 		$languages = Language::fetchLanguageNames();
 
 		ksort( $languages );
 
 		$selector = new XmlSelect( 'languagefilter', 'languagefilter' );
-		$selector->setDefault( $languagefilter );
+		$selector->setDefault( $defaultLanguagefilter );
 		$selector->addOption( wfMessage( 'sil-search-nolanguagefilter' )->text(), '-' );
 
 		foreach ( $languages as $code => $name ) {
@@ -96,13 +114,7 @@ class SearchResultModifier {
 			'languagefilter'
 		) . '&#160;';
 
-		$params = array( 'id' => 'mw-searchoptions' );
-
-		$form = Xml::fieldset( false, false, $params ) .
-			$hidden . $label . $selector .
-			Html::closeElement( 'fieldset' );
-
-		return false;
+		return  $label . $selector;
 	}
 
 	/**

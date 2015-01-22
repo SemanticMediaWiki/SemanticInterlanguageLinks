@@ -157,11 +157,13 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			'|lang-name=中文（简体）‎}}'
 		);
 
+		$categoryNS = $GLOBALS['wgContLang']->getNsText( NS_CATEGORY );
+
 		$provider[] = array(
 			array( 'zh-hans' => \Title::newFromText( 'Category:汉字' ) ),
 			'{{FakeTemplate' .
 			'|list-pos=0' .
-			'|target-link=:Category:汉字' .
+			"|target-link=:$categoryNS:汉字" .
 			'|lang-code=zh-Hans' .
 			'|lang-name=中文（简体）‎}}'
 		);
@@ -170,7 +172,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			array( 'de' => 'Category:Foo' ),
 			'{{FakeTemplate' .
 			'|list-pos=0' .
-			'|target-link=:Category:Foo' .
+			"|target-link=:$categoryNS:Foo" .
 			'|lang-code=de' .
 			'|lang-name=Deutsch}}'
 		);

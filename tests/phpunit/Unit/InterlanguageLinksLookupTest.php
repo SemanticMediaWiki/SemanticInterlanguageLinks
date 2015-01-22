@@ -98,7 +98,8 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
 
-		$this->assertEmpty(
+		$this->assertEquals(
+			InterlanguageLinksLookup::NO_LANG,
 			$instance->findPageLanguageForTarget( $title )
 		);
 	}
@@ -123,7 +124,8 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
 
-		$this->assertEmpty(
+		$this->assertEquals(
+			InterlanguageLinksLookup::NO_LANG,
 			$instance->findPageLanguageForTarget( $title )
 		);
 	}
@@ -429,12 +431,13 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$languageTargetLinksCache->expects( $this->once() )
+		$languageTargetLinksCache->expects( $this->atLeastOnce() )
 			->method( 'getPageLanguageFromCache' );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 
-		$this->assertEmpty(
+		$this->assertEquals(
+			InterlanguageLinksLookup::NO_LANG,
 			$instance->findPageLanguageForTarget( $target )
 		);
 

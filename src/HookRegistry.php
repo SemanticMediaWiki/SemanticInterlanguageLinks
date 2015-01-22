@@ -28,14 +28,21 @@ class HookRegistry {
 	private $cache;
 
 	/**
+	 * @var string
+	 */
+	private $cachePrefix;
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param Store $store
 	 * @param Cache $cache
+	 * @param string $cachePrefix
 	 */
-	public function __construct( Store $store, Cache $cache ) {
+	public function __construct( Store $store, Cache $cache, $cachePrefix ) {
 		$this->store = $store;
 		$this->cache = $cache;
+		$this->cachePrefix = $cachePrefix;
 	}
 
 	/**
@@ -47,8 +54,13 @@ class HookRegistry {
 	 */
 	public function register( &$wgHooks ) {
 
+		$cacheKeyGenerator = new CacheKeyGenerator();
+		$cacheKeyGenerator->setAuxiliaryVersionModifier( '20150122' );
+		$cacheKeyGenerator->setCachePrefix( $this->cachePrefix );
+
 		$languageTargetLinksCache = new LanguageTargetLinksCache(
-			$this->cache
+			$this->cache,
+			$cacheKeyGenerator
 		);
 
 		$interlanguageLinksLookup = new InterlanguageLinksLookup(
