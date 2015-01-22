@@ -25,7 +25,7 @@ use Title;
  */
 class InterlanguageLinksLookup {
 
-	const NO_LANG = '-';
+	const NO_LANG = '';
 
 	/**
 	 * @var LanguageTargetLinksCache
@@ -67,6 +67,24 @@ class InterlanguageLinksLookup {
 
 		$this->languageTargetLinksCache
 			->deletePageLanguageForTargetFromCache( $title );
+	}
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param Title $title|null
+	 * @param string $languageCode
+	 */
+	public function updatePageLanguageToLookupCache( Title $title = null, $languageCode ) {
+
+		if ( $title !== null && $this->languageTargetLinksCache->getPageLanguageFromCache( $title ) === $languageCode ) {
+			return;
+		}
+
+		$this->languageTargetLinksCache->updatePageLanguageToCache(
+			$title,
+			$languageCode
+		);
 	}
 
 	/**
@@ -122,22 +140,18 @@ class InterlanguageLinksLookup {
 
 		$lookupLanguageCode = $this->languageTargetLinksCache->getPageLanguageFromCache( $title );
 
-		if ( $lookupLanguageCode === self::NO_LANG ) {
-			return '';
-		}
-
-		if ( $lookupLanguageCode !== '' && $lookupLanguageCode !== null && $lookupLanguageCode !== false ) {
+		if ( $lookupLanguageCode !== null && $lookupLanguageCode !== false ) {
 			return $lookupLanguageCode;
 		}
 
 		$lookupLanguageCode = $this->lookupLastPageLanguageForTarget( $title );
 
-		$this->languageTargetLinksCache->updatePageLanguageToCache(
+		$this->updatePageLanguageToLookupCache(
 			$title,
 			$lookupLanguageCode
 		);
 
-		return $lookupLanguageCode === self::NO_LANG ? '' : $lookupLanguageCode;
+		return $lookupLanguageCode;
 	}
 
 	/**

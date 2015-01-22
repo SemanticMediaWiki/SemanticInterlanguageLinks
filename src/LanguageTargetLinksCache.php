@@ -20,7 +20,7 @@ class LanguageTargetLinksCache {
 	 * Stable cache auxiliary identifier, to be changed in cases where the
 	 * cache key needs an auto-update
 	 */
-	const VERSION = '2015.01.17';
+	const VERSION = '20150122';
 
 	/**
 	 * @var Cache
@@ -31,6 +31,20 @@ class LanguageTargetLinksCache {
 	 * @var string|null
 	 */
 	private $cachePrefix = null;
+
+	/**
+	 * The current cache strategy is to store language by page into a blob value
+	 * to avoid high cache fragmentation and keep the cache lookup performant
+	 * on generated category/search lists.
+	 *
+	 * Whether the blob language-page strategy has a considerable performance draw
+	 * back on large lists of stored language-page pairs has yet to be determined
+	 * but it will be fairly easy to switch to a single language-page strategy
+	 * if necessary.
+	 *
+	 * @var string
+	 */
+	private $pageLanguageCacheStrategy = 'blob';
 
 	/**
 	 * @since 1.0
@@ -53,19 +67,21 @@ class LanguageTargetLinksCache {
 	/**
 	 * @since 1.0
 	 *
+	 * @param string $pageLanguageCacheStrategy
+	 */
+	public function setPageLanguageCacheStrategy( $pageLanguageCacheStrategy ) {
+		$this->pageLanguageCacheStrategy = $pageLanguageCacheStrategy;
+	}
+
+	/**
+	 * @since 1.0
+	 *
 	 * @param Title $title
 	 *
 	 * @param boolean|string
 	 */
 	public function getPageLanguageFromCache( Title $title ) {
-
-		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
-
-		$pageCacheKey = $this->getPageCacheKey(
-			$title->getPrefixedText()
-		);
-
-		return isset( $pageLanguageCacheBlob[ $pageCacheKey ] ) ? $pageLanguageCacheBlob[ $pageCacheKey ] : false;
+		return $this->fetch( $title );
 	}
 
 	/**
@@ -76,12 +92,13 @@ class LanguageTargetLinksCache {
 	 */
 	public function updatePageLanguageToCache( Title $title, $languageCode ) {
 
-		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
-		$pageLanguageCacheBlob[ $this->getPageCacheKey( $title->getPrefixedText() ) ] = $languageCode;
+		$normalizedLanguageTargetLink = array(
+			$languageCode => $title->getPrefixedText()
+		);
 
-		$this->cache->save(
-			$this->getPageLanguageCacheBlobKey(),
-			$pageLanguageCacheBlob
+		$this->save(
+			$title,
+			$normalizedLanguageTargetLink
 		);
 	}
 
@@ -137,15 +154,9 @@ class LanguageTargetLinksCache {
 			$normalizedLanguageTargetLinks
 		);
 
-		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
-
-		foreach ( $normalizedLanguageTargetLinks as $languageCode => $title ) {
-			$pageLanguageCacheBlob[ $this->getPageCacheKey( $title ) ] = $languageCode;
-		}
-
-		$this->cache->save(
-			$this->getPageLanguageCacheBlobKey(),
-			$pageLanguageCacheBlob
+		$this->save(
+			$interlanguageLink->getLinkReference(),
+			$normalizedLanguageTargetLinks
 		);
 	}
 
@@ -185,6 +196,52 @@ class LanguageTargetLinksCache {
 	 * @param Title $title
 	 */
 	public function deletePageLanguageForTargetFromCache( Title $title ) {
+		$this->delete( $title );
+	}
+
+	private function fetch( Title $title ) {
+
+		$pageCacheKey = $this->getPageCacheKey(
+			$title->getPrefixedText()
+		);
+
+		if ( $this->pageLanguageCacheStrategy !== 'blob' ) {
+			return $this->cache->fetch( $pageCacheKey );
+		}
+
+		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
+
+		return isset( $pageLanguageCacheBlob[ $pageCacheKey ] ) ? $pageLanguageCacheBlob[ $pageCacheKey ] : false;
+	}
+
+	private function save( Title $title, array $normalizedLanguageTargetLinks ) {
+
+		if ( $this->pageLanguageCacheStrategy !== 'blob' ) {
+
+			foreach ( $normalizedLanguageTargetLinks as $languageCode => $target ) {
+				$this->cache->save( $this->getPageCacheKey( $target ), $languageCode );
+			}
+
+			return;
+		}
+
+		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
+
+		foreach ( $normalizedLanguageTargetLinks as $languageCode => $target ) {
+			$pageLanguageCacheBlob[ $this->getPageCacheKey( $target ) ] = $languageCode;
+		}
+
+		$this->cache->save(
+			$this->getPageLanguageCacheBlobKey(),
+			$pageLanguageCacheBlob
+		);
+	}
+
+	private function delete( Title $title ) {
+
+		if ( $this->pageLanguageCacheStrategy !== 'blob' ) {
+			return $this->cache->delete( $this->getPageCacheKey( $title->getPrefixedText() )	);
+		}
 
 		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
 		unset( $pageLanguageCacheBlob[ $this->getPageCacheKey( $title->getPrefixedText() ) ] );
@@ -210,12 +267,12 @@ class LanguageTargetLinksCache {
 		return $this->getCachePrefix() . 's:' . md5( $key . self::VERSION );
 	}
 
-	private function getPageLanguageCacheBlobKey() {
-		return $this->getCachePrefix() . 'b:' . md5( 'blob' . self::VERSION );
+	private function getPageLanguageCacheBlobKey( $key = '' ) {
+		return $this->getCachePrefix() . 'b:' . md5( $key . self::VERSION );
 	}
 
 	private function getPageCacheKey( $key ) {
-		return $this->getCachePrefix() . 'p:' . md5( $key . self::VERSION );
+		return $this->getCachePrefix() . 'p:' . md5( $key . ( $this->pageLanguageCacheStrategy !== 'blob' ? self::VERSION : '' ) );
 	}
 
 	private function getCachePrefix() {

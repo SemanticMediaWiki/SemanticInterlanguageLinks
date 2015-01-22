@@ -52,6 +52,13 @@ class SiteLanguageLinksGenerator {
 			$target
 		);
 
+		// Always update the cache entry with an annotation directly made to avoid
+		// extra lookup during the view action
+		$this->interlanguageLinksLookup->updatePageLanguageToLookupCache(
+			$target,
+			$interlanguageLink->getLanguageCode()
+		);
+
 		$this->addLanguageLinksToOutput(
 			$this->sanitizeLanguageTargetLinks( $interlanguageLink, $languageTargetLinks )
 		);

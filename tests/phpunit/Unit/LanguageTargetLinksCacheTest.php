@@ -44,7 +44,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testRoundtrip() {
+	/**
+	 * @dataProvider pageLanguageCacheStrategyProvider
+	 */
+	public function testRoundtrip( $pageLanguageCacheStrategy ) {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -54,7 +57,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$instance = new LanguageTargetLinksCache( $this->cache );
-		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
+		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
+
+		$instance->saveLanguageTargetLinksToCache(
+			$interlanguageLink,
+			$languageTargetLinks
+		);
 
 		$this->assertEquals(
 			'bo',
@@ -76,7 +84,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testTryToGetLanguageTargetLinksForUnknownLanguageCode() {
+	/**
+	 * @dataProvider pageLanguageCacheStrategyProvider
+	 */
+	public function testTryToGetLanguageTargetLinksForUnknownLanguageCode( $pageLanguageCacheStrategy ) {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -85,14 +96,22 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$instance = new LanguageTargetLinksCache( $this->cache );
-		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
+		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
+
+		$instance->saveLanguageTargetLinksToCache(
+			$interlanguageLink,
+			$languageTargetLinks
+		);
 
 		$this->assertFalse(
 			$instance->getLanguageTargetLinksFromCache( $interlanguageLink )
 		);
 	}
 
-	public function testTryToGetLanguageTargetLinksForNullLanguageCode() {
+	/**
+	 * @dataProvider pageLanguageCacheStrategyProvider
+	 */
+	public function testTryToGetLanguageTargetLinksForNullLanguageCode( $pageLanguageCacheStrategy ) {
 
 		$interlanguageLink = new InterlanguageLink( null, 'Foo' );
 
@@ -101,7 +120,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$instance = new LanguageTargetLinksCache( $this->cache );
-		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
+		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
+
+		$instance->saveLanguageTargetLinksToCache(
+			$interlanguageLink,
+			$languageTargetLinks
+		);
 
 		$this->assertEquals(
 			$languageTargetLinks,
@@ -109,20 +133,31 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testTryToGetLanguageTargetLinksFromEmptyLinksCache() {
+	/**
+	 * @dataProvider pageLanguageCacheStrategyProvider
+	 */
+	public function testTryToGetLanguageTargetLinksFromEmptyLinksCache( $pageLanguageCacheStrategy ) {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 		$languageTargetLinks = array();
 
 		$instance = new LanguageTargetLinksCache( $this->cache );
-		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
+		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
+
+		$instance->saveLanguageTargetLinksToCache(
+			$interlanguageLink,
+			$languageTargetLinks
+		);
 
 		$this->assertFalse(
 			$instance->getLanguageTargetLinksFromCache( $interlanguageLink )
 		);
 	}
 
-	public function testDeleteLanguageTargetLinks() {
+	/**
+	 * @dataProvider pageLanguageCacheStrategyProvider
+	 */
+	public function testDeleteLanguageTargetLinks( $pageLanguageCacheStrategy ) {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -132,7 +167,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$instance = new LanguageTargetLinksCache( $this->cache );
-		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
+		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
+
+		$instance->saveLanguageTargetLinksToCache(
+			$interlanguageLink,
+			$languageTargetLinks
+		);
 
 		$linkReferences = array(
 			new DIWikiPage( 'Foo', NS_MAIN )
@@ -145,18 +185,28 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testDeletePageLanguageForMatchedTarget() {
+	/**
+	 * @dataProvider pageLanguageCacheStrategyProvider
+	 */
+	public function testDeletePageLanguageForMatchedTarget( $pageLanguageCacheStrategy ) {
+
+		$helpNS = $GLOBALS['wgContLang']->getNsText( NS_HELP );
 
 		$title = Title::newFromText( 'Bar', NS_HELP );
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$languageTargetLinks = array(
-			'bo' => 'Help:Bar',
+			'bo' => "$helpNS:Bar",
 			'en' => Title::newFromText( 'Foo' )
 		);
 
 		$instance = new LanguageTargetLinksCache( $this->cache );
-		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
+		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
+
+		$instance->saveLanguageTargetLinksToCache(
+			$interlanguageLink,
+			$languageTargetLinks
+		);
 
 		$this->assertEquals(
 			'bo',
@@ -175,7 +225,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testNoLanguageTargetLinksDeleteForNonMatchedTarget() {
+	/**
+	 * @dataProvider pageLanguageCacheStrategyProvider
+	 */
+	public function testNoLanguageTargetLinksDeleteForNonMatchedTarget( $pageLanguageCacheStrategy ) {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -185,7 +238,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$instance = new LanguageTargetLinksCache( $this->cache );
-		$instance->saveLanguageTargetLinksToCache( $interlanguageLink, $languageTargetLinks );
+		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
+
+		$instance->saveLanguageTargetLinksToCache(
+			$interlanguageLink,
+			$languageTargetLinks
+		);
 
 		$linkReferences = array(
 			new DIWikiPage( 'canNotBeMatched', NS_MAIN ),
@@ -201,25 +259,47 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testUpdatePageLanguageToCache() {
+	/**
+	 * @dataProvider pageLanguageCacheStrategyProvider
+	 */
+	public function testUpdatePageLanguageToCache( $pageLanguageCacheStrategy ) {
 
-		$title = Title::newFromText( 'Bar', NS_HELP );
+		// If the VERSION changed then the id's need to be changed as well
+		if ( $pageLanguageCacheStrategy !== 'blob' ) {
+			$id = 'foo:p:';
+			$data = 'bo';
+		} else{
+			$id = 'foo:b:';
+			$data = array( 'foo:p:ddc35f88fa71b6ef142ae61f35364653' => 'bo' );
+		}
+
+		$title = Title::newFromText( 'Bar', NS_MAIN );
 
 		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
-		// If the VERSION changed then the id has to be changed as well
 		$cache->expects( $this->once() )
 			->method( 'save' )
 			->with(
-				$this->anything(),
-				$this->equalTo( array( 'foo:p:50a90c1c2d8e371330b1230d48ba940b' => 'bo' ) ) );
+				$this->stringContains( $id ) ,
+				$this->equalTo( $data ) );
 
 		$instance = new LanguageTargetLinksCache( $cache );
+		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 		$instance->setCachePrefix( 'foo:' );
 
 		$instance->updatePageLanguageToCache( $title, 'bo' );
+	}
+
+	public function pageLanguageCacheStrategyProvider() {
+
+		$provider = array(
+			array( 'blob' ),
+			array( 'non-blob' )
+		);
+
+		return $provider;
 	}
 
 }

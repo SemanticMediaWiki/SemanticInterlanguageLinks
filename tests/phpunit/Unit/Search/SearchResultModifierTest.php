@@ -46,6 +46,11 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 			'sil',
 			$profiles
 		);
+
+		$this->assertInternalType(
+			'array',
+			$profiles['sil']['namespaces']
+		);
 	}
 
 	public function testAddSearchFormForSILProfile() {
@@ -190,6 +195,20 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertTrue(
 			$instance->applyLanguageFilterToResultMatches( $request, $titleMatches, $textMatches )
+		);
+	}
+
+	public function testCreateHtmlLanguageFilterSelector() {
+
+		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$instance = new SearchResultModifier( $languageResultMatchFinder );
+
+		$this->assertInternalType(
+			'string',
+			$instance->createHtmlLanguageFilterSelector( 'en' )
 		);
 	}
 
