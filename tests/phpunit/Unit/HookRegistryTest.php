@@ -186,6 +186,14 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			'SpecialSearchResults',
 			array( $search, &$titleMatches, &$textMatches )
 		);
+
+		$showSections = array();
+
+		$this->assertHookIsExcutable(
+			$wgHooks,
+			'SpecialSearchPowerBox',
+			array( &$showSections, '', array() )
+		);
 	}
 
 	private function assertHookIsExcutable( $wgHooks, $hookName, $arguments ) {

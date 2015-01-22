@@ -130,6 +130,33 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testAddLanguageFilterToPowerBox() {
+
+		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$instance = new SearchResultModifier( $languageResultMatchFinder );
+
+		$request = $this->getMockBuilder( '\WebRequest' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$request->expects( $this->once() )
+			->method( 'getVal' )
+			->with( $this->equalTo( 'languagefilter' ) )
+			->will( $this->returnValue( 'en' ) );
+
+		$this->assertTrue(
+			$instance->addLanguageFilterToPowerBox( $request, $showSections )
+		);
+
+		$this->assertArrayHasKey(
+			'sil-languagefilter',
+			$showSections
+		);
+	}
+
 	public function testNoPostFilteringForNonSILProfile() {
 
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
@@ -155,7 +182,10 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testTryPostFilteringForSILProfileByValidLanguageCode() {
+	/**
+	 * @dataProvider validProfileProvider
+	 */
+	public function testTryPostFilteringByValidProfileForValidLanguageCode( $profile ) {
 
 		$titleMatches = $this->getMockBuilder( '\SearchResultSet' )
 			->disableOriginalConstructor()
@@ -186,7 +216,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		$request->expects( $this->at( 0 ) )
 			->method( 'getVal' )
 			->with( $this->equalTo( 'profile' ) )
-			->will( $this->returnValue( 'sil' ) );
+			->will( $this->returnValue( $profile ) );
 
 		$request->expects( $this->at( 1 ) )
 			->method( 'getVal' )
@@ -252,6 +282,16 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 			array( '' ),
 			array( false ),
 			array( '-' )
+		);
+
+		return $provider;
+	}
+
+	public function validProfileProvider() {
+
+		$provider = array(
+			array( 'sil' ),
+			array( 'advanced' )
 		);
 
 		return $provider;

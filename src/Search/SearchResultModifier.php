@@ -70,7 +70,6 @@ class SearchResultModifier {
 			$hidden .= Html::hidden( $key, $value );
 		}
 
-		// $code = $search->getContext()->getLanguage()->getCode();
 		$languagefilter = $search->getContext()->getRequest()->getVal( 'languagefilter' );
 
 		if ( $languagefilter !== '' && $languagefilter !== null ) {
@@ -84,6 +83,23 @@ class SearchResultModifier {
 			Html::closeElement( 'fieldset' );
 
 		return false;
+	}
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param WebRequest $request
+	 * @param array &$showSections
+	 *
+	 * @return boolean
+	 */
+	public function addLanguageFilterToPowerBox( $request, &$showSections ) {
+
+		$showSections['sil-languagefilter'] = $this->createHtmlLanguageFilterSelector(
+			$request->getVal( 'languagefilter' )
+		);
+
+		return true;
 	}
 
 	/**
@@ -128,7 +144,7 @@ class SearchResultModifier {
 	 */
 	public function applyLanguageFilterToResultMatches( $request, &$titleMatches, &$textMatches ) {
 
-		if ( $request->getVal( 'profile' ) !== 'sil' ) {
+		if ( !in_array( $request->getVal( 'profile' ), array( 'sil', 'advanced' ) ) ) {
 			return false;
 		}
 
