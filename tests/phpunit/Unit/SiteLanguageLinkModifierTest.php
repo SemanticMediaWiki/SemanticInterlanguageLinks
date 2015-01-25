@@ -64,7 +64,10 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testModifyLanguageLinkForInvalidSilEntry() {
+	/**
+	 * @dataProvider invalidLanguageLinkProvider
+	 */
+	public function testModifyLanguageLinkForInvalidSilEntry( $languageLink, $expected ) {
 
 		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
@@ -73,8 +76,6 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 		$titleToTargetLink = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
-
-		$languageLink = array( 'text' => 'no:sil:entry');
 
 		$instance = new SiteLanguageLinkModifier(
 			$titleForExternalLanguageLink,
@@ -86,12 +87,15 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertEquals(
-			array( 'text' => 'no:sil:entry'),
+			$expected,
 			$languageLink
 		);
 	}
 
-	public function testModifyLanguageLinkForValidSilEntry() {
+	/**
+	 * @dataProvider validLanguageLinkProvider
+	 */
+	public function testModifyLanguageLinkForValidSilEntry( $languageLink, $expected ) {
 
 		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
@@ -100,8 +104,6 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 		$titleToTargetLink = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
-
-		$languageLink = array( 'text' => 'sil:en:Foo' );
 
 		$instance = new SiteLanguageLinkModifier(
 			$titleForExternalLanguageLink,
@@ -113,9 +115,48 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertContains(
-			'English',
+			$expected,
 			$languageLink
 		);
+	}
+
+	public function invalidLanguageLinkProvider() {
+
+		$provider = array();
+
+		$provider[] = array(
+			array( 'text' => 'no:sil:entry' ),
+			array( 'text' => 'no:sil:entry' )
+		);
+
+		$provider[] = array(
+			array( 'text' => 'Foo' ),
+			array( 'text' => 'Foo' )
+		);
+
+		return $provider;
+	}
+
+	public function validLanguageLinkProvider() {
+
+		$provider = array();
+
+		$provider[] = array(
+			array( 'text' => 'sil:en:Foo' ),
+			'English'
+		);
+
+		$provider[] = array(
+			array( 'text' => 'sil:en:vi:Foo' ),
+			'English'
+		);
+
+		$provider[] = array(
+			array( 'text' => 'sil:ja:ja:ノート:Foo' ),
+			'日本語'
+		);
+
+		return $provider;
 	}
 
 }

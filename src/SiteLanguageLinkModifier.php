@@ -43,7 +43,7 @@ class SiteLanguageLinkModifier {
 	 */
 	public function modifyLanguageLink( &$languageLink ) {
 
-		if ( !isset( $languageLink['text'] ) ) {
+		if ( !isset( $languageLink['text'] ) || strpos( $languageLink['text'], 'sil:' ) === false ) {
 			return false;
 		}
 
