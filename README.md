@@ -79,9 +79,9 @@ The page content language is set from the `INTERLANGUAGELINK` created annotation
 
 `Page content language`, `Interlanguage reference`, and `Has interlanguage links` are deployed as predefined properties which can be used to create customized `#ask` queries.
 
-SIL provides a `by Language` `Special:Search` filtering option to match interlanguage property annotations for pre-selected articles. If the `by Language` profile is used together with a specific language filter then any pre-selected article (provided by the `SearchEngine`) that does not match the language will be excluded from the result list.
+SIL provides a `by Language` `Special:Search` filtering option to match interlanguage property annotations for pre-selected pages. If the `by Language` profile (or the advanced profile) is used together with a specific language filter then any pre-selected article (provided by the `SearchEngine`) that does not match the language will be excluded from the result list.
 
-A category page will only display pages that match the annotated category page content language property. In cases where no language has been assigned (or filtering has been disabled), the category is to display all pages without any filtering.
+If a category page contains a `Page content language` annotation, SIL will filter and display only pages that match that content language. In cases where no language has been assigned (or filtering has been disabled), the category page will display all pages without changes or filtering.
 
 ### Configuration
 
