@@ -90,7 +90,7 @@ class InterlanguageListParserFunction {
 
 			$wikitext = '';
 
-			$wikitext .= "|list-pos=" . $i++;
+			$wikitext .= "|#=" . $i++;
 			$wikitext .= "|target-link=" . $this->modifyTargetLink( $targetLink );
 			$wikitext .= "|lang-code=" . wfBCP47( $languageCode );
 			$wikitext .= "|lang-name=" . Language::fetchLanguageName( $languageCode );

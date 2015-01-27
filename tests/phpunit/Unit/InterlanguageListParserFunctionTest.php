@@ -133,7 +133,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$provider[] = array(
 			array( 'en' => 'test' ),
 			'{{FakeTemplate' .
-			'|list-pos=0' .
+			'|#=0' .
 			'|target-link=Test' .
 			'|lang-code=en' .
 			'|lang-name=English}}'
@@ -142,7 +142,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$provider[] = array(
 			array( 'ja' => \Title::newFromText( 'テスト' ) ),
 			'{{FakeTemplate' .
-			'|list-pos=0' .
+			'|#=0' .
 			'|target-link=テスト' .
 			'|lang-code=ja' .
 			'|lang-name=日本語}}'
@@ -151,7 +151,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$provider[] = array(
 			array( 'zh-hans' => \Title::newFromText( '分类：汉字' ) ),
 			'{{FakeTemplate' .
-			'|list-pos=0' .
+			'|#=0' .
 			'|target-link=分类：汉字' .
 			'|lang-code=zh-Hans' .
 			'|lang-name=中文（简体）‎}}'
@@ -162,7 +162,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$provider[] = array(
 			array( 'zh-hans' => \Title::newFromText( 'Category:汉字' ) ),
 			'{{FakeTemplate' .
-			'|list-pos=0' .
+			'|#=0' .
 			"|target-link=:$categoryNS:汉字" .
 			'|lang-code=zh-Hans' .
 			'|lang-name=中文（简体）‎}}'
@@ -171,7 +171,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$provider[] = array(
 			array( 'de' => 'Category:Foo' ),
 			'{{FakeTemplate' .
-			'|list-pos=0' .
+			'|#=0' .
 			"|target-link=:$categoryNS:Foo" .
 			'|lang-code=de' .
 			'|lang-name=Deutsch}}'

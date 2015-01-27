@@ -44,7 +44,7 @@ The parser function `{{INTERLANGUAGELIST: interlanguage reference | template }}`
 - `target-link` being the target link
 - `lang-code` the language code
 - `lang-name` representing the localized language name for the language code
-- `list-pos` declaring the list position
+- `#` contains the list position
 
 SIL expects that only one specific language is asssigned to a content page and if multiple assignments are made an error notice will be displayed.
 
