@@ -56,8 +56,8 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 			'propertyCount' => 3,
 			'properties' => array(
 				DIProperty::newFromUserLabel( '_SKEY' ),
-				DIProperty::newFromUserLabel( SIL_PROP_REF ),
-				DIProperty::newFromUserLabel( SIL_PROP_LANG )
+				DIProperty::newFromUserLabel( SIL_PROP_ILL_REF ),
+				DIProperty::newFromUserLabel( SIL_PROP_ILL_LANG )
 			),
 			'propertyValues' => array( 'en', 'Lorem ipsum', __METHOD__ )
 		);
@@ -155,10 +155,9 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 			->createPage( $targetJa )
 			->doEdit( '{{INTERLANGUAGELINK:ja|Lorem ipsum}}' );
 
-		// Use the alias `Has interlanguage links`
 		$this->pageCreator
 			->createPage( $subject )
-			->doEdit( '{{#ask: [[Has interlanguage links.Page content language::en]] }}' );
+			->doEdit( '{{#ask: [[Has interlanguage link.Page content language::en]] }}' );
 
 		$text = $this->pageCreator->getEditInfo()->output->getText();
 

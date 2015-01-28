@@ -30,7 +30,7 @@ class ParserFunctionFactory {
 				$parser->getOutput()
 			);
 
-			$interlanguageLinkAnnotator = new InterlanguageLinkAnnotator( $parserData );
+			$languageLinkAnnotator = new LanguageLinkAnnotator( $parserData );
 
 			$siteLanguageLinksGenerator = new SiteLanguageLinksGenerator(
 				$parser->getOutput(),
@@ -39,7 +39,7 @@ class ParserFunctionFactory {
 
 			$interlanguageLinkParserFunction = new InterlanguageLinkParserFunction(
 				$parser->getTitle(),
-				$interlanguageLinkAnnotator,
+				$languageLinkAnnotator,
 				$siteLanguageLinksGenerator
 			);
 

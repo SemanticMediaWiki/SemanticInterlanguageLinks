@@ -11,7 +11,7 @@ use SMW\Subobject;
  *
  * @author mwjames
  */
-class InterlanguageLinkAnnotator {
+class LanguageLinkAnnotator {
 
 	/**
 	 * @var ParserData
@@ -32,7 +32,7 @@ class InterlanguageLinkAnnotator {
 	 *
 	 * @param InterlanguageLink $interlanguageLink
 	 */
-	public function addAnnotationFor( InterlanguageLink $interlanguageLink ) {
+	public function addAnnotationForInterlanguageLink( InterlanguageLink $interlanguageLink ) {
 
 		$subobject = new Subobject( $this->parserData->getTitle() );
 		$subobject->setEmptyContainerForId( $interlanguageLink->getContainerId() );

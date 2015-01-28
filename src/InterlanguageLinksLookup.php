@@ -166,7 +166,7 @@ class InterlanguageLinksLookup {
 		$linkReferences = array();
 
 		try{
-			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
+			$property = new DIProperty( PropertyRegistry::SIL_ILL_CONTAINER );
 		} catch ( \Exception $e ) {
 			return $linkReferences;
 		}
@@ -184,7 +184,7 @@ class InterlanguageLinksLookup {
 
 			$values = $this->store->getPropertyValues(
 				$containerSubject,
-				new DIProperty( PropertyRegistry::SIL_REF )
+				new DIProperty( PropertyRegistry::SIL_ILL_REF )
 			);
 
 			$linkReferences = array_merge( $linkReferences, $values );
@@ -251,7 +251,7 @@ class InterlanguageLinksLookup {
 	private function lookupLastPageLanguageForTarget( Title $title ) {
 
 		try{
-			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
+			$property = new DIProperty( PropertyRegistry::SIL_ILL_CONTAINER );
 		} catch ( \Exception $e ) {
 			return self::NO_LANG;
 		}
@@ -269,7 +269,7 @@ class InterlanguageLinksLookup {
 
 		$propertyValues = $this->store->getPropertyValues(
 			$containerSubject,
-			new DIProperty( PropertyRegistry::SIL_LANG )
+			new DIProperty( PropertyRegistry::SIL_ILL_LANG )
 		);
 
 		$languageCodeValue = end( $propertyValues );

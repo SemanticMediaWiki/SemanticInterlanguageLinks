@@ -2,11 +2,12 @@
 
 namespace SIL\Tests;
 
-use SIL\InterlanguageLinkAnnotator;
+use SIL\LanguageLinkAnnotator;
 use SIL\InterlanguageLink;
+use SIL\PropertyRegistry;
 
 /**
- * @covers \SIL\InterlanguageLinkAnnotator
+ * @covers \SIL\LanguageLinkAnnotator
  *
  * @group semantic-interlanguage-links
  *
@@ -15,7 +16,14 @@ use SIL\InterlanguageLink;
  *
  * @author mwjames
  */
-class InterlanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
+class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
+
+	protected function setUp() {
+		parent::setUp();
+
+		$propertyRegistry = new PropertyRegistry();
+		$propertyRegistry->register();
+	}
 
 	public function testCanConstruct() {
 
@@ -24,8 +32,8 @@ class InterlanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$this->assertInstanceOf(
-			'\SIL\InterlanguageLinkAnnotator',
-			new InterlanguageLinkAnnotator( $parserData )
+			'\SIL\LanguageLinkAnnotator',
+			new LanguageLinkAnnotator( $parserData )
 		);
 	}
 
@@ -53,9 +61,9 @@ class InterlanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 		$parserData->expects( $this->once() )
 			->method( 'setSemanticDataStateToParserOutputProperty' );
 
-		$instance = new InterlanguageLinkAnnotator( $parserData );
+		$instance = new LanguageLinkAnnotator( $parserData );
 
-		$instance->addAnnotationFor(
+		$instance->addAnnotationForInterlanguageLink(
 			new InterlanguageLink( 'en', 'bar' )
 		);
 	}

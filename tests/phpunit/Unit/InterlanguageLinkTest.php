@@ -52,7 +52,7 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertEquals(
-			PropertyRegistry::SIL_LANG,
+			PropertyRegistry::SIL_ILL_LANG,
 			$instance->newLanguageDataValue()->getProperty()->getKey()
 		);
 
@@ -62,7 +62,7 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertEquals(
-			PropertyRegistry::SIL_REF,
+			PropertyRegistry::SIL_ILL_REF,
 			$instance->newLinkReferenceDataValue()->getProperty()->getKey()
 		);
 
@@ -72,7 +72,7 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertEquals(
-			PropertyRegistry::SIL_CONTAINER,
+			PropertyRegistry::SIL_ILL_CONTAINER,
 			$instance->newInterlanguageLinkContainerProperty()->getKey()
 		);
 	}

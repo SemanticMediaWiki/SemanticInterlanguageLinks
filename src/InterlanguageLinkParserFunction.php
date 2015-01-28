@@ -21,9 +21,9 @@ class InterlanguageLinkParserFunction {
 	private $title;
 
 	/**
-	 * @var InterlanguageLinkAnnotator
+	 * @var LanguageLinkAnnotator
 	 */
-	private $interlanguageLinkAnnotator;
+	private $languageLinkAnnotator;
 
 	/**
 	 * @var SiteLanguageLinksGenerator
@@ -47,12 +47,12 @@ class InterlanguageLinkParserFunction {
 	 * @since 1.0
 	 *
 	 * @param Title $title
-	 * @param InterlanguageLinkAnnotator $interlanguageLinkAnnotator
+	 * @param LanguageLinkAnnotator $languageLinkAnnotator
 	 * @param SiteLanguageLinksGenerator $siteLanguageLinksGenerator
 	 */
-	public function __construct( Title $title, InterlanguageLinkAnnotator $interlanguageLinkAnnotator, SiteLanguageLinksGenerator $siteLanguageLinksGenerator ) {
+	public function __construct( Title $title, LanguageLinkAnnotator $languageLinkAnnotator, SiteLanguageLinksGenerator $siteLanguageLinksGenerator ) {
 		$this->title = $title;
-		$this->interlanguageLinkAnnotator = $interlanguageLinkAnnotator;
+		$this->languageLinkAnnotator = $languageLinkAnnotator;
 		$this->siteLanguageLinksGenerator = $siteLanguageLinksGenerator;
 	}
 
@@ -133,7 +133,9 @@ class InterlanguageLinkParserFunction {
 			);
 		}
 
-		$this->interlanguageLinkAnnotator->addAnnotationFor( $interlanguageLink );
+		$this->languageLinkAnnotator->addAnnotationForInterlanguageLink(
+			$interlanguageLink
+		);
 
 		$this->getInMemoryParserTracker()->save(
 			$this->title->getPrefixedDBKey(),

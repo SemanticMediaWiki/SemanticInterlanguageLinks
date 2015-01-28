@@ -32,15 +32,15 @@ class PropertyRegistryTest extends \PHPUnit_Framework_TestCase {
 		$instance->register();
 
 		$this->assertNotEmpty(
-			DIProperty::findPropertyLabel( PropertyRegistry::SIL_LANG )
+			DIProperty::findPropertyLabel( PropertyRegistry::SIL_ILL_LANG )
 		);
 
 		$this->assertNotEmpty(
-			DIProperty::findPropertyLabel( PropertyRegistry::SIL_REF )
+			DIProperty::findPropertyLabel( PropertyRegistry::SIL_ILL_REF )
 		);
 
 		$this->assertNotEmpty(
-			DIProperty::findPropertyLabel( PropertyRegistry::SIL_CONTAINER )
+			DIProperty::findPropertyLabel( PropertyRegistry::SIL_ILL_CONTAINER )
 		);
 	}
 

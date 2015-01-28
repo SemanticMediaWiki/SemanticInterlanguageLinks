@@ -60,7 +60,8 @@ class SiteLanguageLinksGenerator {
 		);
 
 		$this->addLanguageLinksToOutput(
-			$this->sanitizeLanguageTargetLinks( $interlanguageLink, $languageTargetLinks )
+			$interlanguageLink,
+			$languageTargetLinks
 		);
 
 		$this->doPurgeParserCache( $languageTargetLinks );
@@ -107,7 +108,12 @@ class SiteLanguageLinksGenerator {
 	 * `sil:` is used as internal code to distingish any language link that
 	 * was not added by SIL
 	 */
-	private function addLanguageLinksToOutput( array $languageTargetLinks ) {
+	private function addLanguageLinksToOutput( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
+
+		$languageTargetLinks = $this->sanitizeLanguageTargetLinks(
+			$interlanguageLink,
+			$languageTargetLinks
+		);
 
 		foreach ( $languageTargetLinks as $languageCode => $target ) {
 
