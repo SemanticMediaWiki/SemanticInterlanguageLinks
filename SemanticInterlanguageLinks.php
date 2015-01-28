@@ -39,7 +39,7 @@ call_user_func( function () {
 	$GLOBALS['wgExtensionMessagesFiles']['semanticinterlanguagelinks-magic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
 
 	// Declare property Id constants
-	define( 'SIL_PROP_CONTAINER', 'Has interlanguage links' );
+	define( 'SIL_PROP_CONTAINER', 'Has interlanguage link' );
 	define( 'SIL_PROP_REF', 'Interlanguage reference' );
 	define( 'SIL_PROP_LANG', 'Page content language' );
 

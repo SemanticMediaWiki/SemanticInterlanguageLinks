@@ -108,4 +108,71 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 		$this->subjects = array( $template, $subject, $targetEn, $targetJa );
 	}
 
+	public function testQuerySubjectsForWildcardPageContentLanguage() {
+
+		$subject  = Title::newFromText( 'InterlanguageLinkByAsk' );
+		$targetEn = Title::newFromText( 'InterlanguageLinkParserTargetEn' );
+		$targetJa = Title::newFromText( 'InterlanguageLinkParserTargetJa' );
+
+		$this->pageCreator
+			->createPage( $targetEn )
+			->doEdit( '{{INTERLANGUAGELINK:en|Lorem ipsum}}' );
+
+		$this->pageCreator
+			->createPage( $targetJa )
+			->doEdit( '{{INTERLANGUAGELINK:ja|Lorem ipsum}}' );
+
+		$this->pageCreator
+			->createPage( $subject )
+			->doEdit( '{{#ask: [[Has interlanguage link.Page content language::+]] }}' );
+
+		$text = $this->pageCreator->getEditInfo()->output->getText();
+
+		$this->assertContains(
+			'title="InterlanguageLinkParserTargetEn">InterlanguageLinkParserTargetEn</a>',
+			$text
+		);
+
+		$this->assertContains(
+			'title="InterlanguageLinkParserTargetJa">InterlanguageLinkParserTargetJa</a>',
+			$text
+		);
+
+		$this->subjects = array( $subject, $targetEn, $targetJa );
+	}
+
+	public function testQuerySubjectsForSpecificPageContentLanguage() {
+
+		$subject  = Title::newFromText( 'InterlanguageLinkByLanguage' );
+		$targetEn = Title::newFromText( 'InterlanguageLinkByLanguageParserTargetEn' );
+		$targetJa = Title::newFromText( 'InterlanguageLinkByLanguageParserTargetJa' );
+
+		$this->pageCreator
+			->createPage( $targetEn )
+			->doEdit( '{{INTERLANGUAGELINK:en|Lorem ipsum}}' );
+
+		$this->pageCreator
+			->createPage( $targetJa )
+			->doEdit( '{{INTERLANGUAGELINK:ja|Lorem ipsum}}' );
+
+		// Use the alias `Has interlanguage links`
+		$this->pageCreator
+			->createPage( $subject )
+			->doEdit( '{{#ask: [[Has interlanguage links.Page content language::en]] }}' );
+
+		$text = $this->pageCreator->getEditInfo()->output->getText();
+
+		$this->assertContains(
+			'title="InterlanguageLinkByLanguageParserTargetEn">InterlanguageLinkByLanguageParserTargetEn</a>',
+			$text
+		);
+
+		$this->assertNotContains(
+			'title="InterlanguageLinkByLanguageParserTargetJa">InterlanguageLinkByLanguageParserTargetJa</a>',
+			$text
+		);
+
+		$this->subjects = array( $subject, $targetEn, $targetJa );
+	}
+
 }

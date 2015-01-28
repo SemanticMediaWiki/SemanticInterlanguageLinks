@@ -77,7 +77,7 @@ A [video](https://vimeo.com/115871518) demonstrates "How SIL works" without much
 
 The page content language is set from the `INTERLANGUAGELINK` created annotation together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
 
-`Page content language`, `Interlanguage reference`, and `Has interlanguage links` are deployed as predefined properties which can be used to create customized `#ask` queries.
+`Page content language`, `Interlanguage reference`, and `Has interlanguage link` are deployed as predefined properties which can be used to create customized `#ask` queries (filter by `Has interlanguage link.Page content language`) .
 
 SIL provides a `by Language` `Special:Search` filtering option to match interlanguage property annotations for pre-selected pages. If the `by Language` profile (or the advanced profile) is used together with a specific language filter then any pre-selected article (provided by the `SearchEngine`) that does not match the language will be excluded from the result list.
 
