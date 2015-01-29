@@ -30,19 +30,19 @@ class CacheKeyGeneratorTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertNotSame(
 			$instance
-				->setAuxiliaryVersionModifier( 'foo' )
+				->setAuxiliaryKeyModifier( 'foo' )
 				->getSiteCacheKey( 'foo' ),
 			$instance
-				->setAuxiliaryVersionModifier( 'bar' )
+				->setAuxiliaryKeyModifier( 'bar' )
 				->getSiteCacheKey( 'foo' )
 		);
 
 		$this->assertSame(
 			$instance
-				->setAuxiliaryVersionModifier( 'bar' )
+				->setAuxiliaryKeyModifier( 'bar' )
 				->getSiteCacheKey( 'foo' ),
 			$instance
-				->setAuxiliaryVersionModifier( 'bar' )
+				->setAuxiliaryKeyModifier( 'bar' )
 				->getSiteCacheKey( 'foo' )
 		);
 	}
@@ -53,10 +53,10 @@ class CacheKeyGeneratorTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertNotSame(
 			$instance
-				->setAuxiliaryVersionModifier( 'foo' )
+				->setAuxiliaryKeyModifier( 'foo' )
 				->getPageLanguageCacheBlobKey( 'foo' ),
 			$instance
-				->setAuxiliaryVersionModifier( 'bar' )
+				->setAuxiliaryKeyModifier( 'bar' )
 				->getPageLanguageCacheBlobKey( 'foo' )
 		);
 	}
@@ -67,19 +67,19 @@ class CacheKeyGeneratorTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertNotSame(
 			$instance
-				->setAuxiliaryVersionModifier( 'foo' )
+				->setAuxiliaryKeyModifier( 'foo' )
 				->getPageCacheKey( 'foo', false ),
 			$instance
-				->setAuxiliaryVersionModifier( 'bar' )
+				->setAuxiliaryKeyModifier( 'bar' )
 				->getPageCacheKey( 'foo', false )
 		);
 
 		$this->assertSame(
 			$instance
-				->setAuxiliaryVersionModifier( 'foo' )
+				->setAuxiliaryKeyModifier( 'foo' )
 				->getPageCacheKey( 'foo', true ),
 			$instance
-				->setAuxiliaryVersionModifier( 'bar' )
+				->setAuxiliaryKeyModifier( 'bar' )
 				->getPageCacheKey( 'foo', true )
 		);
 	}

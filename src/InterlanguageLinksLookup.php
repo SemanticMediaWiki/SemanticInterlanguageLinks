@@ -18,6 +18,16 @@ use SMWDIBlob as DIBlob;
 use Title;
 
 /**
+ * This class is the most critical component of SIL as it combines the store
+ * interface with the cache interface.
+ *
+ * Any request either for a target link or language code lookup are channelled
+ * through this class in order to make a decision whether to use an existing
+ * cache entry or to make a "fresh" query request to the storage back-end.
+ *
+ * No other component of SIL should communicate to the store directly and let
+ * the lookup class to handle those requests.
+ *
  * @license GNU GPL v2+
  * @since 1.0
  *

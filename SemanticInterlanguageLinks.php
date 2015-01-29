@@ -48,7 +48,7 @@ call_user_func( function () {
 	define( 'SIL_PROP_IWL_LANG', 'Interwiki language' );
 
 	$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;
-	$GLOBALS['egSILUseCategoryFilterByLanguage'] = true;
+	$GLOBALS['egSILEnabledCategoryFilterByLanguage'] = true;
 
 	// Finalize extension setup
 	$GLOBALS['wgExtensionFunctions'][] = function() {

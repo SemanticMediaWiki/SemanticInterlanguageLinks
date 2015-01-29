@@ -11,10 +11,10 @@ namespace SIL;
 class CacheKeyGenerator {
 
 	/**
-	 * Stable cache auxiliary identifier, to be changed in cases where the
-	 * cache key needs an auto-update
+	 * External (hence auxiliary) cache key modifier that can be used to alter
+	 * existing keys
 	 */
-	private $auxiliaryVersionModifier = '';
+	private $auxiliaryKeyModifier = '';
 
 	/**
 	 * @var string|null
@@ -36,12 +36,12 @@ class CacheKeyGenerator {
 	/**
 	 * @since 1.0
 	 *
-	 * @param string $auxiliaryVersionModifier
+	 * @param string $auxiliaryKeyModifier
 	 *
 	 * @return CacheKeyGenerator
 	 */
-	public function setAuxiliaryVersionModifier( $auxiliaryVersionModifier ) {
-		$this->auxiliaryVersionModifier = $auxiliaryVersionModifier;
+	public function setAuxiliaryKeyModifier( $auxiliaryKeyModifier ) {
+		$this->auxiliaryKeyModifier = $auxiliaryKeyModifier;
 		return $this;
 	}
 
@@ -53,7 +53,7 @@ class CacheKeyGenerator {
 	 * @return  string
 	 */
 	public function getSiteCacheKey( $key ) {
-		return $this->getCachePrefix() . 's:' . md5( $key . $this->auxiliaryVersionModifier );
+		return $this->getCachePrefix() . 's:' . md5( $key . $this->auxiliaryKeyModifier );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class CacheKeyGenerator {
 	 * @return  string
 	 */
 	public function getPageLanguageCacheBlobKey( $key = '' ) {
-		return $this->getCachePrefix() . 'b:' . md5( $key . $this->auxiliaryVersionModifier );
+		return $this->getCachePrefix() . 'b:' . md5( $key . $this->auxiliaryKeyModifier );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class CacheKeyGenerator {
 	 * @return  string
 	 */
 	public function getPageCacheKey( $key, $stable = true ) {
-		return $this->getCachePrefix() . 'p:' . md5( $key . ( $stable ? '' : $this->auxiliaryVersionModifier ) );
+		return $this->getCachePrefix() . 'p:' . md5( $key . ( $stable ? '' : $this->auxiliaryKeyModifier ) );
 	}
 
 	/**

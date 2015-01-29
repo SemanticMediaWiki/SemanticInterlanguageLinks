@@ -9,6 +9,14 @@ use SMW\DIWikiPage;
 use Title;
 
 /**
+ * To make a page view responsive and avoid repetitive or exhausting query
+ * request process, this class is expected to cache all objects necessary and be
+ * accessible through the `InterlanguageLinksLookup` class.
+ *
+ * It is expected that the cache uses a "Composite" approach in order for short-lived
+ * requests to be stored in-memory while other information are stored on a
+ * persistence layer to increase lookup performance for succeeding requests.
+ *
  * @license GNU GPL v2+
  * @since 1.0
  *
@@ -27,9 +35,9 @@ class LanguageTargetLinksCache {
 	private $cacheKeyGenerator;
 
 	/**
-	 * The current cache strategy is to store language by page into a blob value
-	 * to avoid high cache fragmentation and keep the cache lookup performant
-	 * on generated category/search lists.
+	 * The current page language cache strategy is to store language by page
+	 * into a blob value to avoid high cache fragmentation and keep the cache
+	 * lookup performant on generated category/search lists.
 	 *
 	 * Whether the blob language-page strategy has a considerable performance draw
 	 * back on large lists of stored language-page pairs has yet to be determined

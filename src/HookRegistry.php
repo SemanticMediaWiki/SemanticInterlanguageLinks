@@ -56,7 +56,7 @@ class HookRegistry {
 	public function register( &$wgHooks ) {
 
 		$cacheKeyGenerator = new CacheKeyGenerator();
-		$cacheKeyGenerator->setAuxiliaryVersionModifier( '20150122' );
+		$cacheKeyGenerator->setAuxiliaryKeyModifier( '20150122' );
 		$cacheKeyGenerator->setCachePrefix( $this->cachePrefix );
 
 		$languageTargetLinksCache = new LanguageTargetLinksCache(
@@ -69,10 +69,6 @@ class HookRegistry {
 		);
 
 		$interlanguageLinksLookup->setStore( $this->store );
-
-		$searchResultModifier = new SearchResultModifier(
-			new LanguageResultMatchFinder( $interlanguageLinksLookup )
-		);
 
 		$propertyRegistry = new PropertyRegistry();
 
@@ -89,14 +85,14 @@ class HookRegistry {
 		$wgHooks['ArticleFromTitle'][] = function ( $title, &$page ) use( $interlanguageLinksLookup ) {
 
 			$byLanguageCategoryPage = new ByLanguageCategoryPage( $title );
-			$byLanguageCategoryPage->setCategoryFilterByLanguageState( $GLOBALS['egSILUseCategoryFilterByLanguage'] );
+			$byLanguageCategoryPage->setCategoryFilterByLanguageState( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] );
 			$byLanguageCategoryPage->modifyCategoryView( $page, $interlanguageLinksLookup );
 
 			return true;
 		};
 
 		$this->registerInterlanguageParserHooks( $interlanguageLinksLookup, $wgHooks );
-		$this->registerSpecialSearchHooks( $searchResultModifier, $wgHooks );
+		$this->registerSpecialSearchHooks( $interlanguageLinksLookup, $wgHooks );
 
 		return true;
 	}
@@ -215,7 +211,11 @@ class HookRegistry {
 		};
 	}
 
-	private function registerSpecialSearchHooks( SearchResultModifier $searchResultModifier, &$wgHooks ) {
+	private function registerSpecialSearchHooks( InterlanguageLinksLookup $interlanguageLinksLookup, &$wgHooks ) {
+
+		$searchResultModifier = new SearchResultModifier(
+			new LanguageResultMatchFinder( $interlanguageLinksLookup )
+		);
 
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfiles
