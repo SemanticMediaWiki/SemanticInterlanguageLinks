@@ -68,12 +68,12 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf(
 			'\SMW\DIProperty',
-			$instance->newInterlanguageLinkContainerProperty()
+			$instance->newContainerProperty()
 		);
 
 		$this->assertEquals(
-			PropertyRegistry::SIL_ILL_CONTAINER,
-			$instance->newInterlanguageLinkContainerProperty()->getKey()
+			PropertyRegistry::SIL_CONTAINER,
+			$instance->newContainerProperty()->getKey()
 		);
 	}
 
@@ -92,7 +92,7 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 		$instance = new InterlanguageLink( 'en', 'Foo' );
 
 		$this->assertContains(
-			'sil.en',
+			'ill.en',
 			$instance->getContainerId()
 		);
 	}

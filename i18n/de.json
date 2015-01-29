@@ -5,9 +5,9 @@
 		]
 	},
 	"sil-desc": "Ermöglicht das Erstellen und Verwalten semantischer Links zwischen einzelnen Sprachversionen einer Seite",
-	"sil-property-ill-alias-language": "Ist Seiteninhaltssprache",
+	"sil-property-aill-alias-language": "Ist Seiteninhaltssprache",
 	"sil-property-ill-alias-reference": "Ist Sprachreferenz",
-	"sil-property-ill-alias-container": "Hat Sprachlinks",
+	"sil-property-alias-container": "Hat Sprachlinks",
 	"smw-pa-property-predefined__sil_container": "„$1“ ist ein [https://www.semantic-mediawiki.org/wiki/Help:Spezialattribute Spezialattribut] und softwareseitig fest definiert. Es erfüllt eine besondere Funktion indem es sprachenbezogene Metainformationen einer Seite speichert, kann aber wie jedes andere [https://www.semantic-mediawiki.org/wiki/Help:Attribute_und_Datentypen#Attribute benutzerdefinierte Attribut] verwendet werden. Bereitgestellt wird es von der Softwareerweiterung [https://www.semantic-mediawiki.org/wiki/Semantic_Interlanguage_Links_(de) Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden, da dies so mit Konfigurationsparameter „wgHideInterlanguageLinks“ festgelegt wurde.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1“ ist kein gültiger Sprachcode.",

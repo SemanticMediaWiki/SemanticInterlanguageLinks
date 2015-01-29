@@ -5,5 +5,5 @@
 		]
 	},
 	"sil-desc": "Uma extensão do [https://semantic-mediawiki.org Semantic MediaWiki] para criar e gerenciar links interlinguísticos",
-	"sil-property-ill-alias-container": "Tem links interlinguísticos"
+	"sil-property-alias-container": "Tem links interlinguísticos"
 }

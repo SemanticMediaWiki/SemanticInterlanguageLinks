@@ -39,9 +39,13 @@ call_user_func( function () {
 	$GLOBALS['wgExtensionMessagesFiles']['semanticinterlanguagelinks-magic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
 
 	// Declare property Id constants
-	define( 'SIL_PROP_ILL_CONTAINER', 'Has interlanguage link' );
+	define( 'SIL_PROP_CONTAINER', 'Has interlanguage link' );
+
 	define( 'SIL_PROP_ILL_REF', 'Interlanguage reference' );
 	define( 'SIL_PROP_ILL_LANG', 'Page content language' );
+
+	define( 'SIL_PROP_IWL_REF', 'Interwiki reference' );
+	define( 'SIL_PROP_IWL_LANG', 'Interwiki language' );
 
 	$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;
 	$GLOBALS['egSILUseCategoryFilterByLanguage'] = true;

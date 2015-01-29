@@ -46,7 +46,34 @@ class LanguageLinkAnnotator {
 		);
 
 		$this->parserData->getSemanticData()->addPropertyObjectValue(
-			$interlanguageLink->newInterlanguageLinkContainerProperty(),
+			$interlanguageLink->newContainerProperty(),
+			$subobject->getContainer()
+		);
+
+		$this->parserData->pushSemanticDataToParserOutput();
+		$this->parserData->setSemanticDataStateToParserOutputProperty();
+	}
+
+	/**
+	 * @since 1.0
+	 *
+	 * @param InterwikiLanguageLink $interwikiLanguageLink
+	 */
+	public function addAnnotationForInterwikiLanguageLink( InterwikiLanguageLink $interwikiLanguageLink ) {
+
+		$subobject = new Subobject( $this->parserData->getTitle() );
+		$subobject->setEmptyContainerForId( $interwikiLanguageLink->getContainerId() );
+
+		$subobject->getSemanticData()->addDataValue(
+			$interwikiLanguageLink->newLanguageDataValue()
+		);
+
+		$subobject->getSemanticData()->addDataValue(
+			$interwikiLanguageLink->newInterwikiReferenceDataValue()
+		);
+
+		$this->parserData->getSemanticData()->addPropertyObjectValue(
+			$interwikiLanguageLink->newContainerProperty(),
 			$subobject->getContainer()
 		);
 

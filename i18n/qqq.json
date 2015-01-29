@@ -7,7 +7,7 @@
 	"sil-desc": "{{desc|name=Semantic Interlanguage Links|url=https://www.mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links}}\nA \" to deploy language links effortless using Semantic MedaWiki.",
 	"sil-property-ill-alias-code": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
 	"sil-property-ill-alias-ref": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
-	"sil-property-ill-alias-container": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
+	"sil-property-alias-container": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
 	"sil-interlanguagelink-hideinterlanguagelinks": "An error message caused by the INTERLANGUAGELINK parser function due to the wgHideInterlanguageLinkss setting.",
 	"sil-interlanguagelink-multiplecalls": "An error message caused by the INTERLANGUAGELINK parser function.",
 	"sil-interlanguagelink-invalidlanguagecode": "An error message caused by the INTERLANGUAGELINK parser function.",

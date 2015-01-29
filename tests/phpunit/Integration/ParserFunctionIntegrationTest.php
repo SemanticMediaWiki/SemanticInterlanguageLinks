@@ -64,7 +64,48 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 
 		$this->semanticDataValidator->assertThatPropertiesAreSet(
 			$expected,
-			$this->getStore()->getSemanticData( $subject )->findSubSemanticData( 'sil.en' )
+			$this->getStore()->getSemanticData( $subject )->findSubSemanticData( 'ill.en' )
+		);
+
+		$this->subjects = array( $subject );
+	}
+
+	public function testUseInterwikiLanguageLinkInPage() {
+
+		$subject = DIWikiPage::newFromTitle( Title::newFromText( __METHOD__ ) );
+
+		$interwiki = array(
+			'iw_prefix' => 'en',
+			'iw_url' => 'http://www.example.org/$1',
+			'iw_api' => false,
+			'iw_wikiid' => 'foo',
+			'iw_local' => true,
+			'iw_trans' => false,
+		);
+
+		$this->getDBConnection()->insert(
+			'interwiki',
+			$interwiki,
+			__METHOD__
+		);
+
+		$this->pageCreator
+			->createPage( $subject->getTitle() )
+			->doEdit( '[[en:Foo]]' );
+
+		$expected = array(
+			'propertyCount' => 3,
+			'properties' => array(
+				DIProperty::newFromUserLabel( '_SKEY' ),
+				DIProperty::newFromUserLabel( SIL_PROP_IWL_REF ),
+				DIProperty::newFromUserLabel( SIL_PROP_IWL_LANG )
+			),
+			'propertyValues' => array( 'en', 'en:Foo', __METHOD__ )
+		);
+
+		$this->semanticDataValidator->assertThatPropertiesAreSet(
+			$expected,
+			$this->getStore()->getSemanticData( $subject )->findSubSemanticData( 'iwl.en' )
 		);
 
 		$this->subjects = array( $subject );
@@ -87,7 +128,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 
 		$this->pageCreator
 			->createPage( $targetJa )
-			->doEdit( '{{INTERLANGUAGELINK:ja|Lorem ipsum}}' );
+			->doEdit( '{{interlanguagelink:ja|Lorem ipsum}}' );
 
 		$this->pageCreator
 			->createPage( $subject )

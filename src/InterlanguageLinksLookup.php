@@ -166,7 +166,7 @@ class InterlanguageLinksLookup {
 		$linkReferences = array();
 
 		try{
-			$property = new DIProperty( PropertyRegistry::SIL_ILL_CONTAINER );
+			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
 		} catch ( \Exception $e ) {
 			return $linkReferences;
 		}
@@ -251,7 +251,7 @@ class InterlanguageLinksLookup {
 	private function lookupLastPageLanguageForTarget( Title $title ) {
 
 		try{
-			$property = new DIProperty( PropertyRegistry::SIL_ILL_CONTAINER );
+			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
 		} catch ( \Exception $e ) {
 			return self::NO_LANG;
 		}

@@ -18,19 +18,26 @@ use Title;
  */
 class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
+	private $cache;
+	private $store;
+
+	protected function setUp() {
+		parent::setUp();
+
+		$this->store = $this->getMockBuilder( '\SMW\Store' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+
+		$this->cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
+	}
+
 	public function testCanConstruct() {
-
-		$store = $this->getMockBuilder( '\SMW\Store' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
-
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
 
 		$this->assertInstanceOf(
 			'\SIL\HookRegistry',
-			new HookRegistry( $store, $cache, 'foo' )
+			new HookRegistry( $this->store, $this->cache, 'foo' )
 		);
 	}
 
@@ -38,9 +45,21 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$title = Title::newFromText( __METHOD__ );
 
+		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
+			->disableOriginalConstructor()
+			->getMock();
+
 		$parser = $this->getMockBuilder( '\Parser' )
 			->disableOriginalConstructor()
 			->getMock();
+
+		$parser->expects( $this->any() )
+			->method( 'getTitle' )
+			->will( $this->returnValue( $title ) );
+
+		$parser->expects( $this->any() )
+			->method( 'getOutput' )
+			->will( $this->returnValue( $parserOutput ) );
 
 		$wikipage = $this->getMockBuilder( '\WikiPage' )
 			->disableOriginalConstructor()
@@ -50,30 +69,22 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getTitle' )
 			->will( $this->returnValue( $title ) );
 
-		$store = $this->getMockBuilder( '\SMW\Store' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
-
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
-
 		$wgHooks = array();
 
-		$instance = new HookRegistry( $store, $cache, 'foo' );
+		$instance = new HookRegistry( $this->store, $this->cache, 'foo' );
 		$instance->register( $wgHooks );
 
 		$this->assertNotEmpty(
 			$wgHooks
 		);
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'ParserFirstCallInit',
 			array( &$parser )
 		);
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'NewRevisionFromEditComplete',
 			array( $wikipage )
@@ -81,7 +92,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$languageLink = array();
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SkinTemplateGetLanguageLink',
 			array( &$languageLink, $title, $title )
@@ -89,7 +100,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$pageLang = '';
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'PageContentLanguage',
 			array( $title, &$pageLang )
@@ -97,10 +108,18 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$page = '';
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'ArticleFromTitle',
 			array( $title, &$page )
+		);
+
+		$text = '';
+
+		$this->assertThatHookIsExcutable(
+			$wgHooks,
+			'ParserAfterTidy',
+			array( &$parser, &$text )
 		);
 	}
 
@@ -108,35 +127,27 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$title = Title::newFromText( __METHOD__ );
 
-		$store = $this->getMockBuilder( '\SMW\Store' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
-
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
-
 		$wgHooks = array();
 
-		$instance = new HookRegistry( $store, $cache, 'foo' );
+		$instance = new HookRegistry( $this->store, $this->cache, 'foo' );
 		$instance->register( $wgHooks );
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'smwInitProperties',
 			array()
 		);
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SMW::SQLStore::BeforeDeleteSubjectComplete',
-			array( $store, $title )
+			array( $this->store, $title )
 		);
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SMW::SQLStore::BeforeChangeTitleComplete',
-			array( $store, $title, $title, 0, 0 )
+			array( $this->store, $title, $title, 0, 0 )
 		);
 	}
 
@@ -161,7 +172,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$profiles = array();
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SpecialSearchProfiles',
 			array( &$profiles )
@@ -172,7 +183,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$term = '';
 		$opts = array();
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SpecialSearchProfileForm',
 			array( $search, &$form, $profile, $term, $opts )
@@ -181,7 +192,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$titleMatches = false;
 		$textMatches = false;
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SpecialSearchResults',
 			array( $search, &$titleMatches, &$textMatches )
@@ -189,14 +200,14 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$showSections = array();
 
-		$this->assertHookIsExcutable(
+		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SpecialSearchPowerBox',
 			array( &$showSections, '', array() )
 		);
 	}
 
-	private function assertHookIsExcutable( $wgHooks, $hookName, $arguments ) {
+	private function assertThatHookIsExcutable( $wgHooks, $hookName, $arguments ) {
 		foreach ( $wgHooks[ $hookName ] as $hook ) {
 			$this->assertInternalType(
 				'boolean',

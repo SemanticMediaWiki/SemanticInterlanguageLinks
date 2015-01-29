@@ -26,7 +26,7 @@ class PropertyRegistryTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testRegister() {
+	public function testILLRegister() {
 
 		$instance = new PropertyRegistry();
 		$instance->register();
@@ -40,7 +40,25 @@ class PropertyRegistryTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertNotEmpty(
-			DIProperty::findPropertyLabel( PropertyRegistry::SIL_ILL_CONTAINER )
+			DIProperty::findPropertyLabel( PropertyRegistry::SIL_CONTAINER )
+		);
+	}
+
+	public function testIWLRegister() {
+
+		$instance = new PropertyRegistry();
+		$instance->register();
+
+		$this->assertNotEmpty(
+			DIProperty::findPropertyLabel( PropertyRegistry::SIL_IWL_LANG )
+		);
+
+		$this->assertNotEmpty(
+			DIProperty::findPropertyLabel( PropertyRegistry::SIL_IWL_REF )
+		);
+
+		$this->assertNotEmpty(
+			DIProperty::findPropertyLabel( PropertyRegistry::SIL_CONTAINER )
 		);
 	}
 
