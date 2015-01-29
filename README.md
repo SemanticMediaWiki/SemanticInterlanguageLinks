@@ -83,7 +83,7 @@ SIL provides a `by Language` `Special:Search` filtering option to match interlan
 
 If a category page contains a `Page content language` annotation, SIL will filter and display only pages that match that content language. In cases where no language has been assigned (or filtering has been disabled), the category page will display all pages without changes or filtering.
 
-In cases where an interwiki language link (e.g `[[en:Foo]]`) was added to a page (to represent a non-local link, [`wgInterwikiMagic`][iwlm] or [`wgExtraInterlanguageLinkPrefixes`][iwlp]), SIL will create an additional `Has interlanguage link` entry (internally being identified by something like `Foo#iwl.en`) but will not use the information to extend the language filter.
+In cases where an interwiki language link (e.g `[[en:Foo]]`) was added to a page (to represent a non-local link, see also [`wgInterwikiMagic`][iwlm] or [`wgExtraInterlanguageLinkPrefixes`][iwlp]), SIL will create an additional `Has interlanguage link` entry (internally being identified by something like `Foo#iwl.en`) but will not use the information to extend the language filter.
 
 ### Configuration
 
