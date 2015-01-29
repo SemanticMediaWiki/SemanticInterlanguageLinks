@@ -4,6 +4,7 @@ namespace SIL\Tests;
 
 use SIL\LanguageLinkAnnotator;
 use SIL\InterlanguageLink;
+use SIL\InterwikiLanguageLink;
 use SIL\PropertyRegistry;
 
 /**
@@ -37,7 +38,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testAddAnnotation() {
+	public function testAddAnnotationForInterlanguageLink() {
 
 		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
 			->disableOriginalConstructor()
@@ -65,6 +66,37 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 
 		$instance->addAnnotationForInterlanguageLink(
 			new InterlanguageLink( 'en', 'bar' )
+		);
+	}
+
+	public function testAddAnnotationForInterwikiLanguageLink() {
+
+		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$parserData->expects( $this->once() )
+			->method( 'getTitle' )
+			->will( $this->returnValue( \Title::newFromText( 'Foo' ) ) );
+
+		$parserData->expects( $this->once() )
+			->method( 'getSemanticData' )
+			->will( $this->returnValue( $semanticData ) );
+
+		$parserData->expects( $this->once() )
+			->method( 'pushSemanticDataToParserOutput' );
+
+		$parserData->expects( $this->once() )
+			->method( 'setSemanticDataStateToParserOutputProperty' );
+
+		$instance = new LanguageLinkAnnotator( $parserData );
+
+		$instance->addAnnotationForInterwikiLanguageLink(
+			new InterwikiLanguageLink( 'en:Foo' )
 		);
 	}
 

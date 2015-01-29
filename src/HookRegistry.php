@@ -5,6 +5,7 @@ namespace SIL;
 use Onoi\Cache\Cache;
 
 use SMW\Store;
+use SMW\ApplicationFactory;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
 use SIL\Category\ByLanguageCategoryPage;
@@ -184,6 +185,31 @@ class HookRegistry {
 			);
 
 			$pageContentLanguageModifier->modifyLanguage( $pageLang );
+
+			return true;
+		};
+
+		/**
+		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserAfterTidy
+		 */
+		$wgHooks['ParserAfterTidy'][] = function ( &$parser, &$text ) {
+
+			$parserData = ApplicationFactory::getInstance()->newParserData(
+				$parser->getTitle(),
+				$parser->getOutput()
+			);
+
+			$languageLinkAnnotator = new LanguageLinkAnnotator(
+				$parserData
+			);
+
+			$interwikiLanguageLinkFetcher = new InterwikiLanguageLinkFetcher(
+				$languageLinkAnnotator
+			);
+
+			$interwikiLanguageLinkFetcher->fetchLanguagelinksFromParserOutput(
+				$parser->getOutput()
+			);
 
 			return true;
 		};

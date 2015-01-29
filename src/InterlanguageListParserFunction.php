@@ -100,7 +100,7 @@ class InterlanguageListParserFunction {
 		}
 
 		if ( $templateText !== '' ) {
-			$result = array( $this->parser->recursiveTagParse( $templateText ), 'isHTML' => true );
+			$result = array( $this->parser->recursiveTagParse( $templateText ), 'noparse' => true, 'isHTML' => true );
 		}
 
 		return $result;

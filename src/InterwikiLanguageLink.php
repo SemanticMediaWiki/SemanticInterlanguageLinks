@@ -11,32 +11,28 @@ use SMWDIBlob as DIBlob;
 use Title;
 
 /**
+ * Represents an object for a manual annotation such as [[en:Foo]] where
+ * en: is being specified as interwiki
+ *
  * @license GNU GPL v2+
  * @since 1.0
  *
  * @author mwjames
  */
-class InterlanguageLink {
-
-	/**
-	 * @var string|null
-	 */
-	private $languageCode = '';
+class InterwikiLanguageLink {
 
 	/**
 	 * @var Title
 	 */
-	private $linkReference;
+	private $interwikiLink;
 
 	/**
 	 * @since 1.0
 	 *
-	 * @param string|null $languageCode
-	 * @param Title|string $linkReference
+	 * @param string $interwikiLink
 	 */
-	public function __construct( $languageCode = null, $linkReference ) {
-		$this->languageCode = $languageCode;
-		$this->linkReference = $linkReference instanceOf Title ? $linkReference : Title::newFromText( $linkReference );
+	public function __construct( $interwikiLink ) {
+		$this->interwikiLink = $interwikiLink instanceOf Title ? $interwikiLink : Title::newFromText( $interwikiLink );
 	}
 
 	/**
@@ -45,7 +41,7 @@ class InterlanguageLink {
 	 * @return string
 	 */
 	public function getLanguageCode() {
-		return $this->languageCode;
+		return $this->interwikiLink->getInterwiki();
 	}
 
 	/**
@@ -53,8 +49,8 @@ class InterlanguageLink {
 	 *
 	 * @return Title
 	 */
-	public function getLinkReference() {
-		return $this->linkReference;
+	public function getInterwikiReference() {
+		return $this->interwikiLink;
 	}
 
 	/**
@@ -63,7 +59,7 @@ class InterlanguageLink {
 	 * @return string
 	 */
 	public function getContainerId() {
-		return 'ill.'. $this->getLanguageCode();
+		return 'iwl.'. $this->getLanguageCode();
 	}
 
 	/**
@@ -72,7 +68,7 @@ class InterlanguageLink {
 	 * @return string
 	 */
 	public function getHash() {
-		return $this->getLanguageCode() . '#' . $this->getLinkReference()->getPrefixedText();
+		return $this->getLanguageCode() . '#' . $this->getInterwikiReference()->getPrefixedText();
 	}
 
 	/**
@@ -83,7 +79,7 @@ class InterlanguageLink {
 	public function newLanguageDataValue() {
 		return DataValueFactory::getInstance()->newDataItemValue(
 			new DIBlob( $this->getLanguageCode() ),
-			new DIProperty( PropertyRegistry::SIL_ILL_LANG )
+			new DIProperty( PropertyRegistry::SIL_IWL_LANG )
 		);
 	}
 
@@ -92,10 +88,10 @@ class InterlanguageLink {
 	 *
 	 * @return DataValue
 	 */
-	public function newLinkReferenceDataValue() {
+	public function newInterwikiReferenceDataValue() {
 		return DataValueFactory::getInstance()->newDataItemValue(
-			DIWikiPage::newFromTitle( $this->getLinkReference() ),
-			new DIProperty( PropertyRegistry::SIL_ILL_REF )
+			DIWikiPage::newFromTitle( $this->getInterwikiReference() ),
+			new DIProperty( PropertyRegistry::SIL_IWL_REF )
 		);
 	}
 

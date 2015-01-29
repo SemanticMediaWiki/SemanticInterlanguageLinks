@@ -12,9 +12,13 @@ use SMW\DIProperty;
  */
 class PropertyRegistry {
 
+	const SIL_CONTAINER = '__sil_container';
+
 	const SIL_ILL_LANG  = '__sil_ill_lang';
 	const SIL_ILL_REF   = '__sil_ill_ref';
-	const SIL_ILL_CONTAINER = '__sil_ill_container';
+
+	const SIL_IWL_LANG  = '__sil_iwl_lang';
+	const SIL_IWL_REF   = '__sil_iwl_ref';
 
 	/**
 	 * @since 1.0
@@ -24,6 +28,13 @@ class PropertyRegistry {
 	public function register() {
 
 		$propertyDefinitions = array(
+
+			self::SIL_CONTAINER => array(
+				'label' => SIL_PROP_CONTAINER,
+				'type'  => '__sob',
+				'alias' => wfMessage( 'sil-property-alias-container' )->text(),
+				'visibility' => false
+			),
 
 			self::SIL_ILL_LANG => array(
 				'label' => SIL_PROP_ILL_LANG,
@@ -39,12 +50,19 @@ class PropertyRegistry {
 				'visibility' => true
 			),
 
-			self::SIL_ILL_CONTAINER => array(
-				'label' => SIL_PROP_ILL_CONTAINER,
-				'type'  => '__sob',
-				'alias' => wfMessage( 'sil-property-ill-alias-container' )->text(),
-				'visibility' => false
+			self::SIL_IWL_LANG => array(
+				'label' => SIL_PROP_IWL_LANG,
+				'type'  => '_txt',
+				'alias' => wfMessage( 'sil-property-iwl-alias-language' )->text(),
+				'visibility' => true
 			),
+
+			self::SIL_IWL_REF => array(
+				'label' => SIL_PROP_IWL_REF,
+				'type'  => '_wpg',
+				'alias' => wfMessage( 'sil-property-iwl-alias-reference' )->text(),
+				'visibility' => true
+			)
 		);
 
 		foreach ( $propertyDefinitions as $propertyId => $definition ) {

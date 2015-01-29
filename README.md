@@ -77,17 +77,19 @@ A [video](https://vimeo.com/115871518) demonstrates "How SIL works" without much
 
 The page content language is set from the `INTERLANGUAGELINK` created annotation together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
 
-`Page content language`, `Interlanguage reference`, and `Has interlanguage link` are deployed as predefined properties which can be used to create customized `#ask` queries (filter by `Has interlanguage link.Page content language`) .
+`Page content language`, `Interlanguage reference`, `Interwiki language`, `Interwiki reference`, and `Has interlanguage link` are deployed as predefined properties which can be used to create customized `#ask` queries (e.g `Has interlanguage link.Page content language`).
 
 SIL provides a `by Language` `Special:Search` filtering option to match interlanguage property annotations for pre-selected pages. If the `by Language` profile (or the advanced profile) is used together with a specific language filter then any pre-selected article (provided by the `SearchEngine`) that does not match the language will be excluded from the result list.
 
 If a category page contains a `Page content language` annotation, SIL will filter and display only pages that match that content language. In cases where no language has been assigned (or filtering has been disabled), the category page will display all pages without changes or filtering.
 
+In cases where an interwiki language link (e.g `[[en:Foo]]`) was added to a page (to represent a non-local link, see also [`wgInterwikiMagic`][iwlm] or [`wgExtraInterlanguageLinkPrefixes`][iwlp]), SIL will create an additional `Has interlanguage link` entry (internally being identified by something like `Foo#iwl.en`) but will not use the information to extend the language filter.
+
 ### Configuration
 
 `$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;` is being set to be the default value to improve query lookups during each page view with cache invalidation being carried out during any delete, change or move action.
 
-In case `$GLOBALS['wgHideInterlanguageLinks']` is enabled, no sitelinks or annotations are created.
+In case `$GLOBALS['wgHideInterlanguageLinks']` is enabled (set to `true`), no sitelinks or annotations are created.
 
 ## Contribution and support
 
@@ -114,3 +116,5 @@ but can also be executed using `composer phpunit` from the extension base direct
 [gpl-licence]: https://www.gnu.org/copyleft/gpl.html
 [composer]: https://getcomposer.org/
 [sitelink]: https://www.semantic-mediawiki.org/wiki/File:Extension-sil-sitelink.png
+[iwlm]: https://www.mediawiki.org/wiki/Manual:$wgInterwikiMagic
+[iwlp]: https://www.mediawiki.org/wiki/Manual:$wgExtraInterlanguageLinkPrefixes
