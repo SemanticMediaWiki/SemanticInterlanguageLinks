@@ -15,9 +15,9 @@ the lookup class to handle those requests.
 
 ## LanguageTargetLinksCache
 
-In order to keep a page view responsive and aboid repetitive or exhausting query
-request process,`LanguageTargetLinksCache` is expected to cache all objects
-necessary and be accessible through the `InterlanguageLinksLookup` class.
+In order to keep a page view responsive and avoid a repetitive or exhausting query process,
+`LanguageTargetLinksCache` is expected to cache all objects necessary and be accessible
+through the `InterlanguageLinksLookup` class.
 
 It is recommended that the cache uses a "Composite" approach in order for short-lived
 requests to be stored in-memory while other information are stored on a

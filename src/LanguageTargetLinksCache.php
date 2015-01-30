@@ -9,8 +9,8 @@ use SMW\DIWikiPage;
 use Title;
 
 /**
- * To make a page view responsive and avoid repetitive or exhausting query
- * request process, this class is expected to cache all objects necessary and be
+ * To make a page view responsive and avoid a repetitive or exhausting query
+ * process, this class is expected to cache all objects necessary and be
  * accessible through the `InterlanguageLinksLookup` class.
  *
  * It is expected that the cache uses a "Composite" approach in order for short-lived

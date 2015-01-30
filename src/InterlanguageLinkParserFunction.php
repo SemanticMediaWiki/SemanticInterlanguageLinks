@@ -117,12 +117,16 @@ class InterlanguageLinkParserFunction {
 
 	private function createSiteLanguageLinks( InterlanguageLink $interlanguageLink ) {
 
-		$this->siteLanguageLinksGenerator
-			->addLanguageTargetLinksToOutput( $interlanguageLink, $this->title );
+		$this->siteLanguageLinksGenerator->addLanguageTargetLinksToOutput(
+			$interlanguageLink,
+			$this->title
+		);
 
-		$knownTargetLink = $this->siteLanguageLinksGenerator
-			->checkIfTargetIsKnownForCurrentLanguage( $this->title );
+		$knownTargetLink = $this->siteLanguageLinksGenerator->checkIfTargetIsKnownForCurrentLanguage(
+			$this->title
+		);
 
+		// If target is known we stop processing and output an error
 		if ( $knownTargetLink ) {
 			return $this->createErrorMessageFor(
 				'sil-interlanguagelink-languagetargetcombination-exists',
