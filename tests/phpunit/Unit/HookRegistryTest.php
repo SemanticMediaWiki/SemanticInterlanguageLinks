@@ -61,14 +61,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getOutput' )
 			->will( $this->returnValue( $parserOutput ) );
 
-		$wikipage = $this->getMockBuilder( '\WikiPage' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$wikipage->expects( $this->any() )
-			->method( 'getTitle' )
-			->will( $this->returnValue( $title ) );
-
 		$wgHooks = array();
 
 		$instance = new HookRegistry( $this->store, $this->cache, 'foo' );
@@ -78,17 +70,50 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			$wgHooks
 		);
 
+		$this->doTestParserFirstCallInit( $wgHooks, $parser );
+		$this->doTestNewRevisionFromEditComplete( $wgHooks, $title );
+		$this->doTestSkinTemplateGetLanguageLink( $wgHooks, $title );
+		$this->doTestPageContentLanguage( $wgHooks, $title );
+		$this->doTestArticleFromTitle( $wgHooks, $title );
+		$this->doTestParserAfterTidy( $wgHooks, $parser );
+
+		$this->doTestInitProperties( $wgHooks );
+		$this->doTestSQLStoreBeforeDeleteSubjectCompletes( $wgHooks, $this->store, $title );
+		$this->doTestSQLStoreBeforeChangeTitleComplete( $wgHooks, $this->store, $title );
+
+		$this->doTestSpecialSearchProfiles( $wgHooks );
+		$this->doTestSpecialSearchProfileForm( $wgHooks );
+		$this->doTestSpecialSearchResults( $wgHooks );
+		$this->doTestSpecialSearchPowerBox( $wgHooks );
+	}
+
+	public function doTestParserFirstCallInit( $wgHooks, $parser ) {
+
 		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'ParserFirstCallInit',
 			array( &$parser )
 		);
+	}
+
+	public function doTestNewRevisionFromEditComplete( $wgHooks, $title ) {
+
+		$wikipage = $this->getMockBuilder( '\WikiPage' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$wikipage->expects( $this->any() )
+			->method( 'getTitle' )
+			->will( $this->returnValue( $title ) );
 
 		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'NewRevisionFromEditComplete',
 			array( $wikipage )
 		);
+	}
+
+	public function doTestSkinTemplateGetLanguageLink( $wgHooks, $title ) {
 
 		$languageLink = array();
 
@@ -97,6 +122,9 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			'SkinTemplateGetLanguageLink',
 			array( &$languageLink, $title, $title )
 		);
+	}
+
+	public function doTestPageContentLanguage( $wgHooks, $title ) {
 
 		$pageLang = '';
 
@@ -105,6 +133,9 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			'PageContentLanguage',
 			array( $title, &$pageLang )
 		);
+	}
+
+	public function doTestArticleFromTitle( $wgHooks, $title ) {
 
 		$page = '';
 
@@ -113,6 +144,9 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			'ArticleFromTitle',
 			array( $title, &$page )
 		);
+	}
+
+	public function doTestParserAfterTidy( $wgHooks, $parser ) {
 
 		$text = '';
 
@@ -123,52 +157,34 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testRegisterSemanticMediaWikiRelatedHooks() {
-
-		$title = Title::newFromText( __METHOD__ );
-
-		$wgHooks = array();
-
-		$instance = new HookRegistry( $this->store, $this->cache, 'foo' );
-		$instance->register( $wgHooks );
+	public function doTestInitProperties( $wgHooks ) {
 
 		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'smwInitProperties',
 			array()
 		);
+	}
+
+	public function doTestSQLStoreBeforeDeleteSubjectCompletes( $wgHooks, $store, $title ) {
 
 		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SMW::SQLStore::BeforeDeleteSubjectComplete',
 			array( $this->store, $title )
 		);
+	}
+
+	public function doTestSQLStoreBeforeChangeTitleComplete( $wgHooks, $store, $title ) {
 
 		$this->assertThatHookIsExcutable(
 			$wgHooks,
 			'SMW::SQLStore::BeforeChangeTitleComplete',
-			array( $this->store, $title, $title, 0, 0 )
+			array( $store, $title, $title, 0, 0 )
 		);
 	}
 
-	public function testRegisterSearchRelatedHooks() {
-
-		$store = $this->getMockBuilder( '\SMW\Store' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
-
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
-			->disableOriginalConstructor()
-			->getMockForAbstractClass();
-
-		$search = $this->getMockBuilder( '\SpecialSearch' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$wgHooks = array();
-
-		$instance = new HookRegistry( $store, $cache, 'foo' );
-		$instance->register( $wgHooks );
+	public function doTestSpecialSearchProfiles( $wgHooks ) {
 
 		$profiles = array();
 
@@ -177,6 +193,13 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			'SpecialSearchProfiles',
 			array( &$profiles )
 		);
+	}
+
+	public function doTestSpecialSearchProfileForm( $wgHooks ) {
+
+		$search = $this->getMockBuilder( '\SpecialSearch' )
+			->disableOriginalConstructor()
+			->getMock();
 
 		$form = '';
 		$profile = '';
@@ -188,6 +211,13 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			'SpecialSearchProfileForm',
 			array( $search, &$form, $profile, $term, $opts )
 		);
+	}
+
+	public function doTestSpecialSearchResults( $wgHooks ) {
+
+		$search = $this->getMockBuilder( '\SpecialSearch' )
+			->disableOriginalConstructor()
+			->getMock();
 
 		$titleMatches = false;
 		$textMatches = false;
@@ -197,6 +227,9 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			'SpecialSearchResults',
 			array( $search, &$titleMatches, &$textMatches )
 		);
+	}
+
+	public function doTestSpecialSearchPowerBox( $wgHooks ) {
 
 		$showSections = array();
 
