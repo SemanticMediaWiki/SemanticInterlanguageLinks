@@ -2,9 +2,13 @@
 
 use SIL\HookRegistry;
 use SMW\ApplicationFactory;
-
 use Onoi\Cache\CacheFactory;
 
+/**
+ * @see https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/
+ *
+ * @defgroup SIL Semantic Interlanguage Links
+ */
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'This file is part of the SemanticInterlanguageLinks extension, it is not a valid entry point.' );
 }
@@ -12,7 +16,6 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.23', 'lt' ) ) {
 	die( '<b>Error:</b> This version of <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">SemanticInterlanguageLinks</a> is only compatible with MediaWiki 1.23 or above. You need to upgrade MediaWiki first.' );
 }
-
 
 if ( defined( 'SIL_VERSION' ) ) {
 	// Do not initialize more than once.
@@ -22,9 +25,6 @@ if ( defined( 'SIL_VERSION' ) ) {
 define( 'SIL_VERSION', '1.0-alpha' );
 
 /**
- * @see https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/
- *
- * @defgroup SIL Semantic Interlanguage Links
  * @codeCoverageIgnore
  */
 call_user_func( function () {
@@ -41,8 +41,8 @@ call_user_func( function () {
 	);
 
 	// Register message files
-	$GLOBALS['wgMessagesDirs']['semanticinterlanguagelinks'] = __DIR__ . '/i18n';
-	$GLOBALS['wgExtensionMessagesFiles']['semanticinterlanguagelinks-magic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
+	$GLOBALS['wgMessagesDirs']['semantic-interlanguage-links'] = __DIR__ . '/i18n';
+	$GLOBALS['wgExtensionMessagesFiles']['semantic-interlanguage-links-magic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
 
 	// Declare property Id constants
 	define( 'SIL_PROP_CONTAINER', 'Has interlanguage link' );
