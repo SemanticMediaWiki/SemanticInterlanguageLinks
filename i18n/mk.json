@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"sil-desc": "Додаток за [https://semantic-mediawiki.org Семантички МедијаВики] за создавање и раководење со меѓујазични врски",
+	"sil-property-ill-alias-language": "Јазик на содржината на страницата",
+	"sil-property-ill-alias-reference": "Меѓујазичен навод",
+	"sil-property-iwl-alias-language": "Јазик на меѓувики",
+	"sil-property-iwl-alias-reference": "Навод на меѓувики",
+	"sil-property-alias-container": "Има меѓујазични врски",
+	"smw-pa-property-predefined__sil_container": "„$1“ е предодредено својство (познато и како [https://www.semantic-mediawiki.org/wiki/Help:Special_properties посебно својство]) што собира јазични метаинформации за  дадена страница и е дадено од додатокот [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Семантички меѓујазични врски].",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Расчленувачката функција не може да се користи бидејќи е зададено „wgHideInterlanguageLinks“.",
+	"sil-interlanguagelink-invalidlanguagecode": "Не го препознавам „$1“ како важечки јазичен код.",
+	"sil-interlanguagelink-multiplecalls": "Расчленувачката функција „INTERLANGUAGELINK“ беше повикана повеќе пати на страницава, што не е возможно.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Комбинацијата „$1“:„$2“ веќе постои за страницата „$3“, па затоа не создадов дополнители меѓујазични прибелешки.",
+	"sil-interlanguagelist-missing-linkreference": "На расчленувачката функција ѝ недостасува важечки навод.",
+	"sil-interlanguagelist-missing-template": "На расчленувачката функција ѝ недостасува изводен шаблон.",
+	"sil-interlanguageparser-linkreference-error": "Расчленувачката функција имаше проблем со создавањето на насловен објект од „$1“.",
+	"sil-search-profile": "по јазик",
+	"sil-search-profile-tooltip": "Филтрирај ги статиите по јазични прибелешки",
+	"sil-search-languagefilter-label": "Филтрирај по јазик",
+	"sil-search-nolanguagefilter": "Нема јазичен филтер",
+	"sil-categorypage-languagefilter-active": "Категоријава содржи информации (страница, поткатегорија и слика) што се филтрираат по јазик."
+}

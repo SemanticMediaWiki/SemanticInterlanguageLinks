@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chrumps"
+		]
+	},
+	"sil-property-iwl-alias-language": "Język interwiki",
+	"sil-interlanguagelink-invalidlanguagecode": "„$1” nie jest prawidłowym kodem języka.",
+	"sil-search-nolanguagefilter": "Bez filtrowania języka"
+}

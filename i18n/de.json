@@ -1,24 +1,27 @@
 {
 	"@metadata": {
 		"authors": [
-			"kghbln"
+			"kghbln",
+			"Kghbln"
 		]
 	},
 	"sil-desc": "Ermöglicht das Erstellen und Verwalten semantischer Links zwischen einzelnen Sprachversionen einer Seite",
-	"sil-property-aill-alias-language": "Ist Seiteninhaltssprache",
-	"sil-property-ill-alias-reference": "Ist Sprachreferenz",
-	"sil-property-alias-container": "Hat Sprachlinks",
+	"sil-property-ill-alias-language": "Seiteninhaltsprache",
+	"sil-property-ill-alias-reference": "Sprachreferenz",
+	"sil-property-iwl-alias-language": "Interwiki-Sprache",
+	"sil-property-iwl-alias-reference": "Interwiki-Sprachreferenz",
+	"sil-property-alias-container": "Sprachlinks",
 	"smw-pa-property-predefined__sil_container": "„$1“ ist ein [https://www.semantic-mediawiki.org/wiki/Help:Spezialattribute Spezialattribut] und softwareseitig fest definiert. Es erfüllt eine besondere Funktion indem es sprachenbezogene Metainformationen einer Seite speichert, kann aber wie jedes andere [https://www.semantic-mediawiki.org/wiki/Help:Attribute_und_Datentypen#Attribute benutzerdefinierte Attribut] verwendet werden. Bereitgestellt wird es von der Softwareerweiterung [https://www.semantic-mediawiki.org/wiki/Semantic_Interlanguage_Links_(de) Semantic Interlanguage Links].",
-	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden, da dies so mit Konfigurationsparameter „wgHideInterlanguageLinks“ festgelegt wurde.",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden. Dies wurde mit dem Konfigurationsparameter „wgHideInterlanguageLinks“ festgelegt.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1“ ist kein gültiger Sprachcode.",
-	"sil-interlanguagelink-multiplecalls": "Die Parserfunktion „INTERLANGUAGELINK“ wird auf dieser Seite mehrere Male genutzt, was nicht zulässig ist.",
-	"sil-interlanguagelink-languagetargetcombination-exists": "Die Sprachzuordungskombination „$1“:„$2“ wurde für Seite „$3“ bereits festgelegt, sodaß keine weitere identische Annotation gespeichert wurde.",
+	"sil-interlanguagelink-multiplecalls": "Die Parserfunktion „INTERLANGUAGELINK“ wird auf dieser Seite mehrere Male genutzt, was nicht möglich ist.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Die Kombination „$1“:„$2“ zum Zuordnen von Sprachen wurde für Seite „$3“ bereits festgelegt, sodaß keine weitere identische Annotation gespeichert wurde.",
 	"sil-interlanguagelist-missing-linkreference": "Mit dieser Parserfunktion wurde keine gültige Sprachreferenz angegeben.",
 	"sil-interlanguagelist-missing-template": "Mit dieser Parserfunktion wurde keine gültige Ausgabevorlage festgelegt.",
 	"sil-interlanguageparser-linkreference-error": "Beim Erstellen einer Sprachreferenz aus „$1“ ist ein Problem aufgetreten.",
-	"sil-search-profile":"nach Sprache",
-	"sil-search-profile-tooltip":"Ermöglicht das Filtern von Artikeln nach einer Sprache.",
-	"sil-search-languagefilter-label":"Nach Sprache filtern",
-	"sil-search-nolanguagefilter":"Es ist kein Sprachfilter aktiv.",
-	"sil-categorypage-languagefilter-active":"Diese Kategorie enthält nach einer Sprache gefilterte Seiten."
+	"sil-search-profile": "nach Sprache",
+	"sil-search-profile-tooltip": "Ermöglicht das Filtern von Artikeln nach einer Sprache.",
+	"sil-search-languagefilter-label": "Nach Sprache filtern",
+	"sil-search-nolanguagefilter": "Es ist kein Sprachfilter aktiv",
+	"sil-categorypage-languagefilter-active": "Diese Kategorie enthält nach einer Sprache gefilterte Seiten."
 }
