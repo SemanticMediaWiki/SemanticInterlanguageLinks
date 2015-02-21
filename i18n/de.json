@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"kghbln",
-			"Kghbln"
+			"Kghbln",
+			"Purodha"
 		]
 	},
 	"sil-desc": "Ermöglicht das Erstellen und Verwalten semantischer Links zwischen einzelnen Sprachversionen einer Seite",
@@ -18,7 +19,7 @@
 	"sil-interlanguagelink-languagetargetcombination-exists": "Die Kombination „$1“:„$2“ zum Zuordnen von Sprachen wurde für Seite „$3“ bereits festgelegt, sodaß keine weitere identische Annotation gespeichert wurde.",
 	"sil-interlanguagelist-missing-linkreference": "Mit dieser Parserfunktion wurde keine gültige Sprachreferenz angegeben.",
 	"sil-interlanguagelist-missing-template": "Mit dieser Parserfunktion wurde keine gültige Ausgabevorlage festgelegt.",
-	"sil-interlanguageparser-linkreference-error": "Beim Erstellen einer Sprachreferenz aus „$1“ ist ein Problem aufgetreten.",
+	"sil-interlanguageparser-linkreference-error": "Beim Erstellen eines Titelobjekts aus „$1“ ist ein Problem aufgetreten.",
 	"sil-search-profile": "nach Sprache",
 	"sil-search-profile-tooltip": "Ermöglicht das Filtern von Artikeln nach einer Sprache.",
 	"sil-search-languagefilter-label": "Nach Sprache filtern",
