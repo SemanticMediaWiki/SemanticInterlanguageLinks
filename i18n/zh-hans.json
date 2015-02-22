@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Liuxinyu970226"
+		]
+	},
+	"sil-desc": "用来创建和管理跨语言链接的[https://semantic-mediawiki.org Semantic MediaWiki]扩展",
+	"sil-property-ill-alias-language": "页面内容语言",
+	"sil-property-ill-alias-reference": "跨语言参考",
+	"sil-property-iwl-alias-language": "跨wiki语言",
+	"sil-property-iwl-alias-reference": "跨wiki参考",
+	"sil-property-alias-container": "有跨语言链接",
+	"smw-pa-property-predefined__sil_container": "“$1”是一个预定义属性（或称[https://www.semantic-mediawiki.org/wiki/Help:Special_properties 特殊属性]），它收集有关一个页面的与语言相关的元信息，并由[https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links 语义跨语言链接]扩展提供。",
+	"sil-interlanguagelink-hideinterlanguagelinks": "因为“wgHideInterlanguageLinks”被设置，解析器函数不能使用。",
+	"sil-interlanguagelink-invalidlanguagecode": "“$1”不认为是有效的语言代码。",
+	"sil-interlanguagelink-multiplecalls": "“INTERLANGUAGELINK”解析器函数在此页面被调用多次，这是不可能的。",
+	"sil-interlanguagelink-languagetargetcombination-exists": "组合“$1”：“$2”已存在于页面“$3”中，因此没有创建额外的跨语言注释。",
+	"sil-interlanguagelist-missing-linkreference": "解析器函数缺少一个有效参考。",
+	"sil-interlanguagelist-missing-template": "解析器函数缺少输出模板。",
+	"sil-interlanguageparser-linkreference-error": "解析器函数从“$1”创建一个标题对象时出现问题。",
+	"sil-search-profile": "按语言",
+	"sil-search-profile-tooltip": "按语言注释过滤条目",
+	"sil-search-languagefilter-label": "按语言过滤",
+	"sil-search-nolanguagefilter": "无语言过滤器",
+	"sil-categorypage-languagefilter-active": "此分类包含按语音过滤的信息（页面、子分类和图片）。"
+}

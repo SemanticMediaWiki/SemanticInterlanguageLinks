@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"sil-desc": "Extensión de [https://semantic-mediawiki.org Semantic MediaWiki] para crear y gestionar enlaces interlingüísticos",
+	"sil-property-ill-alias-language": "Idioma de la página de contenido",
+	"sil-property-ill-alias-reference": "Referencia interlingüística",
+	"sil-property-alias-container": "Tiene enlaces interlingüísticos",
+	"sil-interlanguagelink-invalidlanguagecode": "No se reconoce «$1» como un código de idioma válido.",
+	"sil-search-profile": "por idioma",
+	"sil-search-languagefilter-label": "Filtrar por idioma",
+	"sil-search-nolanguagefilter": "Sin filtro de idioma",
+	"sil-categorypage-languagefilter-active": "Esta categoría contiene información (página, subpágina e image) filtrada por idioma."
+}

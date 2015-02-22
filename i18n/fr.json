@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nicolapps"
+		]
+	},
+	"sil-property-iwl-alias-reference": "Référence interwiki",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" n'a pas été reconnu comme code de langue valide.",
+	"sil-interlanguageparser-linkreference-error": "La parser function eu un problème pour créer un objet de titre de \"$1\".",
+	"sil-search-languagefilter-label": "Filtrer par langue",
+	"sil-categorypage-languagefilter-active": "Cette catégorie contient des informations (pages, sous-catégories ou images) qui sont filtrées par langue."
+}
