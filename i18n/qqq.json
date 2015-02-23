@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"mwjames"
+			"mwjames",
+			"Kghbln"
 		]
 	},
-	"sil-desc": "{{desc|name=Semantic Interlanguage Links|url=https://www.mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links}}\nA \" to deploy language links effortless using Semantic MedaWiki.",
+	"sil-desc": "{{desc|name=Semantic Interlanguage Links|url=https://www.mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links}}\nAn extension to deploy language links effortless using Semantic MedaWiki.",
 	"sil-property-ill-alias-language": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
 	"sil-property-ill-alias-reference": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
 	"sil-property-iwl-alias-language": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",

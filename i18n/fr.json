@@ -1,12 +1,22 @@
 {
 	"@metadata": {
 		"authors": [
-			"Nicolapps"
+			"Nicolapps",
+			"Element303"
 		]
 	},
+	"sil-desc": "Une extension [Https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
 	"sil-property-iwl-alias-reference": "Référence interwiki",
+	"sil-interlanguagelink-hideinterlanguagelinks": "La fonction n'a pas pu être utilisée car \"wgHideInterlanguageLinks\" est défini.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" n'a pas été reconnu comme code de langue valide.",
+	"sil-interlanguagelink-multiplecalls": "La fonction \"INTERLANGUAGELINK\" a été appelée plusieurs fois sur cette page, ce qui n'est pas possible.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "La combinaison \"$1\":\"$2\" existe déjà pour la page \"$3\" par conséquent, aucune autre annotation n'a été créée.",
+	"sil-interlanguagelist-missing-linkreference": "La fonction manque d'une référence valide.",
+	"sil-interlanguagelist-missing-template": "La fonction manque d'un gabarit de sortie.",
 	"sil-interlanguageparser-linkreference-error": "La parser function eu un problème pour créer un objet de titre de \"$1\".",
+	"sil-search-profile": "par Langue",
+	"sil-search-profile-tooltip": "Filtrer les articles par annotation de langue",
 	"sil-search-languagefilter-label": "Filtrer par langue",
+	"sil-search-nolanguagefilter": "Pas de filtre de langue",
 	"sil-categorypage-languagefilter-active": "Cette catégorie contient des informations (pages, sous-catégories ou images) qui sont filtrées par langue."
 }
