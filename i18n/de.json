@@ -3,7 +3,8 @@
 		"authors": [
 			"kghbln",
 			"Kghbln",
-			"Purodha"
+			"Purodha",
+			"Metalhead64"
 		]
 	},
 	"sil-desc": "Ermöglicht das Erstellen und Verwalten semantischer Links zwischen einzelnen Sprachversionen einer Seite",
@@ -13,7 +14,7 @@
 	"sil-property-iwl-alias-reference": "Interwiki-Sprachreferenz",
 	"sil-property-alias-container": "Sprachlinks",
 	"smw-pa-property-predefined__sil_container": "„$1“ ist ein [https://www.semantic-mediawiki.org/wiki/Help:Spezialattribute Spezialattribut] und softwareseitig fest definiert. Es erfüllt eine besondere Funktion indem es sprachenbezogene Metainformationen einer Seite speichert, kann aber wie jedes andere [https://www.semantic-mediawiki.org/wiki/Help:Attribute_und_Datentypen#Attribute benutzerdefinierte Attribut] verwendet werden. Bereitgestellt wird es von der Softwareerweiterung [https://www.semantic-mediawiki.org/wiki/Semantic_Interlanguage_Links_(de) Semantic Interlanguage Links].",
-	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden. Dies wurde mit dem Konfigurationsparameter „wgHideInterlanguageLinks“ festgelegt.",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden. Dies wurde mit dem Konfigurationsparameter <code>$wgHideInterlanguageLinks</code> festgelegt.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1“ ist kein gültiger Sprachcode.",
 	"sil-interlanguagelink-multiplecalls": "Die Parserfunktion „INTERLANGUAGELINK“ wird auf dieser Seite mehrere Male genutzt, was nicht möglich ist.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "Die Kombination „$1“:„$2“ zum Zuordnen von Sprachen wurde für Seite „$3“ bereits festgelegt, sodaß keine weitere identische Annotation gespeichert wurde.",

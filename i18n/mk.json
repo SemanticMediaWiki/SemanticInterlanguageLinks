@@ -11,7 +11,7 @@
 	"sil-property-iwl-alias-reference": "Навод на меѓувики",
 	"sil-property-alias-container": "Има меѓујазични врски",
 	"smw-pa-property-predefined__sil_container": "„$1“ е предодредено својство (познато и како [https://www.semantic-mediawiki.org/wiki/Help:Special_properties посебно својство]) што собира јазични метаинформации за  дадена страница и е дадено од додатокот [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Семантички меѓујазични врски].",
-	"sil-interlanguagelink-hideinterlanguagelinks": "Расчленувачката функција не може да се користи бидејќи е зададено „wgHideInterlanguageLinks“.",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Расчленувачката функција не може да се користи бидејќи е зададено <code>$wgHideInterlanguageLinks</code>.",
 	"sil-interlanguagelink-invalidlanguagecode": "Не го препознавам „$1“ како важечки јазичен код.",
 	"sil-interlanguagelink-multiplecalls": "Расчленувачката функција „INTERLANGUAGELINK“ беше повикана повеќе пати на страницава, што не е возможно.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "Комбинацијата „$1“:„$2“ веќе постои за страницата „$3“, па затоа не создадов дополнители меѓујазични прибелешки.",
