@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dicto23456"
+		]
+	},
+	"sil-desc": "[Https://semantic-mediawiki.org Semantic MediaWiki] расширение для создания и управления интервики-ссылки",
+	"sil-property-ill-alias-language": "Язык содержания страницы",
+	"sil-property-iwl-alias-reference": "Интервики-ссылки",
+	"sil-property-alias-container": "Есть интервики-ссылки",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" не был признан действительным кодом языка.",
+	"sil-search-profile": "по Языку",
+	"sil-search-profile-tooltip": "Фильтр статей по языку, Аннотация",
+	"sil-search-languagefilter-label": "Фильтр по Языку",
+	"sil-search-nolanguagefilter": "Нет языка фильтра",
+	"sil-categorypage-languagefilter-active": "Эта категория содержит информацию (страницы, подкатегории и изображения), которые фильтруются с помощью языка."
+}
