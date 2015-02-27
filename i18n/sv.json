@@ -1,9 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jenniesarina"
+			"Jenniesarina",
+			"Jopparn"
 		]
 	},
+	"sil-property-iwl-alias-language": "Interwikispråk",
+	"sil-property-iwl-alias-reference": "Interwikireferens",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" erkändes inte som giltig språkkod.",
 	"sil-search-profile": "efter språk",
 	"sil-search-languagefilter-label": "Filtrera efter språk",
 	"sil-search-nolanguagefilter": "Inget språkfilter"
