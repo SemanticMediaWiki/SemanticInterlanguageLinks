@@ -23,6 +23,10 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		parent::setUp();
 
+		$outputPage = $this->getMockBuilder( '\OutputPage' )
+			->disableOriginalConstructor()
+			->getMock();
+
 		$this->context = $this->getMockBuilder( '\IContextSource' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -30,6 +34,10 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 		$this->context->expects( $this->any() )
 				->method( 'getConfig' )
 				->will( $this->returnValue( $this->getMock('\Config' ) ) );
+
+		$this->context->expects( $this->any() )
+				->method( 'getOutput' )
+				->will( $this->returnValue( $outputPage ) );
 	}
 
 	public function testCanConstruct() {
