@@ -1,5 +1,14 @@
 
-## InterlanguageLinksLookup
+## Running tests
+
+1. Verify that PHUnit is installed and in case it is not use `composer require phpunit/phpunit:~4.5` to add the package
+2. Use `composer phpunit` from the extension base directory, or [`phpunit`][mw-phpunit-testing] directly in connection
+   with the PHPUnit `XML` configuration file (together with MediaWiki's `phpunit.php` loader otherwise required
+   MediaWiki classes are not loaded).
+
+## Components
+
+### InterlanguageLinksLookup
 
 `InterlanguageLinksLookup` is the most critical component of SIL as it combines the store
 interface with the cache interface.
@@ -13,7 +22,7 @@ the lookup class to handle those requests.
 
 ![sil-interlanguagelinkslookup](https://cloud.githubusercontent.com/assets/1245473/5961425/e84ffaa6-a81f-11e4-8b04-9aaece9d5e70.png)
 
-## LanguageTargetLinksCache
+### LanguageTargetLinksCache
 
 In order to keep a page view responsive and avoid a repetitive or exhausting query process,
 `LanguageTargetLinksCache` is expected to cache all objects necessary and be accessible
