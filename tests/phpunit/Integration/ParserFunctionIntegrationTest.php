@@ -33,13 +33,31 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 
 		$this->pageCreator = UtilityFactory::getInstance()->newpageCreator();
 		$this->semanticDataValidator = UtilityFactory::getInstance()->newValidatorFactory()->newSemanticDataValidator();
+
+		// Manipulate the interwiki prefix on-the-fly
+		$GLOBALS['wgHooks']['InterwikiLoadPrefix'][] = function( $prefix, &$interwiki ) {
+
+			if ( $prefix !== 'en' ) {
+				return true;
+			}
+
+			$interwiki = array(
+				'iw_prefix' => 'en',
+				'iw_url' => 'http://www.example.org/$1',
+				'iw_api' => false,
+				'iw_wikiid' => 'foo',
+				'iw_local' => true,
+				'iw_trans' => false,
+			);
+
+			return false;
+		};
 	}
 
 	protected function tearDown() {
 
-		UtilityFactory::getInstance()
-			->newPageDeleter()
-			->doDeletePoolOfPages( $this->subjects );
+		UtilityFactory::getInstance()->newPageDeleter()->doDeletePoolOfPages( $this->subjects );
+		unset( $GLOBALS['wgHooks']['InterwikiLoadPrefix'] );
 
 		parent::tearDown();
 	}
@@ -73,21 +91,6 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	public function testUseInterwikiLanguageLinkInPage() {
 
 		$subject = DIWikiPage::newFromTitle( Title::newFromText( __METHOD__ ) );
-
-		$interwiki = array(
-			'iw_prefix' => 'en',
-			'iw_url' => 'http://www.example.org/$1',
-			'iw_api' => false,
-			'iw_wikiid' => 'foo',
-			'iw_local' => true,
-			'iw_trans' => false,
-		);
-
-		$this->getDBConnection()->insert(
-			'interwiki',
-			$interwiki,
-			__METHOD__
-		);
 
 		$this->pageCreator
 			->createPage( $subject->getTitle() )
