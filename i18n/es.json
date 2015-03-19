@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Macofe"
+			"Macofe",
+			"Laurenslimb"
 		]
 	},
 	"sil-desc": "Extensión de [https://semantic-mediawiki.org Semantic MediaWiki] para crear y gestionar enlaces interlingüísticos",
@@ -12,8 +13,15 @@
 	"sil-property-iwl-alias-reference": "Referencia interwiki",
 	"sil-property-alias-container": "Tiene enlaces interlingüísticos",
 	"smw-pa-property-predefined__sil_container": "\"$1\" es una propiedad predefinida (también llamada [https://www.semantic-mediawiki.org/wiki/Help:Special_properties propiedad especial]) que recolecta metainformación relacionada a idiomas sobre una página y es provista por la extensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"sil-interlanguagelink-hideinterlanguagelinks": "No se puede utilizar la función del analizador porque <code>$wgHideInterlanguageLinks</code> se ha establecido.",
 	"sil-interlanguagelink-invalidlanguagecode": "No se reconoce «$1» como un código de idioma válido.",
+	"sil-interlanguagelink-multiplecalls": "La función del analizador «INTERLANGUAGELINK» se utilizó varias veces en esta página, lo cual no es posible.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Ya existe la combinación «$1»:«$2» para la página «$3»; por lo tanto, no se creó ninguna anotación interlingüística.",
+	"sil-interlanguagelist-missing-linkreference": "A la función del analizador le falta una referencia válida.",
+	"sil-interlanguagelist-missing-template": "A la función del analizador le falta una plantilla de salida.",
+	"sil-interlanguageparser-linkreference-error": "La función del analizador experimentó un problema al crear un objeto de título a partir de «$1».",
 	"sil-search-profile": "por idioma",
+	"sil-search-profile-tooltip": "Filtrar artículos por anotación de idioma",
 	"sil-search-languagefilter-label": "Filtrar por idioma",
 	"sil-search-nolanguagefilter": "Sin filtro de idioma",
 	"sil-categorypage-languagefilter-active": "Esta categoría contiene información (página, subpágina e image) filtrada por idioma."
