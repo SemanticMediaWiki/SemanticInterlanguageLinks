@@ -2,12 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Nicolapps",
-			"Element303"
+			"Element303",
+			"Macofe"
 		]
 	},
 	"sil-desc": "Une extension [Https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
 	"sil-property-iwl-alias-reference": "Référence interwiki",
-	"sil-interlanguagelink-hideinterlanguagelinks": "La fonction n'a pas pu être utilisée car \"wgHideInterlanguageLinks\" est défini.",
+	"sil-interlanguagelink-hideinterlanguagelinks": "La fonction n'a pas pu être utilisée car <code>$wgHideInterlanguageLinks</code> est défini.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" n'a pas été reconnu comme code de langue valide.",
 	"sil-interlanguagelink-multiplecalls": "La fonction \"INTERLANGUAGELINK\" a été appelée plusieurs fois sur cette page, ce qui n'est pas possible.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "La combinaison \"$1\":\"$2\" existe déjà pour la page \"$3\" par conséquent, aucune autre annotation n'a été créée.",
