@@ -35,7 +35,7 @@ class LanguageResultMatchFinder {
 	 * @param SearchResultSet $matches
 	 * @param $languageCode
 	 *
-	 * @return MappedSearchResultSet|boolean
+	 * @return MappedSearchResultSet|null
 	 */
 	public function matchResultsToLanguage( SearchResultSet $matches, $languageCode ) {
 
@@ -53,7 +53,7 @@ class LanguageResultMatchFinder {
 		}
 
 		if ( $mappedMatches === array() ) {
-			return false;
+			return null;
 		}
 
 		return new MappedSearchResultSet( $mappedMatches, $matches->termMatches() );

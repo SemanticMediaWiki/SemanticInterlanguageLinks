@@ -42,7 +42,7 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$this->assertFalse(
+		$this->assertNull(
 			$instance->matchResultsToLanguage( $searchResultSet, 'en' )
 		);
 	}
@@ -71,7 +71,7 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 			->method( 'next' )
 			->will( $this->onConsecutiveCalls( $searchresult, false ) );
 
-		$this->assertFalse(
+		$this->assertNull(
 			$instance->matchResultsToLanguage( $searchResultSet, 'en' )
 		);
 	}
