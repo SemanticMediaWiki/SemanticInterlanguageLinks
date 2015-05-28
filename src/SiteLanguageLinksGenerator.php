@@ -68,8 +68,9 @@ class SiteLanguageLinksGenerator {
 	}
 
 	/**
-	 * Indentify whether a double assignment did occur by comparing the target for the requested
-	 * language and the current article as traget that invoked INTERLANGUAGELINK.
+	 * Identify whether a double assignment did occur by comparing the target
+	 * for the requested language and the current article as target that invoked
+	 * INTERLANGUAGELINK parser.
 	 *
 	 * @since 1.0
 	 *
@@ -92,20 +93,8 @@ class SiteLanguageLinksGenerator {
 		return false;
 	}
 
-	private function sanitizeLanguageTargetLinks( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
-
-		if ( isset( $languageTargetLinks[ $interlanguageLink->getLanguageCode() ] ) ) {
-			$this->selectedTargetLinkForCurrentLanguage = $languageTargetLinks[ $interlanguageLink->getLanguageCode() ];
-		}
-
-		unset( $languageTargetLinks[ $interlanguageLink->getLanguageCode() ] );
-		ksort( $languageTargetLinks );
-
-		return $languageTargetLinks;
-	}
-
 	/**
-	 * `sil:` is used as internal code to distingish any language link that
+	 * `sil:` is used as internal code to distinguish any language link that
 	 * was not added by SIL
 	 */
 	private function addLanguageLinksToOutput( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
@@ -123,6 +112,18 @@ class SiteLanguageLinksGenerator {
 
 			$this->parserOutput->addLanguageLink( 'sil:' . $languageCode . ':' . $target );
 		}
+	}
+
+	private function sanitizeLanguageTargetLinks( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
+
+		if ( isset( $languageTargetLinks[ $interlanguageLink->getLanguageCode() ] ) ) {
+			$this->selectedTargetLinkForCurrentLanguage = $languageTargetLinks[ $interlanguageLink->getLanguageCode() ];
+		}
+
+		unset( $languageTargetLinks[ $interlanguageLink->getLanguageCode() ] );
+		ksort( $languageTargetLinks );
+
+		return $languageTargetLinks;
 	}
 
 	private function doPurgeParserCache( $languageTargetLinks ) {

@@ -62,7 +62,7 @@ call_user_func( function () {
 		$cacheFactory = new CacheFactory();
 
 		$compositeCache = $cacheFactory->newCompositeCache( array(
-			$cacheFactory->newFixedInMemoryCache( 500 ),
+			$cacheFactory->newFixedInMemoryLruCache( 500 ),
 			$cacheFactory->newMediaWikiCache( ObjectCache::getInstance( $GLOBALS['egSILCacheType'] ) )
 		) );
 
