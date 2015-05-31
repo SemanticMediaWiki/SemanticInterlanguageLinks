@@ -75,12 +75,12 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertContains(
-			'span class="error"',
+			'-error',
 			$instance->parse( '', 'Foo' )
 		);
 
 		$this->assertContains(
-			'span class="error"',
+			'-error',
 			$instance->parse( 'en', '{[[:Template:Foo]]' )
 		);
 	}
@@ -101,8 +101,10 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$siteLanguageLinksGenerator->expects( $this->once() )
-			->method( 'checkIfTargetIsKnownForCurrentLanguage' )
-			->with( $this->equalTo( $title ) )
+			->method( 'tryAddLanguageTargetLinksToOutput' )
+			->with(
+				$this->anything(),
+				$this->equalTo( $title ) )
 			->will( $this->returnValue( 'Foo' ) );
 
 		$instance = new InterlanguageLinkParserFunction(
@@ -114,7 +116,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$instance->setInterlanguageLinksState( false );
 
 		$this->assertContains(
-			'span class="error"',
+			'-error',
 			$instance->parse( 'en', 'Foo' )
 		);
 	}
@@ -146,12 +148,12 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertContains(
-			'span class="error"',
+			'-error',
 			$instance->parse( 'vi', 'Foo' )
 		);
 
 		$this->assertContains(
-			'span class="error"',
+			'-error',
 			$instance->parse( 'en', 'Bar' )
 		);
 	}

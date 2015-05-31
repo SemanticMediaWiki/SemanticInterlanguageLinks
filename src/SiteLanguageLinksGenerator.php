@@ -24,11 +24,6 @@ class SiteLanguageLinksGenerator {
 	private $interlanguageLinksLookup;
 
 	/**
-	 * @var boolean|string|Title
-	 */
-	private $selectedTargetLinkForCurrentLanguage = false;
-
-	/**
 	 * @since 1.0
 	 *
 	 * @param ParserOutput $parserOutput
@@ -44,8 +39,13 @@ class SiteLanguageLinksGenerator {
 	 *
 	 * @param InterlanguageLink $interlanguageLink
 	 * @param Title|null $target
+	 *
+	 * @return string
 	 */
-	public function addLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink, Title $target = null ) {
+	public function tryAddLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink, Title $target = null ) {
+
+		$knownTargetLink = '';
+		$selectedTargetLinkForCurrentLanguage = false;
 
 		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks(
 			$interlanguageLink,
@@ -59,12 +59,25 @@ class SiteLanguageLinksGenerator {
 			$interlanguageLink->getLanguageCode()
 		);
 
-		$this->addLanguageLinksToOutput(
-			$interlanguageLink,
-			$languageTargetLinks
+		if ( isset( $languageTargetLinks[ $interlanguageLink->getLanguageCode() ] ) ) {
+			$selectedTargetLinkForCurrentLanguage = $languageTargetLinks[ $interlanguageLink->getLanguageCode() ];
+		}
+
+		$knownTargetLink = $this->compareTargetToCurrentLanguage(
+			$target,
+			$selectedTargetLinkForCurrentLanguage
 		);
 
+		if ( !$knownTargetLink ) {
+			$this->addLanguageLinksToOutput(
+				$interlanguageLink,
+				$languageTargetLinks
+			);
+		}
+
 		$this->doPurgeParserCache( $languageTargetLinks );
+
+		return $knownTargetLink;
 	}
 
 	/**
@@ -72,21 +85,15 @@ class SiteLanguageLinksGenerator {
 	 * for the requested language and the current article as target that invoked
 	 * INTERLANGUAGELINK parser.
 	 *
-	 * @since 1.0
-	 *
-	 * @param Title $target
-	 *
 	 * @return boolean|string
 	 */
-	public function checkIfTargetIsKnownForCurrentLanguage( Title $target ) {
-
-		$selectedTargetLinkForCurrentLanguage = $this->selectedTargetLinkForCurrentLanguage;
+	private function compareTargetToCurrentLanguage( Title $target = null, $selectedTargetLinkForCurrentLanguage ) {
 
 		if ( $selectedTargetLinkForCurrentLanguage instanceof Title ) {
 			 $selectedTargetLinkForCurrentLanguage = $selectedTargetLinkForCurrentLanguage->getPrefixedText();
 		}
 
-		if ( $selectedTargetLinkForCurrentLanguage !== $target->getPrefixedText() ) {
+		if ( $target !== null && $selectedTargetLinkForCurrentLanguage !== $target->getPrefixedText() ) {
 			return $selectedTargetLinkForCurrentLanguage;
 		}
 
@@ -115,10 +122,6 @@ class SiteLanguageLinksGenerator {
 	}
 
 	private function sanitizeLanguageTargetLinks( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
-
-		if ( isset( $languageTargetLinks[ $interlanguageLink->getLanguageCode() ] ) ) {
-			$this->selectedTargetLinkForCurrentLanguage = $languageTargetLinks[ $interlanguageLink->getLanguageCode() ];
-		}
 
 		unset( $languageTargetLinks[ $interlanguageLink->getLanguageCode() ] );
 		ksort( $languageTargetLinks );

@@ -117,12 +117,8 @@ class InterlanguageLinkParserFunction {
 
 	private function createSiteLanguageLinks( InterlanguageLink $interlanguageLink ) {
 
-		$this->siteLanguageLinksGenerator->addLanguageTargetLinksToOutput(
+		$knownTargetLink = $this->siteLanguageLinksGenerator->tryAddLanguageTargetLinksToOutput(
 			$interlanguageLink,
-			$this->title
-		);
-
-		$knownTargetLink = $this->siteLanguageLinksGenerator->checkIfTargetIsKnownForCurrentLanguage(
 			$this->title
 		);
 
@@ -159,7 +155,13 @@ class InterlanguageLinkParserFunction {
 	}
 
 	private function createErrorMessageFor( $messageKey, $arg1 = '', $arg2 = '', $arg3 = '',$arg4 = '' ) {
-		return '<span class="error">' . wfMessage( $messageKey, $arg1, $arg2, $arg3, $arg4 )->inContentLanguage()->text() . '</span>';
+		return '<div class="smw-callout smw-callout-error">' . wfMessage(
+			$messageKey,
+			$arg1,
+			$arg2,
+			$arg3,
+			$arg4
+		)->inContentLanguage()->text() . '</div>';
 	}
 
 	private function getInMemoryParserTracker() {
@@ -167,7 +169,7 @@ class InterlanguageLinkParserFunction {
 		// Use the FixedInMemoryCache to ensure that during a job run the array is not hit by any
 		// memory leak and limited to a fixed size
 		if ( self::$inMemoryParserTracker === null ) {
-			self::$inMemoryParserTracker = CacheFactory::getInstance()->newFixedInMemoryCache( 50 );
+			self::$inMemoryParserTracker = CacheFactory::getInstance()->newFixedInMemoryLruCache( 50 );
 		}
 
 		return self::$inMemoryParserTracker;

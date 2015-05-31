@@ -64,7 +64,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			$interlanguageLinksLookup
 		);
 
-		$instance->addLanguageTargetLinksToOutput( $interlanguageLink );
+		$instance->tryAddLanguageTargetLinksToOutput( $interlanguageLink );
 	}
 
 	public function testCompareLanguageTargetLinksForExistingLanguageEntry() {
@@ -92,15 +92,12 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			$interlanguageLinksLookup
 		);
 
-		$instance->addLanguageTargetLinksToOutput( $interlanguageLink );
-
-		$this->assertEquals(
-			'Foo',
-			$instance->checkIfTargetIsKnownForCurrentLanguage( \Title::newFromText( 'Bar' ) )
+		$knownTarget = $instance->tryAddLanguageTargetLinksToOutput(
+			$interlanguageLink
 		);
 
 		$this->assertFalse(
-			$instance->checkIfTargetIsKnownForCurrentLanguage( \Title::newFromText( 'Foo' ) )
+			 $knownTarget
 		);
 	}
 
@@ -130,7 +127,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			$interlanguageLinksLookup
 		);
 
-		$instance->addLanguageTargetLinksToOutput( $interlanguageLink );
+		$instance->tryAddLanguageTargetLinksToOutput( $interlanguageLink );
 	}
 
 }
