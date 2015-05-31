@@ -165,6 +165,23 @@ class InterlanguageLinksLookup {
 	}
 
 	/**
+	 * @since 1.1
+	 *
+	 * @param Title $title
+	 *
+	 * @return boolean
+	 */
+	public function hasSilAnnotationFor( Title $title ) {
+
+		$propertyValues = $this->store->getPropertyValues(
+			DIWikiPage::newFromTitle( $title ),
+			new DIProperty( PropertyRegistry::SIL_CONTAINER )
+		);
+
+		return $propertyValues !== array();
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param Title $title

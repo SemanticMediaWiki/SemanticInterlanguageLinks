@@ -74,6 +74,10 @@ class ByLanguageCategoryPageTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		$interlanguageLinksLookup->expects( $this->once() )
+				->method( 'hasSilAnnotationFor' )
+				->will( $this->returnValue( true ) );
+
 		$context = $this->getMockBuilder( '\IContextSource' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -105,6 +109,10 @@ class ByLanguageCategoryPageTest extends \PHPUnit_Framework_TestCase {
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
+
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+				->method( 'hasSilAnnotationFor' )
+				->will( $this->returnValue( true ) );
 
 		$interlanguageLinksLookup->expects( $this->exactly( 1 ) )
 				->method( 'findPageLanguageForTarget' )

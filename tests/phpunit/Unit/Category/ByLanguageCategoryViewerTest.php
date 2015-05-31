@@ -93,6 +93,10 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+				->method( 'hasSilAnnotationFor' )
+				->will( $this->returnValue( true ) );
+
 		$interlanguageLinksLookup->expects( $this->at( 0 ) )
 			->method( 'findPageLanguageForTarget' )
 			->will( $this->returnValue( 'no' ) );
@@ -115,7 +119,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testTryAddSubcategoryForNoInterlanguageLinksLookup() {
+	public function testAddSubcategoryForNoInterlanguageLinksLookup() {
 
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
@@ -146,6 +150,10 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
+
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+				->method( 'hasSilAnnotationFor' )
+				->will( $this->returnValue( true ) );
 
 		$interlanguageLinksLookup->expects( $this->at( 0 ) )
 			->method( 'findPageLanguageForTarget' )
@@ -187,6 +195,10 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+				->method( 'hasSilAnnotationFor' )
+				->will( $this->returnValue( true ) );
+
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 			->method( 'findPageLanguageForTarget' )
 			->with( $this->equalTo( $title ) )
 			->will( $this->returnValue( '' ) );
@@ -205,7 +217,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testTryAddPageForLanguageMatch() {
+	public function testAddPageForLanguageMatch() {
 
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar' );
@@ -214,12 +226,16 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$interlanguageLinksLookup->expects( $this->at( 0 ) )
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+				->method( 'hasSilAnnotationFor' )
+				->will( $this->returnValue( true ) );
+
+		$interlanguageLinksLookup->expects( $this->at( 1 ) )
 			->method( 'findPageLanguageForTarget' )
 			->with( $this->equalTo( $title ) )
 			->will( $this->returnValue( 'vi' ) );
 
-		$interlanguageLinksLookup->expects( $this->at( 1 ) )
+		$interlanguageLinksLookup->expects( $this->at( 2 ) )
 			->method( 'findPageLanguageForTarget' )
 			->with( $this->equalTo( $target ) )
 			->will( $this->returnValue( 'vi' ) );
@@ -247,15 +263,46 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$interlanguageLinksLookup->expects( $this->at( 0 ) )
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+				->method( 'hasSilAnnotationFor' )
+				->will( $this->returnValue( true ) );
+
+		$interlanguageLinksLookup->expects( $this->at( 1 ) )
 			->method( 'findPageLanguageForTarget' )
 			->with( $this->equalTo( $title ) )
 			->will( $this->returnValue( 'vi' ) );
 
-		$interlanguageLinksLookup->expects( $this->at( 1 ) )
+		$interlanguageLinksLookup->expects( $this->at( 2 ) )
 			->method( 'findPageLanguageForTarget' )
 			->with( $this->equalTo( $target ) )
 			->will( $this->returnValue( 'en' ) );
+
+		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
+
+		$instance = new ByLanguageCategoryViewer(
+			$title,
+			$this->context
+		);
+
+		$instance->addPage( $target, 'B', '' );
+
+		$this->assertEmpty(
+			$instance->articles
+		);
+	}
+
+	public function testTryAddPageForNoAnnotationMatch() {
+
+		$title = Title::newFromText( 'Foo', NS_CATEGORY );
+		$target = Title::newFromText( 'Bar' );
+
+		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+				->method( 'hasSilAnnotationFor' )
+				->will( $this->returnValue( false ) );
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 

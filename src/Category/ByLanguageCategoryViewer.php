@@ -62,6 +62,10 @@ class ByLanguageCategoryViewer extends CategoryViewer {
 			return true;
 		}
 
+		if ( !$this->title->interlanguageLinksLookup->hasSilAnnotationFor( $title ) ) {
+			return false;
+		}
+
 		$categoryLanguageCode = $this->title->interlanguageLinksLookup->findPageLanguageForTarget( $this->title );
 
 		if ( $categoryLanguageCode === null || $categoryLanguageCode === '' ) {

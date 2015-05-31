@@ -57,8 +57,11 @@ class ByLanguageCategoryPage extends CategoryPage {
 				'div',
 				array(
 					'id'    => 'sil-categorypage-languagefilter',
-					'style' => 'font-style:italic' ),
-				wfMessage( 'sil-categorypage-languagefilter-active' )->inLanguage( $this->getTitle()->getPageLanguage() )->text()
+					'style' => 'font-style:italic'
+				),
+				wfMessage(
+					'sil-categorypage-languagefilter-active',
+					$this->getTitle()->getPageLanguage()->getCode() )->inLanguage( $this->getTitle()->getPageLanguage() )->text()
 			);
 
 			$this->getContext()->getOutput()->addHTML( $html );
@@ -73,7 +76,9 @@ class ByLanguageCategoryPage extends CategoryPage {
 	 */
 	public function modifyCategoryView( &$page, InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
-		if ( !$this->categoryFilterByLanguage || $this->getTitle()->getNamespace() !== NS_CATEGORY ) {
+		if ( $this->getTitle()->getNamespace() !== NS_CATEGORY ||
+			!$this->categoryFilterByLanguage ||
+			!$interlanguageLinksLookup->hasSilAnnotationFor( $this->getTitle() ) ) {
 			return null;
 		}
 
@@ -88,7 +93,9 @@ class ByLanguageCategoryPage extends CategoryPage {
 	}
 
 	private function hasPageLanguageForTarget( Title $title ) {
-		return $this->interlanguageLinksLookup !== null && $this->interlanguageLinksLookup->findPageLanguageForTarget( $title ) !== '';
+		return $this->interlanguageLinksLookup !== null &&
+			$this->interlanguageLinksLookup->findPageLanguageForTarget( $title ) !== '' &&
+			$this->interlanguageLinksLookup->hasSilAnnotationFor( $title );
 	}
 
 }
