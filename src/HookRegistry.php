@@ -9,6 +9,7 @@ use SMW\ApplicationFactory;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
 use SIL\Category\ByLanguageCategoryPage;
+use Hooks;
 
 /**
  * @license GNU GPL v2+
@@ -19,19 +20,9 @@ use SIL\Category\ByLanguageCategoryPage;
 class HookRegistry {
 
 	/**
-	 * @var Store
+	 * @var array
 	 */
-	private $store;
-
-	/**
-	 * @var Cache
-	 */
-	private $cache;
-
-	/**
-	 * @var string
-	 */
-	private $cachePrefix;
+	private $handlers = array();
 
 	/**
 	 * @since 1.0
@@ -41,26 +32,48 @@ class HookRegistry {
 	 * @param string $cachePrefix
 	 */
 	public function __construct( Store $store, Cache $cache, $cachePrefix ) {
-		$this->store = $store;
-		$this->cache = $cache;
-		$this->cachePrefix = $cachePrefix;
+		$this->addCallbackHandlers( $store, $cache, $cachePrefix );
+	}
+
+	/**
+	 * @since  1.1
+	 *
+	 * @param string $name
+	 *
+	 * @return boolean
+	 */
+	public function isRegistered( $name ) {
+		return Hooks::isRegistered( $name );
+	}
+
+	/**
+	 * @since  1.1
+	 *
+	 * @param string $name
+	 *
+	 * @return Callable|false
+	 */
+	public function getHandlersFor( $name ) {
+		return isset( $this->handlers[$name] ) ? $this->handlers[$name] : false;
 	}
 
 	/**
 	 * @since  1.0
-	 *
-	 * @param array &$wgHooks
-	 *
-	 * @return boolean
 	 */
-	public function register( &$wgHooks ) {
+	public function register() {
+		foreach ( $this->handlers as $name => $callback ) {
+			Hooks::register( $name, $callback );
+		}
+	}
+
+	private function addCallbackHandlers( $store, $cache, $cachePrefix ) {
 
 		$cacheKeyGenerator = new CacheKeyGenerator();
 		$cacheKeyGenerator->setAuxiliaryKeyModifier( '20150122' );
-		$cacheKeyGenerator->setCachePrefix( $this->cachePrefix );
+		$cacheKeyGenerator->setCachePrefix( $cachePrefix );
 
 		$languageTargetLinksCache = new LanguageTargetLinksCache(
-			$this->cache,
+			$cache,
 			$cacheKeyGenerator
 		);
 
@@ -68,21 +81,21 @@ class HookRegistry {
 			$languageTargetLinksCache
 		);
 
-		$interlanguageLinksLookup->setStore( $this->store );
+		$interlanguageLinksLookup->setStore( $store );
 
 		$propertyRegistry = new PropertyRegistry();
 
 		/**
 		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks.md
 		 */
-		$wgHooks['smwInitProperties'][] = function () use ( $propertyRegistry ) {
+		$this->handlers['SMW::Property::initProperties'] = function () use ( $propertyRegistry ) {
 			return $propertyRegistry->register();
 		};
 
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ArticleFromTitle
 		 */
-		$wgHooks['ArticleFromTitle'][] = function ( $title, &$page ) use( $interlanguageLinksLookup ) {
+		$this->handlers['ArticleFromTitle'] = function ( $title, &$page ) use( $interlanguageLinksLookup ) {
 
 			$byLanguageCategoryPage = new ByLanguageCategoryPage( $title );
 			$byLanguageCategoryPage->setCategoryFilterByLanguageState( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] );
@@ -91,18 +104,16 @@ class HookRegistry {
 			return true;
 		};
 
-		$this->registerInterlanguageParserHooks( $interlanguageLinksLookup, $wgHooks );
-		$this->registerSpecialSearchHooks( $interlanguageLinksLookup, $wgHooks );
-
-		return true;
+		$this->registerInterlanguageParserHooks( $interlanguageLinksLookup );
+		$this->registerSpecialSearchHooks( $interlanguageLinksLookup );
 	}
 
-	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup, &$wgHooks ) {
+	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 		 */
-		$wgHooks['ParserFirstCallInit'][] = function ( &$parser ) use( $interlanguageLinksLookup ) {
+		$this->handlers['ParserFirstCallInit'] = function ( &$parser ) use( $interlanguageLinksLookup ) {
 
 			$parserFunctionFactory = new ParserFunctionFactory();
 
@@ -124,7 +135,7 @@ class HookRegistry {
 		/**
 		 * https://www.mediawiki.org/wiki/Manual:Hooks/ArticleDelete
 		 */
-		$wgHooks['SMW::SQLStore::BeforeDeleteSubjectComplete'][] = function ( $store, $title ) use ( $interlanguageLinksLookup ) {
+		$this->handlers['SMW::SQLStore::BeforeDeleteSubjectComplete'] = function ( $store, $title ) use ( $interlanguageLinksLookup ) {
 
 			$interlanguageLinksLookup->setStore( $store );
 			$interlanguageLinksLookup->invalidateLookupCache( $title );
@@ -135,7 +146,7 @@ class HookRegistry {
 		/**
 		 * https://www.mediawiki.org/wiki/Manual:Hooks/TitleMoveComplete
 		 */
-		$wgHooks['SMW::SQLStore::BeforeChangeTitleComplete'][] = function ( $store, $oldTitle, $newTitle, $pageid, $redirid ) use ( $interlanguageLinksLookup ) {
+		$this->handlers['SMW::SQLStore::BeforeChangeTitleComplete'] = function ( $store, $oldTitle, $newTitle, $pageid, $redirid ) use ( $interlanguageLinksLookup ) {
 
 			$interlanguageLinksLookup->setStore( $store );
 
@@ -148,9 +159,11 @@ class HookRegistry {
 		/**
 		 * https://www.mediawiki.org/wiki/Manual:Hooks/NewRevisionFromEditComplete
 		 */
-		$wgHooks['NewRevisionFromEditComplete'][] = function ( $wikiPage ) use ( $interlanguageLinksLookup ) {
+		$this->handlers['NewRevisionFromEditComplete'] = function ( $wikiPage ) use ( $interlanguageLinksLookup ) {
 
-			$interlanguageLinksLookup->invalidateLookupCache( $wikiPage->getTitle() );
+			$interlanguageLinksLookup->invalidateLookupCache(
+				$wikiPage->getTitle()
+			);
 
 			return true;
 		};
@@ -158,7 +171,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SkinTemplateGetLanguageLink
 		 */
-		$wgHooks['SkinTemplateGetLanguageLink'][] = function ( &$languageLink, $languageLinkTitle, $title ) {
+		$this->handlers['SkinTemplateGetLanguageLink'] = function ( &$languageLink, $languageLinkTitle, $title ) {
 
 			$siteLanguageLinkModifier = new SiteLanguageLinkModifier(
 				$languageLinkTitle,
@@ -173,7 +186,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentLanguage
 		 */
-		$wgHooks['PageContentLanguage'][] = function ( $title, &$pageLang ) use ( $interlanguageLinksLookup ) {
+		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $interlanguageLinksLookup ) {
 
 			$pageContentLanguageModifier = new PageContentLanguageModifier(
 				$interlanguageLinksLookup,
@@ -188,7 +201,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserAfterTidy
 		 */
-		$wgHooks['ParserAfterTidy'][] = function ( &$parser, &$text ) {
+		$this->handlers['ParserAfterTidy'] = function ( &$parser, &$text ) {
 
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
@@ -211,7 +224,7 @@ class HookRegistry {
 		};
 	}
 
-	private function registerSpecialSearchHooks( InterlanguageLinksLookup $interlanguageLinksLookup, &$wgHooks ) {
+	private function registerSpecialSearchHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
 		$searchResultModifier = new SearchResultModifier(
 			new LanguageResultMatchFinder( $interlanguageLinksLookup )
@@ -220,7 +233,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfiles
 		 */
-		$wgHooks['SpecialSearchProfiles'][] = function ( array &$profiles ) use ( $searchResultModifier ) {
+		$this->handlers['SpecialSearchProfiles'] = function ( array &$profiles ) use ( $searchResultModifier ) {
 
 			$searchProfile = $searchResultModifier->addSearchProfile(
 				$profiles
@@ -232,7 +245,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfileForm
 		 */
-		$wgHooks['SpecialSearchProfileForm'][] = function ( $search, &$form, $profile, $term, $opts ) use ( $searchResultModifier ) {
+		$this->handlers['SpecialSearchProfileForm'] = function ( $search, &$form, $profile, $term, $opts ) use ( $searchResultModifier ) {
 
 			$searchProfileForm = $searchResultModifier->addSearchProfileForm(
 				$search,
@@ -247,7 +260,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchPowerBox
 		 */
-		$wgHooks['SpecialSearchPowerBox'][] = function ( &$showSections, $term, $opts ) use ( $searchResultModifier ) {
+		$this->handlers['SpecialSearchPowerBox'] = function ( &$showSections, $term, $opts ) use ( $searchResultModifier ) {
 
 			$searchResultModifier->addLanguageFilterToPowerBox(
 				$GLOBALS['wgRequest'],
@@ -260,7 +273,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchResults
 		 */
-		$wgHooks['SpecialSearchResults'][] = function ( $term, &$titleMatches, &$textMatches ) use ( $searchResultModifier ) {
+		$this->handlers['SpecialSearchResults'] = function ( $term, &$titleMatches, &$textMatches ) use ( $searchResultModifier ) {
 
 			$resultMatches = $searchResultModifier->applyLanguageFilterToResultMatches(
 				$GLOBALS['wgRequest'],

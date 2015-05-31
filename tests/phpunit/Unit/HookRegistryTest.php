@@ -61,42 +61,39 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getOutput' )
 			->will( $this->returnValue( $parserOutput ) );
 
-		$wgHooks = array();
-
 		$instance = new HookRegistry( $this->store, $this->cache, 'foo' );
-		$instance->register( $wgHooks );
+		$instance->register();
 
-		$this->assertNotEmpty(
-			$wgHooks
-		);
+		$this->doTestParserFirstCallInit( $instance, $parser );
+		$this->doTestNewRevisionFromEditComplete( $instance, $title );
+		$this->doTestSkinTemplateGetLanguageLink( $instance, $title );
+		$this->doTestPageContentLanguage( $instance, $title );
+		$this->doTestArticleFromTitle( $instance, $title );
+		$this->doTestParserAfterTidy( $instance, $parser );
 
-		$this->doTestParserFirstCallInit( $wgHooks, $parser );
-		$this->doTestNewRevisionFromEditComplete( $wgHooks, $title );
-		$this->doTestSkinTemplateGetLanguageLink( $wgHooks, $title );
-		$this->doTestPageContentLanguage( $wgHooks, $title );
-		$this->doTestArticleFromTitle( $wgHooks, $title );
-		$this->doTestParserAfterTidy( $wgHooks, $parser );
+		$this->doTestInitProperties( $instance );
+		$this->doTestSQLStoreBeforeDeleteSubjectCompletes( $instance, $this->store, $title );
+		$this->doTestSQLStoreBeforeChangeTitleComplete( $instance, $this->store, $title );
 
-		$this->doTestInitProperties( $wgHooks );
-		$this->doTestSQLStoreBeforeDeleteSubjectCompletes( $wgHooks, $this->store, $title );
-		$this->doTestSQLStoreBeforeChangeTitleComplete( $wgHooks, $this->store, $title );
-
-		$this->doTestSpecialSearchProfiles( $wgHooks );
-		$this->doTestSpecialSearchProfileForm( $wgHooks );
-		$this->doTestSpecialSearchResults( $wgHooks );
-		$this->doTestSpecialSearchPowerBox( $wgHooks );
+		$this->doTestSpecialSearchProfiles( $instance );
+		$this->doTestSpecialSearchProfileForm( $instance );
+		$this->doTestSpecialSearchResults( $instance );
+		$this->doTestSpecialSearchPowerBox( $instance );
 	}
 
-	public function doTestParserFirstCallInit( $wgHooks, $parser ) {
+	public function doTestParserFirstCallInit( $instance, $parser ) {
+
+		$this->assertTrue(
+			$instance->isRegistered( 'ParserFirstCallInit' )
+		);
 
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'ParserFirstCallInit',
+			$instance->getHandlersFor( 'ParserFirstCallInit' ),
 			array( &$parser )
 		);
 	}
 
-	public function doTestNewRevisionFromEditComplete( $wgHooks, $title ) {
+	public function doTestNewRevisionFromEditComplete( $instance, $title ) {
 
 		$wikipage = $this->getMockBuilder( '\WikiPage' )
 			->disableOriginalConstructor()
@@ -106,96 +103,123 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getTitle' )
 			->will( $this->returnValue( $title ) );
 
+		$this->assertTrue(
+			$instance->isRegistered( 'NewRevisionFromEditComplete' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'NewRevisionFromEditComplete',
+			$instance->getHandlersFor( 'NewRevisionFromEditComplete' ),
 			array( $wikipage )
 		);
 	}
 
-	public function doTestSkinTemplateGetLanguageLink( $wgHooks, $title ) {
+	public function doTestSkinTemplateGetLanguageLink( $instance, $title ) {
 
 		$languageLink = array();
 
+		$this->assertTrue(
+			$instance->isRegistered( 'SkinTemplateGetLanguageLink' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'SkinTemplateGetLanguageLink',
+			$instance->getHandlersFor( 'SkinTemplateGetLanguageLink' ),
 			array( &$languageLink, $title, $title )
 		);
 	}
 
-	public function doTestPageContentLanguage( $wgHooks, $title ) {
+	public function doTestPageContentLanguage( $instance, $title ) {
 
 		$pageLang = '';
 
+		$this->assertTrue(
+			$instance->isRegistered( 'PageContentLanguage' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'PageContentLanguage',
+			$instance->getHandlersFor( 'PageContentLanguage' ),
 			array( $title, &$pageLang )
 		);
 	}
 
-	public function doTestArticleFromTitle( $wgHooks, $title ) {
+	public function doTestArticleFromTitle( $instance, $title ) {
 
 		$page = '';
 
+		$this->assertTrue(
+			$instance->isRegistered( 'ArticleFromTitle' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'ArticleFromTitle',
+			$instance->getHandlersFor( 'ArticleFromTitle' ),
 			array( $title, &$page )
 		);
 	}
 
-	public function doTestParserAfterTidy( $wgHooks, $parser ) {
+	public function doTestParserAfterTidy( $instance, $parser ) {
 
 		$text = '';
 
+		$this->assertTrue(
+			$instance->isRegistered( 'ParserAfterTidy' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'ParserAfterTidy',
+			$instance->getHandlersFor( 'ParserAfterTidy' ),
 			array( &$parser, &$text )
 		);
 	}
 
-	public function doTestInitProperties( $wgHooks ) {
+	public function doTestInitProperties( $instance ) {
+
+		$this->assertTrue(
+			$instance->isRegistered( 'SMW::Property::initProperties' )
+		);
 
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'smwInitProperties',
+			$instance->getHandlersFor( 'SMW::Property::initProperties' ),
 			array()
 		);
 	}
 
-	public function doTestSQLStoreBeforeDeleteSubjectCompletes( $wgHooks, $store, $title ) {
+	public function doTestSQLStoreBeforeDeleteSubjectCompletes( $instance, $store, $title ) {
+
+		$this->assertTrue(
+			$instance->isRegistered( 'SMW::SQLStore::BeforeDeleteSubjectComplete' )
+		);
 
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'SMW::SQLStore::BeforeDeleteSubjectComplete',
-			array( $this->store, $title )
+			$instance->getHandlersFor( 'SMW::SQLStore::BeforeDeleteSubjectComplete' ),
+			array( $store, $title )
 		);
 	}
 
-	public function doTestSQLStoreBeforeChangeTitleComplete( $wgHooks, $store, $title ) {
+	public function doTestSQLStoreBeforeChangeTitleComplete( $instance, $store, $title ) {
+
+		$this->assertTrue(
+			$instance->isRegistered( 'SMW::SQLStore::BeforeChangeTitleComplete' )
+		);
 
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'SMW::SQLStore::BeforeChangeTitleComplete',
+			$instance->getHandlersFor( 'SMW::SQLStore::BeforeChangeTitleComplete' ),
 			array( $store, $title, $title, 0, 0 )
 		);
 	}
 
-	public function doTestSpecialSearchProfiles( $wgHooks ) {
+	public function doTestSpecialSearchProfiles( $instance ) {
 
 		$profiles = array();
 
+		$this->assertTrue(
+			$instance->isRegistered( 'SpecialSearchProfiles' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'SpecialSearchProfiles',
+			$instance->getHandlersFor( 'SpecialSearchProfiles' ),
 			array( &$profiles )
 		);
 	}
 
-	public function doTestSpecialSearchProfileForm( $wgHooks ) {
+	public function doTestSpecialSearchProfileForm( $instance ) {
 
 		$search = $this->getMockBuilder( '\SpecialSearch' )
 			->disableOriginalConstructor()
@@ -206,14 +230,17 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$term = '';
 		$opts = array();
 
+		$this->assertTrue(
+			$instance->isRegistered( 'SpecialSearchProfileForm' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'SpecialSearchProfileForm',
+			$instance->getHandlersFor( 'SpecialSearchProfileForm' ),
 			array( $search, &$form, $profile, $term, $opts )
 		);
 	}
 
-	public function doTestSpecialSearchResults( $wgHooks ) {
+	public function doTestSpecialSearchResults( $instance ) {
 
 		$search = $this->getMockBuilder( '\SpecialSearch' )
 			->disableOriginalConstructor()
@@ -222,31 +249,35 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$titleMatches = false;
 		$textMatches = false;
 
+		$this->assertTrue(
+			$instance->isRegistered( 'SpecialSearchResults' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'SpecialSearchResults',
+			$instance->getHandlersFor( 'SpecialSearchResults' ),
 			array( $search, &$titleMatches, &$textMatches )
 		);
 	}
 
-	public function doTestSpecialSearchPowerBox( $wgHooks ) {
+	public function doTestSpecialSearchPowerBox( $instance ) {
 
 		$showSections = array();
 
+		$this->assertTrue(
+			$instance->isRegistered( 'SpecialSearchPowerBox' )
+		);
+
 		$this->assertThatHookIsExcutable(
-			$wgHooks,
-			'SpecialSearchPowerBox',
+			$instance->getHandlersFor( 'SpecialSearchPowerBox' ),
 			array( &$showSections, '', array() )
 		);
 	}
 
-	private function assertThatHookIsExcutable( $wgHooks, $hookName, $arguments ) {
-		foreach ( $wgHooks[ $hookName ] as $hook ) {
-			$this->assertInternalType(
-				'boolean',
-				call_user_func_array( $hook, $arguments )
-			);
-		}
+	private function assertThatHookIsExcutable( \Closure $handler, $arguments ) {
+		$this->assertInternalType(
+			'boolean',
+			call_user_func_array( $handler, $arguments )
+		);
 	}
 
 }

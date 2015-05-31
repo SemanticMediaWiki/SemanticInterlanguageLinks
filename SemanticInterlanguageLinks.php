@@ -74,7 +74,7 @@ call_user_func( function () {
 			$cachePrefix
 		);
 
-		$hookRegistry->register( $GLOBALS['wgHooks'] );
+		$hookRegistry->register();
 	};
 
 } );
