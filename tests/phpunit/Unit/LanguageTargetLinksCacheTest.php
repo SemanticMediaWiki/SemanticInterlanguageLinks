@@ -318,7 +318,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo( $data ) );
 
 		$cacheKeyGenerator = new CacheKeyGenerator();
-		$cacheKeyGenerator->setAuxiliaryKeyModifier( '20150122' );
 		$cacheKeyGenerator->setCachePrefix( 'foo' );
 
 		$instance = new LanguageTargetLinksCache( $cache, $cacheKeyGenerator );

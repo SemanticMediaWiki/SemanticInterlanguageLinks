@@ -11,10 +11,10 @@ namespace SIL;
 class CacheKeyGenerator {
 
 	/**
-	 * External (hence auxiliary) cache key modifier that can be used to alter
-	 * existing keys
+	 * Update the version to force a recache for all items due to
+	 * required changes
 	 */
-	private $auxiliaryKeyModifier = '';
+	const VERSION = '1.1';
 
 	/**
 	 * @var string|null
@@ -36,24 +36,12 @@ class CacheKeyGenerator {
 	/**
 	 * @since 1.0
 	 *
-	 * @param string $auxiliaryKeyModifier
-	 *
-	 * @return CacheKeyGenerator
-	 */
-	public function setAuxiliaryKeyModifier( $auxiliaryKeyModifier ) {
-		$this->auxiliaryKeyModifier = $auxiliaryKeyModifier;
-		return $this;
-	}
-
-	/**
-	 * @since 1.0
-	 *
 	 * @param string $key
 	 *
 	 * @return  string
 	 */
 	public function getSiteCacheKey( $key ) {
-		return $this->getCachePrefix() . 's:' . md5( $key . $this->auxiliaryKeyModifier );
+		return $this->getCachePrefix() . 's:' . md5( $key . self::VERSION );
 	}
 
 	/**
@@ -64,7 +52,7 @@ class CacheKeyGenerator {
 	 * @return  string
 	 */
 	public function getPageLanguageCacheBlobKey( $key = '' ) {
-		return $this->getCachePrefix() . 'b:' . md5( $key . $this->auxiliaryKeyModifier );
+		return $this->getCachePrefix() . 'b:' . md5( $key . self::VERSION );
 	}
 
 	/**
@@ -76,7 +64,7 @@ class CacheKeyGenerator {
 	 * @return  string
 	 */
 	public function getPageCacheKey( $key, $stable = true ) {
-		return $this->getCachePrefix() . 'p:' . md5( $key . ( $stable ? '' : $this->auxiliaryKeyModifier ) );
+		return $this->getCachePrefix() . 'p:' . md5( $key . ( $stable ? '' : self::VERSION ) );
 	}
 
 	/**
