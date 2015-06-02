@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Esketti",
+			"Sjoerddebruin"
+		]
+	},
+	"sil-desc": "Een [https://semantic-mediawiki.org Semantic MediaWiki] uitbreiding van het maken en beheren van interwiki links",
+	"sil-property-ill-alias-language": "De inhoud van de pagina taal",
+	"sil-property-ill-alias-reference": "Interlanguage referentie",
+	"sil-property-iwl-alias-language": "Interwikitaal",
+	"sil-property-iwl-alias-reference": "Interwiki-referentie",
+	"sil-property-alias-container": "Heeft interwikilinks",
+	"sil-interlanguagelink-hideinterlanguagelinks": "De parser functie kan niet worden gebruikt omdat <code>$wgHideInterlanguageLinks</code> is ingesteld."
+}
