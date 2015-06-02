@@ -18,7 +18,7 @@
 	"sil-interlanguagelist-missing-linkreference": "The parser function is missing a valid reference.",
 	"sil-interlanguagelist-missing-template": "The parser function is missing an output template.",
 	"sil-interlanguageparser-linkreference-error": "The parser function had a problem to create a title object from \"$1\".",
-	"sil-search-profile":"by Language",
+	"sil-search-profile":"By Language",
 	"sil-search-profile-tooltip":"Filter articles by language annotation",
 	"sil-search-languagefilter-label":"Filter by Language",
 	"sil-search-nolanguagefilter":"No language filter",

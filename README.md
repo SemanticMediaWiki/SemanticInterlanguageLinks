@@ -12,7 +12,7 @@ create and manage interlanguage links.
 
 This extension creates interlanguage links and provides queryable annotations that can connect
 pages with similar content for different languages to be accessible via the [sitelink navigation][sitelink]
-by using the `INTERLANGUAGELINK` parser function.
+by using the `interlanguagelink` parser function.
 
 The following [video](https://vimeo.com/115871518) demonstrates "How SIL works"
 without much user interaction or complex editing procedures.
@@ -21,7 +21,7 @@ without much user interaction or complex editing procedures.
 
 - PHP 5.3.2 or later
 - MediaWiki 1.23 or later
-- [Semantic MediaWiki][smw] 2.1+
+- [Semantic MediaWiki][smw] 2.1 or later
 
 ## Installation
 
@@ -31,22 +31,22 @@ with an entry in MediaWiki's `composer.json`.
 ```json
 {
 	"require": {
-		"mediawiki/semantic-interlanguage-links": "~1.0"
+		"mediawiki/semantic-interlanguage-links": "~1.1"
 	}
 }
 ```
 1. From your MediaWiki installation directory, execute
-   `composer require mediawiki/semantic-interlanguage-links:~1.0`
+   `composer require mediawiki/semantic-interlanguage-links:~1.1`
 2. Navigate to _Special:Version_ on your wiki and verify that the package
    have been successfully installed.
 
 ## Usage
 
-The parser function `{{INTERLANGUAGELINK: language code  | interlanguage reference }}` (or `{{interlanguagelink: ...}}`) provides in-text annotation support with the first argument being a language code (e.g `es`, `ja`) while the second argument contains an arbitrary reference (`interlanguage reference`) that describes similar content for different languages.
+The parser function `{{interlanguagelink: language code  | interlanguage reference }}` provides in-text annotation support with the first argument being a language code (e.g `es`, `ja`) while the second argument contains an arbitrary reference (`interlanguage reference`) that describes similar content for different languages.
 
 ![sil](https://cloud.githubusercontent.com/assets/1245473/7594045/0d88d938-f919-11e4-9c79-8e8d166c507a.png)
 
-The parser function `{{INTERLANGUAGELIST: interlanguage reference | template }}` can generate a customizable language target link list for the selected `interlanguage reference` to be available as wikitext inclusion using a template with the following parameters:
+The parser function `{{interlanguagelist: interlanguage reference | template }}` can generate a customizable language target link list for the selected `interlanguage reference` to be available as wikitext inclusion using a template with the following parameters:
 - `target-link` being the target link
 - `lang-code` the language code
 - `lang-name` representing the localized language name for the language code
@@ -66,7 +66,7 @@ Page: Foo
 Lorem ipsum dolor sit amet, sale lucilius id mei, pri id prima legendos, at
 vix tantas habemus tincidunt.
 
-{{INTERLANGUAGELINK:la|Lorem ipsum}}
+{{interlanguagelink:la|Lorem ipsum}}
 ```
 ```text
 Page:Bar
@@ -79,7 +79,7 @@ Page:Bar
 
 #### List languages
 
-Using `Template:InterlanguageLinksTemplate` in `INTERLANGUAGELIST` will output all available links to the `Lorem ipsum` reference on top of the page `FooBar`.
+Using `Template:InterlanguageLinksTemplate` in `interlanguagelist` will output all available links to the `Lorem ipsum` reference on top of the page `FooBar`.
 
 ```text
 Template:InterlanguageLinksTemplate
@@ -90,7 +90,7 @@ Template:InterlanguageLinksTemplate
 ```text
 Page:FooBar
 
-{{INTERLANGUAGELIST:Lorem ipsum|InterlanguageLinksTemplate}}
+{{interlanguagelist:Lorem ipsum|InterlanguageLinksTemplate}}
 
 ```
 
@@ -104,9 +104,8 @@ Page:FooBar
 
 ### Configuration
 
-`$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;` is being set to be the default value to improve query lookups during each page view with cache invalidation being carried out during any delete, change or move action.
-
-In case `$GLOBALS['wgHideInterlanguageLinks']` is enabled (set to `true`), no sitelinks or annotations are created.
+- `$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;` is being set to be the default value to improve query lookups during each page view with cache invalidation being carried out during any delete, change or move action.
+- `$GLOBALS['wgHideInterlanguageLinks']` is enabled (set to `true`), no sitelinks or annotations are created (in order to correspond to the MW default behaviour for interwiki links)
 
 ## Contribution and support
 

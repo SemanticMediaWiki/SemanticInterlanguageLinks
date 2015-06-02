@@ -47,7 +47,7 @@ class LanguageResultMatchFinder {
 
 			$pageLanguage = $this->interlanguageLinksLookup->findPageLanguageForTarget( $title );
 
-			if ( $pageLanguage === $languageCode ) {
+			if ( $pageLanguage === $languageCode && $this->interlanguageLinksLookup->hasSilAnnotationFor( $title ) ) {
 				$mappedMatches[] = $searchresult;
 			}
 		}

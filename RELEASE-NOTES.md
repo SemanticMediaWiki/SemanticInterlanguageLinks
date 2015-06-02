@@ -1,6 +1,11 @@
-### 1.0.0
+### 1.1.0 (2015-06-02)
 
-Released on 2015-02-14
+* Only match results in `Special:Search` for the selected language that contains an annotation
+* Fixed behaviour in `ByLanguageCategoryPage` for when languages are switched
+* #32 Fixed exception in `Special:Search` for no results
+* Localisation updates from https://translatewiki.net
+
+### 1.0.0 (2015-02-14)
 
 * Initial release
 * Added the `onoi/cache:~1.0` dependency

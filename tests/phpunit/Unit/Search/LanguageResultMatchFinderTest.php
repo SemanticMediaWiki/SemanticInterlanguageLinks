@@ -85,6 +85,11 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
+			->method( 'hasSilAnnotationFor' )
+			->with( $this->equalTo( $title ) )
+			->will( $this->returnValue( true ) );
+
+		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 			->method( 'findPageLanguageForTarget' )
 			->with( $this->equalTo( $title ) )
 			->will( $this->returnValue( 'mhr' ) );
