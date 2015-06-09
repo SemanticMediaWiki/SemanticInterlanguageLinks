@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Elisardojm"
+		]
+	},
+	"sil-desc": "Extensión de [https://semantic-mediawiki.org MediaWiki Semántica] para crear e xestionar ligazóns interlingüísticas",
+	"sil-property-ill-alias-language": "Lingua do contido da páxina",
+	"sil-property-ill-alias-reference": "Referencia interlingüística",
+	"sil-property-iwl-alias-language": "Idioma interwiki",
+	"sil-property-iwl-alias-reference": "Referencia interwiki",
+	"sil-property-alias-container": "Ten ligazóns interlingüísticas",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Non se pode utilizar a función do analizador porque <code>$wgHideInterlanguageLinks</code> está activa.",
+	"sil-interlanguagelink-invalidlanguagecode": "Non se recoñece \"$1\" como código de idioma válido.",
+	"sil-interlanguagelink-multiplecalls": "A función do analizador \"INTERLANGUAGELINK\" utilizouse varias veces nesta páxina, o cal non é posible.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Xa existe a combinación \"$1\":\"$2\" para a páxina \"$3\", polo tanto, non se creou ningunha anotación interlingüística.",
+	"sil-interlanguagelist-missing-linkreference": "Á función do analizador fáltalle unha referencia válida.",
+	"sil-interlanguagelist-missing-template": "Á función do analizador fáltalle un modelo de saída.",
+	"sil-interlanguageparser-linkreference-error": "A función do analizador experimentou un problema ó crear un objecto de título a partir de \"$1\".",
+	"sil-search-profile": "por idioma",
+	"sil-search-profile-tooltip": "Filtrar artigo por anotación de idioma",
+	"sil-search-languagefilter-label": "Filtrar por idioma",
+	"sil-search-nolanguagefilter": "Sen filtro de idioma",
+	"sil-categorypage-languagefilter-active": "Esta categoría contén información (páxina, subpáxina e imaxe) filtrada por idioma."
+}

@@ -4,11 +4,14 @@
 			"Robby"
 		]
 	},
+	"sil-property-ill-alias-language": "Sprooch vum Inhalt vun der Säit",
+	"sil-property-ill-alias-reference": "Sproochreferenz",
 	"sil-property-iwl-alias-language": "Interwiki-Sprooch",
 	"sil-property-iwl-alias-reference": "Interwiki-Referenz",
 	"sil-property-alias-container": "Huet Sproochlinken",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" gouf net als valabele Sproochcode erkannt.",
 	"sil-search-profile": "no Sprooch",
 	"sil-search-languagefilter-label": "Filter no der Sprooch",
-	"sil-search-nolanguagefilter": "Kee Sproochfilter"
+	"sil-search-nolanguagefilter": "Kee Sproochfilter",
+	"sil-categorypage-languagefilter-active": "An dëser Kategorie sinn Informatiounen (Säit, Ënnerkategorie a Bild) déi no der Sprooch gefiltert sinn."
 }
