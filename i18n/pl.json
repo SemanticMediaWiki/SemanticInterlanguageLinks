@@ -6,5 +6,6 @@
 	},
 	"sil-property-iwl-alias-language": "Język interwiki",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1” nie jest prawidłowym kodem języka.",
+	"sil-search-profile": "Według języka",
 	"sil-search-nolanguagefilter": "Bez filtrowania języka"
 }

@@ -10,6 +10,7 @@
 	"sil-property-iwl-alias-language": "Idioma interwiki",
 	"sil-property-iwl-alias-reference": "Referencia interwiki",
 	"sil-property-alias-container": "Ten ligazóns interlingüísticas",
+	"smw-pa-property-predefined__sil_container": "\"$1\" é unha propiedade predefinida que representa metainformación relacionada co idioma (en forma dun subobxecto) sobre unha páxina e está proporcionada pola extensión  [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Ligazóns Interidioma Semánticas]",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Non se pode utilizar a función do analizador porque <code>$wgHideInterlanguageLinks</code> está activa.",
 	"sil-interlanguagelink-invalidlanguagecode": "Non se recoñece \"$1\" como código de idioma válido.",
 	"sil-interlanguagelink-multiplecalls": "A función do analizador \"INTERLANGUAGELINK\" utilizouse varias veces nesta páxina, o cal non é posible.",
@@ -21,5 +22,5 @@
 	"sil-search-profile-tooltip": "Filtrar artigo por anotación de idioma",
 	"sil-search-languagefilter-label": "Filtrar por idioma",
 	"sil-search-nolanguagefilter": "Sen filtro de idioma",
-	"sil-categorypage-languagefilter-active": "Esta categoría contén información (páxina, subpáxina e imaxe) filtrada por idioma."
+	"sil-categorypage-languagefilter-active": "Esta categoría contén información (páxina, subpáxina e imaxe) filtrada polo idioma \"$1\"."
 }
