@@ -14,7 +14,7 @@
 	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden. Dies wurde mit dem Konfigurationsparameter „wgHideInterlanguageLinks“ festgelegt.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1“ wohr nit als e Köözel för en Schprohch ze verschtonn.",
 	"sil-interlanguagelink-multiplecalls": "De Paaserfonxjun „\n<code lang=\"en\" xml:lang=\"en\">INTERLANGUAGELINK</code>“ wood op heh dä Sigg mieh wi eijmohl opjerohfe. Dat jeihd ävver nit.",
-	"sil-interlanguagelink-languagetargetcombination-exists": "De Kombinazjuhn „$1“:„$2“ för et Zohoodene vun Schprohche es för die Sigg „$3“ alld en jebruch. Dröm es datsällve nit norr_ens faßjehallde woode.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "De Kombinazjuhn „$1“:„$2“ för et Zohoodene vun Schprohche es för di Sigg „$3“ alld en jebruch. Dröm es datsällve nit norr_ens faßjehallde woode.",
 	"sil-interlanguagelist-missing-linkreference": "Em Oprohf vun dä Paaserfonxjuhn fähld ene jölteje Bezoch obb en Schprohch.",
 	"sil-interlanguagelist-missing-template": "Em Oprohf vun dä Paaserfonxjuhn fähld en Schablohn för jäd aanzezeije.",
 	"sil-interlanguageparser-linkreference-error": "Em dä Paaserfonxjuhn kunnt kei Objäk vun dä Klass „Tittel“ för „$1“ aanlääje.",
