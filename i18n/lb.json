@@ -13,5 +13,5 @@
 	"sil-search-profile": "no Sprooch",
 	"sil-search-languagefilter-label": "Filter no der Sprooch",
 	"sil-search-nolanguagefilter": "Kee Sproochfilter",
-	"sil-categorypage-languagefilter-active": "An dëser Kategorie sinn Informatiounen (Säit, Ënnerkategorie a Bild) déi no der Sprooch gefiltert sinn."
+	"sil-categorypage-languagefilter-active": "An dëser Kategorie sinn Informatiounen (Säit, Ënnerkategorie a Bild) déi no der Sprooch \"$1\" gefiltert sinn."
 }
