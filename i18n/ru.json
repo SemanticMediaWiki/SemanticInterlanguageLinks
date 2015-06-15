@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dicto23456"
+			"Dicto23456",
+			"Okras"
 		]
 	},
 	"sil-desc": "[Https://semantic-mediawiki.org Semantic MediaWiki] расширение для создания и управления интервики-ссылки",
@@ -13,5 +14,5 @@
 	"sil-search-profile-tooltip": "Фильтр статей по языку, Аннотация",
 	"sil-search-languagefilter-label": "Фильтр по Языку",
 	"sil-search-nolanguagefilter": "Нет языка фильтра",
-	"sil-categorypage-languagefilter-active": "Эта категория содержит информацию (страницы, подкатегории и изображения), которые фильтруются с помощью языка."
+	"sil-categorypage-languagefilter-active": "Эта категория содержит информацию (страницы, подкатегории и изображения), которые фильтруются, когда выбран $1 язык."
 }
