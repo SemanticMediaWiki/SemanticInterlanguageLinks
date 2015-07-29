@@ -3,7 +3,8 @@
 		"authors": [
 			"Nicolapps",
 			"Element303",
-			"Macofe"
+			"Macofe",
+			"Wladek92"
 		]
 	},
 	"sil-desc": "Une extension [Https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
@@ -19,5 +20,5 @@
 	"sil-search-profile-tooltip": "Filtrer les articles par annotation de langue",
 	"sil-search-languagefilter-label": "Filtrer par langue",
 	"sil-search-nolanguagefilter": "Pas de filtre de langue",
-	"sil-categorypage-languagefilter-active": "Cette catégorie contient des informations (pages, sous-catégories ou images) qui sont filtrées par langue."
+	"sil-categorypage-languagefilter-active": "Cette catégorie contient des informations (pages, sous-catégories ou images) qui sont filtrées en langue \"$1\"."
 }
