@@ -94,6 +94,14 @@ class SiteLanguageLinksGenerator {
 		}
 
 		if ( $target !== null && $selectedTargetLinkForCurrentLanguage !== $target->getPrefixedText() ) {
+
+			$title = Title::newFromText( $selectedTargetLinkForCurrentLanguage );
+
+			if ( $title->isRedirect() ) {
+				 $this->interlanguageLinksLookup->invalidateLookupCache( $target );
+				 return false;
+			}
+
 			return $selectedTargetLinkForCurrentLanguage;
 		}
 
