@@ -46,7 +46,7 @@ class LanguageTargetLinksCache {
 	 *
 	 * @var string
 	 */
-	private $pageLanguageCacheStrategy = 'blob';
+	private $pageLanguageCacheStrategy = 'single';
 
 	/**
 	 * @since 1.0
