@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ата"
+		]
+	},
+	"sil-desc": "Розширення [https://semantic-mediawiki.org Семантичної MediaWiki] для створення і керування міжмовними посиланнями",
+	"sil-property-ill-alias-language": "Мова вмісту сторінки",
+	"sil-property-ill-alias-reference": "Міжмовне посилання",
+	"sil-property-iwl-alias-language": "Мова інтервікі",
+	"sil-property-iwl-alias-reference": "Інтервікі-посилання",
+	"sil-property-alias-container": "Має міжмовні посилання",
+	"smw-pa-property-predefined__sil_container": "«$1» — попередньо визначена властивість, яка показує мета-інформацію про сторінку щодо мови (у вигляді субоб'єкта) і забезпечується розширенням [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Парсерну функцію не можна використати, тому що встановлено <code>$wgHideInterlanguageLinks</code>.",
+	"sil-interlanguagelink-invalidlanguagecode": "«$1» не розпізнано як допустимий код мови.",
+	"sil-interlanguagelink-multiplecalls": "Парсерна функція «INTERLANGUAGELINK» була викликана на цій сторінці багато разів, що не є можливим.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Комбінація «$1»:«$2» уже існує для сторінки «$3», тому жодної додаткової міжмовної анотації не було створено.",
+	"sil-interlanguagelist-missing-linkreference": "Парсерній функції бракує дійсного посилання.",
+	"sil-interlanguagelist-missing-template": "Парсерній функції бракує шаблон виходу.",
+	"sil-interlanguageparser-linkreference-error": "Парсерна функція мала проблему зі створенням об'єкту заголовка з «$1».",
+	"sil-search-profile": "За мовою",
+	"sil-search-profile-tooltip": "Фільтрувати статті за мовною анотацією",
+	"sil-search-languagefilter-label": "Фільтр за мовою",
+	"sil-search-nolanguagefilter": "Без мовного фільтра",
+	"sil-categorypage-languagefilter-active": "Ця категорія містить інформацію (сторінки, підкатегорії і зображення), що відфільтрована для мови «$1»."
+}
