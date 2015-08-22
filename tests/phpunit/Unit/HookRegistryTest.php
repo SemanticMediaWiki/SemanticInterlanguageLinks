@@ -3,12 +3,10 @@
 namespace SIL\Tests;
 
 use SIL\HookRegistry;
-
 use Title;
 
 /**
  * @covers \SIL\HookRegistry
- *
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -65,15 +63,15 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$instance->register();
 
 		$this->doTestParserFirstCallInit( $instance, $parser );
-		$this->doTestNewRevisionFromEditComplete( $instance, $title );
-		$this->doTestSkinTemplateGetLanguageLink( $instance, $title );
-		$this->doTestPageContentLanguage( $instance, $title );
-		$this->doTestArticleFromTitle( $instance, $title );
+		$this->doTestNewRevisionFromEditComplete( $instance );
+		$this->doTestSkinTemplateGetLanguageLink( $instance );
+		$this->doTestPageContentLanguage( $instance );
+		$this->doTestArticleFromTitle( $instance );
 		$this->doTestParserAfterTidy( $instance, $parser );
 
 		$this->doTestInitProperties( $instance );
-		$this->doTestSQLStoreBeforeDeleteSubjectCompletes( $instance, $this->store, $title );
-		$this->doTestSQLStoreBeforeChangeTitleComplete( $instance, $this->store, $title );
+		$this->doTestSQLStoreBeforeDeleteSubjectCompletes( $instance );
+		$this->doTestSQLStoreBeforeChangeTitleComplete( $instance );
 
 		$this->doTestSpecialSearchProfiles( $instance );
 		$this->doTestSpecialSearchProfileForm( $instance );
@@ -83,17 +81,23 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 	public function doTestParserFirstCallInit( $instance, $parser ) {
 
+		$handler = 'ParserFirstCallInit';
+
 		$this->assertTrue(
-			$instance->isRegistered( 'ParserFirstCallInit' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'ParserFirstCallInit' ),
+			$instance->getHandlerFor( $handler ),
 			array( &$parser )
 		);
 	}
 
-	public function doTestNewRevisionFromEditComplete( $instance, $title ) {
+	public function doTestNewRevisionFromEditComplete( $instance ) {
+
+		$handler = 'NewRevisionFromEditComplete';
+
+		$title = Title::newFromText( __METHOD__ );
 
 		$wikipage = $this->getMockBuilder( '\WikiPage' )
 			->disableOriginalConstructor()
@@ -104,122 +108,143 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( $title ) );
 
 		$this->assertTrue(
-			$instance->isRegistered( 'NewRevisionFromEditComplete' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'NewRevisionFromEditComplete' ),
+			$instance->getHandlerFor( $handler ),
 			array( $wikipage )
 		);
 	}
 
-	public function doTestSkinTemplateGetLanguageLink( $instance, $title ) {
+	public function doTestSkinTemplateGetLanguageLink( $instance ) {
 
+		$handler = 'SkinTemplateGetLanguageLink';
+
+		$title = Title::newFromText( __METHOD__ );
 		$languageLink = array();
 
 		$this->assertTrue(
-			$instance->isRegistered( 'SkinTemplateGetLanguageLink' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'SkinTemplateGetLanguageLink' ),
+			$instance->getHandlerFor( $handler ),
 			array( &$languageLink, $title, $title )
 		);
 	}
 
-	public function doTestPageContentLanguage( $instance, $title ) {
+	public function doTestPageContentLanguage( $instance ) {
 
+		$handler = 'PageContentLanguage';
 		$pageLang = '';
 
+		$title = Title::newFromText( __METHOD__ );
+
 		$this->assertTrue(
-			$instance->isRegistered( 'PageContentLanguage' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'PageContentLanguage' ),
+			$instance->getHandlerFor( $handler ),
 			array( $title, &$pageLang )
 		);
 	}
 
-	public function doTestArticleFromTitle( $instance, $title ) {
+	public function doTestArticleFromTitle( $instance ) {
 
+		$handler = 'ArticleFromTitle';
+
+		$title = Title::newFromText( __METHOD__ );
 		$page = '';
 
 		$this->assertTrue(
-			$instance->isRegistered( 'ArticleFromTitle' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'ArticleFromTitle' ),
+			$instance->getHandlerFor( $handler ),
 			array( $title, &$page )
 		);
 	}
 
 	public function doTestParserAfterTidy( $instance, $parser ) {
 
+		$handler = 'ParserAfterTidy';
 		$text = '';
 
 		$this->assertTrue(
-			$instance->isRegistered( 'ParserAfterTidy' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'ParserAfterTidy' ),
+			$instance->getHandlerFor( $handler ),
 			array( &$parser, &$text )
 		);
 	}
 
 	public function doTestInitProperties( $instance ) {
 
+		$handler = 'SMW::Property::initProperties';
+
 		$this->assertTrue(
-			$instance->isRegistered( 'SMW::Property::initProperties' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'SMW::Property::initProperties' ),
+			$instance->getHandlerFor( $handler ),
 			array()
 		);
 	}
 
-	public function doTestSQLStoreBeforeDeleteSubjectCompletes( $instance, $store, $title ) {
+	public function doTestSQLStoreBeforeDeleteSubjectCompletes( $instance ) {
+
+		$handler = 'SMW::SQLStore::BeforeDeleteSubjectComplete';
+		$title = Title::newFromText( __METHOD__ );
 
 		$this->assertTrue(
-			$instance->isRegistered( 'SMW::SQLStore::BeforeDeleteSubjectComplete' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'SMW::SQLStore::BeforeDeleteSubjectComplete' ),
-			array( $store, $title )
+			$instance->getHandlerFor( $handler ),
+			array( $this->store, $title )
 		);
 	}
 
-	public function doTestSQLStoreBeforeChangeTitleComplete( $instance, $store, $title ) {
+	public function doTestSQLStoreBeforeChangeTitleComplete( $instance ) {
+
+		$handler = 'SMW::SQLStore::BeforeChangeTitleComplete';
+		$title = Title::newFromText( __METHOD__ );
 
 		$this->assertTrue(
-			$instance->isRegistered( 'SMW::SQLStore::BeforeChangeTitleComplete' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'SMW::SQLStore::BeforeChangeTitleComplete' ),
-			array( $store, $title, $title, 0, 0 )
+			$instance->getHandlerFor( $handler ),
+			array( $this->store, $title, $title, 0, 0 )
 		);
 	}
 
 	public function doTestSpecialSearchProfiles( $instance ) {
 
+		$handler = 'SpecialSearchProfiles';
 		$profiles = array();
 
 		$this->assertTrue(
-			$instance->isRegistered( 'SpecialSearchProfiles' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'SpecialSearchProfiles' ),
+			$instance->getHandlerFor( $handler ),
 			array( &$profiles )
 		);
 	}
 
 	public function doTestSpecialSearchProfileForm( $instance ) {
+
+		$handler = 'SpecialSearchProfileForm';
 
 		$search = $this->getMockBuilder( '\SpecialSearch' )
 			->disableOriginalConstructor()
@@ -231,16 +256,18 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$opts = array();
 
 		$this->assertTrue(
-			$instance->isRegistered( 'SpecialSearchProfileForm' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'SpecialSearchProfileForm' ),
+			$instance->getHandlerFor( $handler ),
 			array( $search, &$form, $profile, $term, $opts )
 		);
 	}
 
 	public function doTestSpecialSearchResults( $instance ) {
+
+		$handler = 'SpecialSearchResults';
 
 		$search = $this->getMockBuilder( '\SpecialSearch' )
 			->disableOriginalConstructor()
@@ -250,25 +277,26 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$textMatches = false;
 
 		$this->assertTrue(
-			$instance->isRegistered( 'SpecialSearchResults' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'SpecialSearchResults' ),
+			$instance->getHandlerFor( $handler ),
 			array( $search, &$titleMatches, &$textMatches )
 		);
 	}
 
 	public function doTestSpecialSearchPowerBox( $instance ) {
 
+		$handler = 'SpecialSearchPowerBox';
 		$showSections = array();
 
 		$this->assertTrue(
-			$instance->isRegistered( 'SpecialSearchPowerBox' )
+			$instance->isRegistered( $handler )
 		);
 
 		$this->assertThatHookIsExcutable(
-			$instance->getHandlersFor( 'SpecialSearchPowerBox' ),
+			$instance->getHandlerFor( $handler ),
 			array( &$showSections, '', array() )
 		);
 	}

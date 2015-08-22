@@ -53,7 +53,7 @@ class HookRegistry {
 	 *
 	 * @return Callable|false
 	 */
-	public function getHandlersFor( $name ) {
+	public function getHandlerFor( $name ) {
 		return isset( $this->handlers[$name] ) ? $this->handlers[$name] : false;
 	}
 
