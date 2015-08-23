@@ -8,7 +8,11 @@
 		]
 	},
 	"sil-desc": "Une extension [Https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
+	"sil-property-ill-alias-language": "Langue du contenu de la page",
+	"sil-property-ill-alias-reference": "Référence interlangue",
+	"sil-property-iwl-alias-language": "Langue interwiki",
 	"sil-property-iwl-alias-reference": "Référence interwiki",
+	"sil-property-alias-container": "A des liens interlangues",
 	"sil-interlanguagelink-hideinterlanguagelinks": "La fonction n'a pas pu être utilisée car <code>$wgHideInterlanguageLinks</code> est défini.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" n'a pas été reconnu comme code de langue valide.",
 	"sil-interlanguagelink-multiplecalls": "La fonction \"INTERLANGUAGELINK\" a été appelée plusieurs fois sur cette page, ce qui n'est pas possible.",
