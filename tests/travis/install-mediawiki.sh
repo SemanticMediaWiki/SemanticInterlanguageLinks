@@ -23,9 +23,9 @@ mv mediawiki-* mw
 cd mw
 
 ## MW 1.25 requires Psr\Logger
-if [ "$MW" == "master" ]
+if [ -f composer.json ]
 then
-  composer install
+  composer install --prefer-source
 fi
 
 if [ "$DB" == "postgres" ]
