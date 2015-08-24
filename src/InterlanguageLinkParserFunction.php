@@ -36,14 +36,6 @@ class InterlanguageLinkParserFunction {
 	private $hideInterlanguageLinks = false;
 
 	/**
-	 * A static tracker to identify whether INTERLANGUAGLINK has been
-	 * called more than once on the target page
-	 *
-	 * @var FixedInMemoryCache|null
-	 */
-	private static $inMemoryParserTracker = null;
-
-	/**
 	 * @since 1.0
 	 *
 	 * @param Title $title
@@ -79,10 +71,6 @@ class InterlanguageLinkParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguagelink-hideinterlanguagelinks' );
 		}
 
-		if ( ( $result = $this->checkIfIMultipleParserCallsOccurred( $languageCode, $linkReference ) ) !== false ) {
-			return $result;
-		}
-
 		if ( !$this->isSupportedLanguage( $languageCode ) ) {
 			return $this->createErrorMessageFor( 'sil-interlanguagelink-invalidlanguagecode', $languageCode );
 		}
@@ -99,20 +87,6 @@ class InterlanguageLinkParserFunction {
 		);
 
 		return $this->createSiteLanguageLinks( $interlanguageLink );
-	}
-
-	private function checkIfIMultipleParserCallsOccurred( $languageCode, $linkReference ) {
-
-		if ( !$this->getInMemoryParserTracker()->contains( $this->title->getPrefixedDBKey() ) ) {
-			return false;
-		}
-
-		// Ignore an entry for the same combination
-		if ( $this->getInMemoryParserTracker()->fetch( $this->title->getPrefixedDBKey() ) === $languageCode . '#' . $linkReference ) {
-			return '';
-		}
-
-		return $this->createErrorMessageFor( 'sil-interlanguagelink-multiplecalls' );
 	}
 
 	private function createSiteLanguageLinks( InterlanguageLink $interlanguageLink ) {
@@ -136,11 +110,6 @@ class InterlanguageLinkParserFunction {
 		$this->languageLinkAnnotator->addAnnotationForInterlanguageLink(
 			$interlanguageLink
 		);
-
-		$this->getInMemoryParserTracker()->save(
-			$this->title->getPrefixedDBKey(),
-			$interlanguageLink->getHash()
-		);
 	}
 
 	private function isSupportedLanguage( $languageCode ) {
@@ -162,17 +131,6 @@ class InterlanguageLinkParserFunction {
 			$arg3,
 			$arg4
 		)->inContentLanguage()->text() . '</div>';
-	}
-
-	private function getInMemoryParserTracker() {
-
-		// Use the FixedInMemoryCache to ensure that during a job run the array is not hit by any
-		// memory leak and limited to a fixed size
-		if ( self::$inMemoryParserTracker === null ) {
-			self::$inMemoryParserTracker = CacheFactory::getInstance()->newFixedInMemoryLruCache( 50 );
-		}
-
-		return self::$inMemoryParserTracker;
 	}
 
 }

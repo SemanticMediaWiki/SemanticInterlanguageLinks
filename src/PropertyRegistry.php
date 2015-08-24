@@ -4,6 +4,14 @@ namespace SIL;
 
 use SMW\DIProperty;
 
+define( 'SIL_PROP_CONTAINER', 'Has interlanguage links' );
+
+define( 'SIL_PROP_ILL_REF', 'Interlanguage reference' );
+define( 'SIL_PROP_ILL_LANG', 'Page content language' );
+
+define( 'SIL_PROP_IWL_REF', 'Interwiki reference' );
+define( 'SIL_PROP_IWL_LANG', 'Interwiki language' );
+
 /**
  * @license GNU GPL v2+
  * @since 1.0
@@ -33,7 +41,8 @@ class PropertyRegistry {
 				'label' => SIL_PROP_CONTAINER,
 				'type'  => '__sob',
 				'alias' => wfMessage( 'sil-property-alias-container' )->text(),
-				'visibility' => false
+				'visibility' => false,
+				'annotable'  => false
 			),
 
 			self::SIL_ILL_LANG => array(

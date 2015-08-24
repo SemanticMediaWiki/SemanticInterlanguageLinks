@@ -121,7 +121,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testReturnMessagesForMultipleParseCalls() {
+	public function testMultipleParseCalls() {
 
 		$title = \Title::newFromText( __METHOD__ );
 
@@ -145,16 +145,6 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEmpty(
 			$instance->parse( 'en', 'Foo' )
-		);
-
-		$this->assertContains(
-			'-error',
-			$instance->parse( 'vi', 'Foo' )
-		);
-
-		$this->assertContains(
-			'-error',
-			$instance->parse( 'en', 'Bar' )
 		);
 	}
 

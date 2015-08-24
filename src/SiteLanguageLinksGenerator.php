@@ -24,6 +24,14 @@ class SiteLanguageLinksGenerator {
 	private $interlanguageLinksLookup;
 
 	/**
+	 * This is made static by choice to monitor multiple parser calls and filter
+	 * out links with the same target.
+	 *
+	 * @var array
+	 */
+	private static $languageTargetLinksMap = array();
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param ParserOutput $parserOutput
@@ -124,6 +132,14 @@ class SiteLanguageLinksGenerator {
 			if ( $target instanceof Title ) {
 				$target = $target->getPrefixedText();
 			}
+
+			// Multiple parser calls can create maps that contain the same targets,
+			// safeguard against mutliple entries with the same target
+			if ( isset( self::$languageTargetLinksMap[$languageCode] ) && self::$languageTargetLinksMap[$languageCode] === $target ) {
+				continue;
+			}
+
+			self::$languageTargetLinksMap[$languageCode] = $target;
 
 			$this->parserOutput->addLanguageLink( 'sil:' . $languageCode . ':' . $target );
 		}

@@ -10,7 +10,6 @@ use SMWDIBlob as DIBlob;
 
 /**
  * @covers \SIL\SiteLanguageLinksGenerator
- *
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -101,7 +100,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testAddLanguageTargetLinksToOutputFromStore() {
+	public function testAddLanguageTargetLinksToOutputFromStoreForMultipleInvocation() {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
@@ -117,7 +116,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$interlanguageLinksLookup->expects( $this->once() )
+		$interlanguageLinksLookup->expects( $this->atLEastOnce() )
 			->method( 'queryLanguageTargetLinks' )
 			->with( $this->equalTo( $interlanguageLink ) )
 			->will( $this->returnValue( array( 'vi' => \Title::newFromText( 'Yan' ) ) ) );
@@ -127,6 +126,9 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			$interlanguageLinksLookup
 		);
 
+		$instance->tryAddLanguageTargetLinksToOutput( $interlanguageLink );
+
+		// Simualate call from a second parser call
 		$instance->tryAddLanguageTargetLinksToOutput( $interlanguageLink );
 	}
 
