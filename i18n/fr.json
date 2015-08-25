@@ -4,7 +4,8 @@
 			"Nicolapps",
 			"Element303",
 			"Macofe",
-			"Wladek92"
+			"Wladek92",
+			"Gomoko"
 		]
 	},
 	"sil-desc": "Une extension [Https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
@@ -13,6 +14,7 @@
 	"sil-property-iwl-alias-language": "Langue interwiki",
 	"sil-property-iwl-alias-reference": "Référence interwiki",
 	"sil-property-alias-container": "A des liens interlangues",
+	"smw-pa-property-predefined__sil_container": "« $1 » est une propriété prédéfinie qui représente les méta-informations liées à la langue (sous forme d’un sous-objet) d’une page et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "La fonction n'a pas pu être utilisée car <code>$wgHideInterlanguageLinks</code> est défini.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" n'a pas été reconnu comme code de langue valide.",
 	"sil-interlanguagelink-multiplecalls": "La fonction \"INTERLANGUAGELINK\" a été appelée plusieurs fois sur cette page, ce qui n'est pas possible.",
