@@ -138,6 +138,10 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		$siteLanguageLinksGenerator->expects( $this->any() )
+			->method( 'getRedirectTargetFor' )
+			->will( $this->returnValue( $title ) );
+
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
 			$languageLinkAnnotator,
@@ -169,6 +173,10 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$siteLanguageLinksGenerator = $this->getMockBuilder( '\SIL\SiteLanguageLinksGenerator' )
 			->disableOriginalConstructor()
 			->getMock();
+
+		$siteLanguageLinksGenerator->expects( $this->any() )
+			->method( 'getRedirectTargetFor' )
+			->will( $this->returnValue( $title ) );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,

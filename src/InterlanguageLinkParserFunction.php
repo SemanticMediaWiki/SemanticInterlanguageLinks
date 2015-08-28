@@ -81,10 +81,6 @@ class InterlanguageLinkParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguageparser-linkreference-error', $linkReference );
 		}
 
-	//	if ( $title->isRedirect() ) {
-		//	$title = ;
-	//	}
-
 		$interlanguageLink = new InterlanguageLink(
 			wfBCP47( $languageCode ),
 			$this->siteLanguageLinksGenerator->getRedirectTargetFor( $title )
