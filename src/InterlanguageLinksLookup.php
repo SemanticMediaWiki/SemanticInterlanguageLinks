@@ -65,6 +65,18 @@ class InterlanguageLinksLookup {
 		$this->store = $store;
 	}
 
+
+	/**
+	 * @since 1.2
+	 *
+	 * @param Title $title
+	 *
+	 * @return Title
+	 */
+	public function getRedirectTargetFor( Title $title ) {
+		return $this->store->getRedirectTarget( DIWikiPage::newFromTitle( $title ) )->getTitle();
+	}
+
 	/**
 	 * @since 1.0
 	 *
@@ -72,11 +84,13 @@ class InterlanguageLinksLookup {
 	 */
 	public function invalidateLookupCache( Title $title ) {
 
-		$this->languageTargetLinksCache
-			->deleteLanguageTargetLinksFromCache( $this->findFullListOfReferenceTargetLinks( $title ) );
+		$this->languageTargetLinksCache->deleteLanguageTargetLinksFromCache(
+			$this->findFullListOfReferenceTargetLinks( $title )
+		);
 
-		$this->languageTargetLinksCache
-			->deletePageLanguageForTargetFromCache( $title );
+		$this->languageTargetLinksCache->deletePageLanguageForTargetFromCache(
+			$title
+		);
 	}
 
 	/**

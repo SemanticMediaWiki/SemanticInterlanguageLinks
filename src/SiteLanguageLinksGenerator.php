@@ -45,6 +45,17 @@ class SiteLanguageLinksGenerator {
 	/**
 	 * @since 1.0
 	 *
+	 * @param Title $target
+	 *
+	 * @return Title
+	 */
+	public function getRedirectTargetFor( Title $title ) {
+		return $this->interlanguageLinksLookup->getRedirectTargetFor( $title );
+	}
+
+	/**
+	 * @since 1.0
+	 *
 	 * @param InterlanguageLink $interlanguageLink
 	 * @param Title|null $target
 	 *
@@ -106,7 +117,7 @@ class SiteLanguageLinksGenerator {
 			$title = Title::newFromText( $selectedTargetLinkForCurrentLanguage );
 
 			if ( $title->isRedirect() ) {
-				 $this->interlanguageLinksLookup->invalidateLookupCache( $target );
+			//	 $this->interlanguageLinksLookup->invalidateLookupCache( $target );
 				 return false;
 			}
 

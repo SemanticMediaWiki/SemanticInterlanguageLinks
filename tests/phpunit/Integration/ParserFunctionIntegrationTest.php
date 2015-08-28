@@ -64,7 +64,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 
 	public function testUseInterlanguageLinkParserInPage() {
 
-		$subject = DIWikiPage::newFromTitle( Title::newFromText( __METHOD__ ) );
+		$subject = DIWikiPage::newFromText( __METHOD__ );
 
 		$this->pageCreator
 			->createPage( $subject->getTitle() )
@@ -86,6 +86,37 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 		);
 
 		$this->subjects = array( $subject );
+	}
+
+	public function testInterlanguageLinkParserToUseRedirect() {
+
+		$subject = DIWikiPage::newFromText( __METHOD__ );
+
+		$this->pageCreator
+			->createPage( Title::newFromText( 'Sil-redirect' ) )
+			->doEdit( '{{INTERLANGUAGELINK:en|Sil-redirect}} {{INTERLANGUAGELINK:fr|Sil-redirect}}' )
+			->doMoveTo( Title::newFromText( 'Sil-redirect-2' ) );
+
+		$this->pageCreator
+			->createPage( Title::newFromText( __METHOD__ ) )
+			->doEdit( '{{INTERLANGUAGELINK:ja|Sil-redirect}}' );
+
+		$expected = array(
+			'propertyCount' => 3,
+			'properties' => array(
+				DIProperty::newFromUserLabel( '_SKEY' ),
+				DIProperty::newFromUserLabel( SIL_PROP_ILL_REF ),
+				DIProperty::newFromUserLabel( SIL_PROP_ILL_LANG )
+			),
+			'propertyValues' => array( 'ja', 'Sil-redirect-2', __METHOD__ )
+		);
+
+		$this->semanticDataValidator->assertThatPropertiesAreSet(
+			$expected,
+			$this->getStore()->getSemanticData( $subject )->findSubSemanticData( 'ill.ja' )
+		);
+
+		$this->subjects = array( $subject, 'Sil-redirect', 'Sil-redirect-2' );
 	}
 
 	public function testUseInterwikiLanguageLinkInPage() {

@@ -46,6 +46,33 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testRedirectTargetFor() {
+
+		$title = Title::newFromText( __METHOD__ );
+
+		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$store = $this->getMockBuilder( '\SMW\Store' )
+			->disableOriginalConstructor()
+			->setMethods( array( 'getRedirectTarget' ) )
+			->getMockForAbstractClass();
+
+		$store->expects( $this->once() )
+			->method( 'getRedirectTarget' )
+			->with( $this->equalTo( DIWikiPage::newFromTitle( $title ) ) )
+			->will( $this->returnValue( DIWikiPage::newFromTitle( $title ) ) );
+
+		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
+		$instance->setStore( $store );
+
+		$this->assertEquals(
+			$title,
+			$instance->getRedirectTargetFor( $title )
+		);
+	}
+
 	public function testFindValidPageLanguageForTarget() {
 
 		$title = Title::newFromText( __METHOD__ );

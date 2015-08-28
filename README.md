@@ -10,12 +10,16 @@
 Semantic Interlanguage Links (a.k.a. SIL) is a [Semantic Mediawiki][smw] extension to
 create and manage interlanguage links.
 
-This extension creates interlanguage links and provides queryable annotations that can connect
-pages with similar content for different languages to be accessible via the [sitelink navigation][sitelink]
-by using the `interlanguagelink` parser function.
+This extension helps to create interlanguage links and provides queryable annotations that:
 
-The following [video](https://vimeo.com/115871518) demonstrates "How SIL works"
-without much user interaction or complex editing procedures.
+- Can connect pages with similar content for different languages to be accessible via the [sitelink navigation][sitelink]
+- Provides a `interlanguagelink` parser function to create cachable assignments
+- Provides a `interlanguagelist` parser function to format a list of available language links
+- To set the page content language of an article
+- Integration with `Special:Search` to search `By Language`
+
+The short [video](https://vimeo.com/115871518) demonstrates "How SIL works"
+is expected to work.
 
 ## Requirements
 
@@ -42,65 +46,28 @@ with an entry in MediaWiki's `composer.json`.
 
 ## Usage
 
-The parser function `{{interlanguagelink: language code  | interlanguage reference }}` provides in-text annotation support with the first argument being a language code (e.g `es`, `ja`) while the second argument contains an arbitrary reference (`interlanguage reference`) that describes similar content for different languages.
+The parser function `{{interlanguagelink: ... }}` provides an interface
+to declare multilingual content using semantic annotations.
 
-![sil](https://cloud.githubusercontent.com/assets/1245473/7594045/0d88d938-f919-11e4-9c79-8e8d166c507a.png)
+`{{interlanguagelink: language code | interlanguage reference }}`, the first
+argument specifies the language code (e.g `es`, `ja`) of the content while
+the second argument contains an arbitrary reference (`interlanguage reference`)
+that describes content of similar nature (content that should be connected to
+each other) for different languages.
 
-The parser function `{{interlanguagelist: interlanguage reference | template }}` can generate a customizable language target link list for the selected `interlanguage reference` to be available as wikitext inclusion using a template with the following parameters:
-- `target-link` being the target link
-- `lang-code` the language code
-- `lang-name` representing the localized language name for the language code
-- `#` contains the list position
+![sil](https://cloud.githubusercontent.com/assets/1245473/9477943/450195e0-4b75-11e5-9cd4-61e2672eb8fa.png)
 
-SIL expects that only one specific language is asssigned to a content page and if multiple assignments are made an error notice will be displayed.
+The parser function `{{interlanguagelist: ... }}` can generate a customizable
+language target link list.
 
-### Example
-
-#### Create interlanguage links
-
-If `Foo` and `Bar` are to represent the similar content in different languages they will share the same reference (`Lorem ipsum`). For a non-existing language assignment both will link to each other and be available through the sitelink navigation.
-
-```text
-Page: Foo
-
-Lorem ipsum dolor sit amet, sale lucilius id mei, pri id prima legendos, at
-vix tantas habemus tincidunt.
-
-{{interlanguagelink:la|Lorem ipsum}}
-```
-```text
-Page:Bar
-
-真リ議著ぞねおへ司末ゅ自門学15根然6債モカナツ意集ソタロル就海ホルトヤ討舎ニ制置だみくろ冬場ヲフ針哲ソセモ
-決見ク指47返もスごち貨仙届角夜おいっす。
-
-{{interlanguagelink:ja|Lorem ipsum}}
-```
-
-#### List languages
-
-Using `Template:InterlanguageLinksTemplate` in `interlanguagelist` will output all available links to the `Lorem ipsum` reference on top of the page `FooBar`.
-
-```text
-Template:InterlanguageLinksTemplate
-
-<includeonly><span style="margin-right: 10px">[[{{{target-link}}}|{{{lang-name}}}]]</span></includeonly>
-
-```
-```text
-Page:FooBar
-
-{{interlanguagelist:Lorem ipsum|InterlanguageLinksTemplate}}
-
-```
+Further details and usage examples can be found [here](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/blob/master/docs/01-interlanguage.md).
 
 ### Other features
 
 - The page content language is preset with the language annotated by `INTERLANGUAGELINK` together with an auto-updated sitelink navigation for pages that point to the same `interlanguage reference`.
-- The following predefined properties `Page content language`, `Interlanguage reference`, `Interwiki language`, `Interwiki reference`, and `Has interlanguage link` can be used to create customized `#ask` queries (e.g `Has interlanguage link.Page content language`).
+- The following predefined properties `Page content language`, `Interlanguage reference`, `Interwiki language`, `Interwiki reference`, and `Has interlanguage links` can be used to create customized `#ask` queries (e.g `Has interlanguage links.Page content language`).
 - SIL provides a `by Language` `Special:Search` filtering option to match interlanguage property annotations for pre-selected pages. If the `by Language` profile (or the advanced profile) is used together with a specific language filter then any pre-selected article (provided by the `SearchEngine`) that does not match the language will be excluded from the result list. It may be necessary to broaden the limit before a match can be found because SIL does only compare languages against pre-selected results (it does not search by itself).
 - If a category page contains a `Page content language` annotation, SIL will filter and display only pages that match that content language. In cases where no language has been assigned (or filtering has been disabled), the category page will display all pages without changes or filtering.
-- In cases where an interwiki language link (e.g `[[en:Foo]]`) is added to a page (representing a non-local link, see also [`wgInterwikiMagic`][iwlm] or [`wgExtraInterlanguageLinkPrefixes`][iwlp]), SIL will create an additional `Has interlanguage link` entry (internally being identified by something like `Foo#iwl.en`). The interwiki information will not be available for any language filter (search, category).
 
 ### Configuration
 

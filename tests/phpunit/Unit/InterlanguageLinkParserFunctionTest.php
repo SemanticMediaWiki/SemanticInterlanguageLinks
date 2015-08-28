@@ -101,6 +101,11 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$siteLanguageLinksGenerator->expects( $this->once() )
+			->method( 'getRedirectTargetFor' )
+			->with(	$this->equalTo( \Title::newFromText( 'Foo' ) ) )
+			->will( $this->returnValue( $title ) );
+
+		$siteLanguageLinksGenerator->expects( $this->once() )
 			->method( 'tryAddLanguageTargetLinksToOutput' )
 			->with(
 				$this->anything(),
