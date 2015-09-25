@@ -22,5 +22,5 @@
 	"sil-search-profile-tooltip": "按语言注释过滤条目",
 	"sil-search-languagefilter-label": "按语言过滤",
 	"sil-search-nolanguagefilter": "无语言过滤器",
-	"sil-categorypage-languagefilter-active": "此分类包含按语音过滤的信息（页面、子分类和图片）。"
+	"sil-categorypage-languagefilter-active": "此分类包含按“$1”语言过滤的信息（页面、子分类和图片）。"
 }

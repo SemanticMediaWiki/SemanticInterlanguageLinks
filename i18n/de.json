@@ -13,7 +13,7 @@
 	"sil-property-iwl-alias-language": "Interwiki-Sprache",
 	"sil-property-iwl-alias-reference": "Interwiki-Sprachreferenz",
 	"sil-property-alias-container": "Sprachlinks",
-	"smw-pa-property-predefined__sil_container": "„$1“ ist ein Spezialattribut, das sprachbezogene Metainformationen (in Form eines Subobjekts) über eine Seite darstellt und wird durch die Erweiterung [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links „Semantic Interlanguage Links“] zur Verfügung gestellt.",
+	"smw-pa-property-predefined__sil_container": "„$1“ ist ein Spezialattribut, das sprachbezogene Metainformationen einer Seite in einem Subobjekt speichert. Es wird von der Softwareerweiterung [https://www.semantic-mediawiki.org/wiki/Semantic_Interlanguage_Links_(de) Semantic Interlanguage Links] bereitgestellt.",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden. Dies wurde mit dem Konfigurationsparameter <code>$wgHideInterlanguageLinks</code> festgelegt.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1“ ist kein gültiger Sprachcode.",
 	"sil-interlanguagelink-multiplecalls": "Die Parserfunktion „INTERLANGUAGELINK“ wird auf dieser Seite mehrere Male genutzt, was nicht möglich ist.",
@@ -25,5 +25,5 @@
 	"sil-search-profile-tooltip": "Ermöglicht das Filtern von Artikeln nach einer Sprache.",
 	"sil-search-languagefilter-label": "Nach Sprache filtern",
 	"sil-search-nolanguagefilter": "Es ist kein Sprachfilter aktiv",
-	"sil-categorypage-languagefilter-active": "Diese Kategorie enthält nach einer Sprache gefilterte Seiten."
+	"sil-categorypage-languagefilter-active": "Diese Kategorie enthält nach der Sprache „$1“ gefilterte Seiten."
 }

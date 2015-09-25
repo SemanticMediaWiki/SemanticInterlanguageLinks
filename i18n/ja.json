@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"mwjames"
+			"mwjames",
+			"Sujiniku"
 		]
 	},
-	"sil-categorypage-languagefilter-active": "このカテゴリーは表示言語をフィルターされています。"
+	"sil-categorypage-languagefilter-active": "このカテゴリーには言語\"$1\"でフィルターされている情報(ページ、サブカテゴリ、イメージ)が含まれています。"
 }

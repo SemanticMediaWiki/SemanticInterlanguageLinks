@@ -10,17 +10,17 @@
 	"sil-property-iwl-alias-language": "Engewikkischprohch",
 	"sil-property-iwl-alias-reference": "Engewikkibezoch",
 	"sil-property-alias-container": "Hät Lengks op ander Schprohche",
-	"smw-pa-property-predefined__sil_container": "„$1“ ess_en Eijeschaff, di vum Wikki faßjelaat weed. Di wääde och [https://www.semantic-mediawiki.org/wiki/Help:Special_properties äxtra Eijeschaffte] jenannt.\n\nSe sammeld Enfommazuhne em Zersammehang met Schprohche övver Sigge.\nSe weed övver dat Zohsazprojramm [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic <i lang=\"en\" xml:lang=\"en\">Semantic Interlanguage Links</i>] en et Wikki jebraat.",
-	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden. Dies wurde mit dem Konfigurationsparameter „wgHideInterlanguageLinks“ festgelegt.",
+	"smw-pa-property-predefined__sil_container": "„$1“ ess_en Eijeschaff, di vum Wikki faßjelaat weed. Di wääde och [https://www.semantic-mediawiki.org/wiki/Help:Special_properties äxtra Eijeschaffte] jenannt.\n\nSe sammeld Enfommazuhne em Zersammehang met Schprohche övver Sigge.\nSe weed övver dat Zohsazprojramm [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"„Semanntesche Verlengkonge zwesche Schprohche“\">Semantic Interlanguage Links</i>] en et Wikki jebraat.",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Heh di Paaserfonxjuhn kam_mer nit bruche, weil dem Wikki sing Enschtällong „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">$wgHideInterlanguageLinks</code>“ jesaz es.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1“ wohr nit als e Köözel för en Schprohch ze verschtonn.",
 	"sil-interlanguagelink-multiplecalls": "De Paaserfonxjun „\n<code lang=\"en\" xml:lang=\"en\">INTERLANGUAGELINK</code>“ wood op heh dä Sigg mieh wi eijmohl opjerohfe. Dat jeihd ävver nit.",
-	"sil-interlanguagelink-languagetargetcombination-exists": "De Kombinazjuhn „$1“:„$2“ för et Zohoodene vun Schprohche es för die Sigg „$3“ alld en jebruch. Dröm es datsällve nit norr_ens faßjehallde woode.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "De Kombinazjuhn „$1“:„$2“ för et Zohoodene vun Schprohche es för di Sigg „$3“ alld en jebruch. Dröm es datsällve nit norr_ens faßjehallde woode.",
 	"sil-interlanguagelist-missing-linkreference": "Em Oprohf vun dä Paaserfonxjuhn fähld ene jölteje Bezoch obb en Schprohch.",
 	"sil-interlanguagelist-missing-template": "Em Oprohf vun dä Paaserfonxjuhn fähld en Schablohn för jäd aanzezeije.",
-	"sil-interlanguageparser-linkreference-error": "Em dä Paaserfonxjuhn kunnt kei Objäk vun dä Klass „Tittel“ för „$1“ aanlääje.",
-	"sil-search-profile": "pä Schprohch",
+	"sil-interlanguageparser-linkreference-error": "En dä Paaserfonxjuhn kunnt kei Objäk vun dä Klass „Övverschreff“ för „$1“ aanjelaat wähde.",
+	"sil-search-profile": "Pä Schprohch",
 	"sil-search-profile-tooltip": "Sigge övver de verbonge Schprohche ußwähle",
 	"sil-search-languagefilter-label": "Övver de Schprohch ußwähle",
 	"sil-search-nolanguagefilter": "Nidd övver de Schprohch ußwähle",
-	"sil-categorypage-languagefilter-active": "Heh di Saachjopp hät pä Schprohch ußjewählte Sigge, Saachjroppe un Datteije."
+	"sil-categorypage-languagefilter-active": "Heh di Saachjopp hät pä Schprohch „$1“ ußjewählte Sigge, Saachjroppe un Datteije."
 }

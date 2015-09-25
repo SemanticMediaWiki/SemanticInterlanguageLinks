@@ -12,16 +12,5 @@
 	"sil-property-iwl-alias-language": "Interwikitaal",
 	"sil-property-iwl-alias-reference": "Interwiki-referentie",
 	"sil-property-alias-container": "Heeft interwikilinks",
-	"sil-interlanguagelink-hideinterlanguagelinks": "De parser functie kan niet worden gebruikt omdat <code>$wgHideInterlanguageLinks</code> is ingesteld.",
-	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" is niet herkend als geldige taalcode.",
-	"sil-interlanguagelink-multiplecalls": "De \"INTERLANGUAGELINK\" parser functie werd aangeroepen externe keer op deze pagina is niet mogelijk.",
-	"sil-interlanguagelink-languagetargetcombination-exists": "De combinatie van \"$1\":\"$2\" bestaat al voor de pagina \"$3\" dus geen extra interlanguage aantekening werd gemaakt.",
-	"sil-interlanguagelist-missing-linkreference": "De parser functie is het ontbreken van een geldige verwijzing.",
-	"sil-interlanguagelist-missing-template": "De parser functie ontbreekt een uitgang van de sjabloon.",
-	"sil-interlanguageparser-linkreference-error": "De parser functie was een probleem met het maken van een titel object van \"$1\".",
-	"sil-search-profile": "op taal:",
-	"sil-search-profile-tooltip": "Artikelen filteren op taal annotatie",
-	"sil-search-languagefilter-label": "Filteren op Taal",
-	"sil-search-nolanguagefilter": "Geen taal-filter",
-	"sil-categorypage-languagefilter-active": "Deze categorie bevat de informatie (pagina subcategorie en beeld) dat is gefilterd door taal."
+	"sil-interlanguagelink-hideinterlanguagelinks": "De parser functie kan niet worden gebruikt omdat <code>$wgHideInterlanguageLinks</code> is ingesteld."
 }

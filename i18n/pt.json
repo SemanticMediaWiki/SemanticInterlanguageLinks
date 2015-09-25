@@ -24,5 +24,5 @@
 	"sil-search-profile-tooltip": "Filtrar páginas por marcação de idioma",
 	"sil-search-languagefilter-label": "Filtrar por idioma",
 	"sil-search-nolanguagefilter": "Sem filtro de idioma",
-	"sil-categorypage-languagefilter-active": "Esta categoria contém informações que são filtradas por idioma."
+	"sil-categorypage-languagefilter-active": "Esta categoria contém informações (página, subcategoria e imagem) que são filtradas pelo idioma \"$1\"."
 }

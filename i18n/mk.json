@@ -22,5 +22,5 @@
 	"sil-search-profile-tooltip": "Филтрирај ги статиите по јазични прибелешки",
 	"sil-search-languagefilter-label": "Филтрирај по јазик",
 	"sil-search-nolanguagefilter": "Нема јазичен филтер",
-	"sil-categorypage-languagefilter-active": "Категоријава содржи информации (страница, поткатегорија и слика) што се филтрираат по јазик."
+	"sil-categorypage-languagefilter-active": "Категоријава содржи информации (страница, поткатегорија и слика) што се филтрираат по јазикот  „$1“."
 }
