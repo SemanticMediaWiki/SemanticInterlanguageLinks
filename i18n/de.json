@@ -12,7 +12,7 @@
 	"sil-property-ill-alias-reference": "Sprachreferenz",
 	"sil-property-iwl-alias-language": "Interwiki-Sprache",
 	"sil-property-iwl-alias-reference": "Interwiki-Sprachreferenz",
-	"sil-property-alias-container": "Sprachlinks",
+	"sil-property-alias-container": "Sprachlink",
 	"smw-pa-property-predefined__sil_container": "„$1“ ist ein Spezialattribut, das sprachbezogene Metainformationen einer Seite in einem Subobjekt speichert. Es wird von der Softwareerweiterung [https://www.semantic-mediawiki.org/wiki/Semantic_Interlanguage_Links_(de) Semantic Interlanguage Links] bereitgestellt.",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Diese Parserfunktion kann nicht genutzt werden. Dies wurde mit dem Konfigurationsparameter <code>$wgHideInterlanguageLinks</code> festgelegt.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1“ ist kein gültiger Sprachcode.",
