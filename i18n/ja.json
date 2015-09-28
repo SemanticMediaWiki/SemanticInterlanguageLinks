@@ -5,5 +5,6 @@
 			"Sujiniku"
 		]
 	},
+	"sil-property-alias-container": "言語間リンクを持っています",
 	"sil-categorypage-languagefilter-active": "このカテゴリーには言語\"$1\"でフィルターされている情報(ページ、サブカテゴリ、イメージ)が含まれています。"
 }

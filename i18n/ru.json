@@ -8,7 +8,7 @@
 	"sil-desc": "[Https://semantic-mediawiki.org Semantic MediaWiki] расширение для создания и управления интервики-ссылки",
 	"sil-property-ill-alias-language": "Язык содержания страницы",
 	"sil-property-iwl-alias-reference": "Интервики-ссылки",
-	"sil-property-alias-container": "Есть интервики-ссылки",
+	"sil-property-alias-container": "Есть интервики-ссылка",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" не был признан действительным кодом языка.",
 	"sil-search-profile": "по Языку",
 	"sil-search-profile-tooltip": "Фильтр статей по языку, Аннотация",
