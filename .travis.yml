@@ -16,7 +16,7 @@ matrix:
     - env: DB=sqlite; MW=1.24.1; SITELANG=ja
       php: 5.5
     - env: DB=sqlite; MW=master; PHPUNIT=4.7.*
-      php: '7
+      php: '7'
   exclude:
     - env: THENEEDFORTHIS=FAIL
   allow_failures:
