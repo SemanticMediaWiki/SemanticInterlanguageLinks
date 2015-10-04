@@ -80,6 +80,10 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->method( 'queryLanguageTargetLinks' )
 			->will( $this->returnValue( array() ) );
 
+		$interlanguageLinksLookup->expects( $this->once() )
+			->method( 'getRedirectTargetFor' )
+			->will( $this->returnValue( 'Foo' ) );
+
 		$instance = new InterlanguageListParserFunction(
 			$parser,
 			$interlanguageLinksLookup
@@ -107,6 +111,10 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
 			->will( $this->returnValue( $targetLink ) );
+
+		$interlanguageLinksLookup->expects( $this->once() )
+			->method( 'getRedirectTargetFor' )
+			->will( $this->returnValue( 'Foo' ) );
 
 		$instance = new InterlanguageListParserFunction(
 			$parser,

@@ -1,6 +1,6 @@
 This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a. SIL) extension.
 
-### 1.2.0 (2015-09-?)
+### 1.2.0 (2015-10-?)
 
 * Added redirect handling for a `interlanguage link` reference
 * #8 Removed multiple calls limitation

@@ -63,7 +63,7 @@ class InterlanguageListParserFunction {
 		// of any language code
 		$interlanguageLink = new InterlanguageLink(
 			null,
-			$title
+			$this->interlanguageLinksLookup->getRedirectTargetFor( $title )
 		);
 
 		$languageTargetLinks = $this->getLanguageTargetLinks( $interlanguageLink );
