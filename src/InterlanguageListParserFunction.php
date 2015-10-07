@@ -4,7 +4,6 @@ namespace SIL;
 
 use Title;
 use Language;
-use Parser;
 
 /**
  * @license GNU GPL v2+
@@ -15,11 +14,6 @@ use Parser;
 class InterlanguageListParserFunction {
 
 	/**
-	 * @var Parser
-	 */
-	private $parser;
-
-	/**
 	 * @var InterlanguageLinksLookup
 	 */
 	private $interlanguageLinksLookup;
@@ -27,11 +21,9 @@ class InterlanguageListParserFunction {
 	/**
 	 * @since 1.0
 	 *
-	 * @param Parser $parser
 	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
 	 */
-	public function __construct( Parser $parser, InterlanguageLinksLookup $interlanguageLinksLookup ) {
-		$this->parser = $parser;
+	public function __construct( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 		$this->interlanguageLinksLookup = $interlanguageLinksLookup;
 	}
 
@@ -73,7 +65,9 @@ class InterlanguageListParserFunction {
 
 	private function getLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {
 
-		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks( $interlanguageLink );
+		$languageTargetLinks = $this->interlanguageLinksLookup->queryLanguageTargetLinks(
+			$interlanguageLink
+		);
 
 		ksort( $languageTargetLinks );
 
@@ -96,14 +90,9 @@ class InterlanguageListParserFunction {
 			$wikitext .= "|lang-name=" . Language::fetchLanguageName( $languageCode );
 
 			$templateText .= '{{' . $template . $wikitext . '}}';
-
 		}
 
-		if ( $templateText !== '' ) {
-			$result = array( $this->parser->recursiveTagParse( $templateText ), 'noparse' => true, 'isHTML' => true );
-		}
-
-		return $result;
+		return array( $templateText, 'noparse' => $templateText === '', 'isHTML' => false );
 	}
 
 	private function modifyTargetLink( $targetLink ) {
@@ -116,7 +105,7 @@ class InterlanguageListParserFunction {
 	}
 
 	private function createErrorMessageFor( $messageKey, $arg1 = '' ) {
-		return '<span class="error">' . wfMessage( $messageKey, $arg1 )->inContentLanguage()->text() . '</span>';
+		return '<div class="smw-callout smw-callout-error">' . wfMessage( $messageKey, $arg1 )->inContentLanguage()->text() . '</div>';
 	}
 
 }

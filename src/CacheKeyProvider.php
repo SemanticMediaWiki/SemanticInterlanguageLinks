@@ -8,7 +8,7 @@ namespace SIL;
  *
  * @author mwjames
  */
-class CacheKeyGenerator {
+class CacheKeyProvider {
 
 	/**
 	 * Update the version to force a recache for all items due to
@@ -26,7 +26,7 @@ class CacheKeyGenerator {
 	 *
 	 * @param string $cachePrefix
 	 *
-	 * @return CacheKeyGenerator
+	 * @return CacheKeyProvider
 	 */
 	public function setCachePrefix( $cachePrefix ) {
 		$this->cachePrefix = $cachePrefix;
@@ -41,7 +41,7 @@ class CacheKeyGenerator {
 	 * @return  string
 	 */
 	public function getSiteCacheKey( $key ) {
-		return $this->getCachePrefix() . 's:' . md5( $key . self::VERSION );
+		return $this->cachePrefix . ':sil:site:' . md5( $key . self::VERSION );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class CacheKeyGenerator {
 	 * @return  string
 	 */
 	public function getPageLanguageCacheBlobKey( $key = '' ) {
-		return $this->getCachePrefix() . 'b:' . md5( $key . self::VERSION );
+		return $this->cachePrefix . ':sil:blob:' . md5( $key . self::VERSION );
 	}
 
 	/**
@@ -64,16 +64,7 @@ class CacheKeyGenerator {
 	 * @return  string
 	 */
 	public function getPageCacheKey( $key, $stable = true ) {
-		return $this->getCachePrefix() . 'p:' . md5( $key . ( $stable ? '' : self::VERSION ) );
-	}
-
-	/**
-	 * @since 1.0
-	 *
-	 * @return  string
-	 */
-	private function getCachePrefix() {
-		return $this->cachePrefix . ':' . 'sil:';
+		return $this->cachePrefix . ':sil:page:' . md5( $key . ( $stable ? '' : self::VERSION ) );
 	}
 
 }

@@ -3,7 +3,9 @@
 
 ![sil](https://cloud.githubusercontent.com/assets/1245473/7594045/0d88d938-f919-11e4-9c79-8e8d166c507a.png)
 
-If `Foo` and `Bar` are to represent the similar content in different languages they will share the same reference (`Lorem ipsum`). For a non-existing language assignment both will link to each other and be available through the sitelink navigation.
+If `Foo` and `Bar` are to represent similar content in different languages the it is assumed
+they will share a commmon reference (mostly the page name of the main content e.e.g `Lorem ipsum`) making those
+assignment link to each other through the sitelink navigation.
 
 ```text
 Page: Foo

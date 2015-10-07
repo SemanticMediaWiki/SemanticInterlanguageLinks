@@ -4,18 +4,14 @@ namespace SIL\Tests;
 
 use SIL\LanguageTargetLinksCache;
 use SIL\InterlanguageLink;
-use SIL\CacheKeyGenerator;
-
+use SIL\CacheKeyProvider;
 use SMW\DIWikiPage;
-
 use Onoi\Cache\CacheFactory;
-
 use HashBagOStuff;
 use Title;
 
 /**
  * @covers \SIL\LanguageTargetLinksCache
- *
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -39,13 +35,13 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
-		$cacheKeyGenerator = $this->getMockBuilder( '\SIL\CacheKeyGenerator' )
+		$cacheKeyProvider = $this->getMockBuilder( '\SIL\CacheKeyProvider' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$this->assertInstanceOf(
 			'\SIL\LanguageTargetLinksCache',
-			new LanguageTargetLinksCache( $cache, $cacheKeyGenerator )
+			new LanguageTargetLinksCache( $cache, $cacheKeyProvider )
 		);
 	}
 
@@ -63,7 +59,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyGenerator()
+			new CacheKeyProvider()
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -106,7 +102,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyGenerator()
+			new CacheKeyProvider()
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -134,7 +130,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyGenerator()
+			new CacheKeyProvider()
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -160,7 +156,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyGenerator()
+			new CacheKeyProvider()
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -189,7 +185,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyGenerator()
+			new CacheKeyProvider()
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -227,7 +223,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyGenerator()
+			new CacheKeyProvider()
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -268,7 +264,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyGenerator()
+			new CacheKeyProvider()
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -297,12 +293,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testUpdatePageLanguageToCache( $pageLanguageCacheStrategy ) {
 
-		$id = 'foo:sil:p:';
+		$id = 'foo:sil:page:';
 		$data = 'bo';
 
 		if ( $pageLanguageCacheStrategy === 'blob' ) {
-			$id = 'foo:sil:b:';
-			$data = array( 'foo:sil:p:ddc35f88fa71b6ef142ae61f35364653' => 'bo' );
+			$id = 'foo:sil:blob:';
+			$data = array( 'foo:sil:page:ddc35f88fa71b6ef142ae61f35364653' => 'bo' );
 		}
 
 		$title = Title::newFromText( 'Bar', NS_MAIN );
@@ -317,10 +313,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 				$this->stringContains( $id ) ,
 				$this->equalTo( $data ) );
 
-		$cacheKeyGenerator = new CacheKeyGenerator();
-		$cacheKeyGenerator->setCachePrefix( 'foo' );
+		$cacheKeyProvider = new CacheKeyProvider();
+		$cacheKeyProvider->setCachePrefix( 'foo' );
 
-		$instance = new LanguageTargetLinksCache( $cache, $cacheKeyGenerator );
+		$instance = new LanguageTargetLinksCache( $cache, $cacheKeyProvider );
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
 		$instance->updatePageLanguageToCache( $title, 'bo' );

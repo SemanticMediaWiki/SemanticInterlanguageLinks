@@ -86,6 +86,10 @@ class InterlanguageLinkParserFunction {
 			$this->siteLanguageLinksGenerator->getRedirectTargetFor( $title )
 		);
 
+		if ( $this->languageLinkAnnotator->hasDifferentLanguageAnnotation( $interlanguageLink ) ) {
+			return $this->createErrorMessageFor( 'sil-interlanguagelink-multiplecalls-different-languagecode', $languageCode );
+		}
+
 		return $this->createSiteLanguageLinks( $interlanguageLink );
 	}
 

@@ -6,7 +6,6 @@ use SIL\InterlanguageLinkParserFunction;
 
 /**
  * @covers \SIL\InterlanguageLinkParserFunction
- *
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -154,6 +153,40 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEmpty(
 			$instance->parse( 'en', 'Foo' )
+		);
+	}
+
+	public function testMultipleParseCallsWithDifferentLanguagesTriggersErrorMessage() {
+
+		$title = \Title::newFromText( __METHOD__ );
+
+		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$languageLinkAnnotator->expects( $this->any() )
+			->method( 'hasDifferentLanguageAnnotation' )
+			->will( $this->onConsecutiveCalls( false, true ) );
+
+		$siteLanguageLinksGenerator = $this->getMockBuilder( '\SIL\SiteLanguageLinksGenerator' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$siteLanguageLinksGenerator->expects( $this->any() )
+			->method( 'getRedirectTargetFor' )
+			->will( $this->returnValue( $title ) );
+
+		$instance = new InterlanguageLinkParserFunction(
+			$title,
+			$languageLinkAnnotator,
+			$siteLanguageLinksGenerator
+		);
+
+		$instance->parse( 'en', 'Foo' );
+
+		$this->assertContains(
+			'-error',
+			$instance->parse( 'fr', 'Foo' )
 		);
 	}
 

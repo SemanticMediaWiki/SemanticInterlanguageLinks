@@ -3,10 +3,11 @@ This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a.
 ### 1.2.0 (2015-10-?)
 
 * Added redirect handling for a `interlanguage link` reference
-* #8 Removed multiple calls limitation
+* #8 Removed multiple calls limitation, allow different interlanguage reference targets for
+  same language on a content page but disallow for a page to define different languages
 * Switched `PageLanguageCacheStrategy` from 'blob' to 'single'
-* Localisation updates from https://translatewiki.net
 * Changed to `"onoi/cache": "~1.2"`
+* Localisation updates from https://translatewiki.net
 
 ### 1.1.0 (2015-06-02)
 

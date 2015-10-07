@@ -22,7 +22,7 @@ if ( defined( 'SIL_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SIL_VERSION', '1.2-alpha' );
+define( 'SIL_VERSION', '1.2.0-alpha' );
 
 /**
  * @codeCoverageIgnore

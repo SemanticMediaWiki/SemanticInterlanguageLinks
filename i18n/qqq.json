@@ -13,7 +13,7 @@
 	"sil-property-alias-container": "This is the name of a [https://semantic-mediawiki.org/wiki/Property property] as defined by [https://semantic-mediawiki.org/ Semantic MediaWiki].\n{{Doc-smw-sp}}",
 	"sil-interlanguagelink-hideinterlanguagelinks": "An error message caused by the INTERLANGUAGELINK parser function due to the wgHideInterlanguageLinkss setting.",
 	"sil-interlanguagelink-invalidlanguagecode": "An error message caused by the INTERLANGUAGELINK parser function.",
-	"sil-interlanguagelink-multiplecalls": "An error message caused by the INTERLANGUAGELINK parser function.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "An error message caused by the INTERLANGUAGELINK parser function.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "An error message caused by the INTERLANGUAGELINK parser function.",
 	"sil-interlanguagelist-missing-linkreference": "An error message caused by the INTERLANGUAGELIST parser function.",
 	"sil-interlanguagelist-missing-template": "An error message caused by the INTERLANGUAGELIST parser function.",

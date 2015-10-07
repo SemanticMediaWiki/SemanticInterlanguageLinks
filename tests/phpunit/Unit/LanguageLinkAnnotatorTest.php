@@ -6,10 +6,10 @@ use SIL\LanguageLinkAnnotator;
 use SIL\InterlanguageLink;
 use SIL\InterwikiLanguageLink;
 use SIL\PropertyRegistry;
+use SMW\DIWikiPage;
 
 /**
  * @covers \SIL\LanguageLinkAnnotator
- *
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -35,6 +35,35 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(
 			'\SIL\LanguageLinkAnnotator',
 			new LanguageLinkAnnotator( $parserData )
+		);
+	}
+
+	public function testHasDifferentLanguageAnnotation() {
+
+		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$semanticData->expects( $this->once() )
+			->method( 'getPropertyValues' )
+			->will( $this->returnValue( array( new DIWikiPage( 'Foo', NS_MAIN, '' , 'ill.en' ) ) ) );
+
+		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$parserData->expects( $this->once() )
+			->method( 'getSemanticData' )
+			->will( $this->returnValue( $semanticData ) );
+
+		$instance = new LanguageLinkAnnotator( $parserData );
+
+		$result = $instance->hasDifferentLanguageAnnotation(
+			new InterlanguageLink( 'ja', 'bar' )
+		);
+
+		$this->assertTrue(
+			$result
 		);
 	}
 

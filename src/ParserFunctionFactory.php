@@ -63,7 +63,6 @@ class ParserFunctionFactory {
 		$interlanguageListParserFunctionDefinition = function( $parser, $target, $template = '' ) use ( $interlanguageLinksLookup ) {
 
 			$interlanguageListParserFunction = new InterlanguageListParserFunction(
-				$parser,
 				$interlanguageLinksLookup
 			);
 

@@ -68,12 +68,12 @@ class HookRegistry {
 
 	private function addCallbackHandlers( $store, $cache, $cachePrefix ) {
 
-		$cacheKeyGenerator = new CacheKeyGenerator();
-		$cacheKeyGenerator->setCachePrefix( $cachePrefix );
+		$cacheKeyProvider = new CacheKeyProvider();
+		$cacheKeyProvider->setCachePrefix( $cachePrefix );
 
 		$languageTargetLinksCache = new LanguageTargetLinksCache(
 			$cache,
-			$cacheKeyGenerator
+			$cacheKeyProvider
 		);
 
 		$interlanguageLinksLookup = new InterlanguageLinksLookup(

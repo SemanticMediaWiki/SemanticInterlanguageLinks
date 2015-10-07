@@ -6,7 +6,6 @@ use SIL\InterlanguageListParserFunction;
 
 /**
  * @covers \SIL\InterlanguageListParserFunction
- *
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -18,10 +17,6 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
-		$parser = $this->getMockBuilder( '\Parser' )
-			->disableOriginalConstructor()
-			->getMock();
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -29,7 +24,6 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(
 			'\SIL\InterlanguageListParserFunction',
 			new InterlanguageListParserFunction(
-				$parser,
 				$interlanguageLinksLookup
 			)
 		);
@@ -37,40 +31,31 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 	public function testTryParseThatCausesErrorMessage() {
 
-		$parser = $this->getMockBuilder( '\Parser' )
-			->disableOriginalConstructor()
-			->getMock();
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$instance = new InterlanguageListParserFunction(
-			$parser,
 			$interlanguageLinksLookup
 		);
 
 		$this->assertContains(
-			'span class="error"',
+			'div class="smw-callout smw-callout-error"',
 			$instance->parse( '', 'Foo' )
 		);
 
 		$this->assertContains(
-			'span class="error"',
+			'div class="smw-callout smw-callout-error"',
 			$instance->parse( 'Foo', '' )
 		);
 
 		$this->assertContains(
-			'span class="error"',
+			'div class="smw-callout smw-callout-error"',
 			$instance->parse( '{[[:Template:Foo]]', 'en' )
 		);
 	}
 
 	public function testParseForEmptyLanguageTargetLinks() {
-
-		$parser = $this->getMockBuilder( '\Parser' )
-			->disableOriginalConstructor()
-			->getMock();
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -85,11 +70,11 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( 'Foo' ) );
 
 		$instance = new InterlanguageListParserFunction(
-			$parser,
 			$interlanguageLinksLookup
 		);
 
-		$this->assertEmpty(
+		$this->assertEquals(
+			array( "", "noparse" => true, "isHTML" => false ),
 			$instance->parse( 'Foo', 'FakeTemplate' )
 		);
 	}
@@ -98,11 +83,6 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider languageTargetLinksTemplateProvider
 	 */
 	public function testParseForValidLanguageTargetLinks( $targetLink, $expected ) {
-
-		$parser = new \Parser();
-		$parser->setTitle( \Title::newFromText( __METHOD__ ) );
-		$parser->Options( new \ParserOptions() );
-		$parser->clearState();
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -117,20 +97,12 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( 'Foo' ) );
 
 		$instance = new InterlanguageListParserFunction(
-			$parser,
 			$interlanguageLinksLookup
 		);
 
-		$text = $instance->parse( 'Foo', 'FakeTemplate' );
-
-		$this->assertInternalType(
-			'array',
-			$text
-		);
-
-		$this->assertContains(
-			$expected,
-			$text[0]
+		$this->assertEquals(
+			array( $expected, "noparse" => false, "isHTML" => false ),
+			$instance->parse( 'Foo', 'FakeTemplate' )
 		);
 	}
 
@@ -139,7 +111,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$provider = array();
 
 		$provider[] = array(
-			array( 'en' => 'test' ),
+			array( 'en' => 'Test' ),
 			'{{FakeTemplate' .
 			'|#=0' .
 			'|target-link=Test' .
