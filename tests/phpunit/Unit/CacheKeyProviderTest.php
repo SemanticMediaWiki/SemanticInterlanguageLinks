@@ -19,13 +19,13 @@ class CacheKeyProviderTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertInstanceOf(
 			'\SIL\CacheKeyProvider',
-			new CacheKeyProvider()
+			new CacheKeyProvider( 'foo' )
 		);
 	}
 
 	public function testGetSiteCacheKey() {
 
-		$instance = new CacheKeyProvider();
+		$instance = new CacheKeyProvider( 'foo' );
 
 		$this->assertSame(
 			$instance->getSiteCacheKey( 'foo' ),
@@ -35,7 +35,7 @@ class CacheKeyProviderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetPageLanguageCacheBlobKey() {
 
-		$instance = new CacheKeyProvider();
+		$instance = new CacheKeyProvider( 'foo' );
 
 		$this->assertSame(
 			$instance->getPageLanguageCacheBlobKey( 'foo' ),
@@ -45,25 +45,11 @@ class CacheKeyProviderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetPageCacheKey() {
 
-		$instance = new CacheKeyProvider();
+		$instance = new CacheKeyProvider( 'foo'  );
 
 		$this->assertSame(
 			$instance->getPageCacheKey( 'foo', true ),
 			$instance->getPageCacheKey( 'foo', true )
-		);
-	}
-
-	public function testPrefixModification() {
-
-		$instance = new CacheKeyProvider();
-
-		$this->assertNotSame(
-			$instance
-				->setCachePrefix( 'foo' )
-				->getSiteCacheKey( 'foo' ),
-			$instance
-				->setCachePrefix( 'bar' )
-				->getSiteCacheKey( 'foo' )
 		);
 	}
 

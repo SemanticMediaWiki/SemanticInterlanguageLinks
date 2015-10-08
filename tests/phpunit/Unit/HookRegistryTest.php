@@ -18,6 +18,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 	private $cache;
 	private $store;
+	private $cacheKeyProvider;
 
 	protected function setUp() {
 		parent::setUp();
@@ -29,13 +30,17 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$this->cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
+
+		$this->cacheKeyProvider = $this->getMockBuilder( '\SIL\CacheKeyProvider' )
+			->disableOriginalConstructor()
+			->getMockForAbstractClass();
 	}
 
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
 			'\SIL\HookRegistry',
-			new HookRegistry( $this->store, $this->cache, 'foo' )
+			new HookRegistry( $this->store, $this->cache, $this->cacheKeyProvider )
 		);
 	}
 
@@ -59,7 +64,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getOutput' )
 			->will( $this->returnValue( $parserOutput ) );
 
-		$instance = new HookRegistry( $this->store, $this->cache, 'foo' );
+		$instance = new HookRegistry( $this->store, $this->cache, $this->cacheKeyProvider );
 		$instance->register();
 
 		$this->doTestParserFirstCallInit( $instance, $parser );
@@ -67,6 +72,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$this->doTestSkinTemplateGetLanguageLink( $instance );
 		$this->doTestPageContentLanguage( $instance );
 		$this->doTestArticleFromTitle( $instance );
+		$this->doTestArticlePurge( $instance );
 		$this->doTestParserAfterTidy( $instance, $parser );
 
 		$this->doTestInitProperties( $instance );
@@ -114,6 +120,30 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
 			array( $wikipage )
+		);
+	}
+
+	public function doTestArticlePurge( $instance ) {
+
+		$handler = 'ArticlePurge';
+
+		$title = Title::newFromText( __METHOD__ );
+
+		$wikipage = $this->getMockBuilder( '\WikiPage' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$wikipage->expects( $this->any() )
+			->method( 'getTitle' )
+			->will( $this->returnValue( $title ) );
+
+		$this->assertTrue(
+			$instance->isRegistered( $handler )
+		);
+
+		$this->assertThatHookIsExcutable(
+			$instance->getHandlerFor( $handler ),
+			array( &$wikipage )
 		);
 	}
 

@@ -1,11 +1,3 @@
-
-## Running tests
-
-1. Verify that PHUnit is installed and in case it is not use `composer require phpunit/phpunit:~4.5` to add the package
-2. Use `composer phpunit` from the extension base directory, or [`phpunit`][mw-phpunit-testing] directly in connection
-   with the PHPUnit `XML` configuration file (together with MediaWiki's `phpunit.php` loader otherwise required
-   MediaWiki classes are not loaded).
-
 ## Components
 
 ### InterlanguageLinksLookup

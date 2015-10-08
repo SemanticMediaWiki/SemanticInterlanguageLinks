@@ -11,7 +11,7 @@ use ParserOutput;
  *
  * @author mwjames
  */
-class SiteLanguageLinksGenerator {
+class SiteLanguageLinksParserOutputAppender {
 
 	/**
 	 * @var ParserOutput

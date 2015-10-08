@@ -3,14 +3,12 @@
 namespace SIL\Tests;
 
 use SIL\ParserFunctionFactory;
-
 use Title;
 use Parser;
 use ParserOptions;
 
 /**
  * @covers \SIL\ParserFunctionFactory
- *
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+

@@ -25,12 +25,9 @@ class CacheKeyProvider {
 	 * @since 1.0
 	 *
 	 * @param string $cachePrefix
-	 *
-	 * @return CacheKeyProvider
 	 */
-	public function setCachePrefix( $cachePrefix ) {
+	public function __construct( $cachePrefix ) {
 		$this->cachePrefix = $cachePrefix;
-		return $this;
 	}
 
 	/**

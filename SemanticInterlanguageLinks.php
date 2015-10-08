@@ -1,6 +1,7 @@
 <?php
 
 use SIL\HookRegistry;
+use SIL\CacheKeyProvider;
 use SMW\ApplicationFactory;
 use Onoi\Cache\CacheFactory;
 
@@ -57,12 +58,14 @@ call_user_func( function () {
 			$cacheFactory->newMediaWikiCache( ObjectCache::getInstance( $GLOBALS['egSILCacheType'] ) )
 		) );
 
-		$cachePrefix = $GLOBALS['wgCachePrefix'] === false ? wfWikiID() : $GLOBALS['wgCachePrefix'];
+		$cacheKeyProvider = new CacheKeyProvider(
+			$GLOBALS['wgCachePrefix'] === false ? wfWikiID() : $GLOBALS['wgCachePrefix']
+		);
 
 		$hookRegistry = new HookRegistry(
 			ApplicationFactory::getInstance()->getStore(),
 			$compositeCache,
-			$cachePrefix
+			$cacheKeyProvider
 		);
 
 		$hookRegistry->register();

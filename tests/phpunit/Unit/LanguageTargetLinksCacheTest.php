@@ -22,11 +22,13 @@ use Title;
 class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 	private $cache;
+	private $cacheKeyProvider;
 
 	protected function setUp() {
 		parent::setUp();
 
 		$this->cache = CacheFactory::getInstance()->newMediaWikiCache( new HashBagOStuff() );
+		$this->cacheKeyProvider = new CacheKeyProvider( 'foo' );
 	}
 
 	public function testCanConstruct() {
@@ -59,7 +61,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyProvider()
+			$this->cacheKeyProvider
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -102,7 +104,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyProvider()
+			$this->cacheKeyProvider
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -130,7 +132,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyProvider()
+			$this->cacheKeyProvider
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -156,7 +158,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyProvider()
+			$this->cacheKeyProvider
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -185,7 +187,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyProvider()
+			$this->cacheKeyProvider
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -223,7 +225,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyProvider()
+			$this->cacheKeyProvider
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -264,7 +266,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
-			new CacheKeyProvider()
+			$this->cacheKeyProvider
 		);
 
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
@@ -313,8 +315,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 				$this->stringContains( $id ) ,
 				$this->equalTo( $data ) );
 
-		$cacheKeyProvider = new CacheKeyProvider();
-		$cacheKeyProvider->setCachePrefix( 'foo' );
+		$cacheKeyProvider = $this->cacheKeyProvider;
 
 		$instance = new LanguageTargetLinksCache( $cache, $cacheKeyProvider );
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );

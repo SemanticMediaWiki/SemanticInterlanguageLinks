@@ -2,14 +2,14 @@
 
 namespace SIL\Tests;
 
-use SIL\SiteLanguageLinksGenerator;
+use SIL\SiteLanguageLinksParserOutputAppender;
 use SIL\InterlanguageLink;
 
 use SMW\DIWikiPage;
 use SMWDIBlob as DIBlob;
 
 /**
- * @covers \SIL\SiteLanguageLinksGenerator
+ * @covers \SIL\SiteLanguageLinksParserOutputAppender
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -17,7 +17,7 @@ use SMWDIBlob as DIBlob;
  *
  * @author mwjames
  */
-class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
+class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
@@ -30,8 +30,8 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$this->assertInstanceOf(
-			'\SIL\SiteLanguageLinksGenerator',
-			new SiteLanguageLinksGenerator(
+			'\SIL\SiteLanguageLinksParserOutputAppender',
+			new SiteLanguageLinksParserOutputAppender(
 				$parserOutput,
 				$interlanguageLinksLookup
 			)
@@ -58,7 +58,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->with( $this->equalTo( $interlanguageLink ) )
 			->will( $this->returnValue( array( 'fr' => 'Bar' ) ) );
 
-		$instance = new SiteLanguageLinksGenerator(
+		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
 			$interlanguageLinksLookup
 		);
@@ -86,7 +86,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->with( $this->equalTo( $interlanguageLink ) )
 			->will( $this->returnValue( array( 'en' => \Title::newFromText( 'Foo' ) ) ) );
 
-		$instance = new SiteLanguageLinksGenerator(
+		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
 			$interlanguageLinksLookup
 		);
@@ -121,7 +121,7 @@ class SiteLanguageLinksGeneratorTest extends \PHPUnit_Framework_TestCase {
 			->with( $this->equalTo( $interlanguageLink ) )
 			->will( $this->returnValue( array( 'vi' => \Title::newFromText( 'Yan' ) ) ) );
 
-		$instance = new SiteLanguageLinksGenerator(
+		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
 			$interlanguageLinksLookup
 		);

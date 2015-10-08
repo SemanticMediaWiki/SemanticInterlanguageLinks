@@ -3,7 +3,6 @@
 namespace SIL;
 
 use Onoi\Cache\CacheFactory;
-
 use Title;
 use Language;
 
@@ -26,35 +25,35 @@ class InterlanguageLinkParserFunction {
 	private $languageLinkAnnotator;
 
 	/**
-	 * @var SiteLanguageLinksGenerator
+	 * @var SiteLanguageLinksParserOutputAppender
 	 */
-	private $siteLanguageLinksGenerator;
+	private $siteLanguageLinksParserOutputAppender;
 
 	/**
 	 * @var boolean
 	 */
-	private $hideInterlanguageLinks = false;
+	private $interlanguageLinksHideState = false;
 
 	/**
 	 * @since 1.0
 	 *
 	 * @param Title $title
 	 * @param LanguageLinkAnnotator $languageLinkAnnotator
-	 * @param SiteLanguageLinksGenerator $siteLanguageLinksGenerator
+	 * @param SiteLanguageLinksParserOutputAppender $siteLanguageLinksParserOutputAppender
 	 */
-	public function __construct( Title $title, LanguageLinkAnnotator $languageLinkAnnotator, SiteLanguageLinksGenerator $siteLanguageLinksGenerator ) {
+	public function __construct( Title $title, LanguageLinkAnnotator $languageLinkAnnotator, SiteLanguageLinksParserOutputAppender $siteLanguageLinksParserOutputAppender ) {
 		$this->title = $title;
 		$this->languageLinkAnnotator = $languageLinkAnnotator;
-		$this->siteLanguageLinksGenerator = $siteLanguageLinksGenerator;
+		$this->siteLanguageLinksParserOutputAppender = $siteLanguageLinksParserOutputAppender;
 	}
 
 	/**
 	 * @since 1.0
 	 *
-	 * @param boolean $hideInterlanguageLinks
+	 * @param boolean $interlanguageLinksHideState
 	 */
-	public function setInterlanguageLinksState( $hideInterlanguageLinks ) {
-		$this->hideInterlanguageLinks = $hideInterlanguageLinks;
+	public function setInterlanguageLinksHideState( $interlanguageLinksHideState ) {
+		$this->interlanguageLinksHideState = $interlanguageLinksHideState;
 	}
 
 	/**
@@ -67,7 +66,7 @@ class InterlanguageLinkParserFunction {
 	 */
 	public function parse( $languageCode, $linkReference ) {
 
-		if ( $this->hideInterlanguageLinks ) {
+		if ( $this->interlanguageLinksHideState ) {
 			return $this->createErrorMessageFor( 'sil-interlanguagelink-hideinterlanguagelinks' );
 		}
 
@@ -83,7 +82,7 @@ class InterlanguageLinkParserFunction {
 
 		$interlanguageLink = new InterlanguageLink(
 			wfBCP47( $languageCode ),
-			$this->siteLanguageLinksGenerator->getRedirectTargetFor( $title )
+			$this->siteLanguageLinksParserOutputAppender->getRedirectTargetFor( $title )
 		);
 
 		if ( $this->languageLinkAnnotator->hasDifferentLanguageAnnotation( $interlanguageLink ) ) {
@@ -95,7 +94,7 @@ class InterlanguageLinkParserFunction {
 
 	private function createSiteLanguageLinks( InterlanguageLink $interlanguageLink ) {
 
-		$knownTargetLink = $this->siteLanguageLinksGenerator->tryAddLanguageTargetLinksToOutput(
+		$knownTargetLink = $this->siteLanguageLinksParserOutputAppender->tryAddLanguageTargetLinksToOutput(
 			$interlanguageLink,
 			$this->title
 		);

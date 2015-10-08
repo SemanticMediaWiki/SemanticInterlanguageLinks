@@ -3,7 +3,6 @@
 namespace SIL;
 
 use Onoi\Cache\Cache;
-
 use SMW\Store;
 use SMW\ApplicationFactory;
 use SIL\Search\SearchResultModifier;
@@ -29,10 +28,10 @@ class HookRegistry {
 	 *
 	 * @param Store $store
 	 * @param Cache $cache
-	 * @param string $cachePrefix
+	 * @param CacheKeyProvider $cacheKeyProvider
 	 */
-	public function __construct( Store $store, Cache $cache, $cachePrefix ) {
-		$this->addCallbackHandlers( $store, $cache, $cachePrefix );
+	public function __construct( Store $store, Cache $cache, CacheKeyProvider $cacheKeyProvider ) {
+		$this->addCallbackHandlers( $store, $cache, $cacheKeyProvider );
 	}
 
 	/**
@@ -66,10 +65,7 @@ class HookRegistry {
 		}
 	}
 
-	private function addCallbackHandlers( $store, $cache, $cachePrefix ) {
-
-		$cacheKeyProvider = new CacheKeyProvider();
-		$cacheKeyProvider->setCachePrefix( $cachePrefix );
+	private function addCallbackHandlers( $store, $cache, $cacheKeyProvider ) {
 
 		$languageTargetLinksCache = new LanguageTargetLinksCache(
 			$cache,
@@ -151,6 +147,18 @@ class HookRegistry {
 
 			$interlanguageLinksLookup->invalidateLookupCache( $oldTitle );
 			$interlanguageLinksLookup->invalidateLookupCache( $newTitle );
+
+			return true;
+		};
+
+		/**
+		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ArticlePurge
+		 */
+		$this->handlers['ArticlePurge']= function ( &$wikiPage ) use ( $interlanguageLinksLookup ) {
+
+			$interlanguageLinksLookup->invalidateLookupCache(
+				$wikiPage->getTitle()
+			);
 
 			return true;
 		};

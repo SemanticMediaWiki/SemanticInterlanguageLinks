@@ -3,7 +3,6 @@
 namespace SIL;
 
 use SMW\ApplicationFactory;
-
 use Parser;
 
 /**
@@ -32,7 +31,7 @@ class ParserFunctionFactory {
 
 			$languageLinkAnnotator = new LanguageLinkAnnotator( $parserData );
 
-			$siteLanguageLinksGenerator = new SiteLanguageLinksGenerator(
+			$siteLanguageLinksParserOutputAppender = new SiteLanguageLinksParserOutputAppender(
 				$parser->getOutput(),
 				$interlanguageLinksLookup
 			);
@@ -40,10 +39,12 @@ class ParserFunctionFactory {
 			$interlanguageLinkParserFunction = new InterlanguageLinkParserFunction(
 				$parser->getTitle(),
 				$languageLinkAnnotator,
-				$siteLanguageLinksGenerator
+				$siteLanguageLinksParserOutputAppender
 			);
 
-			$interlanguageLinkParserFunction->setInterlanguageLinksState( $GLOBALS['wgHideInterlanguageLinks'] );
+			$interlanguageLinkParserFunction->setInterlanguageLinksHideState(
+				$GLOBALS['wgHideInterlanguageLinks']
+			);
 
 			return $interlanguageLinkParserFunction->parse( $languageCode, $linkReference );
 		};
