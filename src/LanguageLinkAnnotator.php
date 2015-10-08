@@ -41,11 +41,9 @@ class LanguageLinkAnnotator {
 			new DIProperty( PropertyRegistry::SIL_CONTAINER )
 		);
 
-		if ( $propertyValues !== array() ) {
-			foreach ( $propertyValues as $value) {
-				if ( $value->getSubobjectname() !== $interlanguageLink->getContainerId() ) {
-					return true;
-				}
+		foreach ( $propertyValues as $value ) {
+			if ( $value->getSubobjectname() !== $interlanguageLink->getContainerId() ) {
+				return true;
 			}
 		}
 

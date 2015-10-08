@@ -38,7 +38,10 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testHasDifferentLanguageAnnotation() {
+	/**
+	 * @dataProvider differentLanguageAnnotationProvider
+	 */
+	public function testHasDifferentLanguageAnnotation( $pValues, $expected ) {
 
 		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
 			->disableOriginalConstructor()
@@ -46,7 +49,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 
 		$semanticData->expects( $this->once() )
 			->method( 'getPropertyValues' )
-			->will( $this->returnValue( array( new DIWikiPage( 'Foo', NS_MAIN, '' , 'ill.en' ) ) ) );
+			->will( $this->returnValue( $pValues ) );
 
 		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
 			->disableOriginalConstructor()
@@ -62,10 +65,12 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 			new InterlanguageLink( 'ja', 'bar' )
 		);
 
-		$this->assertTrue(
+		$this->assertEquals(
+			$expected,
 			$result
 		);
 	}
+
 
 	public function testAddAnnotationForInterlanguageLink() {
 
@@ -127,6 +132,21 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 		$instance->addAnnotationForInterwikiLanguageLink(
 			new InterwikiLanguageLink( 'en:Foo' )
 		);
+	}
+
+	public function differentLanguageAnnotationProvider() {
+
+		$provider[] = array(
+			array( new DIWikiPage( 'Foo', NS_MAIN, '' , 'ill.en' ) ),
+			true
+		);
+
+		$provider[] = array(
+			array(),
+			false
+		);
+
+		return $provider;
 	}
 
 }
