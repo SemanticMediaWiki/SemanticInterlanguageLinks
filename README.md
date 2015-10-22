@@ -60,7 +60,8 @@ each other) for different languages.
 The parser function `{{interlanguagelist: ... }}` can generate a customizable
 language target link list.
 
-Further details and usage examples can be found [here](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/blob/master/docs/01-interlanguage.md).
+Further details and usage examples can be found [here](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/blob/master/docs/01-parser-function.md)
+together with some [#ask queries](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/blob/master/docs/02-ask-queries.md).
 
 ### Other features
 
