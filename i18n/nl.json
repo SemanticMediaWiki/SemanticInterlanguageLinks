@@ -11,6 +11,6 @@
 	"sil-property-ill-alias-reference": "Interlanguage referentie",
 	"sil-property-iwl-alias-language": "Interwikitaal",
 	"sil-property-iwl-alias-reference": "Interwiki-referentie",
-	"sil-property-alias-container": "Heeft interwikilinks",
+	"sil-property-alias-container": "Heeft interwikilink",
 	"sil-interlanguagelink-hideinterlanguagelinks": "De parser functie kan niet worden gebruikt omdat <code>$wgHideInterlanguageLinks</code> is ingesteld."
 }

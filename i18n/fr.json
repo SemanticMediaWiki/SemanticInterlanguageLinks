@@ -13,7 +13,7 @@
 	"sil-property-ill-alias-reference": "Référence interlangue",
 	"sil-property-iwl-alias-language": "Langue interwiki",
 	"sil-property-iwl-alias-reference": "Référence interwiki",
-	"sil-property-alias-container": "A des liens interlangues",
+	"sil-property-alias-container": "A un lien interlangue",
 	"smw-pa-property-predefined__sil_container": "« $1 » est une propriété prédéfinie qui représente les méta-informations liées à la langue (sous forme d’un sous-objet) d’une page et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "La fonction n'a pas pu être utilisée car <code>$wgHideInterlanguageLinks</code> est défini.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" n'a pas été reconnu comme code de langue valide.",

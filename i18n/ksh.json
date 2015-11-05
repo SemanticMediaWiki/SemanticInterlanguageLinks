@@ -9,7 +9,7 @@
 	"sil-property-ill-alias-reference": "Bezoch zwesche Schprohche",
 	"sil-property-iwl-alias-language": "Engewikkischprohch",
 	"sil-property-iwl-alias-reference": "Engewikkibezoch",
-	"sil-property-alias-container": "Hät Lengks op ander Schprohche",
+	"sil-property-alias-container": "Hädd ene Lengk obb anndere Schprohche",
 	"smw-pa-property-predefined__sil_container": "„$1“ ess_en Eijeschaff, di vum Wikki faßjelaat weed. Di wääde och [https://www.semantic-mediawiki.org/wiki/Help:Special_properties äxtra Eijeschaffte] jenannt.\n\nSe sammeld Enfommazuhne em Zersammehang met Schprohche övver Sigge.\nSe weed övver dat Zohsazprojramm [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"„Semanntesche Verlengkonge zwesche Schprohche“\">Semantic Interlanguage Links</i>] en et Wikki jebraat.",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Heh di Paaserfonxjuhn kam_mer nit bruche, weil dem Wikki sing Enschtällong „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">$wgHideInterlanguageLinks</code>“ jesaz es.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1“ wohr nit als e Köözel för en Schprohch ze verschtonn.",
