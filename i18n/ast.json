@@ -13,7 +13,7 @@
 	"smw-pa-property-predefined__sil_container": "«$1» ye una propiedá predefinida que representa meta información rellacionada cola llingua (en forma d'un suboxetu) sobro una páxina y proporciónala la estensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Enllaces Semánticos Interllingüísticos].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Nun pué usase la función d'analizador porque ta activao <code>$wgHideInterlanguageLinks</code>.",
 	"sil-interlanguagelink-invalidlanguagecode": "Nun se reconoció «$1» como códigu de llingua válidu.",
-	"sil-interlanguagelink-multiplecalls": "Llamóse varies veces nesta páxina a la función d'analizador \"INTERLANGUAGELINK\", lo que nun ye posible.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "La función d'analizador llamóse múltiples veces pero con un códigu de llingua distintu («$1») lo que tien d'evitase porque xeneralmente espérase que'l conteníu d'una páxina tea representáu nun únicu idioma.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "Yá existe la combinación \"$1\":\"$2\" pa la páxina \"$3\", poro, nun se creó nenguna anotación interllingüística.",
 	"sil-interlanguagelist-missing-linkreference": "Falta una referencia válida na función del analizador.",
 	"sil-interlanguagelist-missing-template": "Falta una plantía de salida na función del analizador.",
