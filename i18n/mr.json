@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"अभय नातू"
+			"अभय नातू",
+			"V.narsikar"
 		]
 	},
 	"sil-property-iwl-alias-reference": "आंतरविकी संदर्भ",
+	"sil-property-alias-container": "यास आंतरभाषिक दुवे आहेत",
 	"sil-search-profile": "भाषेनुसार"
 }
