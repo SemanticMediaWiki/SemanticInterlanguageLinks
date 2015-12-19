@@ -35,7 +35,7 @@ with an entry in MediaWiki's `composer.json`.
 ```json
 {
 	"require": {
-		"mediawiki/semantic-interlanguage-links": "~1.1"
+		"mediawiki/semantic-interlanguage-links": "~1.2"
 	}
 }
 ```

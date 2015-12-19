@@ -1,20 +1,19 @@
 This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a. SIL) extension.
 
-### 1.2.0 (2015-10-?)
+### 1.2.0 (2015-12-19)
 
 * Added redirect handling for a `interlanguage link` reference
 * #8 Removed multiple calls limitation, allow different interlanguage reference targets for
   same language on a content page but disallow for a page to define different languages
 * Switched `PageLanguageCacheStrategy` from 'blob' to 'single'
-* Changed to `"onoi/cache": "~1.2"`
-* Localisation updates from https://translatewiki.net
+* Localization updates from https://translatewiki.net
 
 ### 1.1.0 (2015-06-02)
 
 * Only match results in `Special:Search` for the selected language that contains an annotation
 * Fixed behaviour in `ByLanguageCategoryPage` for when languages are switched
 * #32 Fixed exception in `Special:Search` for no results
-* Localisation updates from https://translatewiki.net
+* Localization updates from https://translatewiki.net
 
 ### 1.0.0 (2015-02-14)
 
