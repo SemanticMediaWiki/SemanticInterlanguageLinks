@@ -82,6 +82,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$this->doTestSpecialSearchProfiles( $instance );
 		$this->doTestSpecialSearchProfileForm( $instance );
 		$this->doTestSpecialSearchResults( $instance );
+		$this->doTestSpecialSearchSetupEngine( $instance );
 		$this->doTestSpecialSearchPowerBox( $instance );
 	}
 
@@ -313,6 +314,53 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
 			array( $search, &$titleMatches, &$textMatches )
+		);
+	}
+
+	public function doTestSpecialSearchSetupEngine( $instance ) {
+
+		$handler = 'SpecialSearchSetupEngine';
+
+		$profile = array();
+
+		$request = $this->getMockBuilder( '\WebRequest' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$request->expects( $this->once() )
+			->method( 'getVal' )
+			->will( $this->returnValue( true ) );
+
+		$context = $this->getMockBuilder( '\RequestContext' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$context->expects( $this->once() )
+			->method( 'getRequest' )
+			->will( $this->returnValue( $request ) );
+
+		$search = $this->getMockBuilder( '\SpecialSearch' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$search->expects( $this->once() )
+			->method( 'getContext' )
+			->will( $this->returnValue( $context ) );
+
+		$searchEngine = $this->getMockBuilder( '\SearchEngine' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$searchEngine->expects( $this->once() )
+			->method( 'setNamespaces' );
+
+		$this->assertTrue(
+			$instance->isRegistered( $handler )
+		);
+
+		$this->assertThatHookIsExcutable(
+			$instance->getHandlerFor( $handler ),
+			array( $search, $profile, $searchEngine )
 		);
 	}
 

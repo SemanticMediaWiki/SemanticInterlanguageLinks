@@ -242,11 +242,11 @@ class HookRegistry {
 		 */
 		$this->handlers['SpecialSearchProfiles'] = function ( array &$profiles ) use ( $searchResultModifier ) {
 
-			$searchProfile = $searchResultModifier->addSearchProfile(
+			$searchResultModifier->addSearchProfile(
 				$profiles
 			);
 
-			return $searchProfile;
+			return true;
 		};
 
 		/**
@@ -254,14 +254,14 @@ class HookRegistry {
 		 */
 		$this->handlers['SpecialSearchProfileForm'] = function ( $search, &$form, $profile, $term, $opts ) use ( $searchResultModifier ) {
 
-			$searchProfileForm = $searchResultModifier->addSearchProfileForm(
+			$searchResultModifier->addSearchProfileForm(
 				$search,
 				$profile,
 				$form,
 				$opts
 			);
 
-			return $searchProfileForm;
+			return true;
 		};
 
 		/**
@@ -278,17 +278,29 @@ class HookRegistry {
 		};
 
 		/**
+		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchSetupEngine
+		 */
+		$this->handlers['SpecialSearchSetupEngine'] = function ( \SpecialSearch $search, $profile, \SearchEngine $searchEngine ) use ( $searchResultModifier ) {
+
+			if ( $search->getContext()->getRequest()->getVal( 'nsflag') ) {
+				$searchEngine->setNamespaces( \SearchEngine::defaultNamespaces() );
+			}
+
+			return true;
+		};
+
+		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchResults
 		 */
 		$this->handlers['SpecialSearchResults'] = function ( $term, &$titleMatches, &$textMatches ) use ( $searchResultModifier ) {
 
-			$resultMatches = $searchResultModifier->applyLanguageFilterToResultMatches(
+			$searchResultModifier->applyLanguageFilterToResultMatches(
 				$GLOBALS['wgRequest'],
 				$titleMatches,
 				$textMatches
 			);
 
-			return $resultMatches;
+			return true;
 		};
 	}
 
