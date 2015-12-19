@@ -18,8 +18,7 @@ This extension helps to create interlanguage links and provides queryable annota
 - To set the page content language of an article
 - Integration with `Special:Search` to search `By Language`
 
-The short [video](https://vimeo.com/115871518) demonstrates "How SIL works"
-is expected to work.
+This [video](https://vimeo.com/115871518) demonstrates the functionality of the Semantic Interlanguage Links extension.
 
 ## Requirements
 
