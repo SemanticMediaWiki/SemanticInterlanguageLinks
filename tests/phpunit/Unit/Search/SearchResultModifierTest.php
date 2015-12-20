@@ -201,11 +201,15 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$languageResultMatchFinder->expects( $this->at( 0 ) )
 			->method( 'matchResultsToLanguage' )
-			->with( $this->equalTo( $titleMatches ) );
+			->with(
+				$this->equalTo( $titleMatches ),
+				$this->equalTo( 'zh-Hans' ) );
 
 		$languageResultMatchFinder->expects( $this->at( 1 ) )
 			->method( 'matchResultsToLanguage' )
-			->with( $this->equalTo( $textMatches ) );
+			->with(
+				$this->equalTo( $textMatches ),
+				$this->equalTo( 'zh-Hans' ) );
 
 		$instance = new SearchResultModifier( $languageResultMatchFinder );
 
@@ -221,7 +225,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		$request->expects( $this->at( 1 ) )
 			->method( 'getVal' )
 			->with( $this->equalTo( 'languagefilter' ) )
-			->will( $this->returnValue( 'en' ) );
+			->will( $this->returnValue( 'zh-hans' ) );
 
 		$this->assertTrue(
 			$instance->applyLanguageFilterToResultMatches( $request, $titleMatches, $textMatches )
