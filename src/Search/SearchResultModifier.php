@@ -148,7 +148,7 @@ class SearchResultModifier {
 			return false;
 		}
 
-		$languageCode = $request->getVal( 'languagefilter' );
+		$languageCode = wfBCP47( $request->getVal( 'languagefilter' ) );
 
 		if ( in_array( $languageCode, array( null, '', '-' ) ) ) {
 			return false;
