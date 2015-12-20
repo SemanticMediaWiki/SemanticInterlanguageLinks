@@ -1,5 +1,7 @@
 This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a. SIL) extension.
 
+* #33 Fixed language code in `Special:Search` to conform with IETF (ISO 639, BCP 47) norm
+
 ### 1.2.0 (2015-12-19)
 
 * Added redirect handling for a `interlanguage link` reference
