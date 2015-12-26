@@ -147,11 +147,13 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$siteLanguageLinksParserOutputAppender
 		);
 
-		$this->assertEmpty(
+		$this->assertContains(
+			'div class="sil-interlanguagelink"',
 			$instance->parse( 'en', 'Foo' )
 		);
 
-		$this->assertEmpty(
+		$this->assertContains(
+			'div class="sil-interlanguagelink"',
 			$instance->parse( 'en', 'Foo' )
 		);
 	}
@@ -219,7 +221,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$instance->setInterlanguageLinksHideState( false );
 
-		$this->assertEmpty(
+		$this->assertContains(
+			'div class="sil-interlanguagelink"',
 			$instance->parse( 'en', 'Foo' )
 		);
 	}

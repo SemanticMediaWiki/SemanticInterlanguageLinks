@@ -113,6 +113,8 @@ class InterlanguageLinkParserFunction {
 		$this->languageLinkAnnotator->addAnnotationForInterlanguageLink(
 			$interlanguageLink
 		);
+
+		return '<div class="sil-interlanguagelink"></div>';
 	}
 
 	private function isSupportedLanguage( $languageCode ) {
