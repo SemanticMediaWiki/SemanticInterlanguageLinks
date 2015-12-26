@@ -24,5 +24,10 @@
 	"sil-search-profile-tooltip": "A label displayed on the Special:Search page.",
 	"sil-search-languagefilter-label": "A label displayed on the Special:Search page.",
 	"sil-search-nolanguagefilter": "A label displayed on the Special:Search page.",
-	"sil-categorypage-languagefilter-active": "A message shown on the category page"
+	"sil-categorypage-languagefilter-active": "A message shown on the category page",
+	"smw-pa-property-predefined__sil_container": "This informatory message describes a [https://semantic-mediawiki.org/wiki/Help:Special_properties special property].",
+	"smw-pa-property-predefined__sil_ill_lang": "This informatory message describes a [https://semantic-mediawiki.org/wiki/Help:Special_properties special property].",
+	"smw-pa-property-predefined__sil_ill_ref": "This informatory message describes a [https://semantic-mediawiki.org/wiki/Help:Special_properties special property].",
+	"smw-pa-property-predefined__sil_iwl_lang": "This informatory message describes a [https://semantic-mediawiki.org/wiki/Help:Special_properties special property].",
+	"smw-pa-property-predefined__sil_iwl_ref": "This informatory message describes a [https://semantic-mediawiki.org/wiki/Help:Special_properties special property]."
 }
