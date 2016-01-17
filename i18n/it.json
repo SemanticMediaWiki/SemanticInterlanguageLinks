@@ -2,10 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Alexmar983",
-			"Beta16"
+			"Beta16",
+			"JackLantern"
 		]
 	},
+	"sil-property-iwl-alias-language": "Lingua interwiki",
 	"sil-property-alias-container": "Ha collegamenti interlinguistici",
 	"sil-search-profile": "Per lingua",
+	"sil-search-nolanguagefilter": "Nessun filtro di lingua",
 	"sil-categorypage-languagefilter-active": "Questa categoria contiene le informazioni (pagina, sottocategoria e immagine) filtrate dalla lingua \"$1\"."
 }
