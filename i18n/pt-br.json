@@ -14,7 +14,6 @@
 	"smw-pa-property-predefined__sil_container": "\"$1\" é uma propriedade predefinida que representa metadados relacionados ao idioma (na forma de um subobjeto) sobre uma página e é fornecida pela extensão  [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "A função não pode ser utilizada porque a configuração <code>$wgHideInterlanguageLinks</code> está ativada.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" não foi reconhecido como um código de idioma válido.",
-	"sil-interlanguagelink-multiplecalls": "A função \"INTERLANGUAGELINK\" foi chamada várias vezes nesta página, o que não é permitido.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "A combinação \"$1\":\"$2\" já existe para a página \"$3\", assim, nenhuma marcação adicional para o idioma foi criada.",
 	"sil-interlanguagelist-missing-linkreference": "Está faltando uma referência válida para a função.",
 	"sil-interlanguagelist-missing-template": "Está faltando uma predefinição de saída para a função.",
