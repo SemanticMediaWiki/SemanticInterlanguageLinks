@@ -4,7 +4,8 @@
 			"mwjames",
 			"Kghbln",
 			"Umherirrender",
-			"Siebrand"
+			"Siebrand",
+			"Purodha"
 		]
 	},
 	"sil-desc": "{{desc|name=Semantic Interlanguage Links|url=https://www.mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links}}\nAn extension to deploy language links effortless using Semantic MedaWiki.",
@@ -24,7 +25,7 @@
 	"sil-interlanguagelink-languagetargetcombination-exists": "An error message caused by the INTERLANGUAGELINK parser function.",
 	"sil-interlanguagelist-missing-linkreference": "An error message caused by the INTERLANGUAGELIST parser function.",
 	"sil-interlanguagelist-missing-template": "An error message caused by the INTERLANGUAGELIST parser function.",
-	"sil-interlanguageparser-linkreference-error": "An error message caused by a parser function.",
+	"sil-interlanguageparser-linkreference-error": "An error message caused by a parser function.\n\nStyle hint:<br />\nThis is a very technical message that is likely not fully understood by mundane users. It will assumably be the wiki admin trying to get things rolling. This is a special interest extension probably a bit comparable to the translate extension requiring some expertise using it.",
 	"sil-search-profile": "A label displayed on the Special:Search page.",
 	"sil-search-profile-tooltip": "A label displayed on the Special:Search page.",
 	"sil-search-languagefilter-label": "A label displayed on the Special:Search page.",

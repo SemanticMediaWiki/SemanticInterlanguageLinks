@@ -23,5 +23,5 @@
 	"sil-search-profile-tooltip": "Filtrar artículos por anotación de idioma",
 	"sil-search-languagefilter-label": "Filtrar por idioma",
 	"sil-search-nolanguagefilter": "Sin filtro de idioma",
-	"sil-categorypage-languagefilter-active": "Esta categoría contiene información (página, subpágina e image) filtrada por idioma."
+	"sil-categorypage-languagefilter-active": "Esta categoría contiene información (página, subpágina e imagen) filtrada por idioma \"$1\"."
 }

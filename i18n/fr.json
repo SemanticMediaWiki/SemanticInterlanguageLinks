@@ -5,7 +5,8 @@
 			"Element303",
 			"Macofe",
 			"Wladek92",
-			"Gomoko"
+			"Gomoko",
+			"Verdy p"
 		]
 	},
 	"sil-desc": "Une extension [Https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
@@ -25,7 +26,7 @@
 	"sil-interlanguagelink-languagetargetcombination-exists": "La combinaison \"$1\":\"$2\" existe déjà pour la page \"$3\" par conséquent, aucune autre annotation n'a été créée.",
 	"sil-interlanguagelist-missing-linkreference": "La fonction manque d'une référence valide.",
 	"sil-interlanguagelist-missing-template": "La fonction analyseur n'a pas de format de sortie.",
-	"sil-interlanguageparser-linkreference-error": "La parser function eu un problème pour créer un objet de titre de \"$1\".",
+	"sil-interlanguageparser-linkreference-error": "La fonction d’analyse eu un problème pour créer un objet de titre avec « $1 ».",
 	"sil-search-profile": "par Langue",
 	"sil-search-profile-tooltip": "Filtrer les articles par annotation de langue",
 	"sil-search-languagefilter-label": "Filtrer par langue",
