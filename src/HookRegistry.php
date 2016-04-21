@@ -78,13 +78,18 @@ class HookRegistry {
 
 		$interlanguageLinksLookup->setStore( $store );
 
-		$propertyRegistry = new PropertyRegistry();
-
 		/**
 		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks.md
 		 */
-		$this->handlers['SMW::Property::initProperties'] = function () use ( $propertyRegistry ) {
-			return $propertyRegistry->register();
+		$this->handlers['SMW::Property::initProperties'] = function ( $baseRegistry ) {
+
+			$propertyRegistry = new PropertyRegistry();
+
+			$propertyRegistry->register(
+				$baseRegistry
+			);
+
+			return true;
 		};
 
 		/**

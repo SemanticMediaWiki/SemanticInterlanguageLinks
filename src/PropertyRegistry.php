@@ -2,7 +2,7 @@
 
 namespace SIL;
 
-use SMW\DIProperty;
+use SMW\PropertyRegistry as CorePropertyRegistry;
 
 define( 'SIL_PROP_CONTAINER', 'Has interlanguage link' );
 
@@ -31,16 +31,19 @@ class PropertyRegistry {
 	/**
 	 * @since 1.0
 	 *
+	 * @param CorePropertyRegistry $propertyRegistry
+	 *
 	 * @return boolean
 	 */
-	public function register() {
+	public function register( CorePropertyRegistry $propertyRegistry ) {
 
 		$propertyDefinitions = array(
 
 			self::SIL_CONTAINER => array(
 				'label' => SIL_PROP_CONTAINER,
 				'type'  => '__sob',
-				'alias' => array( wfMessage( 'sil-property-alias-container' )->text(), 'hasInterlanguagelink' ),
+				'alias' => array( wfMessage( 'sil-property-alias-container' )->text(), 'hasInterlanguagelink', 'Has interlanguage links' ),
+				'msgkey' => 'sil-property-alias-container',
 				'visibility' => false,
 				'annotableByUser'  => false
 			),
@@ -49,6 +52,7 @@ class PropertyRegistry {
 				'label' => SIL_PROP_ILL_LANG,
 				'type'  => '_txt',
 				'alias' => array( wfMessage( 'sil-property-ill-alias-language' )->text() ),
+				'msgkey' => 'sil-property-ill-alias-language',
 				'visibility' => true,
 				'annotableByUser'  => true
 			),
@@ -57,6 +61,7 @@ class PropertyRegistry {
 				'label' => SIL_PROP_ILL_REF,
 				'type'  => '_wpg',
 				'alias' => array( wfMessage( 'sil-property-ill-alias-reference' )->text() ),
+				'msgkey' => 'sil-property-ill-alias-reference',
 				'visibility' => true,
 				'annotableByUser'  => false
 			),
@@ -65,6 +70,7 @@ class PropertyRegistry {
 				'label' => SIL_PROP_IWL_LANG,
 				'type'  => '_txt',
 				'alias' => array( wfMessage( 'sil-property-iwl-alias-language' )->text() ),
+				'msgkey' => 'sil-property-iwl-alias-language',
 				'visibility' => true,
 				'annotableByUser'  => false
 			),
@@ -73,21 +79,32 @@ class PropertyRegistry {
 				'label' => SIL_PROP_IWL_REF,
 				'type'  => '_wpg',
 				'alias' => array( wfMessage( 'sil-property-iwl-alias-reference' )->text() ),
+				'msgkey' => 'sil-property-iwl-alias-reference',
 				'visibility' => true,
 				'annotableByUser'  => false
 			)
 		);
 
 		foreach ( $propertyDefinitions as $propertyId => $definition ) {
-			$this->addPropertyDefinitionFor( $propertyId, $definition  );
+			$this->addPropertyDefinitionFor( $propertyRegistry, $propertyId, $definition  );
+		}
+
+		foreach ( $propertyDefinitions as $propertyId => $definition ) {
+			// 2.4+
+			if ( method_exists( $propertyRegistry, 'registerPropertyAliasByMsgKey' ) ) {
+				$propertyRegistry->registerPropertyAliasByMsgKey(
+					$propertyId,
+					$definition['msgkey']
+				);
+			}
 		}
 
 		return true;
 	}
 
-	private function addPropertyDefinitionFor( $propertyId, $definition ) {
+	private function addPropertyDefinitionFor( $propertyRegistry, $propertyId, $definition ) {
 
-		DIProperty::registerProperty(
+		$propertyRegistry->registerProperty(
 			$propertyId,
 			$definition['type'],
 			$definition['label'],
@@ -96,7 +113,7 @@ class PropertyRegistry {
 		);
 
 		foreach ( $definition['alias'] as $alias ) {
-			DIProperty::registerPropertyAlias(
+			$propertyRegistry->registerPropertyAlias(
 				$propertyId,
 				$alias
 			);

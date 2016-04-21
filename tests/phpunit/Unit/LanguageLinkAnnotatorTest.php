@@ -22,8 +22,12 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		$propertyRegistry = new PropertyRegistry();
-		$propertyRegistry->register();
+		$propertyRegistry = $this->getMockBuilder( '\SMW\PropertyRegistry' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$instance = new PropertyRegistry();
+		$instance->register( $propertyRegistry );
 	}
 
 	public function testCanConstruct() {

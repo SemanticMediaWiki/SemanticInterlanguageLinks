@@ -17,6 +17,15 @@ use Category;
 class ByLanguageCategoryViewer extends CategoryViewer {
 
 	/**
+	 * Avoid a possible category-empty message
+	 *
+	 * @see CategoryViewer::getCategoryTop
+	 */
+	public function getCategoryTop() {
+		return parent::getCategoryTop() . '<span></span>';
+	}
+
+	/**
 	 * @see CategoryViewer::addImage
 	 */
 	public function addImage( Title $title, $sortkey, $pageLength, $isRedirect = false ) {

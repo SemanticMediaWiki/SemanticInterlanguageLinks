@@ -28,8 +28,12 @@ class PropertyRegistryTest extends \PHPUnit_Framework_TestCase {
 
 	public function testILLRegister() {
 
+		$propertyRegistry = $this->getMockBuilder( '\SMW\PropertyRegistry' )
+			->disableOriginalConstructor()
+			->getMock();
+
 		$instance = new PropertyRegistry();
-		$instance->register();
+		$instance->register( $propertyRegistry );
 
 		$this->assertNotEmpty(
 			DIProperty::findPropertyLabel( PropertyRegistry::SIL_ILL_LANG )
@@ -46,8 +50,12 @@ class PropertyRegistryTest extends \PHPUnit_Framework_TestCase {
 
 	public function testIWLRegister() {
 
+		$propertyRegistry = $this->getMockBuilder( '\SMW\PropertyRegistry' )
+			->disableOriginalConstructor()
+			->getMock();
+
 		$instance = new PropertyRegistry();
-		$instance->register();
+		$instance->register( $propertyRegistry );
 
 		$this->assertNotEmpty(
 			DIProperty::findPropertyLabel( PropertyRegistry::SIL_IWL_LANG )
