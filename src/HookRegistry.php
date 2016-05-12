@@ -5,6 +5,7 @@ namespace SIL;
 use Onoi\Cache\Cache;
 use SMW\Store;
 use SMW\ApplicationFactory;
+use SMW\InMemoryPoolCache;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
 use SIL\Category\ByLanguageCategoryPage;
@@ -110,6 +111,11 @@ class HookRegistry {
 
 	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
+		$pageContentLanguageModifier = new PageContentLanguageModifier(
+			$interlanguageLinksLookup,
+			InMemoryPoolCache::getInstance()->getPoolCacheFor( PageContentLanguageModifier::POOLCACHE_ID )
+		);
+
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 		 */
@@ -198,14 +204,12 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentLanguage
 		 */
-		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $interlanguageLinksLookup ) {
+		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $pageContentLanguageModifier ) {
 
-			$pageContentLanguageModifier = new PageContentLanguageModifier(
-				$interlanguageLinksLookup,
-				$title
+			$pageLang = $pageContentLanguageModifier->getPageContentLanguage(
+				$title,
+				$pageLang
 			);
-
-			$pageContentLanguageModifier->modifyLanguage( $pageLang );
 
 			return true;
 		};
