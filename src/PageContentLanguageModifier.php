@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use Onoi\Cache\Cache;
 use SMW\Store;
 use SMW\DIWikiPage;
 use SMW\DIProperty;
@@ -19,43 +20,58 @@ use Title;
  */
 class PageContentLanguageModifier {
 
+	const POOLCACHE_ID = 'sil.pagecontentlanguage';
+
 	/**
 	 * @var InterlanguageLinksLookup
 	 */
 	private $interlanguageLinksLookup;
 
 	/**
-	 * @var Title
+	 * @var Cache
 	 */
-	private $title;
+	private $intermediaryCache;
 
 	/**
 	 * @since 1.0
 	 *
 	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
-	 * @param Title $title
+	 * @param Cache $intermediaryCache
 	 */
-	public function __construct( InterlanguageLinksLookup $interlanguageLinksLookup, Title $title ) {
+	public function __construct( InterlanguageLinksLookup $interlanguageLinksLookup, Cache $intermediaryCache ) {
 		$this->interlanguageLinksLookup = $interlanguageLinksLookup;
-		$this->title = $title;
+		$this->intermediaryCache = $intermediaryCache;
 	}
 
 	/**
 	 * @since 1.0
 	 *
+	 * @param Title $title
 	 * @param Language|string &$pageLanguage
 	 *
-	 * @return boolean
+	 * @return string
 	 */
-	public function modifyLanguage( &$pageLanguage ) {
+	public function getPageContentLanguage( Title $title, $pageLanguage ) {
 
-		$lookupLanguageCode = $this->interlanguageLinksLookup->findPageLanguageForTarget( $this->title );
+		$hash = md5( $title->getPrefixedText() );
 
-		if ( $lookupLanguageCode !== '' ) {
+		if ( ( $cachedLanguageCode = $this->intermediaryCache->fetch( $hash ) ) ) {
+			return $cachedLanguageCode;
+		}
+
+		$lookupLanguageCode = $this->interlanguageLinksLookup->findPageLanguageForTarget( $title );
+
+		if ( $lookupLanguageCode !== null && $lookupLanguageCode !== '' ) {
 			$pageLanguage = $lookupLanguageCode;
 		}
 
-		return true;
+		if ( $pageLanguage instanceof \Language ) {
+			$pageLanguage = $pageLanguage->getCode();
+		}
+
+		$this->intermediaryCache->save( $hash, $pageLanguage );
+
+		return $pageLanguage;
 	}
 
 }
