@@ -42,6 +42,10 @@ class ParserFunctionFactory {
 				$siteLanguageLinksParserOutputAppender
 			);
 
+			$interlanguageLinkParserFunction->setRevisionModeState(
+				$GLOBALS['wgRequest']->getVal( 'action' ) !== null || $GLOBALS['wgRequest']->getCheck( 'wpPreview' )
+			);
+
 			$interlanguageLinkParserFunction->setInterlanguageLinksHideState(
 				$GLOBALS['wgHideInterlanguageLinks']
 			);
