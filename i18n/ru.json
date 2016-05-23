@@ -2,14 +2,28 @@
 	"@metadata": {
 		"authors": [
 			"Dicto23456",
-			"Okras"
+			"Okras",
+			"Alexandr Efremov"
 		]
 	},
 	"sil-desc": "[Https://semantic-mediawiki.org Semantic MediaWiki] расширение для создания и управления интервики-ссылки",
 	"sil-property-ill-alias-language": "Язык содержания страницы",
+	"sil-property-ill-alias-reference": "Межъязыковая ссылка",
+	"sil-property-iwl-alias-language": "Язык интервики",
 	"sil-property-iwl-alias-reference": "Интервики-ссылки",
 	"sil-property-alias-container": "Есть интервики-ссылки",
+	"smw-pa-property-predefined__sil_container": "«$1» — предварительно определено свойство, которое представляет сущность-контейнер для описания информации, связанной с межъязыковой ссылкой, и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_ill_lang": "«$1» — это предварительно определенное свойство, содержащее аннотированный код языка, и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links]",
+	"smw-pa-property-predefined__sil_ill_ref": "«$1» — это предварительно определенное свойство, содержит аннотированную дополнительную ссылку, что создает возможность объединения в одну группу всех участников с одной и той же ссылкой (представляет одинаковый контент на разных языках) и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_iwl_lang": "«$1» — это предварительно определенное свойство, которое представляет код языка, который берется с интервики-ссылки, и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_iwl_ref": "«$1» — это предварительно определенное свойство, которое представляет собой целевую страницу, которая берется с интервики-ссылки и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Парсер функций нельзя использовать, потому что установлено <code>$wgHideInterlanguageLinks</code>.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" не был признан действительным кодом языка.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "Парсер функций был вызван несколько раз но с другим кодом языка («$1»), чего надо избегать, поскольку содержимое страницы в целом должно отображаться единым языком.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Комбинация «$1»:«$2» уже существует для страницы «$3», поэтому никакой дополнительной межъязыковой аннотации не было создано.",
+	"sil-interlanguagelist-missing-linkreference": "Для парсера Функции отсутствует действительная ссылка.",
+	"sil-interlanguagelist-missing-template": "Для парсера Функции отсутствует шаблон вывода.",
+	"sil-interlanguageparser-linkreference-error": "У парсера функции произошла ошибка, при создании заголовока объекта «$1».",
 	"sil-search-profile": "по Языку",
 	"sil-search-profile-tooltip": "Фильтр статей по языку, Аннотация",
 	"sil-search-languagefilter-label": "Фильтр по Языку",

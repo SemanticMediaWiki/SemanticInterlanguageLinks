@@ -10,7 +10,7 @@
 	"sil-property-iwl-alias-language": "Llingua d'interwiki",
 	"sil-property-iwl-alias-reference": "Referencia d'interwiki",
 	"sil-property-alias-container": "Tien enllaces interllingüísticos",
-	"smw-pa-property-predefined__sil_container": "«$1» ye una propiedá predefinida que representa meta información rellacionada cola llingua (en forma d'un suboxetu) sobro una páxina y proporciónala la estensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Enllaces Semánticos Interllingüísticos].",
+	"smw-pa-property-predefined__sil_container": "«$1» ye una propiedá predefinida que representa una entidá contenedora pa describir la información rellacionada col enllaz interlingüísticu y proporciónala la estensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Enllaces Semánticos Interllingüísticos].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Nun pué usase la función d'analizador porque ta activao <code>$wgHideInterlanguageLinks</code>.",
 	"sil-interlanguagelink-invalidlanguagecode": "Nun se reconoció «$1» como códigu de llingua válidu.",
 	"sil-interlanguagelink-multiplecalls-different-languagecode": "La función d'analizador llamóse múltiples veces pero con un códigu de llingua distintu («$1») lo que tien d'evitase porque xeneralmente espérase que'l conteníu d'una páxina tea representáu nun únicu idioma.",

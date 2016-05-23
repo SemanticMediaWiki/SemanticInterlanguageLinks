@@ -9,7 +9,7 @@
 			"Verdy p"
 		]
 	},
-	"sil-desc": "Une extension [Https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
+	"sil-desc": "Une extension [https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
 	"sil-property-ill-alias-language": "Langue du contenu de la page",
 	"sil-property-ill-alias-reference": "Référence interlangue",
 	"sil-property-iwl-alias-language": "Langue interwiki",
@@ -17,7 +17,8 @@
 	"sil-property-alias-container": "A des liens interlangue",
 	"smw-pa-property-predefined__sil_container": "« $1 » est une propriété prédéfinie qui représente une entité conteneur servant à décrire les informations liées aux liens inter-langues, et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
 	"smw-pa-property-predefined__sil_ill_lang": "« $1 » est une propriété prédéfinie qui contient un code de langue annoté, et est fourni par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
-	"smw-pa-property-predefined__sil_ill_ref": "« $1 » est une propriété prédéfinie qui contient une référence arbitraire annotée pour permettre à tous les membres avec la même référence d’être regroupés (comme représentant un même contenu dans différentes langues), et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
+	"smw-pa-property-predefined__sil_ill_ref": "« $1 » est une propriété prédéfinie qui contient une référence arbitraire et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens sémantiques inter-langues].",
+	"smw-pa-property-predefined-long__sil_ill_ref": "Les entités ayant la même référence sont dépendantes et supposent représenter un contenu similaire dans différentes langues.",
 	"smw-pa-property-predefined__sil_iwl_lang": "« $1 » est une propriété prédéfinie et représente un code de langue dérivé depuis un lien interwiki, et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
 	"smw-pa-property-predefined__sil_iwl_ref": "« $1 » est une propriété prédéfinie et représente une page cible dérivée d’un lien interwiki, et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "La fonction n'a pas pu être utilisée car <code>$wgHideInterlanguageLinks</code> est défini.",
@@ -27,7 +28,7 @@
 	"sil-interlanguagelist-missing-linkreference": "La fonction manque d'une référence valide.",
 	"sil-interlanguagelist-missing-template": "La fonction analyseur n'a pas de format de sortie.",
 	"sil-interlanguageparser-linkreference-error": "La fonction d’analyse eu un problème pour créer un objet de titre avec « $1 ».",
-	"sil-search-profile": "par Langue",
+	"sil-search-profile": "Par langue",
 	"sil-search-profile-tooltip": "Filtrer les articles par annotation de langue",
 	"sil-search-languagefilter-label": "Filtrer par langue",
 	"sil-search-nolanguagefilter": "Pas de filtre de langue",
