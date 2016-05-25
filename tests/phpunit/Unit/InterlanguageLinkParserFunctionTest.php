@@ -227,4 +227,35 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testRevisionMode() {
+
+		$title = $this->getMockBuilder( '\Title' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$siteLanguageLinksParserOutputAppender->expects( $this->any() )
+			->method( 'getRedirectTargetFor' )
+			->will( $this->returnValue( $title ) );
+
+		$instance = new InterlanguageLinkParserFunction(
+			$title,
+			$languageLinkAnnotator,
+			$siteLanguageLinksParserOutputAppender
+		);
+
+		$instance->setRevisionModeState( true );
+
+		$this->assertEmpty(
+			$instance->parse( 'en', 'Foo' )
+		);
+	}
+
 }

@@ -35,6 +35,11 @@ class InterlanguageLinkParserFunction {
 	private $interlanguageLinksHideState = false;
 
 	/**
+	 * @var boolean
+	 */
+	private $inRevisionMode = false;
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param Title $title
@@ -57,6 +62,18 @@ class InterlanguageLinkParserFunction {
 	}
 
 	/**
+	 * Revision mode means either in preview or edit state which is not to be
+	 * handled to avoid storage of yet unprocessed data in cache.
+	 *
+	 * @since 1.2
+	 *
+	 * @param boolean $inRevisionMode
+	 */
+	public function setRevisionModeState( $inRevisionMode ) {
+		$this->inRevisionMode = $inRevisionMode;
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param string $languageCode
@@ -65,6 +82,10 @@ class InterlanguageLinkParserFunction {
 	 * @return null|string
 	 */
 	public function parse( $languageCode, $linkReference ) {
+
+		if ( $this->inRevisionMode ) {
+			return '';
+		}
 
 		if ( $this->interlanguageLinksHideState ) {
 			return $this->createErrorMessageFor( 'sil-interlanguagelink-hideinterlanguagelinks' );
