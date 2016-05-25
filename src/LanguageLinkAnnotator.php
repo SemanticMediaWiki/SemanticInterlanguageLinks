@@ -51,6 +51,15 @@ class LanguageLinkAnnotator {
 	}
 
 	/**
+	 * @since 1.2
+	 *
+	 * @return boolean
+	 */
+	public function canAddAnnotation() {
+		return method_exists( $this->parserData, 'canModifySemanticData' ) ? $this->parserData->canModifySemanticData() : true;
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param InterlanguageLink $interlanguageLink

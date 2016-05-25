@@ -138,6 +138,23 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testCanAddAnnotation() {
+
+		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$parserData->expects( $this->once() )
+			->method( 'canModifySemanticData' )
+			->will( $this->returnValue( false ) );
+
+		$instance = new LanguageLinkAnnotator( $parserData );
+
+		$this->assertFalse(
+			$instance->canAddAnnotation()
+		);
+	}
+
 	public function differentLanguageAnnotationProvider() {
 
 		$provider[] = array(

@@ -15,17 +15,28 @@ use SIL\InterlanguageLinkParserFunction;
  */
 class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
+	private $languageLinkAnnotator;
+	private $siteLanguageLinksParserOutputAppender;
+
+	protected function setUp() {
+		parent::setUp();
+
+		$this->languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$this->languageLinkAnnotator->expects( $this->any() )
+			->method( 'canAddAnnotation' )
+			->will( $this->returnValue( true ) );
+
+		$this->siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
 	public function testCanConstruct() {
 
 		$title = $this->getMockBuilder( '\Title' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -33,8 +44,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			'\SIL\InterlanguageLinkParserFunction',
 			new InterlanguageLinkParserFunction(
 				$title,
-				$languageLinkAnnotator,
-				$siteLanguageLinksParserOutputAppender
+				$this->languageLinkAnnotator,
+				$this->siteLanguageLinksParserOutputAppender
 			)
 		);
 	}
@@ -45,18 +56,10 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
-			->disableOriginalConstructor()
-			->getMock();
-
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
-			$languageLinkAnnotator,
-			$siteLanguageLinksParserOutputAppender
+			$this->languageLinkAnnotator,
+			$this->siteLanguageLinksParserOutputAppender
 		);
 
 		$instance->setInterlanguageLinksHideState( true );
@@ -88,23 +91,15 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$title = \Title::newFromText( __METHOD__ );
 
-		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$languageLinkAnnotator->expects( $this->never() )
+		$this->languageLinkAnnotator->expects( $this->never() )
 			->method( 'addAnnotationForInterlanguageLink' );
 
-		$siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender->expects( $this->once() )
+		$this->siteLanguageLinksParserOutputAppender->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
 			->with(	$this->equalTo( \Title::newFromText( 'Foo' ) ) )
 			->will( $this->returnValue( $title ) );
 
-		$siteLanguageLinksParserOutputAppender->expects( $this->once() )
+		$this->siteLanguageLinksParserOutputAppender->expects( $this->once() )
 			->method( 'tryAddLanguageTargetLinksToOutput' )
 			->with(
 				$this->anything(),
@@ -113,8 +108,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
-			$languageLinkAnnotator,
-			$siteLanguageLinksParserOutputAppender
+			$this->languageLinkAnnotator,
+			$this->siteLanguageLinksParserOutputAppender
 		);
 
 		$instance->setInterlanguageLinksHideState( false );
@@ -129,22 +124,14 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$title = \Title::newFromText( __METHOD__ );
 
-		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender->expects( $this->any() )
+		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
 			->will( $this->returnValue( $title ) );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
-			$languageLinkAnnotator,
-			$siteLanguageLinksParserOutputAppender
+			$this->languageLinkAnnotator,
+			$this->siteLanguageLinksParserOutputAppender
 		);
 
 		$this->assertContains(
@@ -162,26 +149,18 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$title = \Title::newFromText( __METHOD__ );
 
-		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$languageLinkAnnotator->expects( $this->any() )
+		$this->languageLinkAnnotator->expects( $this->any() )
 			->method( 'hasDifferentLanguageAnnotation' )
 			->will( $this->onConsecutiveCalls( false, true ) );
 
-		$siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender->expects( $this->any() )
+		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
 			->will( $this->returnValue( $title ) );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
-			$languageLinkAnnotator,
-			$siteLanguageLinksParserOutputAppender
+			$this->languageLinkAnnotator,
+			$this->siteLanguageLinksParserOutputAppender
 		);
 
 		$instance->parse( 'en', 'Foo' );
@@ -198,25 +177,17 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$languageLinkAnnotator->expects( $this->once() )
+		$this->languageLinkAnnotator->expects( $this->once() )
 			->method( 'addAnnotationForInterlanguageLink' );
 
-		$siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender->expects( $this->any() )
+		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
 			->will( $this->returnValue( $title ) );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
-			$languageLinkAnnotator,
-			$siteLanguageLinksParserOutputAppender
+			$this->languageLinkAnnotator,
+			$this->siteLanguageLinksParserOutputAppender
 		);
 
 		$instance->setInterlanguageLinksHideState( false );
@@ -233,25 +204,42 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$siteLanguageLinksParserOutputAppender->expects( $this->any() )
+		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
 			->will( $this->returnValue( $title ) );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
-			$languageLinkAnnotator,
-			$siteLanguageLinksParserOutputAppender
+			$this->languageLinkAnnotator,
+			$this->siteLanguageLinksParserOutputAppender
 		);
 
 		$instance->setRevisionModeState( true );
+
+		$this->assertEmpty(
+			$instance->parse( 'en', 'Foo' )
+		);
+	}
+
+	public function testAnnotationModeIsDisabled() {
+
+		$title = $this->getMockBuilder( '\Title' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$languageLinkAnnotator->expects( $this->once() )
+			->method( 'canAddAnnotation' )
+			->will( $this->returnValue( false ) );
+
+		$instance = new InterlanguageLinkParserFunction(
+			$title,
+			$languageLinkAnnotator,
+			$this->siteLanguageLinksParserOutputAppender
+		);
 
 		$this->assertEmpty(
 			$instance->parse( 'en', 'Foo' )

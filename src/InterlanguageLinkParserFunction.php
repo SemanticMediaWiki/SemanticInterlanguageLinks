@@ -83,7 +83,25 @@ class InterlanguageLinkParserFunction {
 	 */
 	public function parse( $languageCode, $linkReference ) {
 
-		if ( $this->inRevisionMode ) {
+		if ( !( $title = $this->getTitleFrom( $languageCode, $linkReference ) ) instanceof Title ) {
+			return $title;
+		}
+
+		$interlanguageLink = new InterlanguageLink(
+			wfBCP47( $languageCode ),
+			$this->siteLanguageLinksParserOutputAppender->getRedirectTargetFor( $title )
+		);
+
+		if ( $this->languageLinkAnnotator->hasDifferentLanguageAnnotation( $interlanguageLink ) ) {
+			return $this->createErrorMessageFor( 'sil-interlanguagelink-multiplecalls-different-languagecode', $languageCode );
+		}
+
+		return $this->createSiteLanguageLinks( $interlanguageLink );
+	}
+
+	private function getTitleFrom( $languageCode, $linkReference ) {
+
+		if ( $this->inRevisionMode || !$this->languageLinkAnnotator->canAddAnnotation() ) {
 			return '';
 		}
 
@@ -101,16 +119,7 @@ class InterlanguageLinkParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguageparser-linkreference-error', $linkReference );
 		}
 
-		$interlanguageLink = new InterlanguageLink(
-			wfBCP47( $languageCode ),
-			$this->siteLanguageLinksParserOutputAppender->getRedirectTargetFor( $title )
-		);
-
-		if ( $this->languageLinkAnnotator->hasDifferentLanguageAnnotation( $interlanguageLink ) ) {
-			return $this->createErrorMessageFor( 'sil-interlanguagelink-multiplecalls-different-languagecode', $languageCode );
-		}
-
-		return $this->createSiteLanguageLinks( $interlanguageLink );
+		return $title;
 	}
 
 	private function createSiteLanguageLinks( InterlanguageLink $interlanguageLink ) {
