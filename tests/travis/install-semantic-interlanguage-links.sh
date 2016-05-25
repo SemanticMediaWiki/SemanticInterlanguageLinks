@@ -12,17 +12,17 @@ function installToMediaWikiRoot {
 
 	if [ "$PHPUNIT" != "" ]
 	then
-		composer require 'phpunit/phpunit='$PHPUNIT --prefer-source --update-with-dependencies
+		composer require 'phpunit/phpunit='$PHPUNIT --update-with-dependencies
 	else
-		composer require 'phpunit/phpunit=3.7.*' --prefer-source --update-with-dependencies
+		composer require 'phpunit/phpunit=3.7.*' --update-with-dependencies
 	fi
 
 	if [ "$SIL" != "" ]
 	then
-		composer require 'mediawiki/semantic-interlanguage-links='$SIL --prefer-source --update-with-dependencies
+		composer require 'mediawiki/semantic-interlanguage-links='$SIL --update-with-dependencies
 	else
 		composer init --stability dev
-		composer require mediawiki/semantic-interlanguage-links "dev-master" --prefer-source --dev --update-with-dependencies
+		composer require mediawiki/semantic-interlanguage-links "dev-master" --dev --update-with-dependencies
 
 		cd extensions
 		cd SemanticInterlanguageLinks
