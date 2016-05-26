@@ -119,12 +119,13 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 		 */
-		$this->handlers['ParserFirstCallInit'] = function ( &$parser ) use( $interlanguageLinksLookup ) {
+		$this->handlers['ParserFirstCallInit'] = function ( &$parser ) use( $interlanguageLinksLookup, $pageContentLanguageModifier ) {
 
 			$parserFunctionFactory = new ParserFunctionFactory();
 
 			list( $name, $definition, $flag ) = $parserFunctionFactory->newInterlanguageLinkParserFunctionDefinition(
-				$interlanguageLinksLookup
+				$interlanguageLinksLookup,
+				$pageContentLanguageModifier
 			);
 
 			$parser->setFunctionHook( $name, $definition, $flag );

@@ -162,6 +162,38 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testAddToIntermediaryCache() {
+
+		$title = $this->getMockBuilder( '\Title' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$title->expects( $this->once() )
+			->method( 'getPrefixedText' )
+			->will( $this->returnValue( 'Foo' ) );
+
+		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$cache->expects( $this->once() )
+			->method( 'save' )
+			->with(
+				$this->anything(),
+				$this->equalTo( 'BAR' ) );
+
+		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$instance = new PageContentLanguageModifier(
+			$interlanguageLinksLookup,
+			$cache
+		);
+
+		$instance->addToIntermediaryCache( $title, 'BAR' );
+	}
+
 	public function invalidLanguageCodeProvider() {
 
 		$provider = array(

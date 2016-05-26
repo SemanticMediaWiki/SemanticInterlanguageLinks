@@ -44,6 +44,16 @@ class PageContentLanguageModifier {
 	}
 
 	/**
+	 * @since 1.3
+	 *
+	 * @param Title $title
+	 * @param string &languageCode
+	 */
+	public function addToIntermediaryCache( Title $title, $languageCode ) {
+		$this->intermediaryCache->save( $this->getHashFrom( $title ), $languageCode );
+	}
+
+	/**
 	 * @since 1.0
 	 *
 	 * @param Title $title
@@ -53,7 +63,7 @@ class PageContentLanguageModifier {
 	 */
 	public function getPageContentLanguage( Title $title, $pageLanguage ) {
 
-		$hash = md5( $title->getPrefixedText() );
+		$hash = $this->getHashFrom( $title );
 
 		if ( ( $cachedLanguageCode = $this->intermediaryCache->fetch( $hash ) ) ) {
 			return $cachedLanguageCode;
@@ -72,6 +82,10 @@ class PageContentLanguageModifier {
 		$this->intermediaryCache->save( $hash, $pageLanguage );
 
 		return $pageLanguage;
+	}
+
+	private function getHashFrom( Title $title ) {
+		return md5( $title->getPrefixedText() );
 	}
 
 }
