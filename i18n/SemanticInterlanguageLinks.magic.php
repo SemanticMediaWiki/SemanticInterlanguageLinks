@@ -9,8 +9,8 @@ $magicWords = array();
  * English (English)
  */
 $magicWords['en'] = array(
-	'interlanguagelink' => array( 0, 'INTERLANGUAGELINK:' ),
-	'interlanguagelist' => array( 0, 'INTERLANGUAGELIST:' ),
+	'interlanguagelink' => array( 0, 'INTERLANGUAGELINK:', 'SIL:' ),
+	'interlanguagelist' => array( 0, 'INTERLANGUAGELIST:', 'SILIST:' ),
 );
 
 /**
