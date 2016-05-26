@@ -30,6 +30,11 @@ class InterlanguageLinkParserFunction {
 	private $siteLanguageLinksParserOutputAppender;
 
 	/**
+	 * @var PageContentLanguageModifier
+	 */
+	private $pageContentLanguageModifier;
+
+	/**
 	 * @var boolean
 	 */
 	private $interlanguageLinksHideState = false;
@@ -45,11 +50,13 @@ class InterlanguageLinkParserFunction {
 	 * @param Title $title
 	 * @param LanguageLinkAnnotator $languageLinkAnnotator
 	 * @param SiteLanguageLinksParserOutputAppender $siteLanguageLinksParserOutputAppender
+	 * @param PageContentLanguageModifier $pageContentLanguageModifier
 	 */
-	public function __construct( Title $title, LanguageLinkAnnotator $languageLinkAnnotator, SiteLanguageLinksParserOutputAppender $siteLanguageLinksParserOutputAppender ) {
+	public function __construct( Title $title, LanguageLinkAnnotator $languageLinkAnnotator, SiteLanguageLinksParserOutputAppender $siteLanguageLinksParserOutputAppender, PageContentLanguageModifier $pageContentLanguageModifier ) {
 		$this->title = $title;
 		$this->languageLinkAnnotator = $languageLinkAnnotator;
 		$this->siteLanguageLinksParserOutputAppender = $siteLanguageLinksParserOutputAppender;
+		$this->pageContentLanguageModifier = $pageContentLanguageModifier;
 	}
 
 	/**
@@ -83,12 +90,20 @@ class InterlanguageLinkParserFunction {
 	 */
 	public function parse( $languageCode, $linkReference ) {
 
-		if ( !( $title = $this->getTitleFrom( $languageCode, $linkReference ) ) instanceof Title ) {
+		$languageCode = wfBCP47( $languageCode );
+
+		// Keep reference while editing is on going to avoid a possible lag when
+		// a DV is trying to access the page content language
+		if ( ( $isSupportedLanguage = $this->isSupportedLanguage( $languageCode ) ) === true ) {
+			$this->pageContentLanguageModifier->addToIntermediaryCache( $this->title, $languageCode );
+		}
+
+		if ( !( $title = $this->getTitleFrom( $isSupportedLanguage, $languageCode, $linkReference ) ) instanceof Title ) {
 			return $title;
 		}
 
 		$interlanguageLink = new InterlanguageLink(
-			wfBCP47( $languageCode ),
+			$languageCode,
 			$this->siteLanguageLinksParserOutputAppender->getRedirectTargetFor( $title )
 		);
 
@@ -99,7 +114,7 @@ class InterlanguageLinkParserFunction {
 		return $this->createSiteLanguageLinks( $interlanguageLink );
 	}
 
-	private function getTitleFrom( $languageCode, $linkReference ) {
+	private function getTitleFrom( $isSupportedLanguage, $languageCode, $linkReference ) {
 
 		if ( $this->inRevisionMode || !$this->languageLinkAnnotator->canAddAnnotation() ) {
 			return '';
@@ -109,7 +124,7 @@ class InterlanguageLinkParserFunction {
 			return $this->createErrorMessageFor( 'sil-interlanguagelink-hideinterlanguagelinks' );
 		}
 
-		if ( !$this->isSupportedLanguage( $languageCode ) ) {
+		if ( !$isSupportedLanguage ) {
 			return $this->createErrorMessageFor( 'sil-interlanguagelink-invalidlanguagecode', $languageCode );
 		}
 

@@ -17,12 +17,13 @@ class ParserFunctionFactory {
 	 * @since  1.0
 	 *
 	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
+	 * @param PageContentLanguageModifier $pageContentLanguageModifier
 	 *
 	 * @return array
 	 */
-	public function newInterlanguageLinkParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup ) {
+	public function newInterlanguageLinkParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup, PageContentLanguageModifier $pageContentLanguageModifier ) {
 
-		$interlanguageLinkParserFunctionDefinition = function( $parser, $languageCode, $linkReference = '' ) use ( $interlanguageLinksLookup ) {
+		$interlanguageLinkParserFunctionDefinition = function( $parser, $languageCode, $linkReference = '' ) use ( $interlanguageLinksLookup, $pageContentLanguageModifier ) {
 
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
@@ -39,7 +40,8 @@ class ParserFunctionFactory {
 			$interlanguageLinkParserFunction = new InterlanguageLinkParserFunction(
 				$parser->getTitle(),
 				$languageLinkAnnotator,
-				$siteLanguageLinksParserOutputAppender
+				$siteLanguageLinksParserOutputAppender,
+				$pageContentLanguageModifier
 			);
 
 			$interlanguageLinkParserFunction->setRevisionModeState(
