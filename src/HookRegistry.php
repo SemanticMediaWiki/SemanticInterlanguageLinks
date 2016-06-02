@@ -79,6 +79,17 @@ class HookRegistry {
 
 		$interlanguageLinksLookup->setStore( $store );
 
+		$applicationFactory = ApplicationFactory::getInstance();
+
+		// SMW 2.5+
+		// Avoid indexing fields that do not require an extra fulltext index
+		if ( $applicationFactory->getSettings()->has( 'smwgFulltextSearchPropertyExemptionList' ) ) {
+			$applicationFactory->getSettings()->add(
+				'smwgFulltextSearchPropertyExemptionList',
+				array( PropertyRegistry::SIL_IWL_LANG, PropertyRegistry::SIL_ILL_LANG )
+			);
+		}
+
 		/**
 		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks.md
 		 */
