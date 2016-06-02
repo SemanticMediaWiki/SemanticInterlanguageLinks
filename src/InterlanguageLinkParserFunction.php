@@ -164,7 +164,7 @@ class InterlanguageLinkParserFunction {
 
 	private function isSupportedLanguage( $languageCode ) {
 
-		$languageCode = trim( $languageCode );
+		$languageCode = trim( mb_strtolower( $languageCode ) );
 
 		if ( strlen( $languageCode ) == 0 ) {
 			return false;
