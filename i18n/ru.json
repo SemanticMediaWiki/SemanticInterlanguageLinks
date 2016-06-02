@@ -3,7 +3,8 @@
 		"authors": [
 			"Dicto23456",
 			"Okras",
-			"Alexandr Efremov"
+			"Alexandr Efremov",
+			"Kaganer"
 		]
 	},
 	"sil-desc": "[Https://semantic-mediawiki.org Semantic MediaWiki] расширение для создания и управления интервики-ссылки",
@@ -14,7 +15,8 @@
 	"sil-property-alias-container": "Есть интервики-ссылки",
 	"smw-pa-property-predefined__sil_container": "«$1» — предварительно определено свойство, которое представляет сущность-контейнер для описания информации, связанной с межъязыковой ссылкой, и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"smw-pa-property-predefined__sil_ill_lang": "«$1» — это предварительно определенное свойство, содержащее аннотированный код языка, и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links]",
-	"smw-pa-property-predefined__sil_ill_ref": "«$1» — это предварительно определенное свойство, содержит аннотированную дополнительную ссылку, что создает возможность объединения в одну группу всех участников с одной и той же ссылкой (представляет одинаковый контент на разных языках) и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_ill_ref": "«$1» — это предопределённое свойство, обеспечиваемое расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined-long__sil_ill_ref": "Элементы с одной и той же ссылкой объединяются в одну группу, что позволяет представлять похожее содержание на разных языках.",
 	"smw-pa-property-predefined__sil_iwl_lang": "«$1» — это предварительно определенное свойство, которое представляет код языка, который берется с интервики-ссылки, и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"smw-pa-property-predefined__sil_iwl_ref": "«$1» — это предварительно определенное свойство, которое представляет собой целевую страницу, которая берется с интервики-ссылки и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Парсер функций нельзя использовать, потому что установлено <code>$wgHideInterlanguageLinks</code>.",
