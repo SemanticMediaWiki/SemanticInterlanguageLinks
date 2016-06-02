@@ -209,6 +209,34 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testValidLanguageCodeByLowerCaseComparison() {
+
+		$title = $this->getMockBuilder( '\Title' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$this->languageLinkAnnotator->expects( $this->once() )
+			->method( 'addAnnotationForInterlanguageLink' );
+
+		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
+			->method( 'getRedirectTargetFor' )
+			->will( $this->returnValue( $title ) );
+
+		$instance = new InterlanguageLinkParserFunction(
+			$title,
+			$this->languageLinkAnnotator,
+			$this->siteLanguageLinksParserOutputAppender,
+			$this->pageContentLanguageModifier
+		);
+
+		$instance->setInterlanguageLinksHideState( false );
+
+		$this->assertContains(
+			'div class="sil-interlanguagelink"',
+			$instance->parse( 'zh-Hans', 'Foo' )
+		);
+	}
+
 	public function testRevisionMode() {
 
 		$title = $this->getMockBuilder( '\Title' )

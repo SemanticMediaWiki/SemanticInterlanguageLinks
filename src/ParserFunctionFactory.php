@@ -45,7 +45,7 @@ class ParserFunctionFactory {
 			);
 
 			$interlanguageLinkParserFunction->setRevisionModeState(
-				$GLOBALS['wgRequest']->getVal( 'action' ) !== null || $GLOBALS['wgRequest']->getCheck( 'wpPreview' )
+				$GLOBALS['wgRequest']->getVal( 'action' ) === 'edit' || $GLOBALS['wgRequest']->getCheck( 'wpPreview' )
 			);
 
 			$interlanguageLinkParserFunction->setInterlanguageLinksHideState(
