@@ -2,11 +2,13 @@ This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a.
 
 ### 1.3.0 (undefined)
 
-* #38 Added access to `PageContentLanguageModifier` in `InterlanguageLinkParserFunction` allowing
+* Added `PageContentLanguageDbModifier` to handle possible deviations caused by an
+  enabled `wgPageLanguageUseDB` setting
+* #38 Added access to `PageContentLanguageOnTheFlyModifier` in `InterlanguageLinkParserFunction` allowing
   the language code to be temporarily available while the content is still being process
   (important when `DataValueFactory` seeks access to a subject)
 * #37 Added check whether `LanguageLinkAnnotator` can actually add annotations
-* #35 Added `InMemoryLruCache` to `PageContentLanguageModifier`
+* #35 Added `InMemoryLruCache` to `PageContentLanguageOnTheFlyModifier`
 * #33 Fixed language code in `Special:Search` to conform with IETF (ISO 639, BCP 47) norm
 
 ### 1.2.0 (2015-12-19)

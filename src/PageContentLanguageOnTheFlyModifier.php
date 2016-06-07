@@ -18,7 +18,7 @@ use Title;
  *
  * @author mwjames
  */
-class PageContentLanguageModifier {
+class PageContentLanguageOnTheFlyModifier {
 
 	const POOLCACHE_ID = 'sil.pagecontentlanguage';
 

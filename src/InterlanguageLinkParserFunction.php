@@ -30,9 +30,14 @@ class InterlanguageLinkParserFunction {
 	private $siteLanguageLinksParserOutputAppender;
 
 	/**
-	 * @var PageContentLanguageModifier
+	 * @var pageContentLanguageOnTheFlyModifier
 	 */
-	private $pageContentLanguageModifier;
+	private $pageContentLanguageOnTheFlyModifier;
+
+	/**
+	 * @var PageContentLanguageDbModifier
+	 */
+	private $pageContentLanguageDbModifier;
 
 	/**
 	 * @var boolean
@@ -50,13 +55,15 @@ class InterlanguageLinkParserFunction {
 	 * @param Title $title
 	 * @param LanguageLinkAnnotator $languageLinkAnnotator
 	 * @param SiteLanguageLinksParserOutputAppender $siteLanguageLinksParserOutputAppender
-	 * @param PageContentLanguageModifier $pageContentLanguageModifier
+	 * @param PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier
+	 * @param PageContentLanguageDbModifier $pageContentLanguageDbModifier
 	 */
-	public function __construct( Title $title, LanguageLinkAnnotator $languageLinkAnnotator, SiteLanguageLinksParserOutputAppender $siteLanguageLinksParserOutputAppender, PageContentLanguageModifier $pageContentLanguageModifier ) {
+	public function __construct( Title $title, LanguageLinkAnnotator $languageLinkAnnotator, SiteLanguageLinksParserOutputAppender $siteLanguageLinksParserOutputAppender, PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier, PageContentLanguageDbModifier $pageContentLanguageDbModifier ) {
 		$this->title = $title;
 		$this->languageLinkAnnotator = $languageLinkAnnotator;
 		$this->siteLanguageLinksParserOutputAppender = $siteLanguageLinksParserOutputAppender;
-		$this->pageContentLanguageModifier = $pageContentLanguageModifier;
+		$this->pageContentLanguageOnTheFlyModifier = $pageContentLanguageOnTheFlyModifier;
+		$this->pageContentLanguageDbModifier = $pageContentLanguageDbModifier;
 	}
 
 	/**
@@ -95,7 +102,7 @@ class InterlanguageLinkParserFunction {
 		// Keep reference while editing is on going to avoid a possible lag when
 		// a DV is trying to access the page content language
 		if ( ( $isSupportedLanguage = $this->isSupportedLanguage( $languageCode ) ) === true ) {
-			$this->pageContentLanguageModifier->addToIntermediaryCache( $this->title, $languageCode );
+			$this->pageContentLanguageOnTheFlyModifier->addToIntermediaryCache( $this->title, $languageCode );
 		}
 
 		if ( !( $title = $this->getTitleFrom( $isSupportedLanguage, $languageCode, $linkReference ) ) instanceof Title ) {
@@ -106,6 +113,8 @@ class InterlanguageLinkParserFunction {
 			$languageCode,
 			$this->siteLanguageLinksParserOutputAppender->getRedirectTargetFor( $title )
 		);
+
+		$this->pageContentLanguageDbModifier->updatePageLanguage( $languageCode );
 
 		if ( $this->languageLinkAnnotator->hasDifferentLanguageAnnotation( $interlanguageLink ) ) {
 			return $this->createErrorMessageFor( 'sil-interlanguagelink-multiplecalls-different-languagecode', $languageCode );

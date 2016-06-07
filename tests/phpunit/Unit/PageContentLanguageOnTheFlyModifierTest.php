@@ -2,10 +2,10 @@
 
 namespace SIL\Tests;
 
-use SIL\PageContentLanguageModifier;
+use SIL\PageContentLanguageOnTheFlyModifier;
 
 /**
- * @covers \SIL\PageContentLanguageModifier
+ * @covers \SIL\PageContentLanguageOnTheFlyModifier
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -13,7 +13,7 @@ use SIL\PageContentLanguageModifier;
  *
  * @author mwjames
  */
-class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
+class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
@@ -26,8 +26,8 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$this->assertInstanceOf(
-			'\SIL\PageContentLanguageModifier',
-			new PageContentLanguageModifier( $interlanguageLinksLookup, $cache )
+			'\SIL\PageContentLanguageOnTheFlyModifier',
+			new PageContentLanguageOnTheFlyModifier( $interlanguageLinksLookup, $cache )
 		);
 	}
 
@@ -51,7 +51,7 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 			->method( 'findPageLanguageForTarget' )
 			->will( $this->returnValue(  'ja' ) );
 
-		$instance = new PageContentLanguageModifier(
+		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
 			$cache
 		);
@@ -85,7 +85,7 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 		$interlanguageLinksLookup->expects( $this->never() )
 			->method( 'findPageLanguageForTarget' );
 
-		$instance = new PageContentLanguageModifier(
+		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
 			$cache
 		);
@@ -118,7 +118,7 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getCode' )
 			->will( $this->returnValue( 'en' ) );
 
-		$instance = new PageContentLanguageModifier(
+		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
 			$cache
 		);
@@ -152,7 +152,7 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 			->method( 'findPageLanguageForTarget' )
 			->will( $this->returnValue( $invalidLanguageCode ) );
 
-		$instance = new PageContentLanguageModifier(
+		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
 			$cache
 		);
@@ -186,7 +186,7 @@ class PageContentLanguageModifierTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$instance = new PageContentLanguageModifier(
+		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
 			$cache
 		);

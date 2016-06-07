@@ -17,13 +17,22 @@ class ParserFunctionFactory {
 	 * @since  1.0
 	 *
 	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
-	 * @param PageContentLanguageModifier $pageContentLanguageModifier
+	 * @param PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier
 	 *
 	 * @return array
 	 */
-	public function newInterlanguageLinkParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup, PageContentLanguageModifier $pageContentLanguageModifier ) {
+	public function newInterlanguageLinkParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup, PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier ) {
 
-		$interlanguageLinkParserFunctionDefinition = function( $parser, $languageCode, $linkReference = '' ) use ( $interlanguageLinksLookup, $pageContentLanguageModifier ) {
+		$interlanguageLinkParserFunctionDefinition = function( $parser, $languageCode, $linkReference = '' ) use ( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
+
+			$pageContentLanguageDbModifier = new PageContentLanguageDbModifier(
+				$parser->getTitle()
+			);
+
+			// MW 1.24+
+			$pageContentLanguageDbModifier->markAsPageLanguageByDB(
+				isset( $GLOBALS['wgPageLanguageUseDB'] ) ? $GLOBALS['wgPageLanguageUseDB'] : false
+			);
 
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
@@ -41,7 +50,8 @@ class ParserFunctionFactory {
 				$parser->getTitle(),
 				$languageLinkAnnotator,
 				$siteLanguageLinksParserOutputAppender,
-				$pageContentLanguageModifier
+				$pageContentLanguageOnTheFlyModifier,
+				$pageContentLanguageDbModifier
 			);
 
 			$interlanguageLinkParserFunction->setRevisionModeState(

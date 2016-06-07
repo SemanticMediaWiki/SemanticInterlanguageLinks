@@ -84,6 +84,9 @@ together with some [#ask queries](https://github.com/SemanticMediaWiki/SemanticI
    during each page view with cache invalidation being carried out during any delete, change or move action.
 - `$GLOBALS['wgHideInterlanguageLinks']` is enabled (set to `true`), no sitelinks or annotations are created
   (in order to correspond to the MW default behaviour for interwiki links)
+- If `$GLOBALS['wgPageLanguageUseDB']` was enabled and `Special:PageLanguage` assigned a different language from
+  the annotated SIL value then the `Page content language` will be restored to provide consistency with the
+  expected language
 
 ## Contribution and support
 
