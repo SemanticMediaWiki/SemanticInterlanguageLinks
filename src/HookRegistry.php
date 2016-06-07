@@ -111,21 +111,21 @@ class HookRegistry {
 
 	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 
-		$pageContentLanguageModifier = new PageContentLanguageModifier(
+		$pageContentLanguageOnTheFlyModifier = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
-			InMemoryPoolCache::getInstance()->getPoolCacheFor( PageContentLanguageModifier::POOLCACHE_ID )
+			InMemoryPoolCache::getInstance()->getPoolCacheFor( PageContentLanguageOnTheFlyModifier::POOLCACHE_ID )
 		);
 
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 		 */
-		$this->handlers['ParserFirstCallInit'] = function ( &$parser ) use( $interlanguageLinksLookup, $pageContentLanguageModifier ) {
+		$this->handlers['ParserFirstCallInit'] = function ( &$parser ) use( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
 
 			$parserFunctionFactory = new ParserFunctionFactory();
 
 			list( $name, $definition, $flag ) = $parserFunctionFactory->newInterlanguageLinkParserFunctionDefinition(
 				$interlanguageLinksLookup,
-				$pageContentLanguageModifier
+				$pageContentLanguageOnTheFlyModifier
 			);
 
 			$parser->setFunctionHook( $name, $definition, $flag );
@@ -205,9 +205,9 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentLanguage
 		 */
-		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $pageContentLanguageModifier ) {
+		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
 
-			$pageLang = $pageContentLanguageModifier->getPageContentLanguage(
+			$pageLang = $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
 				$title,
 				$pageLang
 			);

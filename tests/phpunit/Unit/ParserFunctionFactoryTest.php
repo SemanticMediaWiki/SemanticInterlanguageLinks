@@ -42,7 +42,7 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$pageContentLanguageModifier = $this->getMockBuilder( '\SIL\PageContentLanguageModifier' )
+		$pageContentLanguageOnTheFlyModifier = $this->getMockBuilder( '\SIL\PageContentLanguageOnTheFlyModifier' )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -52,7 +52,7 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		list( $name, $definition, $flag ) = $instance->newInterlanguageLinkParserFunctionDefinition(
 			$interlanguageLinksLookup,
-			$pageContentLanguageModifier
+			$pageContentLanguageOnTheFlyModifier
 		);
 
 		$this->assertEquals(

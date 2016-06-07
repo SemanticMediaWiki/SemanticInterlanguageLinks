@@ -17,7 +17,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 	private $languageLinkAnnotator;
 	private $siteLanguageLinksParserOutputAppender;
-	private $pageContentLanguageModifier;
+	private $pageContentLanguageOnTheFlyModifier;
+	private $pageContentLanguageDbModifier;
 
 	protected function setUp() {
 		parent::setUp();
@@ -34,7 +35,11 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$this->pageContentLanguageModifier = $this->getMockBuilder( '\SIL\PageContentLanguageModifier' )
+		$this->pageContentLanguageOnTheFlyModifier = $this->getMockBuilder( '\SIL\PageContentLanguageOnTheFlyModifier' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$this->pageContentLanguageDbModifier = $this->getMockBuilder( '\SIL\PageContentLanguageDbModifier' )
 			->disableOriginalConstructor()
 			->getMock();
 	}
@@ -51,7 +56,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 				$title,
 				$this->languageLinkAnnotator,
 				$this->siteLanguageLinksParserOutputAppender,
-				$this->pageContentLanguageModifier
+				$this->pageContentLanguageOnTheFlyModifier,
+				$this->pageContentLanguageDbModifier
 			)
 		);
 	}
@@ -66,7 +72,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$title,
 			$this->languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$instance->setInterlanguageLinksHideState( true );
@@ -117,7 +124,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$title,
 			$this->languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$instance->setInterlanguageLinksHideState( false );
@@ -140,7 +148,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$title,
 			$this->languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$this->assertContains(
@@ -170,7 +179,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$title,
 			$this->languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$instance->parse( 'en', 'Foo' );
@@ -198,7 +208,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$title,
 			$this->languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$instance->setInterlanguageLinksHideState( false );
@@ -223,7 +234,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$title,
 			$this->languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$instance->setRevisionModeState( true );
@@ -251,7 +263,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$title,
 			$languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$this->assertEmpty(
@@ -269,14 +282,15 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$this->pageContentLanguageModifier->expects( $this->once() )
+		$this->pageContentLanguageOnTheFlyModifier->expects( $this->once() )
 			->method( 'addToIntermediaryCache' );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
 			$languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$instance->setRevisionModeState( true );
