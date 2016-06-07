@@ -237,7 +237,8 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			$title,
 			$this->languageLinkAnnotator,
 			$this->siteLanguageLinksParserOutputAppender,
-			$this->pageContentLanguageModifier
+			$this->pageContentLanguageOnTheFlyModifier,
+			$this->pageContentLanguageDbModifier
 		);
 
 		$instance->setInterlanguageLinksHideState( false );
