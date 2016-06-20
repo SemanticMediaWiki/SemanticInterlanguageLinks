@@ -4,7 +4,7 @@
 			"Liuxinyu970226"
 		]
 	},
-	"sil-desc": "用来创建和管理跨语言链接的[https://semantic-mediawiki.org Semantic MediaWiki]扩展",
+	"sil-desc": "用来创建和管理跨语言链接的[https://www.semantic-mediawiki.org Semantic MediaWiki]扩展",
 	"sil-property-ill-alias-language": "页面内容语言",
 	"sil-property-ill-alias-reference": "跨语言参考",
 	"sil-property-iwl-alias-language": "跨wiki语言",
