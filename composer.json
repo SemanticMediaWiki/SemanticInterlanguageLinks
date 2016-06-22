@@ -41,6 +41,7 @@
 	},
 	"autoload": {
 		"files" : [
+			"DefaultSettings.php",
 			"SemanticInterlanguageLinks.php"
 		],
 		"psr-4": {
