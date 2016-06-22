@@ -23,33 +23,47 @@ if ( defined( 'SIL_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SIL_VERSION', '1.3.0-alpha' );
+SemanticInterlanguageLinks::initExtension();
+
+$GLOBALS['wgExtensionFunctions'][] = function() {
+	SemanticInterlanguageLinks::onExtensionFunction();
+};
 
 /**
  * @codeCoverageIgnore
  */
-call_user_func( function () {
+class SemanticInterlanguageLinks {
 
-	// Register extension info
-	$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
-		'path'           => __FILE__,
-		'name'           => 'Semantic Interlanguage Links',
-		'author'         => array( 'James Hong Kong' ),
-		'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
-		'descriptionmsg' => 'sil-desc',
-		'version'        => SIL_VERSION,
-		'license-name'   => 'GPL-2.0+',
-	);
+	/**
+	 * @since 1.3
+	 */
+	public static function initExtension() {
 
-	// Register message files
-	$GLOBALS['wgMessagesDirs']['semantic-interlanguage-links'] = __DIR__ . '/i18n';
-	$GLOBALS['wgExtensionMessagesFiles']['semantic-interlanguage-links-magic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
+		// Load DefaultSettings
+		require_once __DIR__ . '/DefaultSettings.php';
 
-	$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;
-	$GLOBALS['egSILEnabledCategoryFilterByLanguage'] = true;
+		define( 'SIL_VERSION', '1.3.0-alpha' );
 
-	// Finalize extension setup
-	$GLOBALS['wgExtensionFunctions'][] = function() {
+		// Register extension info
+		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
+			'path'           => __DIR__,
+			'name'           => 'Semantic Interlanguage Links',
+			'author'         => array( 'James Hong Kong' ),
+			'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
+			'descriptionmsg' => 'sil-desc',
+			'version'        => SIL_VERSION,
+			'license-name'   => 'GPL-2.0+',
+		);
+
+		// Register message files
+		$GLOBALS['wgMessagesDirs']['SemanticInterlanguageLinks'] = __DIR__ . '/i18n';
+		$GLOBALS['wgExtensionMessagesFiles']['SemanticInterlanguageLinksMagic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
+	}
+
+	/**
+	 * @since 1.3
+	 */
+	public static function onExtensionFunction() {
 
 		$cacheFactory = new CacheFactory();
 
@@ -69,6 +83,15 @@ call_user_func( function () {
 		);
 
 		$hookRegistry->register();
-	};
+	}
 
-} );
+	/**
+	 * @since 1.3
+	 *
+	 * @return string|null
+	 */
+	public static function getVersion() {
+		return SIL_VERSION;
+	}
+
+}
