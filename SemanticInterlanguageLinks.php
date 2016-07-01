@@ -46,7 +46,7 @@ class SemanticInterlanguageLinks {
 
 		// Register extension info
 		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
-			'path'           => __DIR__,
+			'path'           => __FILE__,
 			'name'           => 'Semantic Interlanguage Links',
 			'author'         => array( 'James Hong Kong' ),
 			'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
