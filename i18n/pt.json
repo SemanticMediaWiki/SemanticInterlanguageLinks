@@ -6,7 +6,7 @@
 			"Macofe"
 		]
 	},
-	"sil-desc": "Uma extensão do [https://semantic-mediawiki.org Semantic MediaWiki] para criar e gerir ligações interlinguísticas",
+	"sil-desc": "Uma extensão do [https://www.semantic-mediawiki.org Semantic MediaWiki] para criar e gerir ligações interlinguísticas",
 	"sil-property-ill-alias-language": "Idioma do conteúdo da página",
 	"sil-property-ill-alias-reference": "Referência interlinguística",
 	"sil-property-iwl-alias-language": "Idioma interlíngua",

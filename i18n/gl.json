@@ -5,7 +5,7 @@
 			"Banjo"
 		]
 	},
-	"sil-desc": "Extensión de [https://semantic-mediawiki.org MediaWiki Semántica] para crear e xestionar ligazóns interlingüísticas",
+	"sil-desc": "Extensión de [https://www.semantic-mediawiki.org MediaWiki Semántica] para crear e xestionar ligazóns interlingüísticas",
 	"sil-property-ill-alias-language": "Lingua do contido da páxina",
 	"sil-property-ill-alias-reference": "Referencia interlingüística",
 	"sil-property-iwl-alias-language": "Idioma interwiki",

@@ -9,7 +9,7 @@
 			"Verdy p"
 		]
 	},
-	"sil-desc": "Une extension [https://semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
+	"sil-desc": "Une extension [https://www.semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",
 	"sil-property-ill-alias-language": "Langue du contenu de la page",
 	"sil-property-ill-alias-reference": "Référence interlangue",
 	"sil-property-iwl-alias-language": "Langue interwiki",

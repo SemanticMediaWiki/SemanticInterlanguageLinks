@@ -7,7 +7,7 @@
 			"Kaganer"
 		]
 	},
-	"sil-desc": "[Https://semantic-mediawiki.org Semantic MediaWiki] расширение для создания и управления интервики-ссылки",
+	"sil-desc": "Расширение [https://www.semantic-mediawiki.org Semantic MediaWiki] для создания и управления интервики-ссылками",
 	"sil-property-ill-alias-language": "Язык содержания страницы",
 	"sil-property-ill-alias-reference": "Межъязыковая ссылка",
 	"sil-property-iwl-alias-language": "Язык интервики",

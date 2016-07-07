@@ -5,7 +5,7 @@
 			"Piramidion"
 		]
 	},
-	"sil-desc": "Розширення [https://semantic-mediawiki.org Семантичної MediaWiki] для створення і керування міжмовними посиланнями",
+	"sil-desc": "Розширення [https://www.semantic-mediawiki.org Семантичної MediaWiki] для створення і керування міжмовними посиланнями",
 	"sil-property-ill-alias-language": "Мова вмісту сторінки",
 	"sil-property-ill-alias-reference": "Міжмовне посилання",
 	"sil-property-iwl-alias-language": "Мова інтервікі",
