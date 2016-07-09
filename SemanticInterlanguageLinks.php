@@ -42,7 +42,7 @@ class SemanticInterlanguageLinks {
 		// Load DefaultSettings
 		require_once __DIR__ . '/DefaultSettings.php';
 
-		define( 'SIL_VERSION', '1.3.0-alpha' );
+		define( 'SIL_VERSION', '1.3.0' );
 
 		// Register extension info
 		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(

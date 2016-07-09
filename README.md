@@ -24,7 +24,7 @@ This [video](https://vimeo.com/115871518) demonstrates the functionality of the 
 
 - PHP 5.3.2 or later
 - MediaWiki 1.23 or later
-- [Semantic MediaWiki][smw] 2.1 or later
+- [Semantic MediaWiki][smw] 2.3 or later
 
 ## Installation
 
@@ -34,12 +34,12 @@ with an entry in MediaWiki's `composer.json`.
 ```json
 {
 	"require": {
-		"mediawiki/semantic-interlanguage-links": "~1.2"
+		"mediawiki/semantic-interlanguage-links": "~1.3"
 	}
 }
 ```
 1. From your MediaWiki installation directory, execute
-   `composer require mediawiki/semantic-interlanguage-links:~1.1`
+   `composer require mediawiki/semantic-interlanguage-links:~1.3`
 2. Navigate to _Special:Version_ on your wiki and verify that the package
    have been successfully installed.
 

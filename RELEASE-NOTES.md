@@ -1,6 +1,8 @@
 This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a. SIL) extension.
 
-### 1.3.0 (undefined)
+### 1.3.0
+
+Released on July 9, 2016.
 
 * Added `PageContentLanguageDbModifier` to handle possible deviations caused by an
   enabled `wgPageLanguageUseDB` setting
@@ -11,7 +13,9 @@ This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a.
 * #35 Added `InMemoryLruCache` to `PageContentLanguageOnTheFlyModifier`
 * #33 Fixed language code in `Special:Search` to conform with IETF (ISO 639, BCP 47) norm
 
-### 1.2.0 (2015-12-19)
+### 1.2.0
+
+Released on December 19, 2015.
 
 * Added redirect handling for a `interlanguage link` reference
 * #8 Removed multiple calls limitation, allow different interlanguage reference targets for
@@ -19,14 +23,18 @@ This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a.
 * Switched `PageLanguageCacheStrategy` from 'blob' to 'single'
 * Localization updates from https://translatewiki.net
 
-### 1.1.0 (2015-06-02)
+### 1.1.0
+
+Released on June 2, 2015.
 
 * Only match results in `Special:Search` for the selected language that contains an annotation
 * Fixed behaviour in `ByLanguageCategoryPage` for when languages are switched
 * #32 Fixed exception in `Special:Search` for no results
 * Localization updates from https://translatewiki.net
 
-### 1.0.0 (2015-02-14)
+### 1.0.0
+
+Released on Feburary 14, 2015.
 
 * Initial release
 * Added the `onoi/cache:~1.0` dependency
