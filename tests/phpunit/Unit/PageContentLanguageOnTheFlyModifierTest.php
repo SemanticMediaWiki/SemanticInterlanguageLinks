@@ -49,7 +49,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue(  'ja' ) );
+			->will( $this->returnValue(  'zh-Hans' ) );
 
 		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
@@ -57,7 +57,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 		);
 
 		$this->assertEquals(
-			'ja',
+			'zh-hans',
 			$instance->getPageContentLanguage( $title, $pageLanguage )
 		);
 	}
@@ -76,7 +76,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 
 		$cache->expects( $this->once() )
 			->method( 'fetch' )
-			->will( $this->returnValue(  'fr' ) );
+			->will( $this->returnValue(  'zh-Hans' ) );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -91,7 +91,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 		);
 
 		$this->assertEquals(
-			'fr',
+			'zh-hans',
 			$instance->getPageContentLanguage( $title, $pageLanguage )
 		);
 	}
