@@ -101,6 +101,11 @@ class LanguageTargetLinksCache {
 	 */
 	public function getLanguageTargetLinksFromCache( InterlanguageLink $interlanguageLink ) {
 
+		// Call to a member function getPrefixedText() on null in ...SemanticInterlanguageLinks/src/LanguageTargetLinksCache.php on line 105
+		if ( $interlanguageLink->getLinkReference() === null ) {
+			return false;
+		}
+
 		$cachedLanguageTargetLinks = $this->cache->fetch(
 			$this->cacheKeyProvider->getSiteCacheKey( $interlanguageLink->getLinkReference()->getPrefixedText() )
 		);

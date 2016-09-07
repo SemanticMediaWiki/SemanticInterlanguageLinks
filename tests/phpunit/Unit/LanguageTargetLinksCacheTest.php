@@ -323,6 +323,28 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		$instance->updatePageLanguageToCache( $title, 'bo' );
 	}
 
+	public function testTryToGetLanguageTargetLinksFromCacheOnNullLinkReference() {
+
+		$interlanguageLink = $this->getMockBuilder( '\SIL\InterlanguageLink' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$interlanguageLink->expects( $this->once() )
+			->method( 'getLinkReference' );
+
+		// Can occur on an invalid title
+		// $interlanguageLink = new InterlanguageLink( 'en', '<>Foo' );
+
+		$instance = new LanguageTargetLinksCache(
+			$this->cache,
+			$this->cacheKeyProvider
+		);
+
+		$this->assertFalse(
+			$instance->getLanguageTargetLinksFromCache( $interlanguageLink )
+		);
+	}
+
 	public function pageLanguageCacheStrategyProvider() {
 
 		$provider = array(
