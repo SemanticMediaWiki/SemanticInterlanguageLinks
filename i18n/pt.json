@@ -13,7 +13,7 @@
 	"sil-property-iwl-alias-language": "Idioma interlíngua",
 	"sil-property-iwl-alias-reference": "Referência interlíngua",
 	"sil-property-alias-container": "Tem ligações interlinguísticas",
-	"smw-pa-property-predefined__sil_container": "\"$1\" é uma propriedade predefinida (também conhecida como [https://www.semantic-mediawiki.org/wiki/Help:Special_properties propriedade especial]) que coleta meta informações relacionadas ao idioma de uma página e é fornecida pela extensão [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_container": "\"$1\" é uma propriedade predefinida que representa uma entidade de encapsulamento para descrever informações relacionadas com <i>links</i> interlínguas e é fornecida pela extensão [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "A função não pode ser utilizada porque a configuração <code>$wgHideInterlanguageLinks</code> está ativada.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" não foi reconhecido como um código de idioma válido.",
 	"sil-interlanguagelink-multiplecalls-different-languagecode": "A função do analisador sintático foi chamada várias vezes mas com um código de língua diferente (\"$1\"), o que se deve evitar porque em geral é esperado que o conteúdo de uma página seja representado por uma única língua.",
@@ -23,7 +23,7 @@
 	"sil-interlanguageparser-linkreference-error": "A função teve um problema ao criar um objeto de título a partir de \"$1\".",
 	"sil-search-profile": "por idioma",
 	"sil-search-profile-tooltip": "Filtrar páginas por marcação de idioma",
-	"sil-search-languagefilter-label": "Filtrar por idioma",
+	"sil-search-languagefilter-label": "Filtrar por língua",
 	"sil-search-nolanguagefilter": "Sem filtro de idioma",
 	"sil-categorypage-languagefilter-active": "Esta categoria contém informações (página, subcategoria e imagem) que são filtradas pelo idioma \"$1\"."
 }

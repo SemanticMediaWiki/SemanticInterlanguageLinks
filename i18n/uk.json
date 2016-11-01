@@ -10,7 +10,7 @@
 	"sil-property-ill-alias-reference": "Міжмовне посилання",
 	"sil-property-iwl-alias-language": "Мова інтервікі",
 	"sil-property-iwl-alias-reference": "Інтервікі-посилання",
-	"sil-property-alias-container": "Має міжмовні посилання",
+	"sil-property-alias-container": "Має міжмовне посилання",
 	"smw-pa-property-predefined__sil_container": "«$1» — попередньо визначена властивість, що репрезентує сутність-контейнер для опису інформації, пов'язаної з міжмовним посиланням, і забезпечується розширенням [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"smw-pa-property-predefined__sil_ill_lang": "«$1» — це попередньо визначена властивість, що містить анотований код мови, і забезпечується розширенням [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links]",
 	"smw-pa-property-predefined__sil_ill_ref": "«$1» — це попередньо визначена властивість, що містить анотоване додаткове посилання і забезпечується розширенням [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",

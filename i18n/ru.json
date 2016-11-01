@@ -12,7 +12,7 @@
 	"sil-property-ill-alias-reference": "Межъязыковая ссылка",
 	"sil-property-iwl-alias-language": "Язык интервики",
 	"sil-property-iwl-alias-reference": "Интервики-ссылки",
-	"sil-property-alias-container": "Есть интервики-ссылки",
+	"sil-property-alias-container": "Есть интервики-ссылка",
 	"smw-pa-property-predefined__sil_container": "«$1» — предварительно определено свойство, которое представляет сущность-контейнер для описания информации, связанной с межъязыковой ссылкой, и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"smw-pa-property-predefined__sil_ill_lang": "«$1» — это предварительно определенное свойство, содержащее аннотированный код языка, и обеспечивается расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links]",
 	"smw-pa-property-predefined__sil_ill_ref": "«$1» — это предопределённое свойство, обеспечиваемое расширением [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",

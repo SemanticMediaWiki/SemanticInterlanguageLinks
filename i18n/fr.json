@@ -14,7 +14,7 @@
 	"sil-property-ill-alias-reference": "Référence interlangue",
 	"sil-property-iwl-alias-language": "Langue interwiki",
 	"sil-property-iwl-alias-reference": "Référence interwiki",
-	"sil-property-alias-container": "A des liens interlangue",
+	"sil-property-alias-container": "A un lien interlangue",
 	"smw-pa-property-predefined__sil_container": "« $1 » est une propriété prédéfinie qui représente une entité conteneur servant à décrire les informations liées aux liens inter-langues, et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
 	"smw-pa-property-predefined__sil_ill_lang": "« $1 » est une propriété prédéfinie qui contient un code de langue annoté, et est fourni par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens inter-langues sémantiques].",
 	"smw-pa-property-predefined__sil_ill_ref": "« $1 » est une propriété prédéfinie qui contient une référence arbitraire et est fournie par l’extension [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Liens sémantiques inter-langues].",

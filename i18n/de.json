@@ -12,7 +12,7 @@
 	"sil-property-ill-alias-reference": "Sprachreferenz",
 	"sil-property-iwl-alias-language": "Interwiki-Sprache",
 	"sil-property-iwl-alias-reference": "Interwiki-Sprachreferenz",
-	"sil-property-alias-container": "Sprachlinks",
+	"sil-property-alias-container": "Sprachlink",
 	"smw-pa-property-predefined__sil_container": "„$1“ ist ein softwareseitig fest definiertes Attribut, das sprachbezogene Metainformationen einer Seite in einem Subobjekt speichert. Es wird von der Softwareerweiterung [https://www.semantic-mediawiki.org/wiki/Semantic_Interlanguage_Links_(de) „Semantic Interlanguage Links“] bereitgestellt.",
 	"smw-pa-property-predefined__sil_ill_lang": "„$1“ ist ein softwareseitig fest definiertes Attribut, das den Sprachcode speichert. Es wird von der Softwareerweiterung [https://www.semantic-mediawiki.org/wiki/Semantic_Interlanguage_Links_(de) „Semantic Interlanguage Links“] bereitgestellt.",
 	"smw-pa-property-predefined__sil_ill_ref": "„$1“ ist ein softwareseitig fest definiertes Attribut, das eine beliebige Referenz speichert. Es wird von der Softwareerweiterung [https://www.semantic-mediawiki.org/wiki/Semantic_Interlanguage_Links_(de) „Semantic Interlanguage Links“] bereitgestellt.",
