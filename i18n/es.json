@@ -6,7 +6,7 @@
 			"Laurenslimb"
 		]
 	},
-	"sil-desc": "Extensión de [https://semantic-mediawiki.org Semantic MediaWiki] para crear y gestionar enlaces interlingüísticos",
+	"sil-desc": "Extensión de [https://www.semantic-mediawiki.org Semantic MediaWiki] para crear y gestionar enlaces interlingüísticos",
 	"sil-property-ill-alias-language": "Idioma de la página de contenido",
 	"sil-property-ill-alias-reference": "Referencia interlingüística",
 	"sil-property-iwl-alias-language": "Idioma interwiki",
