@@ -5,16 +5,14 @@ namespace SIL;
 use SMW\Query\Language\Conjunction;
 use SMW\Query\Language\SomeProperty;
 use SMW\Query\Language\ValueDescription;
-
+use SMW\DataValueFactory;
 use SMW\Store;
 use SMW\DIWikiPage;
 use SMW\DIProperty;
-
 use SMWPrintRequest as PrintRequest;
 use SMWPropertyValue as PropertyValue;
 use SMWQuery as Query;
 use SMWDIBlob as DIBlob;
-
 use Title;
 
 /**
@@ -82,7 +80,7 @@ class InterlanguageLinksLookup {
 	 *
 	 * @param Title $title
 	 */
-	public function invalidateLookupCache( Title $title ) {
+	public function resetLookupCacheBy( Title $title ) {
 
 		$this->languageTargetLinksCache->deleteLanguageTargetLinksFromCache(
 			$this->findFullListOfReferenceTargetLinks( $title )
@@ -99,13 +97,13 @@ class InterlanguageLinksLookup {
 	 * @param Title|null $title
 	 * @param string $languageCode
 	 */
-	public function updatePageLanguageToLookupCache( Title $title = null, $languageCode ) {
+	public function pushPageLanguageToLookupCache( Title $title = null, $languageCode ) {
 
 		if ( $title !== null && $this->languageTargetLinksCache->getPageLanguageFromCache( $title ) === $languageCode ) {
 			return;
 		}
 
-		$this->languageTargetLinksCache->updatePageLanguageToCache(
+		$this->languageTargetLinksCache->pushPageLanguageToCache(
 			$title,
 			$languageCode
 		);
@@ -170,7 +168,7 @@ class InterlanguageLinksLookup {
 
 		$lookupLanguageCode = $this->lookupLastPageLanguageForTarget( $title );
 
-		$this->updatePageLanguageToLookupCache(
+		$this->pushPageLanguageToLookupCache(
 			$title,
 			$lookupLanguageCode
 		);
@@ -252,7 +250,7 @@ class InterlanguageLinksLookup {
 			)
 		);
 
-		$propertyValue = new PropertyValue( '__pro' );
+		$propertyValue = DataValueFactory::getInstance()->newDataValueByType( '__pro' );
 		$propertyValue->setDataItem( $languageDataValue->getProperty() );
 
 		$description->addPrintRequest(
@@ -260,10 +258,12 @@ class InterlanguageLinksLookup {
 		);
 
 		$query = new Query(
-			$description,
-			false,
-			false
+			$description
 		);
+
+		if ( defined( 'SMWQuery::NO_CACHE' ) ) {
+			$query->setOption( Query::NO_CACHE, true );
+		}
 
 		//	$query->sort = true;
 		//	$query->sortkey = array( $languageDataValue->getProperty()->getLabel() => 'asc' );

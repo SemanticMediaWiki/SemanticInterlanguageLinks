@@ -60,7 +60,12 @@ class InterlanguageListParserFunction {
 
 		$languageTargetLinks = $this->getLanguageTargetLinks( $interlanguageLink );
 
-		return $this->createTemplateInclusionCode( $languageTargetLinks, $template );
+		$templateText = $this->createTemplateInclusionCode(
+			$languageTargetLinks,
+			$template
+		);
+
+		return array( $templateText, 'noparse' => $templateText === '', 'isHTML' => false );
 	}
 
 	private function getLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {
@@ -92,7 +97,7 @@ class InterlanguageListParserFunction {
 			$templateText .= '{{' . $template . $wikitext . '}}';
 		}
 
-		return array( $templateText, 'noparse' => $templateText === '', 'isHTML' => false );
+		return $templateText;
 	}
 
 	private function modifyTargetLink( $targetLink ) {

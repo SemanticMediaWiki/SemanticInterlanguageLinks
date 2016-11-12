@@ -320,7 +320,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		$instance = new LanguageTargetLinksCache( $cache, $cacheKeyProvider );
 		$instance->setPageLanguageCacheStrategy( $pageLanguageCacheStrategy );
 
-		$instance->updatePageLanguageToCache( $title, 'bo' );
+		$instance->pushPageLanguageToCache( $title, 'bo' );
 	}
 
 	public function testTryToGetLanguageTargetLinksFromCacheOnNullLinkReference() {
