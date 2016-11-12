@@ -156,7 +156,7 @@ class HookRegistry {
 		$this->handlers['SMW::SQLStore::BeforeDeleteSubjectComplete'] = function ( $store, $title ) use ( $interlanguageLinksLookup ) {
 
 			$interlanguageLinksLookup->setStore( $store );
-			$interlanguageLinksLookup->invalidateLookupCache( $title );
+			$interlanguageLinksLookup->resetLookupCacheBy( $title );
 
 			return true;
 		};
@@ -168,8 +168,8 @@ class HookRegistry {
 
 			$interlanguageLinksLookup->setStore( $store );
 
-			$interlanguageLinksLookup->invalidateLookupCache( $oldTitle );
-			$interlanguageLinksLookup->invalidateLookupCache( $newTitle );
+			$interlanguageLinksLookup->resetLookupCacheBy( $oldTitle );
+			$interlanguageLinksLookup->resetLookupCacheBy( $newTitle );
 
 			return true;
 		};
@@ -179,7 +179,7 @@ class HookRegistry {
 		 */
 		$this->handlers['ArticlePurge']= function ( &$wikiPage ) use ( $interlanguageLinksLookup ) {
 
-			$interlanguageLinksLookup->invalidateLookupCache(
+			$interlanguageLinksLookup->resetLookupCacheBy(
 				$wikiPage->getTitle()
 			);
 
@@ -191,7 +191,7 @@ class HookRegistry {
 		 */
 		$this->handlers['NewRevisionFromEditComplete'] = function ( $wikiPage ) use ( $interlanguageLinksLookup ) {
 
-			$interlanguageLinksLookup->invalidateLookupCache(
+			$interlanguageLinksLookup->resetLookupCacheBy(
 				$wikiPage->getTitle()
 			);
 

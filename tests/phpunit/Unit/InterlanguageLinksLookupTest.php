@@ -423,7 +423,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( false ) );
 
 		$languageTargetLinksCache->expects( $this->once() )
-			->method( 'updatePageLanguageToCache' );
+			->method( 'pushPageLanguageToCache' );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->findPageLanguageForTarget( $target );
@@ -448,7 +448,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $this->store );
 
-		$instance->invalidateLookupCache( $target );
+		$instance->resetLookupCacheBy( $target );
 	}
 
 	public function testTryLookupForUngregisteredProperty() {

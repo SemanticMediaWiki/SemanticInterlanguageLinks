@@ -83,7 +83,7 @@ class LanguageTargetLinksCache {
 	 * @param Title $title
 	 * @param string $languageCode
 	 */
-	public function updatePageLanguageToCache( Title $title, $languageCode ) {
+	public function pushPageLanguageToCache( Title $title, $languageCode ) {
 
 		$normalizedLanguageTargetLink = array(
 			$languageCode => $title->getPrefixedText()

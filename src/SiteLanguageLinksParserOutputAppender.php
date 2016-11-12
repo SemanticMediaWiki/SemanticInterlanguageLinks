@@ -73,7 +73,7 @@ class SiteLanguageLinksParserOutputAppender {
 
 		// Always update the cache entry with an annotation directly made to avoid
 		// extra lookup during the view action
-		$this->interlanguageLinksLookup->updatePageLanguageToLookupCache(
+		$this->interlanguageLinksLookup->pushPageLanguageToLookupCache(
 			$target,
 			$interlanguageLink->getLanguageCode()
 		);
@@ -117,7 +117,7 @@ class SiteLanguageLinksParserOutputAppender {
 			$title = Title::newFromText( $selectedTargetLinkForCurrentLanguage );
 
 			if ( $title->isRedirect() ) {
-			//	 $this->interlanguageLinksLookup->invalidateLookupCache( $target );
+			//	 $this->interlanguageLinksLookup->resetLookupCacheBy( $target );
 				 return false;
 			}
 
