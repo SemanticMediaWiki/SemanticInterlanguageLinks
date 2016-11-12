@@ -22,7 +22,7 @@ This [video](https://vimeo.com/115871518) demonstrates the functionality of the 
 
 ## Requirements
 
-- PHP 5.3.2 or later
+- PHP 5.5 or later
 - MediaWiki 1.23 or later
 - [Semantic MediaWiki][smw] 2.3 or later
 
