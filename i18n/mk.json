@@ -9,7 +9,7 @@
 	"sil-property-ill-alias-reference": "Меѓујазичен навод",
 	"sil-property-iwl-alias-language": "Меѓупроектен јазик",
 	"sil-property-iwl-alias-reference": "Навод на меѓупроектните",
-	"sil-property-alias-container": "Има меѓујазични врски",
+	"sil-property-alias-container": "Има меѓујазична врска",
 	"smw-pa-property-predefined__sil_container": "„$1“ е предодредено својство што преставува пополнувачка единицаза опишување на информации што се однесуваат на меѓујазични врски. Го даваат [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Семантичките меѓујазични врски],",
 	"smw-pa-property-predefined__sil_ill_lang": "„$1“ е предодредено својство кое содржи прибележан јазичен код. Го даваат [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Семантичките меѓујазични врски],",
 	"smw-pa-property-predefined__sil_ill_ref": "„$1“ е предодредено својство кое содржи произволен навод. Го даваат [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Семантичките меѓујазични врски],",
