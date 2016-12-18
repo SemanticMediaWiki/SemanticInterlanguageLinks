@@ -14,20 +14,12 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'This file is part of the SemanticInterlanguageLinks extension, it is not a valid entry point.' );
 }
 
-if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.23', 'lt' ) ) {
-	die( '<b>Error:</b> This version of <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">SemanticInterlanguageLinks</a> is only compatible with MediaWiki 1.23 or above. You need to upgrade MediaWiki first.' );
-}
-
 if ( defined( 'SIL_VERSION' ) ) {
 	// Do not initialize more than once.
 	return 1;
 }
 
-SemanticInterlanguageLinks::initExtension();
-
-$GLOBALS['wgExtensionFunctions'][] = function() {
-	SemanticInterlanguageLinks::onExtensionFunction();
-};
+SemanticInterlanguageLinks::load();
 
 /**
  * @codeCoverageIgnore
@@ -35,14 +27,36 @@ $GLOBALS['wgExtensionFunctions'][] = function() {
 class SemanticInterlanguageLinks {
 
 	/**
-	 * @since 1.3
+	 * @since 1.4
+	 *
+	 * @note It is expected that this function is loaded before LocalSettings.php
+	 * to ensure that settings and global functions are available by the time
+	 * the extension is activated.
 	 */
-	public static function initExtension() {
+	public static function load() {
 
 		// Load DefaultSettings
 		require_once __DIR__ . '/DefaultSettings.php';
 
-		define( 'SIL_VERSION', '1.3.0' );
+		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+			include_once __DIR__ . '/vendor/autoload.php';
+		}
+
+		// In case extension.json is being used, the the succeeding steps will
+		// be handled by the ExtensionRegistry
+		self::initExtension();
+
+		$GLOBALS['wgExtensionFunctions'][] = function() {
+			self::onExtensionFunction();
+		};
+	}
+
+	/**
+	 * @since 1.3
+	 */
+	public static function initExtension() {
+
+		define( 'SIL_VERSION', '1.4.0-alpha' );
 
 		// Register extension info
 		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
@@ -58,12 +72,41 @@ class SemanticInterlanguageLinks {
 		// Register message files
 		$GLOBALS['wgMessagesDirs']['SemanticInterlanguageLinks'] = __DIR__ . '/i18n';
 		$GLOBALS['wgExtensionMessagesFiles']['SemanticInterlanguageLinksMagic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
+
+		self::onBeforeExtensionFunction();
+	}
+
+	/**
+	 * Register hooks that require to be listed as soon as possible and preferable
+	 * before the execution of onExtensionFunction
+	 *
+	 * @since 1.4
+	 */
+	public static function onBeforeExtensionFunction() {
+		$GLOBALS['wgHooks']['SMW::Config::BeforeCompletion'][] = '\SIL\HookRegistry::onBeforeConfigCompletion';
+	}
+
+	/**
+	 * @since 1.4
+	 */
+	public static function doCheckRequirements() {
+
+		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.23', 'lt' ) ) {
+			die( '<b>Error:</b> This version of <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic InterlanguageLinks</a> is only compatible with MediaWiki 1.23 or above. You need to upgrade MediaWiki first.' );
+		}
+
+		if ( !defined( 'SMW_VERSION' ) ) {
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic InterlanguageLinks</a> requires <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a>, please enable or install the extension first.' );
+		}
 	}
 
 	/**
 	 * @since 1.3
 	 */
 	public static function onExtensionFunction() {
+
+		// Check requirements after LocalSetting.php has been processed
+		self::doCheckRequirements();
 
 		$cacheFactory = new CacheFactory();
 

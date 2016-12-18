@@ -86,6 +86,27 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$this->doTestSpecialSearchPowerBox( $instance );
 	}
 
+	public function testOnBeforeConfigCompletion() {
+
+		$config = array(
+			'smwgFulltextSearchPropertyExemptionList' => array()
+		);
+
+		$propertyExemptionList = array(
+			'__sil_iwl_lang',
+			'__sil_ill_lang'
+		);
+
+		HookRegistry::onBeforeConfigCompletion( $config );
+
+		$this->assertEquals(
+			array(
+				'smwgFulltextSearchPropertyExemptionList' => $propertyExemptionList,
+			),
+			$config
+		);
+	}
+
 	public function doTestParserFirstCallInit( $instance, $parser ) {
 
 		$handler = 'ParserFirstCallInit';
