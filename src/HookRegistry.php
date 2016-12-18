@@ -66,6 +66,24 @@ class HookRegistry {
 		}
 	}
 
+	/**
+	 * @since  1.0
+	 *
+	 * @param array &$configuration
+	 */
+	public static function onBeforeConfigCompletion( &$config ) {
+
+		if ( !isset( $config['smwgFulltextSearchPropertyExemptionList'] ) ) {
+			return;
+		}
+
+		// Exclude those properties from indexing
+		$config['smwgFulltextSearchPropertyExemptionList'] = array_merge(
+			$config['smwgFulltextSearchPropertyExemptionList'],
+			array( PropertyRegistry::SIL_IWL_LANG, PropertyRegistry::SIL_ILL_LANG )
+		);
+	}
+
 	private function addCallbackHandlers( $store, $cache, $cacheKeyProvider ) {
 
 		$languageTargetLinksCache = new LanguageTargetLinksCache(
@@ -78,17 +96,6 @@ class HookRegistry {
 		);
 
 		$interlanguageLinksLookup->setStore( $store );
-
-		$applicationFactory = ApplicationFactory::getInstance();
-
-		// SMW 2.5+
-		// Avoid indexing fields that do not require an extra fulltext index
-		if ( $applicationFactory->getSettings()->has( 'smwgFulltextSearchPropertyExemptionList' ) ) {
-			$applicationFactory->getSettings()->add(
-				'smwgFulltextSearchPropertyExemptionList',
-				array( PropertyRegistry::SIL_IWL_LANG, PropertyRegistry::SIL_ILL_LANG )
-			);
-		}
 
 		/**
 		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks.md
