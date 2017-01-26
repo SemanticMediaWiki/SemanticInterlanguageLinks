@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"jaideraf",
-			"Jaideraf"
+			"Jaideraf",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"sil-desc": "Uma extensão do [https://semantic-mediawiki.org Semantic MediaWiki] para criar e gerenciar links interlinguísticos",
@@ -10,7 +11,7 @@
 	"sil-property-ill-alias-reference": "Referência interlinguística",
 	"sil-property-iwl-alias-language": "Idioma interlíngua",
 	"sil-property-iwl-alias-reference": "Referência interlíngua",
-	"sil-property-alias-container": "Tem links interlinguísticos",
+	"sil-property-alias-container": "Tem ligações interlinguísticos",
 	"smw-pa-property-predefined__sil_container": "\"$1\" é uma propriedade predefinida que representa metadados relacionados ao idioma (na forma de um subobjeto) sobre uma página e é fornecida pela extensão  [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "A função não pode ser utilizada porque a configuração <code>$wgHideInterlanguageLinks</code> está ativada.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" não foi reconhecido como um código de idioma válido.",
