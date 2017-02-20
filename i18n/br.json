@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fulup"
+		]
+	},
+	"sil-property-ill-alias-language": "Yezh endalc'had ar bajenn",
+	"sil-property-ill-alias-reference": "Daveenn etreyezhel",
+	"sil-property-iwl-alias-language": "Yezh etrewiki",
+	"sil-property-iwl-alias-reference": "Daveenn etrewiki",
+	"sil-property-alias-container": "zo ennañ ul liamm etrewiki",
+	"sil-search-profile": "Dre yezh",
+	"sil-search-profile-tooltip": "Silañ ar pennadoù dre yezh an notennoù",
+	"sil-search-languagefilter-label": "Silañ dre yezh",
+	"sil-search-nolanguagefilter": "Sil yezh ebet"
+}
