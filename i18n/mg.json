@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jagwar"
+		]
+	},
+	"sil-property-ill-alias-language": "Tenin'ny votoatiny",
+	"sil-property-ill-alias-reference": "Tsiahy iraisan'ny teny",
+	"sil-property-iwl-alias-language": "Fiteny interwiki",
+	"sil-property-iwl-alias-reference": "Tsiahy interwiki",
+	"sil-property-alias-container": "Manana rohy iraisam-piteny",
+	"sil-search-profile": "Araka ny fiteny",
+	"sil-search-profile-tooltip": "Hanasivana lahatsoratra araka ny filazan'ny fiteny",
+	"sil-search-languagefilter-label": "Hanasivana araky ny fiteny",
+	"sil-search-nolanguagefilter": "Tsy misy sivam-piteny"
+}
