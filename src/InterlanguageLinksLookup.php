@@ -261,6 +261,10 @@ class InterlanguageLinksLookup {
 			$description
 		);
 
+		if ( defined( 'SMWQuery::PROC_CONTEXT' ) ) {
+			$query->setOption( Query::PROC_CONTEXT, 'SIL.InterlanguageLinksLookup' );
+		}
+
 		if ( defined( 'SMWQuery::NO_CACHE' ) ) {
 			$query->setOption( Query::NO_CACHE, true );
 		}
