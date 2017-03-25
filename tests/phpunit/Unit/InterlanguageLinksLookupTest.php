@@ -4,17 +4,14 @@ namespace SIL\Tests;
 
 use SIL\InterlanguageLinksLookup;
 use SIL\InterlanguageLink;
-
+use SMW\DataValueFactory;
 use SMW\DIWikiPage;
 use SMW\PropertyRegistry;
-
 use SMWDIBlob as DIBlob;
-
 use Title;
 
 /**
  * @covers \SIL\InterlanguageLinksLookup
- *
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -284,7 +281,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
-		$blobValue = new \SMWStringValue( '_txt' );
+		$blobValue = DataValueFactory::getInstance()->newDataValueByType( '_txt' );
 		$blobValue->setUserValue( 'vi' );
 
 		$resultArray = $this->getMockBuilder( '\SMWResultArray' )
