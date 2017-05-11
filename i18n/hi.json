@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"चक्रपाणी"
+		]
+	},
+	"sil-property-ill-alias-language": "पेज सामग्री की भाषा",
+	"sil-property-ill-alias-reference": "अंतरभाषी संदर्भ",
+	"sil-property-iwl-alias-language": "अंतरविकि भाषा",
+	"sil-property-iwl-alias-reference": "अंतरविकि संदर्भ",
+	"sil-property-alias-container": "अन्तरभाषी लिंक है",
+	"sil-search-profile": "भाषा अनुसार",
+	"sil-search-profile-tooltip": "भाषा टिप्पणी अनुसार लेखों को छानें",
+	"sil-search-languagefilter-label": "भाषा अनुसार छानें",
+	"sil-search-nolanguagefilter": "कोई भाषा फ़िल्टर नहीं"
+}
