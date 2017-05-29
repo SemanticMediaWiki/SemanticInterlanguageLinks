@@ -18,6 +18,7 @@
 	"smw-pa-property-predefined__sil_ill_ref": "\"$1\" é uma propriedade predefinida que contém uma referência arbitrária e é fornecida pela extensão [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"smw-pa-property-predefined-long__sil_ill_ref": "Entidades com a mesma referência recebem um interlink e são esperadas que representem conteúdo em línguas diferentes.",
 	"smw-pa-property-predefined__sil_iwl_lang": "\"$1\" é uma propriedade predefinida e representa um código de linguagem derivado de uma ligação interwiki e é fornecida pela extensão [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_iwl_ref": "\"$1\" é uma propriedade predefinida e representa uma página alvo derivada de uma ligação interwiki e é fornecida pela extensão [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "A função não pode ser utilizada porque a configuração <code>$wgHideInterlanguageLinks</code> está ativada.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" não foi reconhecido como um código de idioma válido.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "A combinação \"$1\":\"$2\" já existe para a página \"$3\", assim, nenhuma marcação adicional para o idioma foi criada.",
