@@ -9,18 +9,18 @@ env:
 matrix:
   fast_finish: true
   include:
-    - env: DB=mysql; MW=master; PHPUNIT=4.5.*; TYPE=coverage
+    - env: DB=mysql; MW=master; PHPUNIT=4.8.*; TYPE=coverage
       php: 5.6
     - env: DB=mysql; MW=1.23.8;
       php: 5.5
     - env: DB=sqlite; MW=1.24.1; SITELANG=ja
       php: 5.5
-    - env: DB=sqlite; MW=master; PHPUNIT=4.7.*
-      php: '7'
+    - env: DB=sqlite; MW=master; PHPUNIT=4.8.*
+      php: 7.1
   exclude:
     - env: THENEEDFORTHIS=FAIL
   allow_failures:
-    - env: DB=sqlite; MW=master; PHPUNIT=4.7.*
+    - env: DB=sqlite; MW=master; PHPUNIT=4.8.*
 
 install:
   - travis_retry composer self-update
