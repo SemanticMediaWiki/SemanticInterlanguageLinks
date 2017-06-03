@@ -238,6 +238,10 @@ class LanguageTargetLinksCache {
 
 	private function delete( Title $title ) {
 
+		$this->cache->delete(
+			$this->cacheKeyProvider->getSiteCacheKey( $title->getPrefixedText() )
+		);
+
 		if ( $this->pageLanguageCacheStrategy !== 'blob' ) {
 			return $this->cache->delete(
 				$this->cacheKeyProvider->getPageCacheKey( $title->getPrefixedText(), false )
