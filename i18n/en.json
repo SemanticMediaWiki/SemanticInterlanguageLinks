@@ -26,7 +26,7 @@
 	"sil-interlanguageparser-linkreference-error": "The parser function had a problem to create a title object from \"$1\".",
 	"sil-search-profile":"By Language",
 	"sil-search-profile-tooltip":"Filter articles by language annotation",
-	"sil-search-languagefilter-label":"Filter by Language",
+	"sil-search-languagefilter-label":"Filter by language",
 	"sil-search-nolanguagefilter":"No language filter",
 	"sil-categorypage-languagefilter-active":"This category contains information (page, subcategory, and image) that is filtered by \"$1\" language."
 }
