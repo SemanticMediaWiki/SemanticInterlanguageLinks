@@ -26,7 +26,7 @@
 	"sil-interlanguageparser-linkreference-error": "A función do analizador experimentou un problema ó crear un objecto de título a partir de \"$1\".",
 	"sil-search-profile": "por idioma",
 	"sil-search-profile-tooltip": "Filtrar artigo por anotación de idioma",
-	"sil-search-languagefilter-label": "Filtrar por idioma",
+	"sil-search-languagefilter-label": "Filtro por lingua",
 	"sil-search-nolanguagefilter": "Sen filtro de idioma",
 	"sil-categorypage-languagefilter-active": "Esta categoría contén información (páxina, subpáxina e imaxe) filtrada polo idioma \"$1\"."
 }
