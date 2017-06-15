@@ -28,7 +28,7 @@
 	"sil-interlanguageparser-linkreference-error": "У парсера функции произошла ошибка, при создании заголовока объекта «$1».",
 	"sil-search-profile": "по Языку",
 	"sil-search-profile-tooltip": "Фильтр статей по языку, Аннотация",
-	"sil-search-languagefilter-label": "Фильтр по Языку",
+	"sil-search-languagefilter-label": "Фильтр по языку",
 	"sil-search-nolanguagefilter": "Нет языка фильтра",
 	"sil-categorypage-languagefilter-active": "Эта категория содержит информацию (страницы, подкатегории и изображения), которые фильтруются, когда выбран $1 язык."
 }
