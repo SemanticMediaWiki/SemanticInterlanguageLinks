@@ -16,6 +16,6 @@
 	"sil-property-alias-container": "Heeft interwikilink",
 	"sil-interlanguagelink-hideinterlanguagelinks": "De parser-functie kan niet worden gebruikt omdat <code>$wgHideInterlanguageLinks</code> is ingesteld.",
 	"sil-search-profile": "Op Taal",
-	"sil-search-languagefilter-label": "Filter op Taal",
+	"sil-search-languagefilter-label": "Filter op taal",
 	"sil-search-nolanguagefilter": "Geen taalfilter"
 }
