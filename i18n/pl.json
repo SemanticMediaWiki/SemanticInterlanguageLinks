@@ -1,11 +1,19 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrumps"
+			"Chrumps",
+			"InternerowyGołąb"
 		]
 	},
+	"sil-property-ill-alias-reference": "Odnośnik międzyjęzykowy",
 	"sil-property-iwl-alias-language": "Język interwiki",
+	"sil-property-iwl-alias-reference": "Odnośnik interwiki",
+	"sil-property-alias-container": "Ma wielojęzykowy link",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1” nie jest prawidłowym kodem języka.",
+	"sil-interlanguagelist-missing-linkreference": "Funkcji parsera brakuje ważnego przypisu",
 	"sil-search-profile": "Według języka",
-	"sil-search-nolanguagefilter": "Bez filtrowania języka"
+	"sil-search-profile-tooltip": "Filtruj artykuły na podstawie adnotacji językowych",
+	"sil-search-languagefilter-label": "Filtruj według języka",
+	"sil-search-nolanguagefilter": "Bez filtrowania języka",
+	"sil-categorypage-languagefilter-active": "Ta kategoria zawiera informacje (strona, subkategoria i obraz), która jest filtrowana przez język \"$1\"."
 }
