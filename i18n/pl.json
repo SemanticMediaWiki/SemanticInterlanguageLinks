@@ -5,6 +5,8 @@
 			"InternerowyGołąb"
 		]
 	},
+	"sil-desc": "Rozszerzenie [https://www.semantic-mediawiki.org Semantic MediaWiki] służy do tworzenia i zarządzania linkami międzyjęzykowymi.",
+	"sil-property-ill-alias-language": "Język zawartości strony",
 	"sil-property-ill-alias-reference": "Odnośnik międzyjęzykowy",
 	"sil-property-iwl-alias-language": "Język interwiki",
 	"sil-property-iwl-alias-reference": "Odnośnik interwiki",
