@@ -15,9 +15,9 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 /**
  * Cache used to improve query lookups
  */
-$GLOBALS['egSILCacheType'] = CACHE_ANYTHING;
+$GLOBALS['silgCacheType'] = CACHE_ANYTHING;
 
 /**
  * Enable language filtering on the category page
  */
-$GLOBALS['egSILEnabledCategoryFilterByLanguage'] = true;
+$GLOBALS['silgEnabledCategoryFilterByLanguage'] = true;

@@ -1,5 +1,17 @@
 This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a. SIL) extension.
 
+### 1.4.0
+
+Released on July 29, 2017.
+
+* Minimum requirement for
+  * PHP changed to version 5.5 and later
+  * Semantic MediaWiki changed to version 2.4 and later
+  * MediaWiki changed to version 1.27 and later
+* Fixed "Call to a member function getPrefixedText on null"
+* #44 Always to return lowercase language code
+* Localization updates from https://translatewiki.net
+
 ### 1.3.0
 
 Released on July 9, 2016.
@@ -28,7 +40,7 @@ Released on December 19, 2015.
 Released on June 2, 2015.
 
 * Only match results in `Special:Search` for the selected language that contains an annotation
-* Fixed behaviour in `ByLanguageCategoryPage` for when languages are switched
+* Fixed behaviour in `LanguageFilterCategoryPage` for when languages are switched
 * #32 Fixed exception in `Special:Search` for no results
 * Localization updates from https://translatewiki.net
 
@@ -42,5 +54,5 @@ Released on Feburary 14, 2015.
 * Added an `INTERLANGUAGELINK` parser to easily create interlanguage related semantic annotations
 * Added an `INTERLANGUAGELIST` parser to support template output for available interlanguage links
 * Added a search profile to `Special:Search` to enable language filtering on the basis of avilable semantic annotations
-* Added `ByLanguageCategoryViewer` to enable auto-filtering for pages within a catgory that declare a content language using the `INTERLANGUAGELINK` parser
+* Added `LanguageFilterCategoryViewer` to enable auto-filtering for pages within a catgory that declare a content language using the `INTERLANGUAGELINK` parser
 * Added `InterwikiLanguageLinkFetcher` to recognize and support interwiki language links (e.g. `[[en:Foo]]`)

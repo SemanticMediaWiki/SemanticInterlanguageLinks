@@ -8,7 +8,7 @@ use SMW\ApplicationFactory;
 use SMW\InMemoryPoolCache;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
-use SIL\Category\ByLanguageCategoryPage;
+use SIL\Category\LanguageFilterCategoryPage;
 use Hooks;
 
 /**
@@ -116,9 +116,9 @@ class HookRegistry {
 		 */
 		$this->handlers['ArticleFromTitle'] = function ( $title, &$page ) use( $interlanguageLinksLookup ) {
 
-			$byLanguageCategoryPage = new ByLanguageCategoryPage( $title );
-			$byLanguageCategoryPage->setCategoryFilterByLanguageState( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] );
-			$byLanguageCategoryPage->modifyCategoryView( $page, $interlanguageLinksLookup );
+			$languageFilterCategoryPage = new LanguageFilterCategoryPage( $title );
+			$languageFilterCategoryPage->isCategoryFilterByLanguage( $GLOBALS['silgEnabledCategoryFilterByLanguage'] );
+			$languageFilterCategoryPage->modifyCategoryView( $page, $interlanguageLinksLookup );
 
 			return true;
 		};
