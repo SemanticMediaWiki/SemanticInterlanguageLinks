@@ -4,6 +4,7 @@ This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a.
 
 Released on July 29, 2017.
 
+* #50 Added the `annotatedlanguage` parser function
 * Minimum requirement for
   * PHP changed to version 5.5 and later
   * Semantic MediaWiki changed to version 2.4 and later

@@ -103,4 +103,30 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testNewAnnotatedLanguageParserFunctionDefinition() {
+
+		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$this->parser->setTitle( Title::newFromText( __METHOD__ ) );
+
+		$instance = new ParserFunctionFactory();
+
+		list( $name, $definition, $flag ) = $instance->newAnnotatedLanguageParserFunctionDefinition(
+			$interlanguageLinksLookup
+		);
+
+		$this->assertEquals(
+			'annotatedlanguage',
+			$name
+		);
+
+		$text = '';
+
+		$this->assertEmpty(
+			call_user_func_array( $definition, array( $this->parser, $text ) )
+		);
+	}
+
 }
