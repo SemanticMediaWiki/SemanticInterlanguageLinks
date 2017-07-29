@@ -4,12 +4,12 @@ This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a.
 
 Released on July 29, 2017.
 
-* #50 Added the `annotatedlanguage` parser function
 * Minimum requirement for
   * PHP changed to version 5.5 and later
   * Semantic MediaWiki changed to version 2.4 and later
   * MediaWiki changed to version 1.27 and later
 * Fixed "Call to a member function getPrefixedText on null"
+* #50 Added the `annotatedlanguage` parser function
 * #44 Always to return lowercase language code
 * Localization updates from https://translatewiki.net
 
@@ -25,6 +25,7 @@ Released on July 9, 2016.
 * #37 Added check whether `LanguageLinkAnnotator` can actually add annotations
 * #35 Added `InMemoryLruCache` to `PageContentLanguageOnTheFlyModifier`
 * #33 Fixed language code in `Special:Search` to conform with IETF (ISO 639, BCP 47) norm
+* Localization updates from https://translatewiki.net
 
 ### 1.2.0
 
