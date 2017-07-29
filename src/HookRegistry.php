@@ -154,6 +154,12 @@ class HookRegistry {
 
 			$parser->setFunctionHook( $name, $definition, $flag );
 
+			list( $name, $definition, $flag ) = $parserFunctionFactory->newAnnotatedLanguageParserFunctionDefinition(
+				$interlanguageLinksLookup
+			);
+
+			$parser->setFunctionHook( $name, $definition, $flag );
+
 			return true;
 		};
 

@@ -89,4 +89,25 @@ class ParserFunctionFactory {
 		return array( 'interlanguagelist', $interlanguageListParserFunctionDefinition, Parser::SFH_NO_HASH );
 	}
 
+	/**
+	 * @since  1.4
+	 *
+	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
+	 *
+	 * @return array
+	 */
+	public function newAnnotatedLanguageParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup ) {
+
+		$annotatedLanguageParserFunctionDefinition = function( $parser, $template = '' ) use ( $interlanguageLinksLookup ) {
+
+			$annotatedLanguageParserFunction = new AnnotatedLanguageParserFunction(
+				$interlanguageLinksLookup
+			);
+
+			return $annotatedLanguageParserFunction->parse( $parser->getTitle(), $template );
+		};
+
+		return array( 'annotatedlanguage', $annotatedLanguageParserFunctionDefinition, Parser::SFH_NO_HASH );
+	}
+
 }

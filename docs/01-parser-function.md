@@ -40,6 +40,7 @@ category).
 The parser function `{{interlanguagelist: interlanguage reference | template }}` can
 generate a customizable language target link list for the provided `interlanguage reference`
 and being formatted using a template with parameters:
+
 - `target-link` being the target link
 - `lang-code` the language code
 - `lang-name` representing the localized language name for the language code
@@ -59,6 +60,16 @@ Page:FooBar
 {{interlanguagelist:Lorem ipsum|InterlanguageLinksTemplate}}
 
 ```
+
+## annotatedlanguage
+
+The parser function is called either as `{{annotatedlanguage: }}` where it just returns the language code
+for the current page (if one is annotated using SIL) or with `{{annotatedlanguage: template }}` to return content
+as formatted using a template with parameters defined as:
+
+- `target-link` being the target link
+- `lang-code` the language code
+- `lang-name` representing the localized language name for the language code
 
 [iwlm]: https://www.mediawiki.org/wiki/Manual:$wgInterwikiMagic
 [iwlp]: https://www.mediawiki.org/wiki/Manual:$wgExtraInterlanguageLinkPrefixes
