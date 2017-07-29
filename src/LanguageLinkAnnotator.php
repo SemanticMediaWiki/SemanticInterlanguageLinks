@@ -56,7 +56,17 @@ class LanguageLinkAnnotator {
 	 * @return boolean
 	 */
 	public function canAddAnnotation() {
-		return method_exists( $this->parserData, 'canModifySemanticData' ) ? $this->parserData->canModifySemanticData() : true;
+
+		if ( method_exists( $this->parserData, 'canModifySemanticData' ) ) {
+			return $this->parserData->canModifySemanticData();
+		}
+
+		// SMW 3.0
+		if ( method_exists( $this->parserData, 'canUse' ) ) {
+			return $this->parserData->canUse();
+		}
+
+		return true;
 	}
 
 	/**

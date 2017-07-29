@@ -144,8 +144,13 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$parserData->expects( $this->once() )
+		$parserData->expects( $this->any() )
 			->method( 'canModifySemanticData' )
+			->will( $this->returnValue( false ) );
+
+		// SMW 3.0
+		$parserData->expects( $this->any() )
+			->method( 'canUse' )
 			->will( $this->returnValue( false ) );
 
 		$instance = new LanguageLinkAnnotator( $parserData );

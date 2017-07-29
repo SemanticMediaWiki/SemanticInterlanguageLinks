@@ -42,8 +42,16 @@ class SemanticInterlanguageLinks {
 			include_once __DIR__ . '/vendor/autoload.php';
 		}
 
-		// In case extension.json is being used, the the succeeding steps will
-		// be handled by the ExtensionRegistry
+		/**
+		 * In case extension.json is being used, the succeeding steps are
+		 * expected to be handled by the ExtensionRegistry aka extension.json
+		 * ...
+		 *
+		 * 	"callback": "SemanticInterlanguageLinks::initExtension",
+		 * 	"ExtensionFunctions": [
+		 * 		"SemanticInterlanguageLinks::onExtensionFunction"
+		 * 	],
+		 */
 		self::initExtension();
 
 		$GLOBALS['wgExtensionFunctions'][] = function() {
@@ -89,7 +97,7 @@ class SemanticInterlanguageLinks {
 	/**
 	 * @since 1.4
 	 */
-	public static function doCheckRequirements() {
+	public static function checkRequirements() {
 
 		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.23', 'lt' ) ) {
 			die( '<b>Error:</b> This version of <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic InterlanguageLinks</a> is only compatible with MediaWiki 1.23 or above. You need to upgrade MediaWiki first.' );
@@ -106,13 +114,22 @@ class SemanticInterlanguageLinks {
 	public static function onExtensionFunction() {
 
 		// Check requirements after LocalSetting.php has been processed
-		self::doCheckRequirements();
+		self::checkRequirements();
+
+		// Legacy
+		if ( isset( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] ) ) {
+			$GLOBALS['silgEnabledCategoryFilterByLanguage'] = $GLOBALS['egSILEnabledCategoryFilterByLanguage'];
+		}
+
+		if ( isset( $GLOBALS['egSILCacheType'] ) ) {
+			$GLOBALS['silgCacheType'] = $GLOBALS['egSILCacheType'];
+		}
 
 		$cacheFactory = new CacheFactory();
 
 		$compositeCache = $cacheFactory->newCompositeCache( array(
 			$cacheFactory->newFixedInMemoryLruCache( 500 ),
-			$cacheFactory->newMediaWikiCache( ObjectCache::getInstance( $GLOBALS['egSILCacheType'] ) )
+			$cacheFactory->newMediaWikiCache( ObjectCache::getInstance( $GLOBALS['silgCacheType'] ) )
 		) );
 
 		$cacheKeyProvider = new CacheKeyProvider(

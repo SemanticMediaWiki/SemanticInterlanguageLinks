@@ -23,6 +23,6 @@
         </whitelist>
     </filter>
     <php>
-       <var name="egSILCacheType" value="hash"/>
+       <var name="silgCacheType" value="hash"/>
     </php>
 </phpunit>

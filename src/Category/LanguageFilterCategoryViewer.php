@@ -14,7 +14,7 @@ use Category;
  *
  * @author mwjames
  */
-class ByLanguageCategoryViewer extends CategoryViewer {
+class LanguageFilterCategoryViewer extends CategoryViewer {
 
 	/**
 	 * Avoid a possible category-empty message

@@ -4,7 +4,6 @@ namespace SIL\Tests\Integration;
 
 use SMW\Tests\MwDBaseUnitTestCase;
 use SMW\Tests\Utils\UtilityFactory;
-
 use Title;
 use Article;
 use RequestContext;
@@ -13,15 +12,12 @@ use RequestContext;
  * @group semantic-interlanguage-links
  * @group semantic-mediawiki-integration
  *
- * @group mediawiki-database
- * @group medium
- *
  * @license GNU GPL v2+
  * @since 1.0
  *
  * @author mwjames
  */
-class ByLanguageCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
+class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
 
 	private $pageCreator;
 	private $subjects = array();

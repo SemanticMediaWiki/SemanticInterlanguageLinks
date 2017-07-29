@@ -2,13 +2,11 @@
 
 namespace SIL\Tests\Category;
 
-use SIL\Category\ByLanguageCategoryViewer;
-
+use SIL\Category\LanguageFilterCategoryViewer;
 use Title;
 
 /**
- * @covers \SIL\Category\ByLanguageCategoryViewer
- *
+ * @covers \SIL\Category\LanguageFilterCategoryViewer
  * @group semantic-interlanguage-links
  *
  * @license GNU GPL v2+
@@ -16,7 +14,7 @@ use Title;
  *
  * @author mwjames
  */
-class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
+class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 	private $context;
 
@@ -45,8 +43,8 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$this->assertInstanceOf(
-			'\SIL\Category\ByLanguageCategoryViewer',
-			new ByLanguageCategoryViewer( $title, $this->context )
+			'\SIL\Category\LanguageFilterCategoryViewer',
+			new LanguageFilterCategoryViewer( $title, $this->context )
 		);
 	}
 
@@ -55,7 +53,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar' );
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -72,7 +70,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar', NS_FILE );
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -107,7 +105,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -131,7 +129,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getTitle' )
 			->will( $this->returnValue( Title::newFromText( 'Bar' ) ) );
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -173,7 +171,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			->method( 'getTitle' )
 			->will( $this->returnValue( Title::newFromText( 'Bar' ) ) );
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -205,7 +203,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -242,7 +240,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -279,7 +277,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
@@ -306,7 +304,7 @@ class ByLanguageCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$instance = new ByLanguageCategoryViewer(
+		$instance = new LanguageFilterCategoryViewer(
 			$title,
 			$this->context
 		);
