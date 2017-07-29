@@ -11,7 +11,7 @@ use Onoi\Cache\CacheFactory;
  * @defgroup SIL Semantic Interlanguage Links
  */
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'This file is part of the SemanticInterlanguageLinks extension, it is not a valid entry point.' );
+	die( 'This file is part of the Semantic Interlanguage Links extension. It is not a valid entry point.' );
 }
 
 if ( defined( 'SIL_VERSION' ) ) {
@@ -64,7 +64,7 @@ class SemanticInterlanguageLinks {
 	 */
 	public static function initExtension() {
 
-		define( 'SIL_VERSION', '1.4.0-alpha' );
+		define( 'SIL_VERSION', '1.4.0' );
 
 		// Register extension info
 		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
@@ -99,12 +99,12 @@ class SemanticInterlanguageLinks {
 	 */
 	public static function checkRequirements() {
 
-		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.23', 'lt' ) ) {
-			die( '<b>Error:</b> This version of <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic InterlanguageLinks</a> is only compatible with MediaWiki 1.23 or above. You need to upgrade MediaWiki first.' );
+		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.27', 'lt' ) ) {
+			die( '<b>Error:</b> This version of <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic Interlanguage Links</a> is only compatible with MediaWiki 1.27 or above. You need to upgrade MediaWiki first.' );
 		}
 
 		if ( !defined( 'SMW_VERSION' ) ) {
-			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic InterlanguageLinks</a> requires <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a>, please enable or install the extension first.' );
+			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic Interlanguage Links</a> requires <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a>. Please enable or install the extension first.' );
 		}
 	}
 
