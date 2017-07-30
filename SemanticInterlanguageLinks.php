@@ -64,7 +64,7 @@ class SemanticInterlanguageLinks {
 	 */
 	public static function initExtension() {
 
-		define( 'SIL_VERSION', '1.4.0' );
+		define( 'SIL_VERSION', '1.5.0-alpha' );
 
 		// Register extension info
 		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
