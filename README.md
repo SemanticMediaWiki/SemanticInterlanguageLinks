@@ -15,6 +15,7 @@ This extension helps to create interlanguage links and provides queryable annota
 - Can connect pages with similar content for different languages to be accessible via the [sitelink navigation][sitelink]
 - Provides a `interlanguagelink` parser function to create cachable assignments
 - Provides a `interlanguagelist` parser function to format a list of available language links
+- Provides a `annotatedlanguage` parser function to return the language code of the current page
 - To set the page content language of an article
 - Integration with `Special:Search` to search `By Language`
 
