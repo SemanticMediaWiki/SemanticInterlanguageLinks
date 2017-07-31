@@ -2,11 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Jenniesarina",
-			"Jopparn"
+			"Jopparn",
+			"WikiPhoenix"
 		]
 	},
+	"sil-property-ill-alias-language": "Språk för sidinnehåll",
+	"sil-property-ill-alias-reference": "Interspråkreferenser",
 	"sil-property-iwl-alias-language": "Interwikispråk",
 	"sil-property-iwl-alias-reference": "Interwikireferens",
+	"sil-property-alias-container": "Har interspråklänkar",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" erkändes inte som giltig språkkod.",
 	"sil-search-profile": "efter språk",
 	"sil-search-languagefilter-label": "Filtrera efter språk",
