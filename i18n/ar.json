@@ -1,8 +1,26 @@
 {
 	"@metadata": {
 		"authors": [
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"ديفيد"
 		]
 	},
-	"sil-search-profile": "حسب اللغة"
+	"sil-desc": "امتداد [https://www.semantic-mediawiki.org ميدياويكي الدلالية] لإنشاء وإدارة وصلات الإنترويكي",
+	"sil-property-ill-alias-language": "لغة محتوى الصفحة",
+	"sil-property-ill-alias-reference": "مرجع وصلة إنترويكي",
+	"sil-property-iwl-alias-language": "لغة إنترويكي",
+	"sil-property-iwl-alias-reference": "مرجع إنترويكي",
+	"sil-property-alias-container": "بها وصلة إنترويكي",
+	"sil-interlanguagelink-hideinterlanguagelinks": "وظيفة المحلل لا يمكن أن تُستخدَم بسبب تعيين <code>$wgHideInterlanguageLinks</code>.",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" لم يُعترَف به كرمز لغة صالح.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "تم استدعاء وظيفة المحلل عدة مرات ولكن مع رمز لغة مختلف (\"$1\") الذي يتم تجنبه كمحتوى صفحة من المتوقع أن تكون ممثلة بلغة واحدة.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "المزيج \"$1\":\"$2\" موجود بالفعل لصفحة \"$3\" ومن ثم لم يتم إنشاء أي تفسير لغوي.",
+	"sil-interlanguagelist-missing-linkreference": "وظيفة محلل تفتقد مرجعًا صالحًا.",
+	"sil-interlanguagelist-missing-template": "وظيفة محلل تفتقد  قالب إنتاج.",
+	"sil-interlanguageparser-linkreference-error": "احتوت وظيفة المحلل على مشكلة لإنشاء كائن العنوان من \"$1\".",
+	"sil-search-profile": "حسب اللغة",
+	"sil-search-profile-tooltip": "تصفية المقالات حسب شرح اللغة",
+	"sil-search-languagefilter-label": "فلترة حسب اللغة",
+	"sil-search-nolanguagefilter": "لا يوجد مرشح لغة",
+	"sil-categorypage-languagefilter-active": "هذا التصنيف يحتوي على معلومات (صفحة، وصفحة فرعية، وصورة) تمت تصفيتها حسب اللغة \"$1\"."
 }
