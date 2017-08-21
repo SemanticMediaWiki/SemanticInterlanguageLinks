@@ -1,8 +1,19 @@
 {
 	"@metadata": {
 		"authors": [
-			"Reza1615"
+			"Reza1615",
+			"Alirezaaa",
+			"DEXi",
+			"Mahdy Saffar"
 		]
 	},
-	"sil-property-ill-alias-language": "زبان محتوای صفحه"
+	"sil-property-ill-alias-language": "زبان محتوای صفحه",
+	"sil-property-ill-alias-reference": "منبع میان‌زبان",
+	"sil-property-iwl-alias-language": "زبان میان‌ویکی",
+	"sil-property-iwl-alias-reference": "منبع میان‌ویکی",
+	"sil-property-alias-container": "پیوند میان‌زبانی دارد",
+	"sil-search-profile": "با زبان",
+	"sil-search-profile-tooltip": "پالایش مقالات با تفسیر زبان",
+	"sil-search-languagefilter-label": "پالایش با زبان",
+	"sil-search-nolanguagefilter": "بدون پالایش زبان"
 }
