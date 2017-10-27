@@ -1,9 +1,18 @@
 {
 	"@metadata": {
 		"authors": [
-			"Subi"
+			"Subi",
+			"An13sa",
+			"Mikel Ibaiba"
 		]
 	},
+	"sil-property-ill-alias-language": "Eduki orriaren hizkuntza",
+	"sil-property-ill-alias-reference": "Hizkuntza-arteko erreferentzia",
+	"sil-property-iwl-alias-language": "Interwiki hizkuntza",
+	"sil-property-iwl-alias-reference": "Interwiki erreferentzia",
 	"sil-property-alias-container": "Hizkuntzen arteko loturak ditu",
-	"sil-search-profile": "Hizkuntzaren arabera"
+	"sil-search-profile": "Hizkuntzaren arabera",
+	"sil-search-profile-tooltip": "Hizkuntza oharpen arabera artikuluak iragazi",
+	"sil-search-languagefilter-label": "Iragazi hizkuntzaren arabera",
+	"sil-search-nolanguagefilter": "Hizkuntzaren araberako iragazkirik gabe"
 }
