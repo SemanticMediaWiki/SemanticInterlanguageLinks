@@ -7,7 +7,7 @@
 			"Hamilton Abreu"
 		]
 	},
-	"sil-desc": "Uma extensão do [https://www.semantic-mediawiki.org MediaWiki Semântico] para criar e gerir links interlínguas",
+	"sil-desc": "Uma extensão do [https://www.semantic-mediawiki.org MediaWiki Semântico] para criar e gerir hiperligações interlínguas",
 	"sil-property-ill-alias-language": "Língua do conteúdo da página",
 	"sil-property-ill-alias-reference": "Referência interlínguas",
 	"sil-property-iwl-alias-language": "Língua interwikis",
