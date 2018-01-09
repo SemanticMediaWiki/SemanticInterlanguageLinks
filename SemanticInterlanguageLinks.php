@@ -74,7 +74,7 @@ class SemanticInterlanguageLinks {
 			'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
 			'descriptionmsg' => 'sil-desc',
 			'version'        => SIL_VERSION,
-			'license-name'   => 'GPL-2.0+',
+			'license-name'   => 'GPL-2.0-or-later',
 		);
 
 		// Register message files
