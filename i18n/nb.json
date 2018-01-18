@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
+	"sil-property-ill-alias-language": "Sideinnholdsspråk",
+	"sil-search-profile": "Etter språk",
+	"sil-search-profile-tooltip": "Filtrer artikler etter språkannotering",
+	"sil-search-languagefilter-label": "Filtrer etter språk",
+	"sil-search-nolanguagefilter": "Intet språkfilter",
+	"sil-categorypage-languagefilter-active": "Denne kategorien inneholder informasjon (side, underkategori og bilde) som filtreres etter språket $1."
+}

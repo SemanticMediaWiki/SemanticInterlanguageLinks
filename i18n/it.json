@@ -6,9 +6,12 @@
 			"JackLantern"
 		]
 	},
+	"sil-property-ill-alias-language": "Lingua del contenuto della pagina",
 	"sil-property-iwl-alias-language": "Lingua interwiki",
-	"sil-property-alias-container": "Ha collegamenti interlinguistici",
+	"sil-property-alias-container": "Ha collegamento interlinguistico",
+	"sil-interlanguageparser-linkreference-error": "La funzione parser ha avuto un problema nel creare un oggetto titolo da \"$1\".",
 	"sil-search-profile": "Per lingua",
+	"sil-search-languagefilter-label": "Filtro per lingua",
 	"sil-search-nolanguagefilter": "Nessun filtro di lingua",
 	"sil-categorypage-languagefilter-active": "Questa categoria contiene le informazioni (pagina, sottocategoria e immagine) filtrate dalla lingua \"$1\"."
 }

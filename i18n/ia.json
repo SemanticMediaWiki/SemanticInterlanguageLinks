@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"sil-desc": "Extension pro [https://www.semantic-mediawiki.org Semantic MediaWiki] pro crear e gerer ligamines interlingual",
+	"sil-property-ill-alias-language": "Lingua del contento del pagina",
+	"sil-property-ill-alias-reference": "Referentia interlinguistic",
+	"sil-property-iwl-alias-language": "Lingua interwiki",
+	"sil-property-iwl-alias-reference": "Referentia interwiki",
+	"sil-property-alias-container": "Ha un ligamine interlinguistic",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Le function analysator non pote esser usate perque <code>$wgHideInterlanguageLinks</code> es definite.",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" non es recognoscite como codice de lingua valide.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "Le function analysator ha essite appellate plure vices ma con un differente codice de lingua (\"$1\"). Isto debe esser evitate perque le contento de un pagina es normalmente representate per un sol lingua.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Le combination \"$1\":\"$2\" ja existe pro le pagina \"$3\". Per consequente, nulle annotation interlinguistic ha essite addite.",
+	"sil-interlanguagelist-missing-linkreference": "Al function analysator manca un referentia valide.",
+	"sil-interlanguagelist-missing-template": "Al function analysator manca un patrono de output.",
+	"sil-interlanguageparser-linkreference-error": "Le function analysator habeva un problema creante un objecto de titulo ab \"$1\".",
+	"sil-search-profile": "Per lingua",
+	"sil-search-profile-tooltip": "Filtrar articulos per annotation de lingua",
+	"sil-search-languagefilter-label": "Filtrar per lingua",
+	"sil-search-nolanguagefilter": "Sin filtro de lingua",
+	"sil-categorypage-languagefilter-active": "Iste categoria contine information (pagina, subcategoria e imagine) que es filtrate per le lingua \"$1\"."
+}

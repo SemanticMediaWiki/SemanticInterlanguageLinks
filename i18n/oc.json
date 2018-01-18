@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cedric31"
+		]
+	},
+	"sil-property-ill-alias-language": "Lenga del contengut de la pagina",
+	"sil-property-ill-alias-reference": "Referéncia interlingüistica",
+	"sil-property-iwl-alias-language": "Lenga interwiki",
+	"sil-property-iwl-alias-reference": "Referéncia interwiki",
+	"sil-property-alias-container": "A un ligam interlenga",
+	"sil-search-profile": "Per lenga",
+	"sil-search-languagefilter-label": "Filtrar per lenga"
+}

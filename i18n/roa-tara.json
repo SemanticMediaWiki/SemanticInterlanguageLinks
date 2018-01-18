@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"sil-property-ill-alias-language": "Lènga d'a pàgene de condenute",
+	"sil-property-ill-alias-reference": "Referimende inderlènghe",
+	"sil-property-iwl-alias-language": "Lènghe inderuicchi",
+	"sil-property-iwl-alias-reference": "Referimende a le inderuicchi",
+	"sil-property-alias-container": "Tène collegaminde inder lènghe",
+	"sil-search-profile": "Pe lènghe",
+	"sil-search-languagefilter-label": "Filtre pe lènghe",
+	"sil-search-nolanguagefilter": "Nisciune filtre de lènghe"
+}

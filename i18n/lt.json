@@ -1,8 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Zygimantus"
+			"Zygimantus",
+			"Eitvys200",
+			"Manvydasz"
 		]
 	},
-	"sil-property-alias-container": "Turi tarpkalbinę nuorodą"
+	"sil-property-alias-container": "Turi tarpkalbinę nuorodą",
+	"sil-interlanguagelink-invalidlanguagecode": "„$1“ nebuvo atpažintas kaip galiojantis kalbos kodas.",
+	"sil-search-profile": "Pagal Kalbą",
+	"sil-search-profile-tooltip": "Filtruoti straipsnius pagal kalbos anotaciją",
+	"sil-search-languagefilter-label": "Filtruoti pagal kalbą",
+	"sil-search-nolanguagefilter": "Nėra kalbos filtro"
 }

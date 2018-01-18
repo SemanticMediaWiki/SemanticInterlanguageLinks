@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"sil-property-ill-alias-language": "문서 내용 언어",
+	"sil-property-ill-alias-reference": "언어 간 참조",
+	"sil-property-iwl-alias-language": "인터위키 언어",
+	"sil-property-iwl-alias-reference": "인터위키 참조",
+	"sil-property-alias-container": "언어 간 링크가 있습니다",
+	"sil-search-languagefilter-label": "언어별 필터",
+	"sil-search-nolanguagefilter": "언어 필터 없음"
+}

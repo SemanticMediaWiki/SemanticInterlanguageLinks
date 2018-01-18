@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Guycn2",
+			"המקיסט"
+		]
+	},
+	"sil-desc": "הרחבת [https://www.semantic-mediawiki.org מדיה־ויקי סמנטית] שמטרתה ליצור ולנהל קישורים בכל השפות",
+	"sil-property-ill-alias-language": "שפת התוכן של הדף",
+	"sil-property-alias-container": "בעל קישור רב-לשוני",
+	"sil-search-profile": "לפי שפה",
+	"sil-search-languagefilter-label": "סינון לפי שפה",
+	"sil-search-nolanguagefilter": "אין מסנן שפה"
+}

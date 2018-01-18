@@ -1,11 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aftabuzzaman"
+			"Aftabuzzaman",
+			"Mohammed Galib Hasan",
+			"আজিজ"
 		]
 	},
 	"sil-property-iwl-alias-reference": "আন্তউইকি তথ্যসূত্র",
 	"sil-property-alias-container": "আন্তঃভাষার সংযোগ আছে",
 	"sil-search-profile": "ভাষা অনুযায়ী",
-	"sil-search-languagefilter-label": "ভাষা অনুযায়ী ফিল্টার"
+	"sil-search-languagefilter-label": "ভাষা অনুযায়ী ছাঁকনি",
+	"sil-search-nolanguagefilter": "ভাষার ছাঁকনি নেই",
+	"sil-categorypage-languagefilter-active": "এই বিষয়শ্রেণীতে অন্তর্ভুক্ত তথ্য (পৃষ্ঠা, সদস্যতা, এবং চিত্রসমূহ) \"$1\" ভাষা দ্বারা পরিস্রুত করা হয়।"
 }

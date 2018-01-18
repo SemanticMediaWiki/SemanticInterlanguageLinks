@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"01miki10",
+			"Pyscowicz"
+		]
+	},
+	"sil-property-ill-alias-language": "Sivun sisällön kieli",
+	"sil-property-ill-alias-reference": "Kieltenväliset viittauksen",
+	"sil-property-iwl-alias-language": "Interwiki-kieli",
+	"sil-property-iwl-alias-reference": "Interwiki-viittaus",
+	"sil-search-profile": "Kielen mukaan",
+	"sil-search-languagefilter-label": "Suodata kielen perusteella",
+	"sil-search-nolanguagefilter": "Ei kielisuojatusta"
+}
