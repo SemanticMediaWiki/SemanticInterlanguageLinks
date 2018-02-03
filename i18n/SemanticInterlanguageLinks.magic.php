@@ -20,6 +20,7 @@ $magicWords['en'] = array(
  $magicWords['de'] = array(
 	'interlanguagelink' => array( 0, 'SPRACHLINK:' ),
 	'interlanguagelist' => array( 0, 'SPRACHLISTE:' ),
+ 	'annotatedlanguage' => array( 0, 'SEITENSPRACHE:' ),
 );
 
 /**
