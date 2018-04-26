@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ooswesthoesbes"
+		]
+	},
+	"sil-desc": "'n [https://www.semantic-mediawiki.org Semantic MediaWiki]-oetbrejing veur 't make en behieëre van interwiki's",
+	"sil-property-ill-alias-language": "Spraok worin dees pagina steit",
+	"sil-property-ill-alias-reference": "Interwiki-rifferensie",
+	"sil-property-iwl-alias-language": "Interwiki-spraok",
+	"sil-property-iwl-alias-reference": "Interwiki-rifferensie",
+	"sil-property-alias-container": "Haet interwiki's",
+	"sil-interlanguagelink-hideinterlanguagelinks": "De parserfunctie kan neet waere gebroek ómdet <code>$wgHideInterlanguageLinks</code> is ingestèld.",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" woort neet herkènd es 'n geljige spraokcode.",
+	"sil-search-profile": "Op Spraok",
+	"sil-search-profile-tooltip": "Filtjer artikele op spraokannotaasje",
+	"sil-search-languagefilter-label": "Filtjer op spraok",
+	"sil-search-nolanguagefilter": "Geine spraokfiltjer",
+	"sil-categorypage-languagefilter-active": "Dees categorie bevat infermasie (pagina, óngercategorie en plaetje) det weurt gefiltjerd door \"$1\"-spraok."
+}

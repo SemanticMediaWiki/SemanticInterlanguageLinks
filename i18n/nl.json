@@ -5,7 +5,8 @@
 			"Sjoerddebruin",
 			"Rangekill",
 			"Hex",
-			"Mainframe98"
+			"Mainframe98",
+			"Ooswesthoesbes"
 		]
 	},
 	"sil-desc": "Een [https://www.semantic-mediawiki.org Semantic MediaWiki]-uitbreiding voor het maken en beheren van interwiki-koppelingen",
@@ -15,7 +16,7 @@
 	"sil-property-iwl-alias-reference": "Interwiki-referentie",
 	"sil-property-alias-container": "Heeft interwikilink",
 	"sil-interlanguagelink-hideinterlanguagelinks": "De parser-functie kan niet worden gebruikt omdat <code>$wgHideInterlanguageLinks</code> is ingesteld.",
-	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" werd niet herkent als een geldige taalcode.",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" werd niet herkend als een geldige taalcode.",
 	"sil-search-profile": "Op Taal",
 	"sil-search-languagefilter-label": "Filter op taal",
 	"sil-search-nolanguagefilter": "Geen taalfilter"
