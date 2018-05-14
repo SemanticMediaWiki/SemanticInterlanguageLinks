@@ -22,7 +22,7 @@
 	"sil-interlanguageparser-linkreference-error": "解析器函數從“$1”創建一個標題對象時出現問題。",
 	"sil-search-profile": "依語言",
 	"sil-search-profile-tooltip": "按語言注釋過濾條目",
-	"sil-search-languagefilter-label": "按語言過濾：",
+	"sil-search-languagefilter-label": "按語言篩選",
 	"sil-search-nolanguagefilter": "無語言篩檢程式",
 	"sil-categorypage-languagefilter-active": "此分類包含按“$1”語言過濾的資訊（頁面、子分類和圖片）。"
 }
