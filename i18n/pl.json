@@ -14,6 +14,7 @@
 	"sil-interlanguagelink-invalidlanguagecode": "„$1” nie jest prawidłowym kodem języka.",
 	"sil-interlanguagelist-missing-linkreference": "Funkcji parsera brakuje ważnego przypisu",
 	"sil-interlanguagelist-missing-template": "W funkcji parsera brakuje szablonu wyjściowego.",
+	"sil-interlanguageparser-linkreference-error": "Funkcja parsera miała problem z utworzeniem obiektu tytułowego z „$1”.",
 	"sil-search-profile": "Według języka",
 	"sil-search-profile-tooltip": "Filtruj artykuły na podstawie adnotacji językowych",
 	"sil-search-languagefilter-label": "Filtruj według języka",
