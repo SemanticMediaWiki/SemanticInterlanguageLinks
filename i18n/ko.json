@@ -10,7 +10,12 @@
 	"sil-property-iwl-alias-language": "인터위키 언어",
 	"sil-property-iwl-alias-reference": "인터위키 참조",
 	"sil-property-alias-container": "언어 간 링크가 있습니다",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\"는 유효한 언어 코드로 인식되지 않습니다.",
+	"sil-interlanguagelist-missing-linkreference": "파서 함수에 유효한 참조가 없습니다.",
+	"sil-interlanguagelist-missing-template": "파서 함수에 출력 탬플릿이 없습니다.",
+	"sil-interlanguageparser-linkreference-error": "파서 함수에 문제가 있어 \"$1\"(으)로부터 제목 객체를 만들지 못했습니다.",
 	"sil-search-profile": "언어별",
 	"sil-search-languagefilter-label": "언어별 필터",
-	"sil-search-nolanguagefilter": "언어 필터 없음"
+	"sil-search-nolanguagefilter": "언어 필터 없음",
+	"sil-categorypage-languagefilter-active": "이 분류는 \"$1\" 언어로 필터링된 정보(문서, 하위 분류, 그림)를 포함하고 있습니다."
 }
