@@ -5,11 +5,13 @@
 			"Nuevo Paso"
 		]
 	},
+	"sil-desc": "언어 간 링크를 만들고 관리하기 위한 [https://www.semantic-mediawiki.org 시맨틱 미디어위키] 확장 기능입니다",
 	"sil-property-ill-alias-language": "문서 내용 언어",
 	"sil-property-ill-alias-reference": "언어 간 참조",
 	"sil-property-iwl-alias-language": "인터위키 언어",
 	"sil-property-iwl-alias-reference": "인터위키 참조",
 	"sil-property-alias-container": "언어 간 링크가 있습니다",
+	"sil-interlanguagelink-hideinterlanguagelinks": "<code>$wgHideInterlanguageLinks</code>가 설정되어 있기 때문에 파서 함수를 사용할 수 없습니다.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\"는 유효한 언어 코드로 인식되지 않습니다.",
 	"sil-interlanguagelist-missing-linkreference": "파서 함수에 유효한 참조가 없습니다.",
 	"sil-interlanguagelist-missing-template": "파서 함수에 출력 탬플릿이 없습니다.",
