@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hedda"
+		]
+	},
+	"sil-property-ill-alias-language": "Sayfa içeriğinin dili",
+	"sil-property-ill-alias-reference": "Diller arası referans",
+	"sil-property-iwl-alias-language": "Vikiler arası dil",
+	"sil-property-iwl-alias-reference": "Vikiler arası referans",
+	"sil-search-profile": "Dile göre",
+	"sil-search-profile-tooltip": "Maddeleri dil açıklamalarına göre filtreleyin",
+	"sil-search-languagefilter-label": "Dile göre filtrele",
+	"sil-search-nolanguagefilter": "Dil filtresi yok"
+}

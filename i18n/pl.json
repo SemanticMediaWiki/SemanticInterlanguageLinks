@@ -11,6 +11,7 @@
 	"sil-property-iwl-alias-language": "Język interwiki",
 	"sil-property-iwl-alias-reference": "Odnośnik interwiki",
 	"sil-property-alias-container": "Ma wielojęzykowy link",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Nie można użyć funkcji parsera, ponieważ ustawiono <code>$wgHideInterlanguageLinks</code>.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1” nie jest prawidłowym kodem języka.",
 	"sil-interlanguagelist-missing-linkreference": "Funkcji parsera brakuje ważnego przypisu",
 	"sil-interlanguagelist-missing-template": "W funkcji parsera brakuje szablonu wyjściowego.",
