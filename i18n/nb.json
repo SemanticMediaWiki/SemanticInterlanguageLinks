@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jon Harald Søby"
+			"Jon Harald Søby",
+			"Orf3us"
 		]
 	},
 	"sil-property-ill-alias-language": "Sideinnholdsspråk",
+	"sil-property-iwl-alias-language": "Interwikispråk",
 	"sil-search-profile": "Etter språk",
 	"sil-search-profile-tooltip": "Filtrer artikler etter språkannotering",
 	"sil-search-languagefilter-label": "Filtrer etter språk",
