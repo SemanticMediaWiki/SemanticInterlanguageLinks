@@ -4,7 +4,8 @@
 			"Cwlin0416",
 			"Assoc",
 			"Kly",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Deathkon"
 		]
 	},
 	"sil-desc": "用來創建和管理跨語言連結的[https://www.semantic-mediawiki.org Semantic MediaWiki]擴展",
@@ -13,6 +14,7 @@
 	"sil-property-iwl-alias-language": "跨 wiki 語言",
 	"sil-property-iwl-alias-reference": "跨 wiki 參考",
 	"sil-property-alias-container": "有跨語言連結",
+	"smw-pa-property-predefined__sil_container": "“$1”是一個預定義屬性，表示用於描述中間語言鏈接相關信息的容器實體，由[https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links]擴展提供。",
 	"sil-interlanguagelink-hideinterlanguagelinks": "因為<code>$wgHideInterlanguageLinks</code>被設定，解析器函數不能使用。",
 	"sil-interlanguagelink-invalidlanguagecode": "「$1」不被認為是有效的語言代碼。",
 	"sil-interlanguagelink-multiplecalls-different-languagecode": "解析器函數被調用多次，但使用了一個不同的語言程式碼（“$1”），這應當避免，因為頁面內容通常由一種語言書寫。",
