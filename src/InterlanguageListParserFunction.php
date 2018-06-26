@@ -5,6 +5,8 @@ namespace SIL;
 use Title;
 use Language;
 
+use SMW\Localizer;
+
 /**
  * @license GNU GPL v2+
  * @since 1.0
@@ -91,7 +93,7 @@ class InterlanguageListParserFunction {
 
 			$wikitext .= "|#=" . $i++;
 			$wikitext .= "|target-link=" . $this->modifyTargetLink( $targetLink );
-			$wikitext .= "|lang-code=" . wfBCP47( $languageCode );
+			$wikitext .= "|lang-code=" . Localizer::asBCP47FormattedLanguageCode( $languageCode );
 			$wikitext .= "|lang-name=" . Language::fetchLanguageName( $languageCode );
 
 			$templateText .= '{{' . $template . $wikitext . '}}';
