@@ -10,6 +10,8 @@ use Xml;
 use SearchResultSet;
 use SpecialSearch;
 
+use SMW\Localizer;
+
 /**
  * @license GNU GPL v2+
  * @since 1.0
@@ -148,7 +150,7 @@ class SearchResultModifier {
 			return false;
 		}
 
-		$languageCode = wfBCP47( $request->getVal( 'languagefilter' ) );
+		$languageCode = Localizer::asBCP47FormattedLanguageCode( $request->getVal( 'languagefilter' ) );
 
 		if ( in_array( $languageCode, array( null, '', '-' ) ) ) {
 			return false;

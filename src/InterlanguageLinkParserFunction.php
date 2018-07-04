@@ -6,6 +6,8 @@ use Onoi\Cache\CacheFactory;
 use Title;
 use Language;
 
+use SMW\Localizer;
+
 /**
  * @license GNU GPL v2+
  * @since 1.0
@@ -97,7 +99,7 @@ class InterlanguageLinkParserFunction {
 	 */
 	public function parse( $languageCode, $linkReference ) {
 
-		$languageCode = wfBCP47( $languageCode );
+		$languageCode = Localizer::asBCP47FormattedLanguageCode( $languageCode );
 
 		// Keep reference while editing is on going to avoid a possible lag when
 		// a DV is trying to access the page content language
