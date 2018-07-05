@@ -3,7 +3,8 @@
 		"authors": [
 			"Subi",
 			"An13sa",
-			"Mikel Ibaiba"
+			"Mikel Ibaiba",
+			"Amaia"
 		]
 	},
 	"sil-property-ill-alias-language": "Eduki orriaren hizkuntza",
@@ -12,8 +13,11 @@
 	"sil-property-iwl-alias-reference": "Interwiki erreferentzia",
 	"sil-property-alias-container": "Hizkuntzen arteko loturak ditu",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" ez da hizkuntza kode baliogarri moduan aitortu.",
+	"sil-interlanguagelist-missing-linkreference": "Funtzio aztertzaileari balio onargarri bat falta zaio.",
+	"sil-interlanguageparser-linkreference-error": "Funtzio aztertzaileak arazo bat izan du \"$1\"-(e)tik izenburu objektu bat sortzeko.",
 	"sil-search-profile": "Hizkuntzaren arabera",
 	"sil-search-profile-tooltip": "Hizkuntza oharpen arabera artikuluak iragazi",
 	"sil-search-languagefilter-label": "Iragazi hizkuntzaren arabera",
-	"sil-search-nolanguagefilter": "Hizkuntzaren araberako iragazkirik gabe"
+	"sil-search-nolanguagefilter": "Hizkuntzaren araberako iragazkirik gabe",
+	"sil-categorypage-languagefilter-active": "Kategoria honek \"$1\" hizkuntzak iragazitako informazioa (orria, azpikategoria, eta irudia) dauka."
 }
