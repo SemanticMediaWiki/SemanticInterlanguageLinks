@@ -11,6 +11,7 @@
 	"sil-property-iwl-alias-language": "Język interwiki",
 	"sil-property-iwl-alias-reference": "Odnośnik interwiki",
 	"sil-property-alias-container": "Ma wielojęzykowy link",
+	"smw-pa-property-predefined__sil_iwl_lang": "„$1” jest predefiniowaną właściwością, reprezentującą kod języka pochodzący z linku interwiki i jest dostarczana przez rozszerzenie [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Nie można użyć funkcji parsera, ponieważ ustawiono <code>$wgHideInterlanguageLinks</code>.",
 	"sil-interlanguagelink-invalidlanguagecode": "„$1” nie jest prawidłowym kodem języka.",
 	"sil-interlanguagelist-missing-linkreference": "Funkcji parsera brakuje ważnego przypisu",
