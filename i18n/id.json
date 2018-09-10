@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bagas Chrisara"
+		]
+	},
+	"sil-property-ill-alias-language": "Bahasa konten halaman",
+	"sil-property-ill-alias-reference": "Referensi antarbahasa",
+	"sil-property-iwl-alias-language": "Bahasa interwiki",
+	"sil-property-iwl-alias-reference": "Rujukan interwiki",
+	"sil-property-alias-container": "Pranala antarbahasa has",
+	"sil-search-profile": "Menurut Bahasa"
+}
