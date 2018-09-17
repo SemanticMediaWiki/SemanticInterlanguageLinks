@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nerogaf"
+		]
+	},
+	"sil-desc": "Пашырэньне [https://www.semantic-mediawiki.org Semantic MediaWiki] для стварэньня й кіраваньня міжмоўнымі спасылкамі",
+	"sil-property-ill-alias-language": "Мова зьместу старонкі",
+	"sil-property-ill-alias-reference": "Міжмоўная спасылка",
+	"sil-property-iwl-alias-language": "Мова інтэрвікі",
+	"sil-property-iwl-alias-reference": "Interwiki-спасылка",
+	"sil-property-alias-container": "Мае міжмоўную спасылку",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" ня было распазнана як дапушчальны код мовы.",
+	"sil-search-profile": "За мовай",
+	"sil-search-profile-tooltip": "Фільтараваць артыкулы па моўнай анатацыі",
+	"sil-search-nolanguagefilter": "Бяз моўнага фільтара"
+}
