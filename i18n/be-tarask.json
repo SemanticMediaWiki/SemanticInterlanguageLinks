@@ -14,5 +14,6 @@
 	"sil-interlanguagelink-invalidlanguagecode": "«$1» ня быў распазнаны як дапушчальны код мовы.",
 	"sil-search-profile": "Паводле мовы",
 	"sil-search-profile-tooltip": "Фільтраваць артыкулы па моўнай анатацыі",
+	"sil-search-languagefilter-label": "Фільтар паводле мовы",
 	"sil-search-nolanguagefilter": "Бяз моўнага фільтру"
 }

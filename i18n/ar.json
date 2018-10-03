@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"محمد أحمد عبد الفتاح",
-			"ديفيد"
+			"ديفيد",
+			"Meno25"
 		]
 	},
 	"sil-desc": "امتداد [https://www.semantic-mediawiki.org ميدياويكي الدلالية] لإنشاء وإدارة وصلات الإنترويكي",
@@ -11,6 +12,12 @@
 	"sil-property-iwl-alias-language": "لغة إنترويكي",
 	"sil-property-iwl-alias-reference": "مرجع إنترويكي",
 	"sil-property-alias-container": "بها وصلة إنترويكي",
+	"smw-pa-property-predefined__sil_container": "\"$1\" هي خاصية معرفة مسبقا وتمثل كيان حاوية لوصف معلومات مرتبطة بوصلة إنترويكي وهي موفرة بواسطة امتداد  [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_ill_lang": "\"$1\" هي خاصية موفرة مسبقا تحتوي على كود لغة معلم وهي موفرة بواسطة امتداد [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_ill_ref": "\"$1\" هي خاصية معرفة مسبقا تحتوي على مرجع افتراضي وهي موفرة بواسطة امتداد [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined-long__sil_ill_ref": "الكيانات بنفس المرجع يتم وصلها ويتوقع أن تمثل محتوى مماثل بلغات مختلفة.",
+	"smw-pa-property-predefined__sil_iwl_lang": "\"$1\" هي خاصبة معرفة مسبقا وتمثل كود لغة مشتق من وصلة إنترويكي وهي موفرة بواسطة امتداد [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_iwl_ref": "\"$1\" هي خاصية معرفة مسبقا وتمثل صفحة هدف مشتقة من وصلة إنترويكي وهي موفرة بواسطة امتداد [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "وظيفة المحلل لا يمكن أن تُستخدَم بسبب تعيين <code>$wgHideInterlanguageLinks</code>.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" لم يُعترَف به كرمز لغة صالح.",
 	"sil-interlanguagelink-multiplecalls-different-languagecode": "تم استدعاء وظيفة المحلل عدة مرات ولكن مع رمز لغة مختلف (\"$1\") الذي يتم تجنبه كمحتوى صفحة من المتوقع أن تكون ممثلة بلغة واحدة.",
