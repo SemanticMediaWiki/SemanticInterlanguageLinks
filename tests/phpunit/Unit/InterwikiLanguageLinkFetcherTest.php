@@ -41,7 +41,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
 		$parserOutput = new \ParserOutput();
-		$parserOutput->setLanguageLinks( array() );
+		$parserOutput->setLanguageLinks( [] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
@@ -57,7 +57,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
 		$parserOutput = new \ParserOutput();
-		$parserOutput->setLanguageLinks( array( 'sil:en:Foo' ) );
+		$parserOutput->setLanguageLinks( [ 'sil:en:Foo' ] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
@@ -73,7 +73,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
 		$parserOutput = new \ParserOutput();
-		$parserOutput->setLanguageLinks( array( 'invalid:Foo' ) );
+		$parserOutput->setLanguageLinks( [ 'invalid:Foo' ] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
@@ -86,7 +86,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
-			->setConstructorArgs( array( $parserData ) )
+			->setConstructorArgs( [ $parserData ] )
 			->getMock();
 
 		$languageLinkAnnotator->expects( $this->once() )
@@ -101,7 +101,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( 'en' ) );
 
 		$parserOutput = new \ParserOutput();
-		$parserOutput->setLanguageLinks( array( $title ) );
+		$parserOutput->setLanguageLinks( [ $title ] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );

@@ -67,15 +67,15 @@ class SemanticInterlanguageLinks {
 		define( 'SIL_VERSION', '1.5.0-alpha' );
 
 		// Register extension info
-		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = array(
+		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = [
 			'path'           => __FILE__,
 			'name'           => 'Semantic Interlanguage Links',
-			'author'         => array( 'James Hong Kong' ),
+			'author'         => [ 'James Hong Kong' ],
 			'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
 			'descriptionmsg' => 'sil-desc',
 			'version'        => SIL_VERSION,
 			'license-name'   => 'GPL-2.0-or-later',
-		);
+		];
 
 		// Register message files
 		$GLOBALS['wgMessagesDirs']['SemanticInterlanguageLinks'] = __DIR__ . '/i18n';
@@ -127,10 +127,10 @@ class SemanticInterlanguageLinks {
 
 		$cacheFactory = new CacheFactory();
 
-		$compositeCache = $cacheFactory->newCompositeCache( array(
+		$compositeCache = $cacheFactory->newCompositeCache( [
 			$cacheFactory->newFixedInMemoryLruCache( 500 ),
 			$cacheFactory->newMediaWikiCache( ObjectCache::getInstance( $GLOBALS['silgCacheType'] ) )
-		) );
+		] );
 
 		$cacheKeyProvider = new CacheKeyProvider(
 			$GLOBALS['wgCachePrefix'] === false ? wfWikiID() : $GLOBALS['wgCachePrefix']

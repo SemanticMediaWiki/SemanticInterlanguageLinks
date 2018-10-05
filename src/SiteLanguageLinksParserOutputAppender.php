@@ -29,7 +29,7 @@ class SiteLanguageLinksParserOutputAppender {
 	 *
 	 * @var array
 	 */
-	private static $languageTargetLinksMap = array();
+	private static $languageTargetLinksMap = [];
 
 	/**
 	 * @since 1.0

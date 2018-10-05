@@ -54,7 +54,7 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$connection = $this->getMockBuilder( '\DatabaseBase' )
 			->disableOriginalConstructor()
-			->setMethods( array( 'update' ) )
+			->setMethods( [ 'update' ] )
 			->getMockForAbstractClass();
 
 		$connection->expects( $this->once() )
@@ -84,7 +84,7 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$connection = $this->getMockBuilder( '\DatabaseBase' )
 			->disableOriginalConstructor()
-			->setMethods( array( 'update' ) )
+			->setMethods( [ 'update' ] )
 			->getMockForAbstractClass();
 
 		$connection->expects( $this->never() )

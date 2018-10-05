@@ -123,11 +123,11 @@ class InterlanguageLinksLookup {
 			$interlanguageLink
 		);
 
-		if ( is_array( $languageTargetLinks ) && $languageTargetLinks !== array() ) {
+		if ( is_array( $languageTargetLinks ) && $languageTargetLinks !== [] ) {
 			return $languageTargetLinks;
 		}
 
-		$languageTargetLinks = array();
+		$languageTargetLinks = [];
 
 		if ( $target !== null && $interlanguageLink->getLanguageCode() !== '' ) {
 			$languageTargetLinks[ $interlanguageLink->getLanguageCode() ] = $target;
@@ -190,7 +190,7 @@ class InterlanguageLinksLookup {
 			new DIProperty( PropertyRegistry::SIL_CONTAINER )
 		);
 
-		return $propertyValues !== array();
+		return $propertyValues !== [];
 	}
 
 	/**
@@ -202,7 +202,7 @@ class InterlanguageLinksLookup {
 	 */
 	public function findFullListOfReferenceTargetLinks( Title $title ) {
 
-		$linkReferences = array();
+		$linkReferences = [];
 
 		try{
 			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
@@ -215,7 +215,7 @@ class InterlanguageLinksLookup {
 			$property
 		);
 
-		if ( !is_array( $propertyValues ) || $propertyValues === array() ) {
+		if ( !is_array( $propertyValues ) || $propertyValues === [] ) {
 			return $linkReferences;
 		}
 
@@ -306,7 +306,7 @@ class InterlanguageLinksLookup {
 			$property
 		);
 
-		if ( !is_array( $propertyValues ) || $propertyValues === array() ) {
+		if ( !is_array( $propertyValues ) || $propertyValues === [] ) {
 			return self::NO_LANG;
 		}
 

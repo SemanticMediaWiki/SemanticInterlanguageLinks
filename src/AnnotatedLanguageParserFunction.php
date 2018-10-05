@@ -61,7 +61,7 @@ class AnnotatedLanguageParserFunction {
 			$template
 		);
 
-		return array( $templateText, 'noparse' => $templateText === '', 'isHTML' => false );
+		return [ $templateText, 'noparse' => $templateText === '', 'isHTML' => false ];
 	}
 
 	private function createTemplateInclusionCode( $source, $languageCode, $template ) {

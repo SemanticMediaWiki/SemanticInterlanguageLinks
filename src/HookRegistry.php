@@ -22,7 +22,7 @@ class HookRegistry {
 	/**
 	 * @var array
 	 */
-	private $handlers = array();
+	private $handlers = [];
 
 	/**
 	 * @since 1.0
@@ -80,7 +80,7 @@ class HookRegistry {
 		// Exclude those properties from indexing
 		$config['smwgFulltextSearchPropertyExemptionList'] = array_merge(
 			$config['smwgFulltextSearchPropertyExemptionList'],
-			array( PropertyRegistry::SIL_IWL_LANG, PropertyRegistry::SIL_ILL_LANG )
+			[ PropertyRegistry::SIL_IWL_LANG, PropertyRegistry::SIL_ILL_LANG ]
 		);
 	}
 

@@ -48,7 +48,7 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$languageLink = array();
+		$languageLink = [];
 
 		$instance = new SiteLanguageLinkModifier(
 			$titleForExternalLanguageLink,
@@ -122,39 +122,39 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 
 	public function invalidLanguageLinkProvider() {
 
-		$provider = array();
+		$provider = [];
 
-		$provider[] = array(
-			array( 'text' => 'no:sil:entry' ),
-			array( 'text' => 'no:sil:entry' )
-		);
+		$provider[] = [
+			[ 'text' => 'no:sil:entry' ],
+			[ 'text' => 'no:sil:entry' ]
+		];
 
-		$provider[] = array(
-			array( 'text' => 'Foo' ),
-			array( 'text' => 'Foo' )
-		);
+		$provider[] = [
+			[ 'text' => 'Foo' ],
+			[ 'text' => 'Foo' ]
+		];
 
 		return $provider;
 	}
 
 	public function validLanguageLinkProvider() {
 
-		$provider = array();
+		$provider = [];
 
-		$provider[] = array(
-			array( 'text' => 'sil:en:Foo' ),
+		$provider[] = [
+			[ 'text' => 'sil:en:Foo' ],
 			'English'
-		);
+		];
 
-		$provider[] = array(
-			array( 'text' => 'sil:en:vi:Foo' ),
+		$provider[] = [
+			[ 'text' => 'sil:en:vi:Foo' ],
 			'English'
-		);
+		];
 
-		$provider[] = array(
-			array( 'text' => 'sil:ja:ja:ノート:Foo' ),
+		$provider[] = [
+			[ 'text' => 'sil:ja:ja:ノート:Foo' ],
 			'日本語'
-		);
+		];
 
 		return $provider;
 	}

@@ -85,9 +85,9 @@ class LanguageTargetLinksCache {
 	 */
 	public function pushPageLanguageToCache( Title $title, $languageCode ) {
 
-		$normalizedLanguageTargetLink = array(
+		$normalizedLanguageTargetLink = [
 			$languageCode => $title->getPrefixedText()
-		);
+		];
 
 		$this->save( $normalizedLanguageTargetLink );
 	}
@@ -129,7 +129,7 @@ class LanguageTargetLinksCache {
 	 */
 	public function saveLanguageTargetLinksToCache( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
 
-		$normalizedLanguageTargetLinks = array();
+		$normalizedLanguageTargetLinks = [];
 
 		foreach ( $languageTargetLinks as $languageCode => $title ) {
 
@@ -140,7 +140,7 @@ class LanguageTargetLinksCache {
 			$normalizedLanguageTargetLinks[ $languageCode ] = $title;
 		}
 
-		if ( $normalizedLanguageTargetLinks === array() ) {
+		if ( $normalizedLanguageTargetLinks === [] ) {
 			return;
 		}
 
@@ -264,7 +264,7 @@ class LanguageTargetLinksCache {
 		);
 
 		if ( $pageLanguageCacheBlob === false ) {
-			$pageLanguageCacheBlob = array();
+			$pageLanguageCacheBlob = [];
 		}
 
 		return $pageLanguageCacheBlob;

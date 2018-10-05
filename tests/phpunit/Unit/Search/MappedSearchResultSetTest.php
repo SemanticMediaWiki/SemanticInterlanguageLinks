@@ -20,8 +20,8 @@ class MappedSearchResultSetTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
-		$searchMatches = array();
-		$termMatches = array();
+		$searchMatches = [];
+		$termMatches = [];
 
 		$this->assertInstanceOf(
 			'\SIL\Search\MappedSearchResultSet',
@@ -31,8 +31,8 @@ class MappedSearchResultSetTest extends \PHPUnit_Framework_TestCase {
 
 	public function testEmptyResulSet() {
 
-		$searchMatches = array();
-		$termMatches = array();
+		$searchMatches = [];
+		$termMatches = [];
 
 		$instance = new MappedSearchResultSet( $searchMatches, $termMatches, 42 );
 
@@ -69,8 +69,8 @@ class MappedSearchResultSetTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$searchMatches = array( $searchResult, $fakeTitle, 'Foo' );
-		$termMatches = array();
+		$searchMatches = [ $searchResult, $fakeTitle, 'Foo' ];
+		$termMatches = [];
 
 		$instance = new MappedSearchResultSet( $searchMatches, $termMatches );
 
