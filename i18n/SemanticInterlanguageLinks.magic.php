@@ -3,29 +3,29 @@
 /**
  * Magic words
  */
-$magicWords = array();
+$magicWords = [];
 
 /**
  * English (English)
  */
-$magicWords['en'] = array(
-	'interlanguagelink' => array( 0, 'INTERLANGUAGELINK:', 'SIL:' ),
-	'interlanguagelist' => array( 0, 'INTERLANGUAGELIST:', 'SILIST:' ),
-	'annotatedlanguage' => array( 0, 'ANNOTATEDLANGUAGE:' ),
-);
+$magicWords['en'] = [
+	'interlanguagelink' => [ 0, 'INTERLANGUAGELINK:', 'SIL:' ],
+	'interlanguagelist' => [ 0, 'INTERLANGUAGELIST:', 'SILIST:' ],
+	'annotatedlanguage' => [ 0, 'ANNOTATEDLANGUAGE:' ],
+];
 
 /**
  * German (Deutsch)
  */
- $magicWords['de'] = array(
-	'interlanguagelink' => array( 0, 'SPRACHLINK:' ),
-	'interlanguagelist' => array( 0, 'SPRACHLISTE:' ),
- 	'annotatedlanguage' => array( 0, 'SEITENSPRACHE:' ),
-);
+ $magicWords['de'] = [
+	'interlanguagelink' => [ 0, 'SPRACHLINK:' ],
+	'interlanguagelist' => [ 0, 'SPRACHLISTE:' ],
+ 	'annotatedlanguage' => [ 0, 'SEITENSPRACHE:' ],
+];
 
 /**
  * Japanese (日本語)
  */
-$magicWords['ja'] = array(
-	'interlanguagelink' => array( 0, '言語間:' ),
-);
+$magicWords['ja'] = [
+	'interlanguagelink' => [ 0, '言語間:' ],
+];

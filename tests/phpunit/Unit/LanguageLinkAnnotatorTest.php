@@ -162,15 +162,15 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 
 	public function differentLanguageAnnotationProvider() {
 
-		$provider[] = array(
-			array( new DIWikiPage( 'Foo', NS_MAIN, '' , 'ill.en' ) ),
+		$provider[] = [
+			[ new DIWikiPage( 'Foo', NS_MAIN, '' , 'ill.en' ) ],
 			true
-		);
+		];
 
-		$provider[] = array(
-			array(),
+		$provider[] = [
+			[],
 			false
-		);
+		];
 
 		return $provider;
 	}

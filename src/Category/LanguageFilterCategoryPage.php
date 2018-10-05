@@ -54,10 +54,10 @@ class LanguageFilterCategoryPage extends CategoryPage {
 
 			$html = Html::element(
 				'div',
-				array(
+				[
 					'id'    => 'sil-categorypage-languagefilter',
 					'style' => 'font-style:italic'
-				),
+				],
 				wfMessage(
 					'sil-categorypage-languagefilter-active',
 					$this->getTitle()->getPageLanguage()->getCode() )->inLanguage( $this->getTitle()->getPageLanguage() )->text()

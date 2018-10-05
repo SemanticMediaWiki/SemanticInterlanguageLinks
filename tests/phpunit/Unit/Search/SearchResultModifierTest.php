@@ -38,7 +38,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new SearchResultModifier( $languageResultMatchFinder );
 
-		$profiles = array();
+		$profiles = [];
 
 		$instance->addSearchProfile( $profiles );
 
@@ -93,7 +93,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 				$this->equalTo( 'vi' ) );
 
 		$form = '';
-		$opts = array( 'Foo' => 'Bar' );
+		$opts = [ 'Foo' => 'Bar' ];
 
 		$this->assertFalse(
 			$instance->addSearchProfileForm( $specialSearch, 'sil', $form, $opts )
@@ -123,7 +123,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$form = '';
-		$opts = array();
+		$opts = [];
 
 		$this->assertTrue(
 			$instance->addSearchProfileForm( $specialSearch, 'foo', $form, $opts )
@@ -281,22 +281,22 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 	public function invalidLanguageCodeProvider() {
 
-		$provider = array(
-			array( null ),
-			array( '' ),
-			array( false ),
-			array( '-' )
-		);
+		$provider = [
+			[ null ],
+			[ '' ],
+			[ false ],
+			[ '-' ]
+		];
 
 		return $provider;
 	}
 
 	public function validProfileProvider() {
 
-		$provider = array(
-			array( 'sil' ),
-			array( 'advanced' )
-		);
+		$provider = [
+			[ 'sil' ],
+			[ 'advanced' ]
+		];
 
 		return $provider;
 	}

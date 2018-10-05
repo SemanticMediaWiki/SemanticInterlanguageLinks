@@ -39,7 +39,7 @@ class LanguageResultMatchFinder {
 	 */
 	public function matchResultsToLanguage( SearchResultSet $matches, $languageCode ) {
 
-		$mappedMatches = array();
+		$mappedMatches = [];
 
 		while ( $searchresult = $matches->next() ) {
 
@@ -52,7 +52,7 @@ class LanguageResultMatchFinder {
 			}
 		}
 
-		if ( $mappedMatches === array() ) {
+		if ( $mappedMatches === [] ) {
 			return null;
 		}
 

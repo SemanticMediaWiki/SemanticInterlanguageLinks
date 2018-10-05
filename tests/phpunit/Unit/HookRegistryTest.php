@@ -88,21 +88,21 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 	public function testOnBeforeConfigCompletion() {
 
-		$config = array(
-			'smwgFulltextSearchPropertyExemptionList' => array()
-		);
+		$config = [
+			'smwgFulltextSearchPropertyExemptionList' => []
+		];
 
-		$propertyExemptionList = array(
+		$propertyExemptionList = [
 			'__sil_iwl_lang',
 			'__sil_ill_lang'
-		);
+		];
 
 		HookRegistry::onBeforeConfigCompletion( $config );
 
 		$this->assertEquals(
-			array(
+			[
 				'smwgFulltextSearchPropertyExemptionList' => $propertyExemptionList,
-			),
+			],
 			$config
 		);
 	}
@@ -117,7 +117,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( &$parser )
+			[ &$parser ]
 		);
 	}
 
@@ -141,7 +141,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $wikipage )
+			[ $wikipage ]
 		);
 	}
 
@@ -165,7 +165,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( &$wikipage )
+			[ &$wikipage ]
 		);
 	}
 
@@ -174,7 +174,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$handler = 'SkinTemplateGetLanguageLink';
 
 		$title = Title::newFromText( __METHOD__ );
-		$languageLink = array();
+		$languageLink = [];
 
 		$this->assertTrue(
 			$instance->isRegistered( $handler )
@@ -182,7 +182,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( &$languageLink, $title, $title )
+			[ &$languageLink, $title, $title ]
 		);
 	}
 
@@ -199,7 +199,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $title, &$pageLang )
+			[ $title, &$pageLang ]
 		);
 	}
 
@@ -216,7 +216,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $title, &$page )
+			[ $title, &$page ]
 		);
 	}
 
@@ -231,7 +231,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( &$parser, &$text )
+			[ &$parser, &$text ]
 		);
 	}
 
@@ -249,7 +249,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $propertyRegistry )
+			[ $propertyRegistry ]
 		);
 	}
 
@@ -264,7 +264,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $this->store, $title )
+			[ $this->store, $title ]
 		);
 	}
 
@@ -279,14 +279,14 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $this->store, $title, $title, 0, 0 )
+			[ $this->store, $title, $title, 0, 0 ]
 		);
 	}
 
 	public function doTestSpecialSearchProfiles( $instance ) {
 
 		$handler = 'SpecialSearchProfiles';
-		$profiles = array();
+		$profiles = [];
 
 		$this->assertTrue(
 			$instance->isRegistered( $handler )
@@ -294,7 +294,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( &$profiles )
+			[ &$profiles ]
 		);
 	}
 
@@ -309,7 +309,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$form = '';
 		$profile = '';
 		$term = '';
-		$opts = array();
+		$opts = [];
 
 		$this->assertTrue(
 			$instance->isRegistered( $handler )
@@ -317,7 +317,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $search, &$form, $profile, $term, $opts )
+			[ $search, &$form, $profile, $term, $opts ]
 		);
 	}
 
@@ -338,7 +338,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $search, &$titleMatches, &$textMatches )
+			[ $search, &$titleMatches, &$textMatches ]
 		);
 	}
 
@@ -346,7 +346,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$handler = 'SpecialSearchSetupEngine';
 
-		$profile = array();
+		$profile = [];
 
 		$request = $this->getMockBuilder( '\WebRequest' )
 			->disableOriginalConstructor()
@@ -385,14 +385,14 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( $search, $profile, $searchEngine )
+			[ $search, $profile, $searchEngine ]
 		);
 	}
 
 	public function doTestSpecialSearchPowerBox( $instance ) {
 
 		$handler = 'SpecialSearchPowerBox';
-		$showSections = array();
+		$showSections = [];
 
 		$this->assertTrue(
 			$instance->isRegistered( $handler )
@@ -400,7 +400,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertThatHookIsExcutable(
 			$instance->getHandlerFor( $handler ),
-			array( &$showSections, '', array() )
+			[ &$showSections, '', [] ]
 		);
 	}
 

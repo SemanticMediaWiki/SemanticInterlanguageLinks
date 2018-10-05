@@ -41,11 +41,11 @@ class SearchResultModifier {
 	 */
 	public function addSearchProfile( array &$profiles ) {
 
-		$profiles['sil'] = array(
+		$profiles['sil'] = [
 			'message' => 'sil-search-profile',
 			'tooltip' => 'sil-search-profile-tooltip',
 			'namespaces' => \SearchEngine::defaultNamespaces()
-		);
+		];
 
 		return true;
 	}
@@ -78,7 +78,7 @@ class SearchResultModifier {
 			$search->setExtraParam( 'languagefilter', $languagefilter );
 		}
 
-		$params = array( 'id' => 'mw-searchoptions' );
+		$params = [ 'id' => 'mw-searchoptions' ];
 
 		$form = Xml::fieldset( false, false, $params ) .
 			$hidden . $this->createHtmlLanguageFilterSelector( $languagefilter ) .
@@ -146,13 +146,13 @@ class SearchResultModifier {
 	 */
 	public function applyLanguageFilterToResultMatches( $request, &$titleMatches, &$textMatches ) {
 
-		if ( !in_array( $request->getVal( 'profile' ), array( 'sil', 'advanced' ) ) ) {
+		if ( !in_array( $request->getVal( 'profile' ), [ 'sil', 'advanced' ] ) ) {
 			return false;
 		}
 
 		$languageCode = Localizer::asBCP47FormattedLanguageCode( $request->getVal( 'languagefilter' ) );
 
-		if ( in_array( $languageCode, array( null, '', '-' ) ) ) {
+		if ( in_array( $languageCode, [ null, '', '-' ] ) ) {
 			return false;
 		}
 

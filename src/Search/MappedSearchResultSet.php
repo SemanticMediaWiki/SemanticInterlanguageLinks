@@ -18,7 +18,7 @@ class MappedSearchResultSet extends SearchResultSet {
 	/**
 	 * @var SearchResult[]
 	 */
-	private $searchMatches = array();
+	private $searchMatches = [];
 
 	/**
 	 * @var string[]
@@ -50,7 +50,7 @@ class MappedSearchResultSet extends SearchResultSet {
 	 */
 	public function next() {
 
-		if ( $this->searchMatches === false || $this->searchMatches === array() ) {
+		if ( $this->searchMatches === false || $this->searchMatches === [] ) {
 			return false;
 		}
 

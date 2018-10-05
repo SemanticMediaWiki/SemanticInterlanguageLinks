@@ -26,7 +26,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 
 	private $pageCreator;
 	private $semanticDataValidator;
-	private $subjects = array();
+	private $subjects = [];
 
 	protected function setUp() {
 		parent::setUp();
@@ -41,14 +41,14 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 				return true;
 			}
 
-			$interwiki = array(
+			$interwiki = [
 				'iw_prefix' => 'en',
 				'iw_url' => 'http://www.example.org/$1',
 				'iw_api' => false,
 				'iw_wikiid' => 'foo',
 				'iw_local' => true,
 				'iw_trans' => false,
-			);
+			];
 
 			return false;
 		};
@@ -70,22 +70,22 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 			->createPage( $subject->getTitle() )
 			->doEdit( '{{INTERLANGUAGELINK:en|Lorem ipsum}}' );
 
-		$expected = array(
+		$expected = [
 			'propertyCount' => 3,
-			'properties' => array(
+			'properties' => [
 				DIProperty::newFromUserLabel( '_SKEY' ),
 				DIProperty::newFromUserLabel( SIL_PROP_ILL_REF ),
 				DIProperty::newFromUserLabel( SIL_PROP_ILL_LANG )
-			),
-			'propertyValues' => array( 'en', 'Lorem ipsum', __METHOD__ )
-		);
+			],
+			'propertyValues' => [ 'en', 'Lorem ipsum', __METHOD__ ]
+		];
 
 		$this->semanticDataValidator->assertThatPropertiesAreSet(
 			$expected,
 			$this->getStore()->getSemanticData( $subject )->findSubSemanticData( 'ill.en' )
 		);
 
-		$this->subjects = array( $subject );
+		$this->subjects = [ $subject ];
 	}
 
 	public function testInterlanguageLinkParserToUseRedirect() {
@@ -101,22 +101,22 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 			->createPage( Title::newFromText( __METHOD__ ) )
 			->doEdit( '{{INTERLANGUAGELINK:ja|Sil-redirect}}' );
 
-		$expected = array(
+		$expected = [
 			'propertyCount' => 3,
-			'properties' => array(
+			'properties' => [
 				DIProperty::newFromUserLabel( '_SKEY' ),
 				DIProperty::newFromUserLabel( SIL_PROP_ILL_REF ),
 				DIProperty::newFromUserLabel( SIL_PROP_ILL_LANG )
-			),
-			'propertyValues' => array( 'ja', 'Sil-redirect-2', __METHOD__ )
-		);
+			],
+			'propertyValues' => [ 'ja', 'Sil-redirect-2', __METHOD__ ]
+		];
 
 		$this->semanticDataValidator->assertThatPropertiesAreSet(
 			$expected,
 			$this->getStore()->getSemanticData( $subject )->findSubSemanticData( 'ill.ja' )
 		);
 
-		$this->subjects = array( $subject, 'Sil-redirect', 'Sil-redirect-2' );
+		$this->subjects = [ $subject, 'Sil-redirect', 'Sil-redirect-2' ];
 	}
 
 	public function testUseInterwikiLanguageLinkInPage() {
@@ -127,22 +127,22 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 			->createPage( $subject->getTitle() )
 			->doEdit( '[[en:Foo]]' );
 
-		$expected = array(
+		$expected = [
 			'propertyCount' => 3,
-			'properties' => array(
+			'properties' => [
 				DIProperty::newFromUserLabel( '_SKEY' ),
 				DIProperty::newFromUserLabel( SIL_PROP_IWL_REF ),
 				DIProperty::newFromUserLabel( SIL_PROP_IWL_LANG )
-			),
-			'propertyValues' => array( 'en', 'en:Foo', __METHOD__ )
-		);
+			],
+			'propertyValues' => [ 'en', 'en:Foo', __METHOD__ ]
+		];
 
 		$this->semanticDataValidator->assertThatPropertiesAreSet(
 			$expected,
 			$this->getStore()->getSemanticData( $subject )->findSubSemanticData( 'iwl.en' )
 		);
 
-		$this->subjects = array( $subject );
+		$this->subjects = [ $subject ];
 	}
 
 	public function testUseInterlanguageListParserForTemplateInclusion() {
@@ -180,7 +180,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 			$text
 		);
 
-		$this->subjects = array( $template, $subject, $targetEn, $targetJa );
+		$this->subjects = [ $template, $subject, $targetEn, $targetJa ];
 	}
 
 	public function testQuerySubjectsForWildcardPageContentLanguage() {
@@ -213,7 +213,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 			$text
 		);
 
-		$this->subjects = array( $subject, $targetEn, $targetJa );
+		$this->subjects = [ $subject, $targetEn, $targetJa ];
 	}
 
 	public function testQuerySubjectsForSpecificPageContentLanguage() {
@@ -246,7 +246,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 			$text
 		);
 
-		$this->subjects = array( $subject, $targetEn, $targetJa );
+		$this->subjects = [ $subject, $targetEn, $targetJa ];
 	}
 
 }

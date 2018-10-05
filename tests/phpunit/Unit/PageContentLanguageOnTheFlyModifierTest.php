@@ -196,11 +196,11 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 
 	public function invalidLanguageCodeProvider() {
 
-		$provider = array(
-			array( null ),
-			array( '' ),
-			array( false )
-		);
+		$provider = [
+			[ null ],
+			[ '' ],
+			[ false ]
+		];
 
 		return $provider;
 	}

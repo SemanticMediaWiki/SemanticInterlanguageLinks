@@ -67,7 +67,7 @@ class InterlanguageListParserFunction {
 			$template
 		);
 
-		return array( $templateText, 'noparse' => $templateText === '', 'isHTML' => false );
+		return [ $templateText, 'noparse' => $templateText === '', 'isHTML' => false ];
 	}
 
 	private function getLanguageTargetLinks( InterlanguageLink $interlanguageLink ) {

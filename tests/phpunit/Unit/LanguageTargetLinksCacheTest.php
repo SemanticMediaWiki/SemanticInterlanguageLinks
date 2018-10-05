@@ -54,10 +54,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
-		$languageTargetLinks = array(
+		$languageTargetLinks = [
 			'bo' => 'Bar',
 			'en' => Title::newFromText( 'Foo' )
-		);
+		];
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
@@ -81,7 +81,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			$instance->getLanguageTargetLinksFromCache( $interlanguageLink )
 		);
 
-		$linkReferences = array();
+		$linkReferences = [];
 
 		$instance->deleteLanguageTargetLinksFromCache( $linkReferences );
 		$instance->deletePageLanguageForTargetFromCache( Title::newFromText( 'Bar' ) );
@@ -98,9 +98,9 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
-		$languageTargetLinks = array(
+		$languageTargetLinks = [
 			'bo' => 'Bar'
-		);
+		];
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
@@ -126,9 +126,9 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLink = new InterlanguageLink( null, 'Foo' );
 
-		$languageTargetLinks = array(
+		$languageTargetLinks = [
 			'bo' => 'Bar'
-		);
+		];
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
@@ -154,7 +154,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	public function testTryToGetLanguageTargetLinksFromEmptyLinksCache( $pageLanguageCacheStrategy ) {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
-		$languageTargetLinks = array();
+		$languageTargetLinks = [];
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
@@ -180,10 +180,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
-		$languageTargetLinks = array(
+		$languageTargetLinks = [
 			'bo' => 'Help:Bar',
 			'en' => Title::newFromText( 'Foo' )
-		);
+		];
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
@@ -197,9 +197,9 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			$languageTargetLinks
 		);
 
-		$linkReferences = array(
+		$linkReferences = [
 			new DIWikiPage( 'Foo', NS_MAIN )
-		);
+		];
 
 		$instance->deleteLanguageTargetLinksFromCache( $linkReferences );
 
@@ -218,10 +218,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		$title = Title::newFromText( 'Bar', NS_HELP );
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
-		$languageTargetLinks = array(
+		$languageTargetLinks = [
 			'bo' => "$helpNS:Bar",
 			'en' => Title::newFromText( 'Foo' )
-		);
+		];
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
@@ -259,10 +259,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
-		$languageTargetLinks = array(
+		$languageTargetLinks = [
 			'bo' => 'Bar',
 			'en' => Title::newFromText( 'Foo' )
-		);
+		];
 
 		$instance = new LanguageTargetLinksCache(
 			$this->cache,
@@ -276,11 +276,11 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 			$languageTargetLinks
 		);
 
-		$linkReferences = array(
+		$linkReferences = [
 			new DIWikiPage( 'canNotBeMatched', NS_MAIN ),
 			Title::newFromText( 'invalidMatch' ),
 			'invalidMatch'
-		);
+		];
 
 		$instance->deleteLanguageTargetLinksFromCache( $linkReferences );
 
@@ -300,7 +300,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 		if ( $pageLanguageCacheStrategy === 'blob' ) {
 			$id = 'foo:sil:blob:';
-			$data = array( 'foo:sil:page:ddc35f88fa71b6ef142ae61f35364653' => 'bo' );
+			$data = [ 'foo:sil:page:ddc35f88fa71b6ef142ae61f35364653' => 'bo' ];
 		}
 
 		$title = Title::newFromText( 'Bar', NS_MAIN );
@@ -347,10 +347,10 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 
 	public function pageLanguageCacheStrategyProvider() {
 
-		$provider = array(
-			array( 'blob' ),
-			array( 'non-blob' )
-		);
+		$provider = [
+			[ 'blob' ],
+			[ 'non-blob' ]
+		];
 
 		return $provider;
 	}

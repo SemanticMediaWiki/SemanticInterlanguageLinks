@@ -98,7 +98,7 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit_Framework_TestCase {
 		$expected = '{{FakeTemplate|target-link=Foo|lang-code=en|lang-name=English}}';
 
 		$this->assertEquals(
-			array( $expected, "noparse" => false, "isHTML" => false ),
+			[ $expected, "noparse" => false, "isHTML" => false ],
 			$instance->parse( \Title::newFromText( 'Foo' ), 'FakeTemplate' )
 		);
 	}

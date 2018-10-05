@@ -56,7 +56,7 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
 			->with( $this->equalTo( $interlanguageLink ) )
-			->will( $this->returnValue( array( 'fr' => 'Bar' ) ) );
+			->will( $this->returnValue( [ 'fr' => 'Bar' ] ) );
 
 		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
@@ -84,7 +84,7 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
 			->with( $this->equalTo( $interlanguageLink ) )
-			->will( $this->returnValue( array( 'en' => \Title::newFromText( 'Foo' ) ) ) );
+			->will( $this->returnValue( [ 'en' => \Title::newFromText( 'Foo' ) ] ) );
 
 		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
@@ -119,7 +119,7 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 		$interlanguageLinksLookup->expects( $this->atLEastOnce() )
 			->method( 'queryLanguageTargetLinks' )
 			->with( $this->equalTo( $interlanguageLink ) )
-			->will( $this->returnValue( array( 'vi' => \Title::newFromText( 'Yan' ) ) ) );
+			->will( $this->returnValue( [ 'vi' => \Title::newFromText( 'Yan' ) ] ) );
 
 		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,

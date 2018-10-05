@@ -122,13 +122,13 @@ class PageContentLanguageDbModifier {
 
 			$connection->update(
 				'page',
-				array(
+				[
 					'page_lang' => $expectedLanguageCode
-				),
-				array(
+				],
+				[
 					'page_id'   => $pageId,
 					'page_lang' => $dbPageLanguage
-				),
+				],
 				__METHOD__
 			);
 		} );

@@ -37,53 +37,53 @@ class PropertyRegistry {
 	 */
 	public function register( CorePropertyRegistry $propertyRegistry ) {
 
-		$propertyDefinitions = array(
+		$propertyDefinitions = [
 
-			self::SIL_CONTAINER => array(
+			self::SIL_CONTAINER => [
 				'label' => SIL_PROP_CONTAINER,
 				'type'  => '__sob',
-				'alias' => array( wfMessage( 'sil-property-alias-container' )->text(), 'hasInterlanguagelink', 'Has interlanguage links' ),
+				'alias' => [ wfMessage( 'sil-property-alias-container' )->text(), 'hasInterlanguagelink', 'Has interlanguage links' ],
 				'msgkey' => 'sil-property-alias-container',
 				'visibility' => false,
 				'annotableByUser'  => false
-			),
+			],
 
-			self::SIL_ILL_LANG => array(
+			self::SIL_ILL_LANG => [
 				'label' => SIL_PROP_ILL_LANG,
 				'type'  => '_txt',
-				'alias' => array( wfMessage( 'sil-property-ill-alias-language' )->text() ),
+				'alias' => [ wfMessage( 'sil-property-ill-alias-language' )->text() ],
 				'msgkey' => 'sil-property-ill-alias-language',
 				'visibility' => true,
 				'annotableByUser'  => true
-			),
+			],
 
-			self::SIL_ILL_REF => array(
+			self::SIL_ILL_REF => [
 				'label' => SIL_PROP_ILL_REF,
 				'type'  => '_wpg',
-				'alias' => array( wfMessage( 'sil-property-ill-alias-reference' )->text() ),
+				'alias' => [ wfMessage( 'sil-property-ill-alias-reference' )->text() ],
 				'msgkey' => 'sil-property-ill-alias-reference',
 				'visibility' => true,
 				'annotableByUser'  => false
-			),
+			],
 
-			self::SIL_IWL_LANG => array(
+			self::SIL_IWL_LANG => [
 				'label' => SIL_PROP_IWL_LANG,
 				'type'  => '_txt',
-				'alias' => array( wfMessage( 'sil-property-iwl-alias-language' )->text() ),
+				'alias' => [ wfMessage( 'sil-property-iwl-alias-language' )->text() ],
 				'msgkey' => 'sil-property-iwl-alias-language',
 				'visibility' => true,
 				'annotableByUser'  => false
-			),
+			],
 
-			self::SIL_IWL_REF => array(
+			self::SIL_IWL_REF => [
 				'label' => SIL_PROP_IWL_REF,
 				'type'  => '_wpg',
-				'alias' => array( wfMessage( 'sil-property-iwl-alias-reference' )->text() ),
+				'alias' => [ wfMessage( 'sil-property-iwl-alias-reference' )->text() ],
 				'msgkey' => 'sil-property-iwl-alias-reference',
 				'visibility' => true,
 				'annotableByUser'  => false
-			)
-		);
+			]
+		];
 
 		foreach ( $propertyDefinitions as $propertyId => $definition ) {
 			$this->addPropertyDefinitionFor( $propertyRegistry, $propertyId, $definition  );

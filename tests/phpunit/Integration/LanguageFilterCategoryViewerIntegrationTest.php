@@ -20,7 +20,7 @@ use RequestContext;
 class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
 
 	private $pageCreator;
-	private $subjects = array();
+	private $subjects = [];
 
 	protected function setUp() {
 		parent::setUp();
@@ -72,7 +72,7 @@ class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
 			$text
 		);
 
-		$this->subjects = array( $category, $targetEn, $targetJa );
+		$this->subjects = [ $category, $targetEn, $targetJa ];
 	}
 
 	public function testCategoryViewerToDisplayByLanguageOnly() {
@@ -106,7 +106,7 @@ class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
 			$text
 		);
 
-		$this->subjects = array( $category, $targetEn, $targetJa );
+		$this->subjects = [ $category, $targetEn, $targetJa ];
 	}
 
 }

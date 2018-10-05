@@ -55,14 +55,14 @@ class SiteLanguageLinkModifier {
 
 		$languageName = Language::fetchLanguageName( $languageCode );
 
-		$languageLink = array(
+		$languageLink = [
 			'href'  => Title::newFromText( $target )->getFullURL(),
 			'text'  => $languageName,
 			'title' => $languageName,
 			'class' => '',
 			'lang'  => $languageCode,
 			'hreflang' => $languageCode,
-		);
+		];
 
 		return true;
 	}

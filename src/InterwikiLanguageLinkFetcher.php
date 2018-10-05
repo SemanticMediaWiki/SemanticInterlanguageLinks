@@ -33,7 +33,7 @@ class InterwikiLanguageLinkFetcher {
 	 */
 	public function fetchLanguagelinksFromParserOutput( ParserOutput $parserOutput ) {
 
-		if ( $parserOutput->getLanguageLinks() === array() || $parserOutput->getLanguageLinks() === null ) {
+		if ( $parserOutput->getLanguageLinks() === [] || $parserOutput->getLanguageLinks() === null ) {
 			return;
 		}
 
