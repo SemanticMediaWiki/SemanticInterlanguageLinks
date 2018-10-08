@@ -1,5 +1,16 @@
 This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a. SIL) extension.
 
+### 1.5.0
+
+Released on October 8, 2018.
+
+* Minimum requirement for
+  * PHP changed to version 5.6 and later
+  * Semantic MediaWiki changed to version 2.5 and later
+* Fixed issue with `DIProperty::findPropertyLabel`
+* #59 Removed the useage of deprecated `wfBCP47()` global function
+* Localization updates from https://translatewiki.net
+
 ### 1.4.0
 
 Released on July 29, 2017.
