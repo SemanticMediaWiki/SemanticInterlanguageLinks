@@ -22,37 +22,67 @@ This [video](https://vimeo.com/115871518) demonstrates the functionality of the 
 
 ## Requirements
 
-- PHP 5.5 or later
+- PHP 5.6 or later
 - MediaWiki 1.27 or later
-- [Semantic MediaWiki][smw] 2.4 or later
+- [Semantic MediaWiki][smw] 2.5 or later
 
 ## Installation
 
-The recommended way to install Semantic Interlanguage Links is by using [Composer][composer]
-with an entry in MediaWiki's `composer.json` or alternatively [`composer.local.json`][composer-local].
+The recommended way to install Semantic Interlanguage Links is using [Composer](http://getcomposer.org) with
+[MediaWiki's built-in support for Composer](https://www.mediawiki.org/wiki/Composer).
 
-```json
+Note that the required extension Semantic MediaWiki must be installed first according to the installation
+instructions provided.
+
+### Step 1
+
+Change to the base directory of your MediaWiki installation. This is where the "LocalSettings.php"
+file is located. If you have not yet installed Composer do it now by running the following command
+in your shell:
+
+    wget https://getcomposer.org/composer.phar
+
+### Step 2
+    
+If you do not have a "composer.local.json" file yet, create one and add the following content to it:
+
+```
 {
 	"require": {
-		"mediawiki/semantic-interlanguage-links": "~1.4"
+		"mediawiki/semantic-interlanguage-links": "~1.5"
 	}
 }
 ```
-1. From your MediaWiki installation directory, execute
-   `composer require mediawiki/semantic-interlanguage-links:~1.4`
-2. Navigate to _Special:Version_ on your wiki and verify that the package
-   have been successfully installed.
+
+If you already have a "composer.local.json" file add the following line to the end of the "require"
+section in your file:
+
+    "mediawiki/semantic-interlanguage-links": "~1.5"
+
+Remember to add a comma to the end of the preceding line in this section.
+
+### Step 3
+
+Run the following command in your shell:
+
+    php composer.phar update --no-dev
+
+Note if you have Git installed on your system add the `--prefer-source` flag to the above command. Also
+note that it may be necessary to run this command twice. If unsure do it twice right away.
+
+### Verify installation success
+
+As final step, you can verify SCI got installed by looking at the "Special:Version" page on your wiki and
+check that it is listed in the semantic extensions section.
 
 ## Usage
 
-The parser function `{{interlanguagelink: ... }}` provides an interface
-to declare multilingual content using semantic annotations.
+The parser function `{{interlanguagelink: ... }}` provides an interface to declare multilingual content
+using semantic annotations.
 
-`{{interlanguagelink: language code | interlanguage reference }}`, the first
-argument specifies the language code (e.g `es`, `ja`) of the content while
-the second argument contains an arbitrary reference (`interlanguage reference`)
-that describes content of similar nature (content that should be connected to
-each other) for different languages.
+`{{interlanguagelink: language code | interlanguage reference }}`, the first argument specifies the language
+code (e.g `es`, `ja`) of the content while the second argument contains an arbitrary reference (`interlanguage reference`)
+that describes content of similar nature (content that should be connected to each other) for different languages.
 
 ![sil](https://cloud.githubusercontent.com/assets/1245473/9477943/450195e0-4b75-11e5-9cd4-61e2672eb8fa.png)
 
@@ -60,8 +90,7 @@ Further details and usage examples can be found [here](docs/README.md).
 
 ## Contribution and support
 
-If you want to contribute work to the project please subscribe to the developers mailing list and
-have a look at the contribution guideline.
+If you want to contribute work to the project please subscribe to the developers mailing list and have a look at the contribution guideline.
 
 * [File an issue](https://github.com/SemanticMediaWiki/SemanticLanguageLinks/issues)
 * [Submit a pull request](https://github.com/SemanticMediaWiki/SemanticLanguageLinks/pulls)
