@@ -8,7 +8,7 @@
 			"Deathkon"
 		]
 	},
-	"sil-desc": "用來創建和管理跨語言連結的[https://www.semantic-mediawiki.org Semantic MediaWiki]擴展",
+	"sil-desc": "用來創建和管理跨語言連結的 [https://www.semantic-mediawiki.org Semantic MediaWiki] 擴充套件",
 	"sil-property-ill-alias-language": "頁面內容語言",
 	"sil-property-ill-alias-reference": "跨語言參考",
 	"sil-property-iwl-alias-language": "跨 wiki 語言",
