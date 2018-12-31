@@ -2,9 +2,16 @@
 	"@metadata": {
 		"authors": [
 			"mwjames",
-			"Sujiniku"
+			"Sujiniku",
+			"Suyama",
+			"Wat",
+			"ネイ"
 		]
 	},
-	"sil-property-alias-container": "言語間リンクを持っています",
+	"sil-property-ill-alias-language": "ページ本文の言語",
+	"sil-property-alias-container": "言語間リンクがあります",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" は識別可能な言語コードではありません。",
+	"sil-search-profile": "言語で絞り込む",
+	"sil-search-languagefilter-label": "言語で絞り込み",
 	"sil-categorypage-languagefilter-active": "このカテゴリーには言語\"$1\"でフィルターされている情報(ページ、サブカテゴリ、イメージ)が含まれています。"
 }
