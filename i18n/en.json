@@ -6,6 +6,7 @@
 		]
 	},
 	"sil-desc": "A [https://www.semantic-mediawiki.org Semantic MediaWiki] extension to create and manage interlanguage links",
+	"sil-name": "Semantic Interlanguage Links",
 	"sil-property-ill-alias-language": "Page content language",
 	"sil-property-ill-alias-reference": "Interlanguage reference",
 	"sil-property-iwl-alias-language": "Interwiki language",
