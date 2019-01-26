@@ -21,6 +21,10 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		parent::setUp();
 
+		$config = $this->getMockBuilder( '\Config' )
+			->disableOriginalConstructor()
+			->getMock();
+
 		$outputPage = $this->getMockBuilder( '\OutputPage' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -31,7 +35,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->context->expects( $this->any() )
 				->method( 'getConfig' )
-				->will( $this->returnValue( $this->getMock('\Config' ) ) );
+				->will( $this->returnValue( $config ) );
 
 		$this->context->expects( $this->any() )
 				->method( 'getOutput' )
