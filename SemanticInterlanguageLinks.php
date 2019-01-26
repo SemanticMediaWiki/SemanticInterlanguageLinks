@@ -10,14 +10,6 @@ use Onoi\Cache\CacheFactory;
  *
  * @defgroup SIL Semantic Interlanguage Links
  */
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'This file is part of the Semantic Interlanguage Links extension. It is not a valid entry point.' );
-}
-
-if ( defined( 'SIL_VERSION' ) ) {
-	// Do not initialize more than once.
-	return 1;
-}
 
 SemanticInterlanguageLinks::load();
 
@@ -41,41 +33,14 @@ class SemanticInterlanguageLinks {
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 			include_once __DIR__ . '/vendor/autoload.php';
 		}
-
-		/**
-		 * In case extension.json is being used, the succeeding steps are
-		 * expected to be handled by the ExtensionRegistry aka extension.json
-		 * ...
-		 *
-		 * 	"callback": "SemanticInterlanguageLinks::initExtension",
-		 * 	"ExtensionFunctions": [
-		 * 		"SemanticInterlanguageLinks::onExtensionFunction"
-		 * 	],
-		 */
-		self::initExtension();
-
-		$GLOBALS['wgExtensionFunctions'][] = function() {
-			self::onExtensionFunction();
-		};
 	}
 
 	/**
 	 * @since 1.3
 	 */
-	public static function initExtension() {
+	public static function initExtension( $credits = [] ) {
 
-		define( 'SIL_VERSION', '2.0.0-alpha' );
-
-		// Register extension info
-		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = [
-			'path'           => __FILE__,
-			'name'           => 'Semantic Interlanguage Links',
-			'author'         => [ 'James Hong Kong' ],
-			'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
-			'descriptionmsg' => 'sil-desc',
-			'version'        => SIL_VERSION,
-			'license-name'   => 'GPL-2.0-or-later',
-		];
+		define( 'SIL_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );
 
 		// Register message files
 		$GLOBALS['wgMessagesDirs']['SemanticInterlanguageLinks'] = __DIR__ . '/i18n';
@@ -113,8 +78,18 @@ class SemanticInterlanguageLinks {
 	 */
 	public static function onExtensionFunction() {
 
-		// Check requirements after LocalSetting.php has been processed
-		self::checkRequirements();
+		if ( !defined( 'SMW_VERSION' ) ) {
+
+			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
+				die( "\nThe 'Semantic Interlanguage Links' extension requires 'Semantic MediaWiki' to be installed and enabled.\n" );
+			} else {
+				die(
+					'<b>Error:</b> The <a href="https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links">Semantic Interlanguage Links</a> ' .
+					'extension requires <a href="https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> to be ' .
+					'installed and enabled.<br>'
+				);
+			}
+		}
 
 		// Legacy
 		if ( isset( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] ) ) {
