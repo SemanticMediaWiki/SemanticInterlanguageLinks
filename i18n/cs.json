@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aktron",
+			"Dvorapa",
+			"Jaroslav Cerny"
+		]
+	},
+	"sil-desc": "Rozšíření [https://www.semantic-mediawiki.org Sémantické MediaWiki] určené k vytváření a správě mezijazykových odkazů",
+	"sil-property-ill-alias-language": "Jazyk obsahu stránky",
+	"sil-property-ill-alias-reference": "Mezijazyková reference",
+	"sil-property-iwl-alias-language": "Jazyk interwiki",
+	"sil-property-iwl-alias-reference": "Reference interwiki",
+	"sil-property-alias-container": "Obsahuje mezijazykový odkaz",
+	"smw-pa-property-predefined__sil_container": "\"$1\" je předem definovaná vlastnost, která reprezentuje entitu kontejneru popisujícího informace související s mezijazykovým odkazem a je definována v rozšíření [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Sémantické mezijazykové odkazy].",
+	"smw-pa-property-predefined__sil_ill_lang": "\"$1\" je předem definovaná vlastnost, která obsahuje anotovaný jazykový kód a je definována v rozšíření [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Sémantické mezijazykové odkazy].",
+	"smw-pa-property-predefined__sil_ill_ref": "\"$1\" je předem definovaná vlastnost, která obsahuje náhodnou referenci a je definována v rozšíření [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Sémantické mezijazykové odkazy].",
+	"smw-pa-property-predefined-long__sil_ill_ref": "Entity se stejnou referencí jsou vzájemně propojeny a očekává se, že v různých jazycích reprezentují podobný obsah.",
+	"smw-pa-property-predefined__sil_iwl_lang": "\"$1\" je předem definovaná vlastnost, která reprezentuje jazykový kód odvozený z interwiki odkazu a je definována v rozšíření [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Sémantické mezijazykové odkazy].",
+	"smw-pa-property-predefined__sil_iwl_ref": "\"$1\" je předem definovaná vlastnost, která reprezentuje cílovou stránku odvozenou z interwiki odkazu a je definována v rozšíření [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Sémantické mezijazykové odkazy].",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Funkci syntaktického analyzátoru nelze použít, protože je nastavena proměnná <code>$wgHideInterlanguageLinks</code>.",
+	"sil-interlanguagelink-invalidlanguagecode": "Řetězec \"$1\" není platným jazykovým kódem.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "Funkce syntaktického analyzátoru byla volána několikrát, ale s odlišným jazykovým kódem (\"$1\"), kterému je třeba se vyhnout, protože obsah stránky má být psán jen jedním jazykem.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Kombinace \"$1\":\"$2\" již existuje pro stránku \"$3\" a proto nebyly vytvořeny žádné další mezijazykové anotace.",
+	"sil-interlanguagelist-missing-linkreference": "Funkci syntaktického analyzátoru nebyla předána platná reference.",
+	"sil-interlanguagelist-missing-template": "Funkci syntaktického analyzátoru nebyla předána výstupní šablona.",
+	"sil-interlanguageparser-linkreference-error": "Funkce syntaktického analyzátoru nedokázala vytvořit objekt nadpisu z \"$1\".",
+	"sil-search-profile": "Podle jazyka",
+	"sil-search-profile-tooltip": "Filtrovat články podle jazykové anotace",
+	"sil-search-languagefilter-label": "Filtrovat podle jazyka",
+	"sil-search-nolanguagefilter": "Bez jazykového filtru",
+	"sil-categorypage-languagefilter-active": "Tato kategorie obsahuje informace (stránku, podkategorii a obrázek), které jsou filtrovány jazykem \"$1\"."
+}
