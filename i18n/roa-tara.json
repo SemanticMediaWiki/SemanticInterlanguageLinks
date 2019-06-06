@@ -10,11 +10,22 @@
 	"sil-property-iwl-alias-language": "Lènghe inderuicchi",
 	"sil-property-iwl-alias-reference": "Referimende a le inderuicchi",
 	"sil-property-alias-container": "Tène collegaminde inder lènghe",
+	"smw-pa-property-predefined__sil_container": "\"$1\" jè 'na probbietà predefinite ca rappresende 'n'endità condenitore pe descrivere 'u collegamende inderlènghe e le 'mbormaziune associate e jè date da l'estenzione [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Collegaminde a le Interlènghe Semandeche].",
+	"smw-pa-property-predefined__sil_ill_lang": "\"$1\" jè 'na probbietà predefinite ca tène 'nu codece de lènghe annotate e jè date da l'estenzione [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Collegaminde a le Interlènghe Semandeche].",
+	"smw-pa-property-predefined__sil_ill_ref": "\"$1\" jè 'na probbietà predefinite ca tène 'nu referimende arbitrarie e jè date da l'estenzione [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Collegaminde a le Interlènghe Semandeche].",
+	"smw-pa-property-predefined-long__sil_ill_ref": "Endità cu 'u stesse referimende sò collegate e s'aspettane de fà 'ndrucà condenute simile jndr'à lènghe diverse.",
+	"smw-pa-property-predefined__sil_iwl_lang": "\"$1\" jè 'na probbietà predefinite ca rappresende 'nu codece de lènghe derivateda 'nu collegamende inderlènghe e jè date da l'estenzione [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Collegaminde a le Interlènghe Semandeche].",
+	"smw-pa-property-predefined__sil_iwl_ref": "\"$1\" jè 'na probbietà predefinite ca rappresende 'na pàgene de destinazione derivate da 'nu collegamende inderlènghe e jè date da l'estenzione [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Collegaminde a le Interlènghe Semandeche].",
+	"sil-interlanguagelink-hideinterlanguagelinks": "'A funzione analizzatrice non ge pò essere ausate purcé jè 'mbostate <code>$wgHideInterlanguageLinks</code>.",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" non g'ha state acchiate cumme 'nu codece de lènghe valide.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "'A funzione analizzatrice ha state chiamate cchiù vote ma cu codece de lènghe diverse (\"$1\") ca adda essere evitate cumme condenute de 'na pàgene jè generalmende attese de essere rappresendate da 'na lènghe sulamende.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "'A combinazione \"$1\":\"$2\" ggià esiste pa pàgene \"$3\" allore nisciuna annotzione inderlènghe ha state ccrejate.",
 	"sil-interlanguagelist-missing-linkreference": "'A funzione analizzatrice non ge ste iacchie 'nu referimende valide.",
 	"sil-interlanguagelist-missing-template": "'A funzione analizzatrice non ge ste iacchie 'nu modelle pu resultate.",
 	"sil-interlanguageparser-linkreference-error": "'A funzione analizzatrice ave 'nu probbleme a ccrejà 'u titole da \"$1\".",
 	"sil-search-profile": "Pe lènghe",
 	"sil-search-profile-tooltip": "Filtre le vôsce pe annotazione d'a lènghe",
 	"sil-search-languagefilter-label": "Filtre pe lènghe",
-	"sil-search-nolanguagefilter": "Nisciune filtre de lènghe"
+	"sil-search-nolanguagefilter": "Nisciune filtre de lènghe",
+	"sil-categorypage-languagefilter-active": "Sta categorije tène 'mbormaziune (pàgene, sottocategorije e immaggine) ca jè filtrate da 'a lènghe \"$1\"."
 }
