@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mirin",
+			"Robin van der Vliet"
+		]
+	},
+	"sil-property-ill-alias-reference": "Interlingva referenco",
+	"sil-property-iwl-alias-language": "Intervikia lingvo",
+	"sil-property-iwl-alias-reference": "Intervikia referenco",
+	"sil-property-alias-container": "Ĉu havas interlingvan ligilon",
+	"sil-search-profile": "Laŭ lingvo",
+	"sil-search-languagefilter-label": "Filtri laŭ lingvo",
+	"sil-search-nolanguagefilter": "Neniu lingva filtrilo"
+}
