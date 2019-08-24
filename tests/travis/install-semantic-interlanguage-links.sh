@@ -14,7 +14,7 @@ function installToMediaWikiRoot {
 	then
 		composer require 'phpunit/phpunit='$PHPUNIT --update-with-dependencies
 	else
-		composer require 'phpunit/phpunit=3.7.*' --update-with-dependencies
+		composer require 'phpunit/phpunit=5.7.*' --update-with-dependencies
 	fi
 
 	if [ "$SIL" != "" ]
@@ -62,6 +62,10 @@ function updateConfiguration {
 	echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
 	echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 	echo "putenv( 'MW_INSTALL_PATH=$(pwd)' );" >> LocalSettings.php
+
+	# SMW#1732
+	echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
+	echo 'wfLoadExtension( "SemanticInterlanguageLinks" );' >> LocalSettings.php
 
 	php maintenance/update.php --quick
 }

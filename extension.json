@@ -1,0 +1,27 @@
+{
+	"name": "SemanticInterlanguageLinks",
+	"version": "2.0.0-alpha",
+	"author": [
+		"James Hong Kong",
+		"..."
+	],
+	"url": "https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/",
+	"descriptionmsg": "sil-desc",
+	"namemsg": "sil-name",
+	"license-name": "GPL-2.0-or-later",
+	"type": "semantic",
+	"requires": {
+		"MediaWiki": ">= 1.27"
+	},
+	"MessagesDirs": {
+		"SemanticInterlanguageLinks": [
+			"i18n"
+		]
+	},
+	"callback": "SemanticInterlanguageLinks::initExtension",
+	"ExtensionFunctions": [
+		"SemanticInterlanguageLinks::onExtensionFunction"
+	],
+	"load_composer_autoloader": true,
+	"manifest_version": 1
+}
