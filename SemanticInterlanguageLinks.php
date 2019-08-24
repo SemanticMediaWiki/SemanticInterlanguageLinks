@@ -10,15 +10,6 @@ use Onoi\Cache\CacheFactory;
  *
  * @defgroup SIL Semantic Interlanguage Links
  */
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'This file is part of the Semantic Interlanguage Links extension. It is not a valid entry point.' );
-}
-
-if ( defined( 'SIL_VERSION' ) ) {
-	// Do not initialize more than once.
-	return 1;
-}
-
 SemanticInterlanguageLinks::load();
 
 /**
@@ -35,77 +26,27 @@ class SemanticInterlanguageLinks {
 	 */
 	public static function load() {
 
-		// Load DefaultSettings
-		require_once __DIR__ . '/DefaultSettings.php';
-
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 			include_once __DIR__ . '/vendor/autoload.php';
 		}
 
-		/**
-		 * In case extension.json is being used, the succeeding steps are
-		 * expected to be handled by the ExtensionRegistry aka extension.json
-		 * ...
-		 *
-		 * 	"callback": "SemanticInterlanguageLinks::initExtension",
-		 * 	"ExtensionFunctions": [
-		 * 		"SemanticInterlanguageLinks::onExtensionFunction"
-		 * 	],
-		 */
-		self::initExtension();
-
-		$GLOBALS['wgExtensionFunctions'][] = function() {
-			self::onExtensionFunction();
-		};
+		// Load DefaultSettings
+		require_once __DIR__ . '/DefaultSettings.php';
 	}
 
 	/**
 	 * @since 1.3
 	 */
-	public static function initExtension() {
+	public static function initExtension( $credits = [] ) {
 
-		define( 'SIL_VERSION', '2.0.0-alpha' );
-
-		// Register extension info
-		$GLOBALS[ 'wgExtensionCredits' ][ 'semantic' ][ ] = [
-			'path'           => __FILE__,
-			'name'           => 'Semantic Interlanguage Links',
-			'author'         => [ 'James Hong Kong' ],
-			'url'            => 'https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/',
-			'descriptionmsg' => 'sil-desc',
-			'version'        => SIL_VERSION,
-			'license-name'   => 'GPL-2.0-or-later',
-		];
+		// See https://phabricator.wikimedia.org/T151136
+		define( 'SIL_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );
 
 		// Register message files
 		$GLOBALS['wgMessagesDirs']['SemanticInterlanguageLinks'] = __DIR__ . '/i18n';
 		$GLOBALS['wgExtensionMessagesFiles']['SemanticInterlanguageLinksMagic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
 
-		self::onBeforeExtensionFunction();
-	}
-
-	/**
-	 * Register hooks that require to be listed as soon as possible and preferable
-	 * before the execution of onExtensionFunction
-	 *
-	 * @since 1.4
-	 */
-	public static function onBeforeExtensionFunction() {
 		$GLOBALS['wgHooks']['SMW::Config::BeforeCompletion'][] = '\SIL\HookRegistry::onBeforeConfigCompletion';
-	}
-
-	/**
-	 * @since 1.4
-	 */
-	public static function checkRequirements() {
-
-		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.27', 'lt' ) ) {
-			die( '<b>Error:</b> This version of <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic Interlanguage Links</a> is only compatible with MediaWiki 1.27 or above. You need to upgrade MediaWiki first.' );
-		}
-
-		if ( !defined( 'SMW_VERSION' ) ) {
-			die( '<b>Error:</b> <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic Interlanguage Links</a> requires <a href="https://github.com/SemanticMediaWiki/SemanticMediaWiki/">Semantic MediaWiki</a>. Please enable or install the extension first.' );
-		}
 	}
 
 	/**
@@ -113,8 +54,13 @@ class SemanticInterlanguageLinks {
 	 */
 	public static function onExtensionFunction() {
 
-		// Check requirements after LocalSetting.php has been processed
-		self::checkRequirements();
+		if ( !defined( 'SMW_VERSION' ) ) {
+			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
+				die( "\nThe 'Semantic Interlanguage Links' extension requires 'Semantic MediaWiki' to be installed and enabled.\n" );
+			} else {
+				die( '<b>Error:</b> The <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic Interlanguage Links</a> extension requires <a href="https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> to be installed and enabled.<br />' );
+			}
+		}
 
 		// Legacy
 		if ( isset( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] ) ) {

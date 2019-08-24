@@ -8,14 +8,17 @@ dist: trusty
 matrix:
   fast_finish: true
   include:
-    - env: DB=mysql; MW=REL1_31; PHPUNIT=5.7.*
+    - env: DB=mysql; MW=REL1_32; PHPUNIT=5.7.*
       php: 7.1
-    - env: DB=mysql; MW=REL1_29; PHPUNIT=4.8.*; TYPE=coverage
-      php: 5.6
-    - env: DB=sqlite; MW=REL1_27; SITELANG=ja
+    - env: DB=mysql; MW=REL1_31; PHPUNIT=4.8.*; TYPE=coverage
+      php: 7.0
+    - env: DB=sqlite; MW=REL1_33; SITELANG=ja; PHPUNIT=6.5.*
       php: 7.0
     - env: DB=mysql; MW=master; PHPUNIT=6.5.*
       php: 7.2
+  allow_failures:
+    - env: DB=sqlite; MW=REL1_33; SITELANG=ja; PHPUNIT=6.5.*
+    - env: DB=mysql; MW=master; PHPUNIT=6.5.*
 
 install:
   - travis_retry composer self-update
