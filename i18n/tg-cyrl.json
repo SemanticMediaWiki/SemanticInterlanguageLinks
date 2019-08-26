@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"ToJack"
+		]
+	},
+	"sil-property-ill-alias-language": "Забони саҳифа",
+	"sil-property-ill-alias-reference": "Эзоҳоти байнизабонӣ",
+	"sil-property-iwl-alias-language": "Забони интервики",
+	"sil-property-iwl-alias-reference": "Эзоҳоти интервики",
+	"sil-property-alias-container": "Пайванди байнизабонӣ дорад",
+	"sil-search-profile": "Аз рӯи забон",
+	"sil-search-languagefilter-label": "Филтри забонҳо"
+}

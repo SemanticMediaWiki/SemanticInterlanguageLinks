@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ата",
-			"Piramidion"
+			"Piramidion",
+			"Abijeet Patro"
 		]
 	},
 	"sil-desc": "Розширення [https://www.semantic-mediawiki.org Семантичної MediaWiki] для створення і керування міжмовними посиланнями",

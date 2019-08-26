@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Elisardojm",
-			"Banjo"
+			"Banjo",
+			"Abijeet Patro"
 		]
 	},
 	"sil-desc": "Extensión de [https://www.semantic-mediawiki.org MediaWiki Semántica] para crear e xestionar ligazóns interlingüísticas",
