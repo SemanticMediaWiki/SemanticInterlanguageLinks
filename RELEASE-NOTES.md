@@ -1,5 +1,18 @@
 This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a. SIL) extension.
 
+### 2.0.0
+
+Released on September 4, 2019.
+
+* Minimum requirement for
+  * PHP changed to version 7.0 and later
+  * MediaWiki changed to version 1.31.0 and later
+  * Semantic MediaWiki changed to version 3.0 and later
+* #71 Adds support for extension registration via "extension.json"  
+  → Now you have to use `wfLoadExtension( 'SemanticInterlanguageLinks' );` in the "LocalSettings.php" file to invoke the extension
+* Localization updates from https://translatewiki.net
+
+
 ### 1.5.0
 
 Released on October 8, 2018.
