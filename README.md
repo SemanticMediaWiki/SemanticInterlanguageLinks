@@ -6,8 +6,8 @@
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-interlanguage-links/version.png)](https://packagist.org/packages/mediawiki/semantic-interlanguage-links)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-interlanguage-links/d/total.png)](https://packagist.org/packages/mediawiki/semantic-interlanguage-links)
 
-Semantic Interlanguage Links (a.k.a. SIL) is a [Semantic Mediawiki][smw] extension to
-create and manage interlanguage links.
+Semantic Interlanguage Links (a.k.a. SIL) is a [Semantic Mediawiki][smw] extension to create and manage
+interlanguage links.
 
 This extension helps to create interlanguage links and provides queryable annotations that:
 
@@ -22,9 +22,9 @@ This [video](https://vimeo.com/115871518) demonstrates the functionality of the 
 
 ## Requirements
 
-- PHP 5.6 or later
-- MediaWiki 1.27 or later
-- [Semantic MediaWiki][smw] 2.5 or later
+- PHP 7.0 or later
+- MediaWiki 1.31 or later
+- [Semantic MediaWiki][smw] 3.0 or later
 
 ## Installation
 
@@ -36,20 +36,13 @@ instructions provided.
 
 ### Step 1
 
-Change to the base directory of your MediaWiki installation. This is where the "LocalSettings.php"
-file is located. If you have not yet installed Composer do it now by running the following command
-in your shell:
-
-    wget https://getcomposer.org/composer.phar
-
-### Step 2
-    
-If you do not have a "composer.local.json" file yet, create one and add the following content to it:
+Change to the base directory of your MediaWiki installation. If you do not have a "composer.local.json" file yet,
+create one and add the following content to it:
 
 ```
 {
 	"require": {
-		"mediawiki/semantic-interlanguage-links": "~1.5"
+		"mediawiki/semantic-interlanguage-links": "~2.0"
 	}
 }
 ```
@@ -57,23 +50,24 @@ If you do not have a "composer.local.json" file yet, create one and add the foll
 If you already have a "composer.local.json" file add the following line to the end of the "require"
 section in your file:
 
-    "mediawiki/semantic-interlanguage-links": "~1.5"
+    "mediawiki/semantic-interlanguage-links": "~2.0"
 
 Remember to add a comma to the end of the preceding line in this section.
 
-### Step 3
+### Step 2
 
 Run the following command in your shell:
 
     php composer.phar update --no-dev
 
-Note if you have Git installed on your system add the `--prefer-source` flag to the above command. Also
-note that it may be necessary to run this command twice. If unsure do it twice right away.
+Note if you have Git installed on your system add the `--prefer-source` flag to the above command.
 
-### Verify installation success
+### Step 3
 
-As final step, you can verify SCI got installed by looking at the "Special:Version" page on your wiki and
-check that it is listed in the semantic extensions section.
+Add the following line to the end of your "LocalSettings.php" file:
+
+    wfLoadExtension( 'SemanticInterlanguageLinks' );
+
 
 ## Usage
 
@@ -95,7 +89,6 @@ If you want to contribute work to the project please subscribe to the developers
 * [File an issue](https://github.com/SemanticMediaWiki/SemanticLanguageLinks/issues)
 * [Submit a pull request](https://github.com/SemanticMediaWiki/SemanticLanguageLinks/pulls)
 * Ask a question on [the mailing list](https://www.semantic-mediawiki.org/wiki/Mailing_list)
-* Ask a question on the #semantic-mediawiki IRC channel on Freenode.
 
 ## Tests
 
