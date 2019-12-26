@@ -1,15 +1,32 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hedda"
+			"Hedda",
+			"BaRaN6161 TURK"
 		]
 	},
+	"sil-desc": "Diller arası bağlantılar oluşturmak ve yönetmek için bir [https://www.semantic-mediawiki.org Semantik MediaWiki] uzantısı",
 	"sil-property-ill-alias-language": "Sayfa içeriğinin dili",
 	"sil-property-ill-alias-reference": "Diller arası referans",
 	"sil-property-iwl-alias-language": "Vikiler arası dil",
 	"sil-property-iwl-alias-reference": "Vikiler arası referans",
+	"sil-property-alias-container": "Dil bağlantısı var",
+	"smw-pa-property-predefined__sil_container": "\"$1\", diller arası bağlantıyla ilgili bilgileri tanımlamak için bir kapsayıcı varlığı temsil eden önceden tanımlanmış bir özelliktir ve [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantik Diller Arası Bağlantıları] uzantısı tarafından sağlanır.",
+	"smw-pa-property-predefined__sil_ill_lang": "\"$1\", ek açıklamalı bir dil kodu içeren ve [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantik Dil Arası Bağlantıları] uzantısı tarafından sağlanan önceden tanımlanmış bir özelliktir.",
+	"smw-pa-property-predefined__sil_ill_ref": "\"$1\", rastgele bir başvuru içeren ve [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantik Dil Arası Bağlantıları] uzantısı tarafından sağlanan önceden tanımlanmış bir özelliktir.",
+	"smw-pa-property-predefined-long__sil_ill_ref": "Aynı referansa sahip kuruluşlar birbirleriyle bağlantılıdır ve farklı dillerde benzer içerikleri temsil etmeleri beklenmektedir.",
+	"smw-pa-property-predefined__sil_iwl_lang": "\"$1\" önceden tanımlanmış bir özelliktir ve wiki arası bağlantısından türetilen bir dil kodunu temsil eder ve [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantik Dil Arası Bağlantıları] uzantısı tarafından sağlanır.",
+	"smw-pa-property-predefined__sil_iwl_ref": "\"$1\" önceden tanımlanmış bir özelliktir ve wiki arası bağlantısından türetilmiş bir hedef sayfayı temsil eder ve [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantik Dil Arası Bağlantıları] uzantısı tarafından sağlanır.",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Ayrıştırıcı işlevi, <code>$wgHideInterlanguageLinks</code> ayarlandığından kullanılamaz.",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" geçerli dil kodu olarak tanınmadı.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "Ayrıştırıcı işlevi birden çok kez çağrıldı, ancak bir sayfanın içeriğinin genellikle tek bir dil ile temsil edilmesi beklendiğinden, kaçınılması gereken farklı bir dil kodu (\"$1\") ile.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "\"$1\": \"$2\" kombinasyonu, \"$3\" sayfası için zaten var, bu nedenle ek diller arası ek açıklama oluşturulmadı.",
+	"sil-interlanguagelist-missing-linkreference": "Ayrıştırıcı işlevinde geçerli bir başvuru eksik.",
+	"sil-interlanguagelist-missing-template": "Ayrıştırıcı işlevinde bir çıkış şablonu eksik.",
+	"sil-interlanguageparser-linkreference-error": "Ayrıştırıcı işlevi, \"$1\" öğesinden başlık nesnesi oluşturmada bir sorunla karşılaştı.",
 	"sil-search-profile": "Dile göre",
 	"sil-search-profile-tooltip": "Maddeleri dil açıklamalarına göre filtreleyin",
 	"sil-search-languagefilter-label": "Dile göre filtrele",
-	"sil-search-nolanguagefilter": "Dil filtresi yok"
+	"sil-search-nolanguagefilter": "Dil filtresi yok",
+	"sil-categorypage-languagefilter-active": "Bu kategori, \"$1\" diline göre filtrelenen bilgileri (sayfa, alt kategori ve resim) içerir."
 }

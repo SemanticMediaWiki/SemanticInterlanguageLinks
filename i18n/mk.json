@@ -22,7 +22,7 @@
 	"sil-interlanguagelink-multiplecalls-different-languagecode": "Расчленувачката функција беше повикана неколку пати, но со различен јазичен код („$1“) кој треба да се избегнува, бидејќи содржината на една страница се очекува да биде на само еден јазик.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "Комбинацијата „$1“:„$2“ веќе постои за страницата „$3“, па затоа не создадов дополнители меѓујазични прибелешки.",
 	"sil-interlanguagelist-missing-linkreference": "На расчленувачката функција ѝ недостасува важечки навод.",
-	"sil-interlanguagelist-missing-template": "На расчленувачката функција ѝ недостасува изводен шаблон.",
+	"sil-interlanguagelist-missing-template": "На расчленувачката функција ѝ недостасува изводна предлошка.",
 	"sil-interlanguageparser-linkreference-error": "Расчленувачката функција имаше проблем со создавањето на насловен објект од „$1“.",
 	"sil-search-profile": "по јазик",
 	"sil-search-profile-tooltip": "Филтрирај ги статиите по јазични прибелешки",
