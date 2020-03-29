@@ -12,11 +12,15 @@ if ( !is_readable( $autoloaderClassPath = __DIR__ . '/../../SemanticMediaWiki/te
 	die( 'The Semantic MediaWiki test autoloader is not available' );
 }
 
-if ( !class_exists( 'SemanticInterlanguageLinks' ) || ( $version = SemanticInterlanguageLinks::getVersion() ) === null ) {
+if ( !class_exists( 'SemanticInterlanguageLinks' ) || !defined( 'SIL_VERSION' ) ) {
 	die( "\nSemantic Interlanguage Links is not available, please check your Composer or LocalSettings.\n" );
 }
 
-print sprintf( "\n%-27s%s\n", "Semantic Interlanguage Links: ", $version );
+if ( !defined( 'SMW_PHPUNIT_FIRST_COLUMN_WIDTH' ) ) {
+	define( 'SMW_PHPUNIT_FIRST_COLUMN_WIDTH', 30 );
+}
+
+print sprintf( "\n%-27s%s\n", "Semantic Interlanguage Links: ", SIL_VERSION );
 
 $autoloader = require $autoloaderClassPath;
 $autoloader->addPsr4( 'SIL\\Tests\\', __DIR__ . '/phpunit/Unit' );

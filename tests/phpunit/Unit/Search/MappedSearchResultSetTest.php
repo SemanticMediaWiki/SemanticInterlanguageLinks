@@ -18,6 +18,10 @@ use SMW\DIProperty;
  */
 class MappedSearchResultSetTest extends \PHPUnit_Framework_TestCase {
 
+	protected function setUp() : void {
+		$this->markTestSkipped( 'The each() function is deprecated. This message will be suppressed on further calls' );
+	}
+
 	public function testCanConstruct() {
 
 		$searchMatches = [];

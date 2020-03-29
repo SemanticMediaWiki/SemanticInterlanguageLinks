@@ -28,7 +28,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	private $semanticDataValidator;
 	private $subjects = [];
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->markTestSkipped(
@@ -58,7 +58,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 		};
 	}
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 
 		UtilityFactory::getInstance()->newPageDeleter()->doDeletePoolOfPages( $this->subjects );
 		unset( $GLOBALS['wgHooks']['InterwikiLoadPrefix'] );

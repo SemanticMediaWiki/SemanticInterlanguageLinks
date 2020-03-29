@@ -124,7 +124,6 @@ class HookRegistry {
 		};
 
 		$this->registerInterlanguageParserHooks( $interlanguageLinksLookup );
-		$this->registerSpecialSearchHooks( $interlanguageLinksLookup );
 	}
 
 	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
@@ -265,77 +264,5 @@ class HookRegistry {
 		};
 	}
 
-	private function registerSpecialSearchHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
-
-		$searchResultModifier = new SearchResultModifier(
-			new LanguageResultMatchFinder( $interlanguageLinksLookup )
-		);
-
-		/**
-		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfiles
-		 */
-		$this->handlers['SpecialSearchProfiles'] = function ( array &$profiles ) use ( $searchResultModifier ) {
-
-			$searchResultModifier->addSearchProfile(
-				$profiles
-			);
-
-			return true;
-		};
-
-		/**
-		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchProfileForm
-		 */
-		$this->handlers['SpecialSearchProfileForm'] = function ( $search, &$form, $profile, $term, $opts ) use ( $searchResultModifier ) {
-
-			$searchResultModifier->addSearchProfileForm(
-				$search,
-				$profile,
-				$form,
-				$opts
-			);
-
-			return true;
-		};
-
-		/**
-		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchPowerBox
-		 */
-		$this->handlers['SpecialSearchPowerBox'] = function ( &$showSections, $term, $opts ) use ( $searchResultModifier ) {
-
-			$searchResultModifier->addLanguageFilterToPowerBox(
-				$GLOBALS['wgRequest'],
-				$showSections
-			);
-
-			return true;
-		};
-
-		/**
-		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchSetupEngine
-		 */
-		$this->handlers['SpecialSearchSetupEngine'] = function ( \SpecialSearch $search, $profile, \SearchEngine $searchEngine ) use ( $searchResultModifier ) {
-
-			if ( $search->getContext()->getRequest()->getVal( 'nsflag') ) {
-				$searchEngine->setNamespaces( \SearchEngine::defaultNamespaces() );
-			}
-
-			return true;
-		};
-
-		/**
-		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SpecialSearchResults
-		 */
-		$this->handlers['SpecialSearchResults'] = function ( $term, &$titleMatches, &$textMatches ) use ( $searchResultModifier ) {
-
-			$searchResultModifier->applyLanguageFilterToResultMatches(
-				$GLOBALS['wgRequest'],
-				$titleMatches,
-				$textMatches
-			);
-
-			return true;
-		};
-	}
 
 }
