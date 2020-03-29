@@ -5,7 +5,7 @@ This file contains the RELEASE-NOTES of the **Semantic Interlanguage Links** (a.
 Released on (tentative date).
 
 * Minimum requirement for
-  * PHP changed to version 7.0 and later
+  * PHP changed to version 7.1 and later
 * #75 Removed search functionality now accessible via the [`SEARCH FORM SCHEMA`](https://www.semantic-mediawiki.org/wiki/Help:Schema/Type/SEARCH_FORM_SCHEMA) provided by Semantic MediaWiki
 * Localization updates from https://translatewiki.net
 
