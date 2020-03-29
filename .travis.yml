@@ -4,6 +4,8 @@ language: php
 os:
   - linux
 
+dist: trusty
+
 jobs:
   fast_finish: true
   include:
