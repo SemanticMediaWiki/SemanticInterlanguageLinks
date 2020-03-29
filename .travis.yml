@@ -11,9 +11,9 @@ matrix:
     - env: DB=mysql; MW=REL1_32; PHPUNIT=5.7.*
       php: 7.1
     - env: DB=mysql; MW=REL1_31; PHPUNIT=5.7.*; TYPE=coverage
-      php: 7.0
+      php: 7.1
     - env: DB=sqlite; MW=REL1_33; SITELANG=ja; PHPUNIT=6.5.*
-      php: 7.0
+      php: 7.1
     - env: DB=mysql; MW=master; PHPUNIT=6.5.*
       php: 7.2
   allow_failures:
