@@ -14,11 +14,11 @@ matrix:
       php: 7.1
     - env: DB=sqlite; MW=REL1_33; SITELANG=ja; PHPUNIT=6.5.*
       php: 7.1
-    - env: DB=mysql; MW=master; PHPUNIT=6.5.*
-      php: 7.2
+    - env: DB=mysql; MW=master; PHPUNIT=8.5.*
+      php: 7.4
   allow_failures:
     - env: DB=sqlite; MW=REL1_33; SITELANG=ja; PHPUNIT=6.5.*
-    - env: DB=mysql; MW=master; PHPUNIT=6.5.*
+    - env: DB=mysql; MW=master; PHPUNIT=8.5.*
 
 install:
   - travis_retry composer self-update
