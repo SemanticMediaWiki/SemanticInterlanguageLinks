@@ -1,4 +1,14 @@
-This file contains the RELEASE-NOTES of the Semantic Interlanguage Links (a.k.a. SIL) extension.
+This file contains the RELEASE-NOTES of the **Semantic Interlanguage Links** (a.k.a. SIL) extension.
+
+### 2.1.0
+
+Released on (tentative date).
+
+* Minimum requirement for
+  * PHP changed to version 7.0 and later
+* #75 Removed search functionality now accessible via the [`SEARCH FORM SCHEMA`](https://www.semantic-mediawiki.org/wiki/Help:Schema/Type/SEARCH_FORM_SCHEMA) provided by Semantic MediaWiki
+* Localization updates from https://translatewiki.net
+
 
 ### 2.0.0
 
