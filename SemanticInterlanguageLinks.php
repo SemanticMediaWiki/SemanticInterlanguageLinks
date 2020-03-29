@@ -91,13 +91,4 @@ class SemanticInterlanguageLinks {
 		$hookRegistry->register();
 	}
 
-	/**
-	 * @since 1.3
-	 *
-	 * @return string|null
-	 */
-	public static function getVersion() {
-		return SIL_VERSION;
-	}
-
 }

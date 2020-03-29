@@ -22,13 +22,13 @@ class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
 	private $pageCreator;
 	private $subjects = [];
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->pageCreator = UtilityFactory::getInstance()->newpageCreator();
 	}
 
-	protected function tearDown() {
+	protected function tearDown() : void {
 
 		UtilityFactory::getInstance()
 			->newPageDeleter()
