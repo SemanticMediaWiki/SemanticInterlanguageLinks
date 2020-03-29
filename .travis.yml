@@ -1,11 +1,10 @@
-# http://docs.travis-ci.com/user/workers/container-based-infrastructure/
-sudo: false
+# https://docs.travis-ci.com/user/reference/overview/language: php
 language: php
 
-# https://docs.travis-ci.com/user/trusty-ci-environment/
-dist: trusty
+os:
+  - linux
 
-matrix:
+jobs:
   fast_finish: true
   include:
     - env: DB=mysql; MW=REL1_32; PHPUNIT=5.7.*
