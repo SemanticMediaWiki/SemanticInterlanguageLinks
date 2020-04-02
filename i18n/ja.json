@@ -5,7 +5,8 @@
 			"Sujiniku",
 			"Suyama",
 			"Wat",
-			"ネイ"
+			"ネイ",
+			"Shirayuki"
 		]
 	},
 	"sil-property-ill-alias-language": "ページ本文の言語",
@@ -13,5 +14,5 @@
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" は識別可能な言語コードではありません。",
 	"sil-search-profile": "言語で絞り込む",
 	"sil-search-languagefilter-label": "言語で絞り込み",
-	"sil-categorypage-languagefilter-active": "このカテゴリーには言語\"$1\"でフィルターされている情報(ページ、サブカテゴリ、イメージ)が含まれています。"
+	"sil-categorypage-languagefilter-active": "このカテゴリには言語\"$1\"でフィルターされている情報 (ページ、下位カテゴリ、画像) が含まれています。"
 }
