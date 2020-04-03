@@ -2,7 +2,7 @@ This file contains the RELEASE-NOTES of the **Semantic Interlanguage Links** (a.
 
 ### 2.1.0
 
-Released on (tentative date).
+Released on April 2, 2020.
 
 * Minimum requirement for
   * PHP changed to version 7.1 and later
