@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"jaideraf",
-			"Vitorvicentevalente",
-			"Macofe",
+			"Abijeet Patro",
 			"Hamilton Abreu",
-			"Abijeet Patro"
+			"Macofe",
+			"Vitorvicentevalente",
+			"jaideraf"
 		]
 	},
 	"sil-desc": "Uma extensão do [https://www.semantic-mediawiki.org MediaWiki Semântico] para criar e gerir hiperligações interlínguas",

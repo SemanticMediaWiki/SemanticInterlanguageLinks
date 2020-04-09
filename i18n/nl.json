@@ -2,11 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Esketti",
-			"Sjoerddebruin",
-			"Rangekill",
 			"Hex",
 			"Mainframe98",
-			"Ooswesthoesbes"
+			"Ooswesthoesbes",
+			"Rangekill",
+			"Sjoerddebruin"
 		]
 	},
 	"sil-desc": "Een [https://www.semantic-mediawiki.org Semantic MediaWiki]-uitbreiding voor het maken en beheren van interwiki-koppelingen",

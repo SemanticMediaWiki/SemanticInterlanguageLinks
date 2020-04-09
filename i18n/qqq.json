@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"mwjames",
 			"Kghbln",
-			"Umherirrender",
+			"Purodha",
 			"Siebrand",
-			"Purodha"
+			"Umherirrender",
+			"mwjames"
 		]
 	},
 	"sil-desc": "{{desc|name=Semantic Interlanguage Links|url=https://www.mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links}}\nAn extension to deploy language links effortless using Semantic MedaWiki.",

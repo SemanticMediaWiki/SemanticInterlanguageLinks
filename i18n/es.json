@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fitoschido",
-			"Macofe",
-			"Laurenslimb",
+			"Abijeet Patro",
 			"Dgstranz",
-			"Abijeet Patro"
+			"Fitoschido",
+			"Laurenslimb",
+			"Macofe"
 		]
 	},
 	"sil-desc": "Extensión de [https://www.semantic-mediawiki.org Semantic MediaWiki] para crear y gestionar enlaces interlingüísticos",

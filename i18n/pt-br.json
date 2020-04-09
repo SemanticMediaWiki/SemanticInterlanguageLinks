@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"jaideraf",
-			"Jaideraf",
+			"Abijeet Patro",
 			"Eduardo Addad de Oliveira",
+			"Jaideraf",
 			"Trigonometria87",
-			"Abijeet Patro"
+			"jaideraf"
 		]
 	},
 	"sil-desc": "Uma extensão do [https://semantic-mediawiki.org Semantic MediaWiki] para criar e gerenciar links interlinguísticos",

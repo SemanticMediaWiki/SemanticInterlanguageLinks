@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"kghbln",
+			"Abijeet Patro",
 			"Kghbln",
-			"Purodha",
 			"Metalhead64",
-			"Abijeet Patro"
+			"Purodha",
+			"kghbln"
 		]
 	},
 	"sil-desc": "Ermöglicht das Erstellen und Verwalten semantischer Links zwischen einzelnen Sprachversionen einer Seite",

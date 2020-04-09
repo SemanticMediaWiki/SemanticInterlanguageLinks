@@ -1,15 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Nicolapps",
-			"Element303",
-			"Macofe",
-			"Wladek92",
-			"Gomoko",
-			"Verdy p",
-			"Urhixidur",
 			"Abijeet Patro",
-			"Thibaut120094"
+			"Element303",
+			"Gomoko",
+			"Macofe",
+			"Nicolapps",
+			"Thibaut120094",
+			"Urhixidur",
+			"Verdy p",
+			"Wladek92"
 		]
 	},
 	"sil-desc": "Une extension [https://www.semantic-mediawiki.org Semantic MediaWiki] pour créer et gérer des liens inter-langues",

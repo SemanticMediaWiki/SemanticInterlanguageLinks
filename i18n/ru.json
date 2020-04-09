@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dicto23456",
-			"Okras",
+			"Abijeet Patro",
 			"Alexandr Efremov",
+			"Dicto23456",
 			"Kaganer",
-			"Abijeet Patro"
+			"Okras"
 		]
 	},
 	"sil-desc": "Расширение [https://www.semantic-mediawiki.org Semantic MediaWiki] для создания и управления интервики-ссылками",

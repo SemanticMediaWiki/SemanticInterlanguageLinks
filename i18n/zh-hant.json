@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Cwlin0416",
 			"Assoc",
+			"Cwlin0416",
+			"Deathkon",
 			"Kly",
-			"Liuxinyu970226",
-			"Deathkon"
+			"Liuxinyu970226"
 		]
 	},
 	"sil-desc": "用來創建和管理跨語言連結的 [https://www.semantic-mediawiki.org Semantic MediaWiki] 擴充套件",

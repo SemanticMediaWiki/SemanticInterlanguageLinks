@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226",
-			"Abijeet Patro"
+			"Abijeet Patro",
+			"Liuxinyu970226"
 		]
 	},
 	"sil-desc": "用来创建和管理跨语言链接的[https://www.semantic-mediawiki.org Semantic MediaWiki]扩展",
