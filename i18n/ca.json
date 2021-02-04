@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Annamerida"
+			"Annamerida",
+			"Fitoschido"
 		]
 	},
+	"sil-interlanguagelink-invalidlanguagecode": "No s’ha reconegut «$1» com un codi d’idioma vàlid.",
 	"sil-search-profile": "Per idioma.",
 	"sil-search-languagefilter-label": "Filtra per idioma",
 	"sil-search-nolanguagefilter": "Cap filtre d'idioma.",
