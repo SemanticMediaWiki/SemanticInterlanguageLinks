@@ -46,7 +46,7 @@ script:
   - bash ./tests/travis/run-tests.sh
 
 after_success:
-  - bash ./tests/travis/upload-coverage-report.sh
+  - bash ./upload-scrutinizer-coverage-report.sh
 
 notifications:
   email:
