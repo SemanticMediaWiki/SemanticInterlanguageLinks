@@ -2,6 +2,7 @@
 
 namespace SIL\Tests;
 
+use Language;
 use SIL\HookRegistry;
 use Title;
 
@@ -183,7 +184,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	public function doTestPageContentLanguage( $instance ) {
 
 		$handler = 'PageContentLanguage';
-		$pageLang = '';
+		$pageLang = Language::factory( 'en' );
 
 		$title = Title::newFromText( __METHOD__ );
 
