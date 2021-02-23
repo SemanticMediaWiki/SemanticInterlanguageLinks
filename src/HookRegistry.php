@@ -10,6 +10,7 @@ use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
 use SIL\Category\LanguageFilterCategoryPage;
 use Hooks;
+use Language;
 
 /**
  * @license GNU GPL v2+
@@ -228,12 +229,14 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentLanguage
 		 */
-		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
+		$this->handlers['PageContentLanguage'] = function ( $title, Language &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
 
-			$pageLang = $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
+		    // PageContentLanguage now requires pageLang of type Language
+            // https://phabricator.wikimedia.org/T214358 
+			$pageLang = Language::factory( $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
 				$title,
 				$pageLang
-			);
+			) );
 
 			return true;
 		};
