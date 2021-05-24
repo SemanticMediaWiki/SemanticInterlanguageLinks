@@ -2,12 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Annamerida",
-			"Fitoschido"
+			"Fitoschido",
+			"Jmarchn"
 		]
 	},
 	"sil-interlanguagelink-invalidlanguagecode": "No s’ha reconegut «$1» com un codi d’idioma vàlid.",
 	"sil-search-profile": "Per idioma.",
 	"sil-search-languagefilter-label": "Filtra per idioma",
 	"sil-search-nolanguagefilter": "Cap filtre d'idioma.",
-	"sil-categorypage-languagefilter-active": "Aquesta categoria conté informació (pàgina, subcategoria, i imatge) filtrada per idioma."
+	"sil-categorypage-languagefilter-active": "Aquesta categoria conté informació (de pàgina, subcategories, i imatges) filtrades per l'idioma \"$1\"."
 }
