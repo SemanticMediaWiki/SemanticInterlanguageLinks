@@ -50,7 +50,7 @@
 		"process-timeout": 0
 	},
 	"scripts":{
-		"test": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist",
-		"phpunit": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist"
+		"test": "php ${MW_INSTALL_PATH}/tests/phpunit/phpunit.php -c phpunit.xml.dist",
+		"phpunit": "php ${MW_INSTALL_PATH}/tests/phpunit/phpunit.php -c phpunit.xml.dist"
 	}
 }

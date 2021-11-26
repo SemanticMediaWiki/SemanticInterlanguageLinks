@@ -54,14 +54,6 @@ class SemanticInterlanguageLinks {
 	 */
 	public static function onExtensionFunction() {
 
-		if ( !defined( 'SMW_VERSION' ) ) {
-			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
-				die( "\nThe 'Semantic Interlanguage Links' extension requires 'Semantic MediaWiki' to be installed and enabled.\n" );
-			} else {
-				die( '<b>Error:</b> The <a href="https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/">Semantic Interlanguage Links</a> extension requires <a href="https://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki">Semantic MediaWiki</a> to be installed and enabled.<br />' );
-			}
-		}
-
 		// Legacy
 		if ( isset( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] ) ) {
 			$GLOBALS['silgEnabledCategoryFilterByLanguage'] = $GLOBALS['egSILEnabledCategoryFilterByLanguage'];
