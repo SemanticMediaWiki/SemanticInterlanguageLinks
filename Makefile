@@ -185,6 +185,8 @@ ${mwCompLocal}:
 			'{"type": "path", "url": "extensions/SemanticMediaWiki"}'								\
             --working-dir ${{ env.MW_INSTALL_PATH }}											&&	\
           composer update --working-dir ${{ env.MW_INSTALL_PATH }}								)
+	echo '*** debug'
+	cat $@
 
 pkgInContainer: verifyInContainerEnvVar
 	type ${bin} > /dev/null 2>&1 															||	(	\
