@@ -19,7 +19,7 @@ use Title;
  */
 class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$propertyRegistry = $this->getMockBuilder( '\SMW\PropertyRegistry' )

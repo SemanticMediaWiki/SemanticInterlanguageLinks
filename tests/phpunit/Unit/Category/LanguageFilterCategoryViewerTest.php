@@ -18,7 +18,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 	private $context;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$config = $this->getMockBuilder( '\Config' )

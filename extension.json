@@ -19,6 +19,12 @@
 		]
 	},
 	"callback": "SemanticInterlanguageLinks::initExtension",
+	"AutoloadClasses": {
+		"SemanticInterlanguageLinks": "SemanticInterlanguageLinks.php"
+	},
+	"AutoloadNamespaces": {
+		"SIL\\": "src/"
+	},
 	"ExtensionFunctions": [
 		"SemanticInterlanguageLinks::onExtensionFunction"
 	],
