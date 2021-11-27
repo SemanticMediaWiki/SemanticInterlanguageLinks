@@ -36,6 +36,7 @@ jobs:
     env:
       mwExtensionUnderTest: SemanticInterlanguageLinks
       mwDepExtensions: SemanticMediaWiki
+      make: make -f conf/extensions/${{ env.mwExtensionUnderTest }}/Makefile
       COMPOSER_VERSION: 2
       MW_INSTALL_PATH: /var/www/html
       MW_EXT_PATH: /var/www/html/extensions
@@ -72,25 +73,25 @@ jobs:
           path: conf/extensions/SemanticMediaWiki
 
       - name: Get Composer
-        run: make -f conf/extensions/${{ env.mwExtensionUnderTest }}/Makefile composerBinaryInContainer
+        run: ${{ env.make }} composerBinaryInContainer
 
       - name: Move extensions into place
-        run: make setupExtensionsInContainer
+        run: ${{ env.make }} setupExtensionsInContainer
 
       - name: MediaWiki Composer Update
-        run: make runComposerInContainer
+        run: ${{ env.make }} runComposerInContainer
 
       - name: MediaWiki Install
-        run: make installExtensionInContainer
+        run: ${{ env.make }} installExtensionInContainer
 
       - name: Enable Debug Output
-        run: make enableDebugOutput
+        run: ${{ env.make }} enableDebugOutput
 
       - name: Install SemanticMediaWiki
-        run: make enableSemanticsAndUpdate
+        run: ${{ env.make }} enableSemanticsAndUpdate
 
-      - name: Fool the makefile
-        run: make buildOnGithub
+      - name: Fool the Makefile
+        run: ${{ env.make }} buildOnGithub
 
       - name: Run Tests
-        run: make testInContainer
+        run: ${{ env.make }} testInContainer
