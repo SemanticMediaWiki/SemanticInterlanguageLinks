@@ -180,13 +180,13 @@ ${mwCompLocal}:
 			--working-dir ${MW_INSTALL_PATH} mediawiki/semantic-interlanguage-links @dev		&&	\
 		COMPOSER=composer.local.json ${compPath} config repositories.semantic-interlanguage-links		\
 			'{"type": "path", "url": "extensions/SemanticInterlanguageLinks"}'                  	\
-            --working-dir ${{ env.MW_INSTALL_PATH }}											&&	\
+            --working-dir ${MW_INSTALL_PATH}											&&	\
           COMPOSER=composer.local.json ${compPath} require --no-update            						\
-            --working-dir ${{ env.MW_INSTALL_PATH }} mediawiki/semantic-media-wiki @dev			&&	\
+            --working-dir ${MW_INSTALL_PATH} mediawiki/semantic-media-wiki @dev			&&	\
           COMPOSER=composer.local.json ${compPath} config repositories.semantic-media-wiki				\
 			'{"type": "path", "url": "extensions/SemanticMediaWiki"}'								\
-            --working-dir ${{ env.MW_INSTALL_PATH }}											&&	\
-          ${compPath} update --working-dir ${{ env.MW_INSTALL_PATH }}								)
+            --working-dir ${MW_INSTALL_PATH}											&&	\
+          ${compPath} update --working-dir ${MW_INSTALL_PATH}								)
 	echo '*** debug'
 	cat $@
 
