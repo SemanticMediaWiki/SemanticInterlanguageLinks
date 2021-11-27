@@ -198,7 +198,7 @@ setupExtensionsInContainer: ${extTargets}
 		${make} linkInContainer target=${extensionsPath}/$$basename src=${PWD}/$$i				;	\
 	done
 
-runComposerInContainer: verifyInContainerEnvVar
+runComposerInContainer: verifyInContainerEnvVar ${mwCompLocal}
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Running composer..."
 	php ${composerPhar} update --working-dir ${MW_INSTALL_PATH}
