@@ -241,8 +241,9 @@ actInstall:
 localTestGithub: actInstall
 	act $(if ${VERBOSE},--verbose)
 
+# From https://www.wezm.net/technical/2008/03/create-empty-tar-file/
 buildOnGithub:
-	touch ${mwCiPath}/build.tar.gz
+	tar czf ${mwCiPath}/build.tar.gz --files-from /dev/null
 
 buildInContainer: verifyInContainerEnvVar
 	test -f ${mwCiPath}/build.tar.gz 														||	(	\
