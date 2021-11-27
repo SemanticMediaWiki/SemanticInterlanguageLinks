@@ -64,7 +64,6 @@ MW_SITE_NAME ?= ${mwExtensionUnderTest}
 binDir ?= /usr/local/bin
 actUrl ?= https://github.com/nektos/act
 mwCiPath ?= ${PWD}/conf
-composerPhar ?= ${mwCiPath}/composer.phar
 phpIni ?= ${mwCiPath}/php-settings.ini
 mwBranch ?= $(shell echo ${mwVer} | (echo -n REL; tr . _))
 dockerCli ?= podman
@@ -203,7 +202,7 @@ setupExtensionsInContainer: ${extTargets}
 runComposerInContainer: verifyInContainerEnvVar ${mwCompLocal}
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Running composer..."
-	php ${composerPhar} update --working-dir ${MW_INSTALL_PATH}
+	php ${compPath} update --working-dir ${MW_INSTALL_PATH}
 
 installExtensionInContainer: verifyInContainerEnvVar
 	echo ${indent}"Installing MediaWiki for ${mwExtensionUnderTest}..."
@@ -266,4 +265,4 @@ testInContainer: buildInContainer verifyInContainerEnvVar
 	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php 							\
 							src=${mwCiPath}/LocalSettings.php
 	cd ${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest}									&&	\
-		php ${composerPhar} test --working-dir=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest}
+		php ${compPath} test --working-dir=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest}
