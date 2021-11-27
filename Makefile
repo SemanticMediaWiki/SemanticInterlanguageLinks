@@ -24,7 +24,7 @@ mwTestGroup ?=
 mwTestPath ?=
 
 #
-getPackagistUnderTest=test ! -f composer.json || ( jq -Mr .name < composer.json )
+getPackagistUnderTest=test ! -f ${extensionsPath}/${mwExtensionUnderTest}/composer.json || ( cd ${extensionsPath}/${mwExtensionUnderTest} && ${compPath} config name )
 packagistVersion ?= dev-${mwExtGitBranchUnderTest}
 
 # Image name
@@ -83,7 +83,7 @@ mwDotComposer ?= ${mwCiPath}/dot-composer
 mwSkins ?= ${mwCiPath}/skins
 contPath ?= /var/www/html
 mwContPath ?= ${contPath}
-compPath ?= ${contPath}/composer
+compPath ?= ${binDir}/composer
 extensionsPath ?= ${mwContPath}/extensions
 importData ?= test-data/import.xml
 phpunitOptions ?= --testdox
@@ -163,28 +163,30 @@ linksInContainer: ${mwCompLocal}
 composerBinaryInContainer:
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Getting composer..."
-	test -x ${composerPhar}																	||	(	\
+	test -x ${compPath}																		||	(	\
 		cd ${mwCiPath}																			&&	\
 		curl -o installer "https://getcomposer.org/installer"									&&	\
 		curl -o expected "https://composer.github.io/installer.sig"								&&	\
 		echo `cat expected` " installer" | sha384sum -c -										&&	\
-		php installer																			)
+		php installer																			&&	\
+		mv composer.phar ${compPath}															&&	\
+		chmod +x ${compPath}																	)
 
 ${mwCompLocal}:
 	export packagistUnderTest=`$(call getPackagistUnderTest)`									&&	\
 	test -z "$$packagistUnderTest"													&&	(			\
 		echo {} > $@																	)	||	(	\
-		COMPOSER=composer.local.json composer require --no-update									\
+		COMPOSER=composer.local.json ${compPath} require --no-update									\
 			--working-dir ${MW_INSTALL_PATH} mediawiki/semantic-interlanguage-links @dev		&&	\
-		COMPOSER=composer.local.json composer config repositories.semantic-interlanguage-links		\
+		COMPOSER=composer.local.json ${compPath} config repositories.semantic-interlanguage-links		\
 			'{"type": "path", "url": "extensions/SemanticInterlanguageLinks"}'                  	\
             --working-dir ${{ env.MW_INSTALL_PATH }}											&&	\
-          COMPOSER=composer.local.json composer require --no-update            						\
+          COMPOSER=composer.local.json ${compPath} require --no-update            						\
             --working-dir ${{ env.MW_INSTALL_PATH }} mediawiki/semantic-media-wiki @dev			&&	\
-          COMPOSER=composer.local.json composer config repositories.semantic-media-wiki				\
+          COMPOSER=composer.local.json ${compPath} config repositories.semantic-media-wiki				\
 			'{"type": "path", "url": "extensions/SemanticMediaWiki"}'								\
             --working-dir ${{ env.MW_INSTALL_PATH }}											&&	\
-          composer update --working-dir ${{ env.MW_INSTALL_PATH }}								)
+          ${compPath} update --working-dir ${{ env.MW_INSTALL_PATH }}								)
 	echo '*** debug'
 	cat $@
 
