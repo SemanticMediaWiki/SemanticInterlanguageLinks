@@ -62,8 +62,8 @@ jobs:
       - name: Checkout Extension
         uses: actions/checkout@v2
         with:
-          repository: SemanticMediaWiki/${{ env.EXT_NAME }}
-          path: conf/extensions/${{ env.EXT_NAME }}
+          repository: SemanticMediaWiki/${{ env.mwExtensionUnderTest }}
+          path: conf/extensions/${{ env.mwExtensionUnderTest }}
 
       - name: Checkout SMW
         uses: actions/checkout@v2
@@ -72,7 +72,7 @@ jobs:
           path: conf/extensions/SemanticMediaWiki
 
       - name: Get Composer
-        run: make -f conf/extensions/${{ env.EXT_NAME }}/Makefile composerBinaryInContainer
+        run: make -f conf/extensions/${{ env.mwExtensionUnderTest }}/Makefile composerBinaryInContainer
 
       - name: Move extensions into place
         run: make setupExtensionsInContainer
