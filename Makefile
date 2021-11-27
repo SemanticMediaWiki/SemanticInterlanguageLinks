@@ -84,7 +84,7 @@ mwSkins ?= ${mwCiPath}/skins
 contPath ?= /var/www/html
 mwContPath ?= ${contPath}
 compPath ?= ${contPath}/composer
-extPath ?= ${mwContPath}/extensions/${mwExtensionUnderTest}
+extensionsPath ?= ${mwContPath}/extensions
 importData ?= test-data/import.xml
 phpunitOptions ?= --testdox
 autoloadClassmap ?= ${mwVendor}/composer/autoload_classmap.php
@@ -194,7 +194,9 @@ pkgInContainer: verifyInContainerEnvVar
 
 setupExtensionsInContainer: ${extTargets}
 	for i in ${extTargets}; do																		\
-		mv $$i $
+		export basename=`basename $$i`															&&	\
+		${make} linkInContainer target=${extensionsPath}/$$basename src=${PWD}/$$i				;	\
+	done
 
 runComposerInContainer: verifyInContainerEnvVar
 	${make} pkgInContainer bin=unzip
