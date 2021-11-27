@@ -6,38 +6,17 @@ use SMW\ApplicationFactory;
 use Onoi\Cache\CacheFactory;
 
 /**
- * @see https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/
- *
- * @defgroup SIL Semantic Interlanguage Links
- */
-SemanticInterlanguageLinks::load();
-
-/**
  * @codeCoverageIgnore
  */
 class SemanticInterlanguageLinks {
 
 	/**
-	 * @since 1.4
-	 *
-	 * @note It is expected that this function is loaded before LocalSettings.php
-	 * to ensure that settings and global functions are available by the time
-	 * the extension is activated.
-	 */
-	public static function load() {
-
-		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
-			include_once __DIR__ . '/vendor/autoload.php';
-		}
-
-		// Load DefaultSettings
-		require_once __DIR__ . '/DefaultSettings.php';
-	}
-
-	/**
 	 * @since 1.3
 	 */
 	public static function initExtension( $credits = [] ) {
+
+		// Load DefaultSettings
+		require_once __DIR__ . '/DefaultSettings.php';
 
 		// See https://phabricator.wikimedia.org/T151136
 		define( 'SIL_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );

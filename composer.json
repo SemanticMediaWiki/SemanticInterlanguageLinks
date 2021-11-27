@@ -39,9 +39,9 @@
 		}
 	},
 	"autoload": {
-		"files" : [
-			"SemanticInterlanguageLinks.php"
-		],
+		"psr-0": {
+			"SemanticInterlanguageLinks": "SemanticInterlanguageLinks.php"
+		},
 		"psr-4": {
 			"SIL\\": "src/"
 		}
