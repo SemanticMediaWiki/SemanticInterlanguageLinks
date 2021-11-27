@@ -36,7 +36,7 @@ jobs:
     env:
       mwExtensionUnderTest: SemanticInterlanguageLinks
       mwDepExtensions: SemanticMediaWiki
-      make: make -f conf/extensions/${{ env.mwExtensionUnderTest }}/Makefile
+      make: make -f conf/extensions/SemanticInterlanguageLinks/Makefile
       COMPOSER_VERSION: 2
       MW_INSTALL_PATH: /var/www/html
       MW_EXT_PATH: /var/www/html/extensions
