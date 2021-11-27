@@ -47,15 +47,22 @@ WEB_ROOT ?= /var/www
 #
 MW_DB_TYPE ?= sqlite
 MW_DB_NAME ?= my_wiki
-MW_DATA_DIR ?= /var/www/data
+MW_DB_PATH ?= ${mwCiPath}/data
+MW_DB_USER ?= wikiuser
+MW_DB_PASS ?= wikipass
 MW_PASSWORD ?= ugly123456
 MW_WIKI_USER ?= WikiSysop
 MW_SCRIPTPATH ?= ""
+DB_ROOT_USER ?= root
+DB_ROOT_PASS ?=
+
 
 # Name of the wiki
 MW_SITE_NAME ?= ${mwExtensionUnderTest}
 
 #
+binDir ?= /usr/local/bin
+actUrl ?= https://github.com/nektos/act
 mwCiPath ?= ${PWD}/conf
 composerPhar ?= ${mwCiPath}/composer.phar
 phpIni ?= ${mwCiPath}/php-settings.ini
@@ -73,9 +80,7 @@ mwDbPath ?= ${mwCiPath}/sqlite-data
 mwVendor ?= ${mwCiPath}/vendor
 mwAptPath ?= ${mwCiPath}/apt
 mwDotComposer ?= ${mwCiPath}/dot-composer
-mwExtensions ?= ${mwCiPath}/extensions
 mwSkins ?= ${mwCiPath}/skins
-thisRepoCopy ?= ${mwExtensions}/${mwExtensionUnderTest}
 contPath ?= /var/www/html
 mwContPath ?= ${contPath}
 compPath ?= ${contPath}/composer
@@ -147,6 +152,14 @@ linkInContainer:
 		ln -s ${src} ${target}																		\
 	)
 
+linksInContainer: ${mwCompLocal}
+	echo ${indent}"Setting up symlinks for container"
+	${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest} src=${PWD}
+	${make} linkInContainer target=${MW_INSTALL_PATH}/vendor              src=${mwVendor}
+	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.local.json src=${mwCompLocal}
+	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.lock       src=${mwCiPath}/composer.lock
+	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.json       src=${mwCiPath}/composer.json
+
 composerBinaryInContainer:
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Getting composer..."
@@ -158,28 +171,30 @@ composerBinaryInContainer:
 		php installer																			)
 
 ${mwCompLocal}:
-	${make} pkgInContainer bin=jq
 	export packagistUnderTest=`$(call getPackagistUnderTest)`									&&	\
 	test -z "$$packagistUnderTest"													&&	(			\
 		echo {} > $@																	)	||	(	\
-		echo {}																					|	\
-		jq ".require.\"mediawiki/semantic-media-wiki\" = \"dev-master\""						|	\
-		jq ".require.\"$$packagistUnderTest\" = \"dev-${mwExtGitBranchUnderTest}\""				|	\
-		jq '. += { repositories: [{"type":"vcs","url":"${PWD}"}]}' > $@						)
-
-linksInContainer: ${mwCompLocal}
-	echo ${indent}"Setting up symlinks for container"
-	${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest} src=${PWD}
-	${make} linkInContainer target=${MW_INSTALL_PATH}/vendor              src=${mwVendor}
-	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.local.json src=${mwCompLocal}
-	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.lock       src=${mwCiPath}/composer.lock
-	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.json       src=${mwCiPath}/composer.json
+		COMPOSER=composer.local.json composer require --no-update									\
+			--working-dir ${MW_INSTALL_PATH} mediawiki/semantic-interlanguage-links @dev		&&	\
+		COMPOSER=composer.local.json composer config repositories.semantic-interlanguage-links		\
+			'{"type": "path", "url": "extensions/SemanticInterlanguageLinks"}'                  	\
+            --working-dir ${{ env.MW_INSTALL_PATH }}											&&	\
+          COMPOSER=composer.local.json composer require --no-update            						\
+            --working-dir ${{ env.MW_INSTALL_PATH }} mediawiki/semantic-media-wiki @dev			&&	\
+          COMPOSER=composer.local.json composer config repositories.semantic-media-wiki				\
+			'{"type": "path", "url": "extensions/SemanticMediaWiki"}'								\
+            --working-dir ${{ env.MW_INSTALL_PATH }}											&&	\
+          composer update --working-dir ${{ env.MW_INSTALL_PATH }}								)
 
 pkgInContainer: verifyInContainerEnvVar
 	type ${bin} > /dev/null 2>&1 															||	(	\
 		echo ${indent}"Installing $(if ${pkg},${pkg},${bin})..."								&&	\
 		apt update																				&&	\
 		apt install -y $(if ${pkg},${pkg},${bin})												)
+
+setupExtensionsInContainer: ${extTargets}
+	for i in ${extTargets}; do																		\
+		mv $$i $
 
 runComposerInContainer: verifyInContainerEnvVar
 	${make} pkgInContainer bin=unzip
@@ -189,20 +204,41 @@ runComposerInContainer: verifyInContainerEnvVar
 installExtensionInContainer: verifyInContainerEnvVar
 	echo ${indent}"Installing MediaWiki for ${mwExtensionUnderTest}..."
 	mkdir -p ${mwCiPath}/data
-	php ${MW_INSTALL_PATH}/maintenance/install.php --dbtype=sqlite --dbname=mywiki					\
-			  --pass=ugly123456 --scriptpath="" --dbpath=${mwCiPath}/data							\
-			  --server="http://localhost:8000"														\
-			  --extensions=${mwDepExtensions},${mwExtensionUnderTest}								\
-			  ${mwExtensionUnderTest}-test WikiSysop
+	php ${MW_INSTALL_PATH}/maintenance/install.php --dbtype=${MW_DB_TYPE} --dbname=mywiki			\
+			--dbserver=${MD_DB_SERVER} --dbuser=${MW_DB_USER} --dbpass=${MW_DB_PASS}				\
+			--installdbuser=${DB_ROOT_PASS} --installdbpass=${DB_ROOT_PWD} --pass=${MW_PASSWORD}	\
+			--scriptpath=${MW_SCRIPTPATH} --dbpath=${MW_DB_PATH} --server="http://localhost:8000"	\
+			--extensions=${mwDepExtensions},${mwExtensionUnderTest}									\
+			${mwExtensionUnderTest}-test ${MW_WIKI_USER}
 	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php src=${mwCiPath}/LocalSettings.php
+
+enableDebugOutput:
 	echo 'error_reporting(E_ALL| E_STRICT);' >> ${mwCiPath}/LocalSettings.php
 	echo 'ini_set("display_errors", 1);' >> ${mwCiPath}/LocalSettings.php
 	echo '$$wgShowExceptionDetails = true;' >> ${mwCiPath}/LocalSettings.php
 	echo '$$wgDevelopmentWarnings = true;' >> ${mwCiPath}/LocalSettings.php
+
+enableSemanticsAndUpdate:
 	echo "enableSemantics( 'localhost' );" >> ${mwCiPath}/LocalSettings.php
-	echo "wfLoadExtension( '${mwExtensionUnderTest}' );" >> ${mwCiPath}/LocalSettings.php
 	php ${MW_INSTALL_PATH}/maintenance/update.php --quick
 	chown -R "${WEB_USER}:${WEB_GROUP}" ${mwCiPath}/data
+
+actInstall:
+	test -x ${binDir}/act																	||	(	\
+		export version=`curl -s -I ${actUrl}/releases/latest								2>&1|	\
+			awk '/^location:/ {print $$2}'														|	\
+			sed 's,.*/\([^/]*\)$$,\1,; s,\\r,,'`												&&	\
+		export kernel=`uname -s`																&&	\
+		export machine=`uname -m`																&&	\
+		curl -s -L ${actUrl}/releases/download/$$version/act_"$$kernel"_$$machine.tar.gz		|	\
+			tar -C ${binDir} -xz act															&&	\
+		chmod +x ${binDir}/act																	)
+
+localTestGithub: actInstall
+	act $(if ${VERBOSE},--verbose)
+
+buildOnGithub:
+	touch ${mwCiPath}/build.tar.gz
 
 buildInContainer: verifyInContainerEnvVar
 	test -f ${mwCiPath}/build.tar.gz 														||	(	\
