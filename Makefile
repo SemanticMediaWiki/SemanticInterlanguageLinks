@@ -219,6 +219,7 @@ enableDebugOutput:
 	echo 'ini_set("display_errors", 1);' >> ${mwCiPath}/LocalSettings.php
 	echo '$$wgShowExceptionDetails = true;' >> ${mwCiPath}/LocalSettings.php
 	echo '$$wgDevelopmentWarnings = true;' >> ${mwCiPath}/LocalSettings.php
+	cat ${mwCiPath}/LocalSettings.php
 
 enableSemanticsAndUpdate:
 	echo "enableSemantics( 'localhost' );" >> ${mwCiPath}/LocalSettings.php
