@@ -253,7 +253,7 @@ enableDebugOutput:
 enableSemanticsAndUpdate:
 	echo "enableSemantics( 'localhost' );" >> ${mwCiPath}/LocalSettings.php
 	php ${MW_INSTALL_PATH}/maintenance/update.php --quick
-	chown -R "${WEB_USER}:${WEB_GROUP}" ${mwCiPath}/data
+	chown -R "${WEB_USER}:${WEB_GROUP}" ${MW_DB_PATH}
 
 actInstall:
 	test -x ${binDir}/act																	||	(	\
