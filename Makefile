@@ -138,7 +138,9 @@ inContainer:
 			mwExtensionUnderTest="${mwExtensionUnderTest}" mwTestGroup="${mwTestGroup}"				\
 			mwTestFilter="${mwTestFilter}" mwTestPath="${mwTestPath}" WEB_GROUP="${WEB_GROUP}"		\
 			MW_INSTALL_PATH="${MW_INSTALL_PATH}" WEB_ROOT="${WEB_ROOT}" WEB_USER="${WEB_USER}"		\
-			mwDepExtensions="${mwDepExtensions}"
+			mwDepExtensions="${mwDepExtensions}" MW_DB_PATH="${MW_DB_PATH}"							\
+			MW_DB_TYPE="${MW_DB_TYPE}" MW_DB_SERVER="${MW_DB_SERVER}"  MW_DB_PASS="${MW_DB_PASS}"	\
+			MW_DB_NAME="${MW_DB_NAME}" DB_ROOT_PASS="${DB_ROOT_PASS}" DB_ROOT_USER="${DB_ROOT_USER}"
 
 linkInContainer:
 	test -e ${target}																		||	(	\
