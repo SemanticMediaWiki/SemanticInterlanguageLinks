@@ -161,7 +161,7 @@ linkInContainer:
 linksInContainer:
 	echo ${indent}"Setting up symlinks for container"
 	${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest} src=${PWD}
-	for extension in ${mwDepExtensions}; do															\
+	for extension in ${mwDepExtensions} ${mwExtensionUnderTest}; do									\
 		${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/$$extension					\
 							src=${mwCiExtensions}/$$extension									;	\
 	done
@@ -188,7 +188,6 @@ composerBinaryInContainer:
 		cp -p ${mwCiPath}/composer.phar ${compPath}
 
 ${mwCompLocal}:
-	pwd
 	export packagistUnderTest=`$(call getPackagistUnderTest)`									&&	\
 	test -z "$$packagistUnderTest"															&&	(	\
 		echo {} > $@																				\
@@ -285,7 +284,7 @@ buildInContainer:
 		echo ${indent}"Creating build.tar.gz"													&&	\
 		tar -C ${mwCiPath} -czf ${mwCiPath}/build.tar.gz 											\
 			LocalSettings.php composer composer.local.json composer.{json,lock} vendor data 		\
-			$(call extensionDirs,${mwDepExtensions})												\
+			$(call extensionDirs,${mwDepExtensions} ${mwExtensionUnderTest})						\
 	)
 
 testInContainer: buildInContainer
