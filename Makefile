@@ -203,8 +203,8 @@ pkgInContainer: verifyInContainerEnvVar
 SemanticMediaWiki:
 	test ! -d ${mwCiExtensions}/$@															||	(	\
 		cd ${mwCiExtensions}/$@																	&&	\
-		echo ${indent}"Updating $@ from "`git remote get-url origin`							&&	\
-		git pull																					\
+		test -z `git branch --show-current`														||
+			git pull																				\
 	)
 	test -d ${mwCiExtensions}/$@															||	(	\
 		git clone "https://github.com/SemanticMediaWiki/$@.git" ${mwCiExtensions}/$@				\
