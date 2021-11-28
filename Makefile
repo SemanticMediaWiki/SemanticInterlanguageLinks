@@ -14,7 +14,7 @@ makeutil/baseConfig.mk: git
 mwExtensionUnderTest ?= Set-mwExtensionUnderTest
 # Name of the branch under test
 mwExtGitBranchUnderTest ?= $(shell git branch --show-current)
-# Any dependent extensions
+# Any dependent extensions (space separated)
 mwDepExtensions ?=
 # PHPUnit will look for this string and filter by it
 mwTestFilter ?=
@@ -22,8 +22,6 @@ mwTestFilter ?=
 mwTestGroup ?=
 # PHPUnit will run tests in this path (relative to MW_INSTALL_PATH)
 mwTestPath ?=
-# Space-separated extensions to check out
-extTargets ?=
 
 #
 extensionDirs = echo $(1) | sed 's,^,extensions/,; s, , extensions/,g;'
@@ -140,7 +138,7 @@ inContainer:
 			mwExtensionUnderTest="${mwExtensionUnderTest}" mwTestGroup="${mwTestGroup}"				\
 			mwTestFilter="${mwTestFilter}" mwTestPath="${mwTestPath}" WEB_GROUP="${WEB_GROUP}"		\
 			MW_INSTALL_PATH="${MW_INSTALL_PATH}" WEB_ROOT="${WEB_ROOT}" WEB_USER="${WEB_USER}"		\
-			mwDepExtensions="${mwDepExtensions}" extTargets="${extTargets}"
+			mwDepExtensions="${mwDepExtensions}"
 
 linkInContainer:
 	test -e ${target}																		||	(	\
@@ -163,7 +161,7 @@ linkInContainer:
 linksInContainer:
 	echo ${indent}"Setting up symlinks for container"
 	${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest} src=${PWD}
-	for extension in ${extTargets}; do																\
+	for extension in ${mwDepExtensions}; do															\
 		${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/$$extension					\
 							src=${mwCiExtensions}/$$extension									;	\
 	done
@@ -229,7 +227,7 @@ smwVCS:
 			${mwCiExtensions}/${target}																\
 	)
 
-runComposerInContainer: linksInContainer ${extTargets} ${mwCompLocal}
+runComposerInContainer: linksInContainer ${mwDepExtensions} ${mwCompLocal}
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Running composer..."
 	php ${compPath} update --working-dir ${MW_INSTALL_PATH}
@@ -241,7 +239,7 @@ installExtensionInContainer: verifyInContainerEnvVar
 			--dbserver=${MW_DB_SERVER} --dbuser=${MW_DB_USER} --dbpass=${MW_DB_PASS}				\
 			--installdbuser=${DB_ROOT_USER} --installdbpass=${DB_ROOT_PWD} --pass=${MW_PASSWORD}	\
 			--scriptpath=${MW_SCRIPTPATH} --dbpath=${MW_DB_PATH} --server="http://localhost:8000"	\
-			--extensions=`$(call commafyExtList,${extTargets})`,${mwExtensionUnderTest}				\
+			--extensions=`$(call commafyExtList,${mwDepExtensions})`,${mwExtensionUnderTest}		\
 			${mwExtensionUnderTest}-test ${MW_WIKI_USER}
 	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php								\
 							src=${mwCiPath}/LocalSettings.php
@@ -286,7 +284,7 @@ buildInContainer:
 		echo ${indent}"Creating build.tar.gz"													&&	\
 		tar -C ${mwCiPath} -czf ${mwCiPath}/build.tar.gz 											\
 			LocalSettings.php composer composer.local.json composer.{json,lock} vendor data 		\
-			$(call extensionDirs,${extTargets})														\
+			$(call extensionDirs,${mwDepExtensions})												\
 	)
 
 testInContainer: buildInContainer

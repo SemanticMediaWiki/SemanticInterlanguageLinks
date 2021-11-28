@@ -49,7 +49,6 @@ jobs:
       MW_DB_USER: wiki
       MW_DB_PWD: wiki
       MW_DB_NAME: wiki
-      extTargets: SemanticInterlanguageLinks SemanticMediaWiki
       VERBOSE: 1
 
     services:
