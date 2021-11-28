@@ -188,6 +188,7 @@ composerBinaryInContainer:
 		cp -p ${mwCiPath}/composer.phar ${compPath}
 
 ${mwCompLocal}:
+	pwd
 	export packagistUnderTest=`$(call getPackagistUnderTest)`									&&	\
 	test -z "$$packagistUnderTest"															&&	(	\
 		echo {} > $@																				\
