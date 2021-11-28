@@ -22,8 +22,12 @@ mwTestFilter ?=
 mwTestGroup ?=
 # PHPUnit will run tests in this path (relative to MW_INSTALL_PATH)
 mwTestPath ?=
+# Space-separated extensions to check out
+extTargets ?=
 
 #
+extensionDirs = echo $(1) | sed 's,^,extensions/,; s, , extensions/,g;'
+commafyExtList = echo $(1) | sed 's/ /,/g;'
 getPackagistUnderTest=test ! -f ${extensionsPath}/${mwExtensionUnderTest}/composer.json || ( cd ${extensionsPath}/${mwExtensionUnderTest} && ${compPath} config name )
 packagistVersion ?= dev-${mwExtGitBranchUnderTest}
 
@@ -85,12 +89,10 @@ contPath ?= /var/www/html
 mwContPath ?= ${contPath}
 compPath ?= ${binDir}/composer
 extensionsPath ?= ${mwContPath}/extensions
+mwCiExtensions ?= ${mwCiPath}/extensions
 importData ?= test-data/import.xml
 phpunitOptions ?= --testdox
 autoloadClassmap ?= ${mwVendor}/composer/autoload_classmap.php
-
-# Comma seperated list of extensions to install
-installExtensions ?=
 
 lsPath=${mwCiPath}/LocalSettings.php
 mwCompLocal=${mwCiPath}/composer.local.json
@@ -135,7 +137,7 @@ inContainer:
 			mwExtensionUnderTest="${mwExtensionUnderTest}" mwTestGroup="${mwTestGroup}"				\
 			mwTestFilter="${mwTestFilter}" mwTestPath="${mwTestPath}" WEB_GROUP="${WEB_GROUP}"		\
 			MW_INSTALL_PATH="${MW_INSTALL_PATH}" WEB_ROOT="${WEB_ROOT}" WEB_USER="${WEB_USER}"		\
-			mwDepExtensions=${mwDepExtensions}
+			mwDepExtensions="${mwDepExtensions}" extTargets="${extTargets}"
 
 linkInContainer:
 	test -L ${target}																		||	(	\
@@ -157,20 +159,23 @@ linksInContainer: ${mwCompLocal}
 	${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest} src=${PWD}
 	${make} linkInContainer target=${MW_INSTALL_PATH}/vendor              src=${mwVendor}
 	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.local.json src=${mwCompLocal}
-	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.lock       src=${mwCiPath}/composer.lock
-	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.json       src=${mwCiPath}/composer.json
+	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.lock									\
+							src=${mwCiPath}/composer.lock
+	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.json									\
+							src=${mwCiPath}/composer.json
 
 composerBinaryInContainer:
-	${make} pkgInContainer bin=unzip
-	echo ${indent}"Getting composer..."
-	test -x ${compPath}																		||	(	\
+	test -x ${mwCiPath}/composer.phar														||	(	\
+		${make} pkgInContainer bin=unzip														&&	\
+		echo ${indent}"Getting composer..."														&&	\
 		cd ${mwCiPath}																			&&	\
 		curl -o installer "https://getcomposer.org/installer"									&&	\
 		curl -o expected "https://composer.github.io/installer.sig"								&&	\
 		echo `cat expected` " installer" | sha384sum -c -										&&	\
-		php installer																			&&	\
-		mv composer.phar ${compPath}															&&	\
-		chmod +x ${compPath}																	)
+		php installer																				\
+	)
+	test -x ${compPath}																			||	\
+		cp -p ${mwCiPath}/composer.phar ${compPath}
 
 ${mwCompLocal}:
 	export packagistUnderTest=`$(call getPackagistUnderTest)`									&&	\
@@ -194,27 +199,52 @@ pkgInContainer: verifyInContainerEnvVar
 		apt update																				&&	\
 		apt install -y $(if ${pkg},${pkg},${bin})												)
 
+.PHONY: SemanticMediaWiki
+SemanticMediaWiki:
+	test ! -d ${mwCiExtensions}/$@															||	(	\
+		cd ${mwCiExtensions}/$@																	&&	\
+		echo ${indent}"Updating $@ from "`git remote get-url origin`							&&	\
+		git pull																					\
+	)
+	test -d ${mwCiExtensions}/$@															||	(	\
+		git clone "https://github.com/SemanticMediaWiki/$@.git" ${mwCiExtensions}/$@				\
+	)
+
+.PHONY: SemanticInterlanguageLinks
+SemanticInterlanguageLinks:
+	test ! -d ${mwCiExtensions}/$@															||	(	\
+		cd ${mwCiExtensions}/$@																	&&	\
+		echo ${indent}"Updating $@ from "`git remote get-url origin`							&&	\
+		git pull																					\
+	)
+	test -d ${mwCiExtensions}/$@															||	(	\
+		git clone "https://github.com/SemanticMediaWiki/$@.git" ${mwCiExtensions}/$@				\
+	)
+
 setupExtensionsInContainer: ${extTargets}
 	for i in ${extTargets}; do																		\
-		export basename=`basename $$i`															&&	\
-		${make} linkInContainer target=${extensionsPath}/$$basename src=${PWD}/$$i				;	\
+		echo ${indent}"Putting $$i into place."													&&	\
+		${make} linkInContainer target=${extensionsPath}/$$i src=${mwCiExtensions}/$$i			;	\
+		sleep 5 ; \
 	done
 
-runComposerInContainer: verifyInContainerEnvVar ${mwCompLocal}
+runComposerInContainer: verifyInContainerEnvVar ${mwCompLocal} setupExtensionsInContainer
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Running composer..."
 	php ${compPath} update --working-dir ${MW_INSTALL_PATH}
 
 installExtensionInContainer: verifyInContainerEnvVar
-	echo ${indent}"Installing MediaWiki for ${mwExtensionUnderTest}..."
+	ls -l ${MW_INSTALL_PATH}/extensions
+	echo ${indent}"Installing MediaWiki to test ${mwExtensionUnderTest}..."
 	mkdir -p ${mwCiPath}/data
-	php ${MW_INSTALL_PATH}/maintenance/install.php --dbtype=${MW_DB_TYPE} --dbname=mywiki			\
+	php ${MW_INSTALL_PATH}/maintenance/install.php --dbtype=${MW_DB_TYPE} --dbname=${MW_DB_NAME}	\
 			--dbserver=${MW_DB_SERVER} --dbuser=${MW_DB_USER} --dbpass=${MW_DB_PASS}				\
 			--installdbuser=${DB_ROOT_USER} --installdbpass=${DB_ROOT_PWD} --pass=${MW_PASSWORD}	\
 			--scriptpath=${MW_SCRIPTPATH} --dbpath=${MW_DB_PATH} --server="http://localhost:8000"	\
-			--extensions=${mwDepExtensions},${mwExtensionUnderTest}									\
+			--extensions=`$(call commafyExtList,${extTargets})`										\
 			${mwExtensionUnderTest}-test ${MW_WIKI_USER}
-	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php src=${mwCiPath}/LocalSettings.php
+	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php								\
+							src=${mwCiPath}/LocalSettings.php
 
 enableDebugOutput:
 	echo 'error_reporting(E_ALL| E_STRICT);' >> ${mwCiPath}/LocalSettings.php
@@ -248,23 +278,25 @@ buildOnGithub:
 
 buildInContainer: verifyInContainerEnvVar
 	test -f ${mwCiPath}/build.tar.gz 														||	(	\
-		${make} composerBinaryInContainer														&&	\
 		${make} linksInContainer																&&	\
+		${make} composerBinaryInContainer														&&	\
 		${make} runComposerInContainer															&&	\
 		${make} installExtensionInContainer														&&	\
 		echo ${indent}"Creating build.tar.gz"													&&	\
-		tar -C ${mwCiPath} -cf ${mwCiPath}/build.tar	 											\
-			LocalSettings.php composer.local.json composer.json composer.lock vendor data		&&	\
-		tar -C ${MW_INSTALL_PATH}/extensions -rf ${mwCiPath}/build.tar SemanticMediaWiki		&&	\
-		gzip ${mwCiPath}/build.tar																	\
+		tar -C ${mwCiPath} -czf ${mwCiPath}/build.tar.gz 											\
+			LocalSettings.php composer composer.local.json composer.{json,lock} vendor data 		\
+			$(call extensionDirs,${extTargets})														\
 	)
 
 testInContainer: buildInContainer verifyInContainerEnvVar
 	tar -C ${mwCiPath} -xzf ${mwCiPath}/build.tar.gz
 	${make} linksInContainer
-	${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/SemanticMediaWiki					\
-							src=${mwCiPath}/SemanticMediaWiki
+	for extension in ${extTargets}; do																\
+		${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/$$extension					\
+							src=${mwCiPath}/$$extension											;	\
+	done
 	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php 							\
 							src=${mwCiPath}/LocalSettings.php
+	${make} composerBinaryInContainer
 	cd ${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest}									&&	\
 		php ${compPath} test --working-dir=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest}

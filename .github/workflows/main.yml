@@ -49,7 +49,7 @@ jobs:
       MW_DB_USER: wiki
       MW_DB_PWD: wiki
       MW_DB_NAME: wiki
-      extTargets: conf/extensions/SemanticInterlanguageLinks conf/extensions/SemanticMediaWiki
+      extTargets: SemanticInterlanguageLinks SemanticMediaWiki
       VERBOSE: 1
 
     services:
