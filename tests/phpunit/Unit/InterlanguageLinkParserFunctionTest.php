@@ -20,7 +20,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	private $pageContentLanguageOnTheFlyModifier;
 	private $pageContentLanguageDbModifier;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )

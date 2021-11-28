@@ -24,7 +24,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	private $cache;
 	private $cacheKeyProvider;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->cache = CacheFactory::getInstance()->newMediaWikiCache( new HashBagOStuff() );

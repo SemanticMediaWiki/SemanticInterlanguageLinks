@@ -1,4 +1,6 @@
+!.*
 *~
+
 *.kate-swp
 
 vendor/
@@ -7,5 +9,9 @@ extensions/
 composer.phar
 composer.lock
 
-!.*
 .idea/
+
+.envrc
+.phpunit.result.cache
+conf/
+makeutil/

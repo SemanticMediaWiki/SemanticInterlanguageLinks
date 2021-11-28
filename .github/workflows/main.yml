@@ -1,0 +1,92 @@
+name: build
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    continue-on-error: ${{ matrix.experimental }}
+
+    strategy:
+      matrix:
+        include:
+          - mediawiki_version: 1.35
+            database_type: sqlite
+            experimental: false
+          - mediawiki_version: 1.35
+            database_type: mysql
+            experimental: false
+          - mediawiki_version: 1.36
+            database_type: mysql
+            experimental: true
+          - mediawiki_version: 1.37
+            database_type: mysql
+            experimental: true
+
+    container:
+      image: mediawiki:${{ matrix.mediawiki_version }}
+      options: --link some-${{ matrix.database_type }}:${{ matrix.database_type }}
+
+    env:
+      mwExtensionUnderTest: SemanticInterlanguageLinks
+      mwDepExtensions: SemanticMediaWiki
+      make: make -f conf/extensions/SemanticInterlanguageLinks/Makefile
+      COMPOSER_VERSION: 2
+      MW_INSTALL_PATH: /var/www/html
+      MW_EXT_PATH: /var/www/html/extensions
+      DB_ROOT_USER: root
+      DB_ROOT_PWD: database
+      MW_DB_TYPE: ${{ matrix.database_type }}
+      MW_DB_SERVER: ${{ matrix.database_type }}
+      mwVer: ${{matrix.mediawiki_version}}
+      MW_DB_PATH: /var/www/data
+      MW_DB_USER: wiki
+      MW_DB_PWD: wiki
+      MW_DB_NAME: wiki
+      VERBOSE: 1
+
+    services:
+      some-mysql:
+        image: mariadb:latest
+        env:
+          MARIADB_ROOT_PASSWORD: ${{ env.DB_ROOT_PWD }}
+
+    steps:
+      - name: Checkout Extension
+        uses: actions/checkout@v2
+        with:
+          repository: SemanticMediaWiki/${{ env.mwExtensionUnderTest }}
+          path: conf/extensions/${{ env.mwExtensionUnderTest }}
+
+      - name: Checkout SMW
+        uses: actions/checkout@v2
+        with:
+          repository: SemanticMediaWiki/SemanticMediaWiki
+          path: conf/extensions/SemanticMediaWiki
+
+      - name: Get Composer
+        run: ${{ env.make }} composerBinaryInContainer
+
+      - name: MediaWiki Composer Update
+        run: ${{ env.make }} runComposerInContainer
+
+      - name: MediaWiki Install
+        run: ${{ env.make }} installExtensionInContainer
+
+      - name: Enable Debug Output
+        run: ${{ env.make }} enableDebugOutput
+
+      - name: Install SemanticMediaWiki
+        run: ${{ env.make }} enableSemanticsAndUpdate
+
+      - name: Fool the Makefile
+        run: ${{ env.make }} buildOnGithub
+
+      - name: Run Tests
+        run: ${{ env.make }} testInContainer
