@@ -26,7 +26,7 @@ mwTestPath ?=
 #
 extensionDirs = echo $(1) | sed 's,^,extensions/,; s, , extensions/,g;'
 commafyExtList = echo $(1) | sed 's/ /,/g;'
-getPackagistUnderTest=test ! -f composer.json || ( ${compPath} config name )
+getPackagistUnderTest=test ! -f ${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest}/composer.json || ( cd ${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest} && ${compPath} config name )
 packagistVersion ?= dev-${mwExtGitBranchUnderTest}
 
 # Image name
@@ -160,7 +160,6 @@ linkInContainer:
 
 linksInContainer:
 	echo ${indent}"Setting up symlinks for container"
-	${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest} src=${PWD}
 	for extension in ${mwDepExtensions} ${mwExtensionUnderTest}; do									\
 		${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/$$extension					\
 							src=${mwCiExtensions}/$$extension									;	\
