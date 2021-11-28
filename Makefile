@@ -28,7 +28,7 @@ extTargets ?=
 #
 extensionDirs = echo $(1) | sed 's,^,extensions/,; s, , extensions/,g;'
 commafyExtList = echo $(1) | sed 's/ /,/g;'
-getPackagistUnderTest=test ! -f ${extensionsPath}/${mwExtensionUnderTest}/composer.json || ( cd ${extensionsPath}/${mwExtensionUnderTest} && ${compPath} config name )
+getPackagistUnderTest=test ! -f composer.json || ( ${compPath} config name )
 packagistVersion ?= dev-${mwExtGitBranchUnderTest}
 
 # Image name
@@ -125,12 +125,14 @@ build.tar.gz: build
 verifyInContainerEnvVar:
 	test -n "${mwExtensionUnderTest}" 														||	(	\
 		echo "You must set the mwExtensionUnderTest variable."									&&	\
-		echo "See <http://hexm.de/glcivar>"; exit 10											)
+		echo "See <http://hexm.de/glcivar>"; exit 10												\
+	)
 
 inContainer:
 	test -n "${target}" 																	||	(	\
 		echo "You must specify a target for the container to execute"							&&	\
-		echo "See <http://hexm.de/glcivar>"; exit 10											)
+		echo "See <http://hexm.de/glcivar>"; exit 10												\
+	)
 	mkdir -p ${mwVendor}
 	${dockerCli} run --rm -w /target -v "${PWD}:/target" ${containerID}								\
 		make ${target} VERBOSE=${VERBOSE} phpunitOptions="${phpunitOptions}" 						\
@@ -140,6 +142,9 @@ inContainer:
 			mwDepExtensions="${mwDepExtensions}" extTargets="${extTargets}"
 
 linkInContainer:
+	test -e ${target}																		||	(	\
+		echo ${indent}"Target does not exist, setting up (possibly empty) symlink..."				\
+	)
 	test -L ${target}																		||	(	\
 		echo ${indent}"Linking target (${target}) to source (${src}) in container..."	&&			\
 		test ! -e ${src}																||	(		\
@@ -154,9 +159,15 @@ linkInContainer:
 		ln -s ${src} ${target}																		\
 	)
 
-linksInContainer: ${mwCompLocal}
+linksInContainer:
 	echo ${indent}"Setting up symlinks for container"
 	${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest} src=${PWD}
+	for extension in ${extTargets}; do																\
+		${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/$$extension					\
+							src=${mwCiExtensions}/$$extension									;	\
+	done
+	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php								\
+							src=${mwCiPath}/LocalSettings.php
 	${make} linkInContainer target=${MW_INSTALL_PATH}/vendor              src=${mwVendor}
 	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.local.json src=${mwCompLocal}
 	${make} linkInContainer target=${MW_INSTALL_PATH}/composer.lock									\
@@ -179,17 +190,18 @@ composerBinaryInContainer:
 
 ${mwCompLocal}:
 	export packagistUnderTest=`$(call getPackagistUnderTest)`									&&	\
-	test -z "$$packagistUnderTest"													&&	(			\
-		echo {} > $@																	)	||	(	\
-		COMPOSER=composer.local.json ${compPath} require --no-update								\
-			 --working-dir=${MW_INSTALL_PATH} mediawiki/semantic-interlanguage-links @dev		&&	\
-		COMPOSER=composer.local.json ${compPath} config repositories.semantic-interlanguage-links	\
-			 --working-dir=${MW_INSTALL_PATH}														\
-			'{"type": "path", "url": "extensions/SemanticInterlanguageLinks"}'					&&	\
-		COMPOSER=composer.local.json ${compPath} require --no-update								\
+	test -z "$$packagistUnderTest"															&&	(	\
+		echo {} > $@																				\
+	)																						||	(	\
+		COMPOSER=${mwCiPath}/composer.local.json ${compPath} require --no-update					\
+			 --working-dir=${MW_INSTALL_PATH} $$packagistUnderTest @dev							&&	\
+		COMPOSER=${mwCiPath}/composer.local.json ${compPath} config									\
+			repositories.$$packagistUnderTest --working-dir=${MW_INSTALL_PATH}						\
+			'{"type": "path", "url": "extensions/${mwExtensionUnderTest}"}'						&&	\
+		COMPOSER=${mwCiPath}/composer.local.json ${compPath} require --no-update					\
 			 --working-dir=${MW_INSTALL_PATH} mediawiki/semantic-media-wiki @dev				&&	\
-		COMPOSER=composer.local.json ${compPath} config repositories.semantic-media-wiki 			\
-			 --working-dir=${MW_INSTALL_PATH}														\
+		COMPOSER=${mwCiPath}/composer.local.json ${compPath} config									\
+			repositories.semantic-media-wiki --working-dir=${MW_INSTALL_PATH}						\
 			'{"type": "path", "url": "extensions/SemanticMediaWiki"}'							&&	\
 		${compPath} update --working-dir=${MW_INSTALL_PATH}										)
 
@@ -199,14 +211,10 @@ pkgInContainer: verifyInContainerEnvVar
 		apt update																				&&	\
 		apt install -y $(if ${pkg},${pkg},${bin})												)
 
-.PHONY: SemanticMediaWiki
-SemanticMediaWiki: target=SemanticMediaWiki
-SemanticMediaWiki: smwVCS
+SemanticMediaWiki:
+	${make} smwVCS target=$@
 
-.PHONY: SemanticInterlanguageLinks
-SemanticInterlanguageLinks: target=SemanticInterlanguageLinks
-SemanticInterlanguageLinks: smwVCS
-
+.PHONY: smwVCS
 smwVCS:
 	test ! -d ${mwCiExtensions}/${target}													||	(	\
 		cd ${mwCiExtensions}/${target}															&&	\
@@ -218,27 +226,19 @@ smwVCS:
 			${mwCiExtensions}/${target}																\
 	)
 
-setupExtensionsInContainer: ${extTargets}
-	for i in ${extTargets}; do																		\
-		echo ${indent}"Putting $$i into place."													&&	\
-		${make} linkInContainer target=${extensionsPath}/$$i src=${mwCiExtensions}/$$i			;	\
-		sleep 5 ; \
-	done
-
-runComposerInContainer: verifyInContainerEnvVar ${mwCompLocal} setupExtensionsInContainer
+runComposerInContainer: verifyInContainerEnvVar ${extTargets} ${mwCompLocal}
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Running composer..."
 	php ${compPath} update --working-dir ${MW_INSTALL_PATH}
 
 installExtensionInContainer: verifyInContainerEnvVar
-	ls -l ${MW_INSTALL_PATH}/extensions
 	echo ${indent}"Installing MediaWiki to test ${mwExtensionUnderTest}..."
-	mkdir -p ${mwCiPath}/data
+	mkdir -p ${MW_DB_PATH}
 	php ${MW_INSTALL_PATH}/maintenance/install.php --dbtype=${MW_DB_TYPE} --dbname=${MW_DB_NAME}	\
 			--dbserver=${MW_DB_SERVER} --dbuser=${MW_DB_USER} --dbpass=${MW_DB_PASS}				\
 			--installdbuser=${DB_ROOT_USER} --installdbpass=${DB_ROOT_PWD} --pass=${MW_PASSWORD}	\
 			--scriptpath=${MW_SCRIPTPATH} --dbpath=${MW_DB_PATH} --server="http://localhost:8000"	\
-			--extensions=`$(call commafyExtList,${extTargets})`										\
+			--extensions=`$(call commafyExtList,${extTargets})`,${mwExtensionUnderTest}				\
 			${mwExtensionUnderTest}-test ${MW_WIKI_USER}
 	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php								\
 							src=${mwCiPath}/LocalSettings.php
@@ -273,10 +273,10 @@ localTestGithub: actInstall
 buildOnGithub:
 	tar czf ${mwCiPath}/build.tar.gz --files-from /dev/null
 
-buildInContainer: verifyInContainerEnvVar
+buildInContainer:
 	test -f ${mwCiPath}/build.tar.gz 														||	(	\
-		${make} linksInContainer																&&	\
 		${make} composerBinaryInContainer														&&	\
+		${make} linksInContainer																&&	\
 		${make} runComposerInContainer															&&	\
 		${make} installExtensionInContainer														&&	\
 		echo ${indent}"Creating build.tar.gz"													&&	\
@@ -285,15 +285,9 @@ buildInContainer: verifyInContainerEnvVar
 			$(call extensionDirs,${extTargets})														\
 	)
 
-testInContainer: buildInContainer verifyInContainerEnvVar
+testInContainer: buildInContainer
 	tar -C ${mwCiPath} -xzf ${mwCiPath}/build.tar.gz
 	${make} linksInContainer
-	for extension in ${extTargets}; do																\
-		${make} linkInContainer target=${MW_INSTALL_PATH}/extensions/$$extension					\
-							src=${mwCiPath}/$$extension											;	\
-	done
-	${make} linkInContainer target=${MW_INSTALL_PATH}/LocalSettings.php 							\
-							src=${mwCiPath}/LocalSettings.php
 	${make} composerBinaryInContainer
 	cd ${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest}									&&	\
 		php ${compPath} test --working-dir=${MW_INSTALL_PATH}/extensions/${mwExtensionUnderTest}
