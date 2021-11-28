@@ -109,9 +109,10 @@ build: pullContainer
 
 #
 ${phpIni}: MW_CI_PATH
-	test -z "$@" -o -f "$@"															||	(			\
+	test -z "$@" -o -f "$@"																	||	(	\
 		echo '[PHP]'																			&&	\
-		echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE'			)	>	$@
+		echo 'error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE'						\
+	) > $@
 
 .PHONY: pullContainer
 pullContainer:
@@ -203,13 +204,15 @@ ${mwCompLocal}:
 		COMPOSER=${mwCiPath}/composer.local.json ${compPath} config									\
 			repositories.semantic-media-wiki --working-dir=${MW_INSTALL_PATH}						\
 			'{"type": "path", "url": "extensions/SemanticMediaWiki"}'							&&	\
-		${compPath} update --working-dir=${MW_INSTALL_PATH}										)
+		${compPath} update --working-dir=${MW_INSTALL_PATH}											\
+	)
 
 pkgInContainer: verifyInContainerEnvVar
 	type ${bin} > /dev/null 2>&1 															||	(	\
 		echo ${indent}"Installing $(if ${pkg},${pkg},${bin})..."								&&	\
 		apt update																				&&	\
-		apt install -y $(if ${pkg},${pkg},${bin})												)
+		apt install -y $(if ${pkg},${pkg},${bin})													\
+	)
 
 SemanticMediaWiki:
 	${make} smwVCS target=$@
@@ -264,7 +267,8 @@ actInstall:
 		export machine=`uname -m`																&&	\
 		curl -s -L ${actUrl}/releases/download/$$version/act_"$$kernel"_$$machine.tar.gz		|	\
 			tar -C ${binDir} -xz act															&&	\
-		chmod +x ${binDir}/act																	)
+		chmod +x ${binDir}/act																		\
+	)
 
 localTestGithub: actInstall
 	act $(if ${VERBOSE},--verbose)
