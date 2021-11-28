@@ -214,19 +214,27 @@ pkgInContainer: verifyInContainerEnvVar
 SemanticMediaWiki:
 	${make} smwVCS target=$@
 
+SemanticInterlanguageLinks:
+	${make} smwVCS target=$@
+
 .PHONY: smwVCS
 smwVCS:
-	test ! -d ${mwCiExtensions}/${target}													||	(	\
-		cd ${mwCiExtensions}/${target}															&&	\
-		test -z "`git branch --show-current`"													||	\
-			git pull																				\
-	)
-	test -d ${mwCiExtensions}/${target}														||	(	\
-		git clone "https://github.com/SemanticMediaWiki/${target}.git"								\
-			${mwCiExtensions}/${target}																\
-	)
+	test "${mwExtensionUnderTest}" = "${target}"											||	(	\
+		test ! -d ${mwCiExtensions}/${target}											||	(		\
+			cd ${mwCiExtensions}/${target}													&&		\
+			test -z "`git branch --show-current`"											||		\
+				git pull																			\
+		)																					&&		\
+		test -d ${mwCiExtensions}/${target}												||	(		\
+			git clone "https://github.com/SemanticMediaWiki/${target}.git"							\
+				${mwCiExtensions}/${target}															\
+		)																							\
+	)																							&&	\
+	mkdir -p ${mwCiExtensions}																	&&	\
+	test -e ${mwCiExtensions}/${target}															||	\
+			ln -s ${PWD} ${mwCiExtensions}/${target}
 
-runComposerInContainer: linksInContainer ${mwDepExtensions} ${mwCompLocal}
+runComposerInContainer: linksInContainer ${mwExtensionUnderTest} ${mwDepExtensions} ${mwCompLocal}
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Running composer..."
 	php ${compPath} update --working-dir ${MW_INSTALL_PATH}
