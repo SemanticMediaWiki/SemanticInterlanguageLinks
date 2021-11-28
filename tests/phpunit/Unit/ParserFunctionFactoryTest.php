@@ -2,9 +2,9 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\MediaWikiServices;
 use SIL\ParserFunctionFactory;
 use Title;
-use Parser;
 use ParserOptions;
 
 /**
@@ -23,9 +23,8 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->parser = new Parser();
-		$this->parser->Options( new ParserOptions() );
-		$this->parser->clearState();
+		$factory = MediaWikiServices::getInstance()->getService( 'ParserFactory' );
+		$this->parser = $factory->create();
 	}
 
 	public function testCanConstruct() {
