@@ -74,9 +74,6 @@ jobs:
       - name: Get Composer
         run: ${{ env.make }} composerBinaryInContainer
 
-      - name: Move extensions into place
-        run: ${{ env.make }} setupExtensionsInContainer
-
       - name: MediaWiki Composer Update
         run: ${{ env.make }} runComposerInContainer
 

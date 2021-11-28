@@ -229,7 +229,7 @@ smwVCS:
 			${mwCiExtensions}/${target}																\
 	)
 
-runComposerInContainer: verifyInContainerEnvVar ${extTargets} ${mwCompLocal}
+runComposerInContainer: linksInContainer ${extTargets} ${mwCompLocal}
 	${make} pkgInContainer bin=unzip
 	echo ${indent}"Running composer..."
 	php ${compPath} update --working-dir ${MW_INSTALL_PATH}
