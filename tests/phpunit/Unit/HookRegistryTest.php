@@ -4,6 +4,7 @@ namespace SIL\Tests;
 
 use Language;
 use SIL\HookRegistry;
+use SMW\Tests\PHPUnitCompat;
 use Title;
 
 /**
@@ -16,6 +17,8 @@ use Title;
  * @author mwjames
  */
 class HookRegistryTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	private $cache;
 	private $store;

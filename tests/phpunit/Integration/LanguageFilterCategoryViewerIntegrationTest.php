@@ -4,6 +4,7 @@ namespace SIL\Tests\Integration;
 
 use SMW\Tests\MwDBaseUnitTestCase;
 use SMW\Tests\Utils\UtilityFactory;
+use SMW\Tests\PHPUnitCompat;
 use Title;
 use Article;
 use RequestContext;
@@ -18,6 +19,8 @@ use RequestContext;
  * @author mwjames
  */
 class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
+
+	use PHPUnitCompat;
 
 	private $pageCreator;
 	private $subjects = [];

@@ -3,6 +3,7 @@
 namespace SIL\Tests\Integration;
 
 use SMW\Tests\Utils\UtilityFactory;
+use SMW\Tests\PHPUnitCompat;
 
 /**
  * @group semantic-interlanguage-links
@@ -16,6 +17,8 @@ use SMW\Tests\Utils\UtilityFactory;
  * @author mwjames
  */
 class I18nJsonFileIntegrityTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	/**
 	 * @dataProvider i18nFileProvider

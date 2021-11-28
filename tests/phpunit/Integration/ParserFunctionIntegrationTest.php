@@ -5,6 +5,7 @@ namespace SIL\Tests\Integration;
 use SMW\Tests\MwDBaseUnitTestCase;
 use SMW\Tests\Utils\UtilityFactory;
 
+use SMW\Tests\PHPUnitCompat;
 use SMW\DIWikiPage;
 use SMW\DIProperty;
 
@@ -23,6 +24,8 @@ use Title;
  * @author mwjames
  */
 class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
+
+	use PHPUnitCompat;
 
 	private $pageCreator;
 	private $semanticDataValidator;

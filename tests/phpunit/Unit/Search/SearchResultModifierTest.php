@@ -4,6 +4,7 @@ namespace SIL\Tests\Search;
 
 use SIL\Search\SearchResultModifier;
 use SMW\DIProperty;
+use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\Search\SearchResultModifier
@@ -16,6 +17,8 @@ use SMW\DIProperty;
  * @author mwjames
  */
 class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	protected function setUp() : void {
 		$this->markTestSkipped( 'Use of SearchEngine::defaultNamespaces was deprecated in MediaWiki 1.27.' );

@@ -7,6 +7,7 @@ use SIL\InterlanguageLink;
 
 use SMW\DIWikiPage;
 use SMWDIBlob as DIBlob;
+use SMW\Tests\PHPUnitCompat;
 
 use Title;
 
@@ -21,6 +22,8 @@ use Title;
  * @author mwjames
  */
 class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 
