@@ -200,11 +200,11 @@ pkgInContainer: verifyInContainerEnvVar
 		apt install -y $(if ${pkg},${pkg},${bin})												)
 
 .PHONY: SemanticMediaWiki
-SemanticMediaWiki: target=$@
+SemanticMediaWiki: target=SemanticMediaWiki
 SemanticMediaWiki: smwVCS
 
 .PHONY: SemanticInterlanguageLinks
-SemanticInterlanguageLinks: target=$@
+SemanticInterlanguageLinks: target=SemanticInterlanguageLinks
 SemanticInterlanguageLinks: smwVCS
 
 smwVCS:
