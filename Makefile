@@ -47,6 +47,7 @@ WEB_ROOT ?= /var/www
 #
 MW_DB_TYPE ?= sqlite
 MW_DB_NAME ?= my_wiki
+MW_DB_SERVER ?= localhost
 MW_DB_PATH ?= ${mwCiPath}/data
 MW_DB_USER ?= wikiuser
 MW_DB_PASS ?= wikipass
@@ -208,8 +209,8 @@ installExtensionInContainer: verifyInContainerEnvVar
 	echo ${indent}"Installing MediaWiki for ${mwExtensionUnderTest}..."
 	mkdir -p ${mwCiPath}/data
 	php ${MW_INSTALL_PATH}/maintenance/install.php --dbtype=${MW_DB_TYPE} --dbname=mywiki			\
-			--dbserver=${MD_DB_SERVER} --dbuser=${MW_DB_USER} --dbpass=${MW_DB_PASS}				\
-			--installdbuser=${DB_ROOT_PASS} --installdbpass=${DB_ROOT_PWD} --pass=${MW_PASSWORD}	\
+			--dbserver=${MW_DB_SERVER} --dbuser=${MW_DB_USER} --dbpass=${MW_DB_PASS}				\
+			--installdbuser=${DB_ROOT_USER} --installdbpass=${DB_ROOT_PWD} --pass=${MW_PASSWORD}	\
 			--scriptpath=${MW_SCRIPTPATH} --dbpath=${MW_DB_PATH} --server="http://localhost:8000"	\
 			--extensions=${mwDepExtensions},${mwExtensionUnderTest}									\
 			${mwExtensionUnderTest}-test ${MW_WIKI_USER}
