@@ -200,25 +200,22 @@ pkgInContainer: verifyInContainerEnvVar
 		apt install -y $(if ${pkg},${pkg},${bin})												)
 
 .PHONY: SemanticMediaWiki
-SemanticMediaWiki:
-	test ! -d ${mwCiExtensions}/$@															||	(	\
-		cd ${mwCiExtensions}/$@																	&&	\
-		test -z `git branch --show-current`														||
-			git pull																				\
-	)
-	test -d ${mwCiExtensions}/$@															||	(	\
-		git clone "https://github.com/SemanticMediaWiki/$@.git" ${mwCiExtensions}/$@				\
-	)
+SemanticMediaWiki: target=$@
+SemanticMediaWiki: smwVCS
 
 .PHONY: SemanticInterlanguageLinks
-SemanticInterlanguageLinks:
-	test ! -d ${mwCiExtensions}/$@															||	(	\
-		cd ${mwCiExtensions}/$@																	&&	\
-		echo ${indent}"Updating $@ from "`git remote get-url origin`							&&	\
-		git pull																					\
+SemanticInterlanguageLinks: target=$@
+SemanticInterlanguageLinks: smwVCS
+
+smwVCS:
+	test ! -d ${mwCiExtensions}/${target}													||	(	\
+		cd ${mwCiExtensions}/${target}															&&	\
+		test -z "`git branch --show-current`"													||	\
+			git pull																				\
 	)
-	test -d ${mwCiExtensions}/$@															||	(	\
-		git clone "https://github.com/SemanticMediaWiki/$@.git" ${mwCiExtensions}/$@				\
+	test -d ${mwCiExtensions}/${target}														||	(	\
+		git clone "https://github.com/SemanticMediaWiki/${target}.git"								\
+			${mwCiExtensions}/${target}																\
 	)
 
 setupExtensionsInContainer: ${extTargets}
