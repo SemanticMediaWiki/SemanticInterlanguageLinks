@@ -200,9 +200,10 @@ class HookRegistry {
 		};
 
 		/**
-		 * https://www.mediawiki.org/wiki/Manual:Hooks/NewRevisionFromEditComplete
+		 * https://www.mediawiki.org/wiki/Manual:Hooks/RevisionFromEditComplete
 		 */
-		$this->handlers['NewRevisionFromEditComplete'] = function ( $wikiPage ) use ( $interlanguageLinksLookup ) {
+		$this->handlers['RevisionFromEditComplete']
+		= function ( $wikiPage ) use ( $interlanguageLinksLookup ) {
 
 			$interlanguageLinksLookup->resetLookupCacheBy(
 				$wikiPage->getTitle()
@@ -232,7 +233,7 @@ class HookRegistry {
 		$this->handlers['PageContentLanguage'] = function ( $title, Language &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
 
 		    // PageContentLanguage now requires pageLang of type Language
-            // https://phabricator.wikimedia.org/T214358 
+			// https://phabricator.wikimedia.org/T214358
 			$pageLang = Language::factory( $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
 				$title,
 				$pageLang

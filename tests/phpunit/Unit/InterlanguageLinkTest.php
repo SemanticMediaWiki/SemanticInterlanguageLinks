@@ -4,6 +4,7 @@ namespace SIL\Tests;
 
 use SIL\InterlanguageLink;
 use SIL\PropertyRegistry;
+use SMW\Tests\PHPUnitCompat;
 
 use Title;
 
@@ -18,6 +19,8 @@ use Title;
  * @author mwjames
  */
 class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 

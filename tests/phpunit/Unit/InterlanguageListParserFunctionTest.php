@@ -3,6 +3,7 @@
 namespace SIL\Tests;
 
 use SIL\InterlanguageListParserFunction;
+use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\InterlanguageListParserFunction
@@ -14,6 +15,8 @@ use SIL\InterlanguageListParserFunction;
  * @author mwjames
  */
 class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 

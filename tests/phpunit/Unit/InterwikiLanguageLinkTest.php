@@ -5,6 +5,8 @@ namespace SIL\Tests;
 use SIL\InterwikiLanguageLink;
 use SIL\PropertyRegistry;
 
+use SMW\Tests\PHPUnitCompat;
+
 use Title;
 
 /**
@@ -18,6 +20,8 @@ use Title;
  * @author mwjames
  */
 class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	protected function setUp(): void {
 		parent::setUp();

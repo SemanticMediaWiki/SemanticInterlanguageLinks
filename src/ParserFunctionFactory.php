@@ -4,6 +4,7 @@ namespace SIL;
 
 use SMW\ApplicationFactory;
 use Parser;
+use ParserOutput;
 
 /**
  * @license GNU GPL v2+
@@ -21,9 +22,14 @@ class ParserFunctionFactory {
 	 *
 	 * @return array
 	 */
-	public function newInterlanguageLinkParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup, PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier ) {
+	public function newInterlanguageLinkParserFunctionDefinition(
+		InterlanguageLinksLookup $interlanguageLinksLookup,
+		PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier
+	) {
 
-		$interlanguageLinkParserFunctionDefinition = function( $parser, $languageCode, $linkReference = '' ) use ( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
+		$interlanguageLinkParserFunctionDefinition = function(
+			Parser $parser, string $languageCode, string $linkReference = ''
+		) use ( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
 
 			$pageContentLanguageDbModifier = new PageContentLanguageDbModifier(
 				$parser->getTitle()
@@ -34,15 +40,17 @@ class ParserFunctionFactory {
 				isset( $GLOBALS['wgPageLanguageUseDB'] ) ? $GLOBALS['wgPageLanguageUseDB'] : false
 			);
 
+			$parserOutput = $parser->getOutput() ?? new ParserOutput;
+
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
-				$parser->getOutput()
+				$parserOutput
 			);
 
 			$languageLinkAnnotator = new LanguageLinkAnnotator( $parserData );
 
 			$siteLanguageLinksParserOutputAppender = new SiteLanguageLinksParserOutputAppender(
-				$parser->getOutput(),
+				$parserOutput,
 				$interlanguageLinksLookup
 			);
 
@@ -55,7 +63,8 @@ class ParserFunctionFactory {
 			);
 
 			$interlanguageLinkParserFunction->setRevisionModeState(
-				$GLOBALS['wgRequest']->getVal( 'action' ) === 'edit' || $GLOBALS['wgRequest']->getCheck( 'wpPreview' )
+				$GLOBALS['wgRequest']->getVal( 'action' ) === 'edit' ||
+				$GLOBALS['wgRequest']->getCheck( 'wpPreview' )
 			);
 
 			$interlanguageLinkParserFunction->setInterlanguageLinksHideState(
@@ -75,9 +84,13 @@ class ParserFunctionFactory {
 	 *
 	 * @return array
 	 */
-	public function newInterlanguageListParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup ) {
+	public function newInterlanguageListParserFunctionDefinition(
+		InterlanguageLinksLookup $interlanguageLinksLookup
+	) {
 
-		$interlanguageListParserFunctionDefinition = function( $parser, $target, $template = '' ) use ( $interlanguageLinksLookup ) {
+		$interlanguageListParserFunctionDefinition = function(
+			Parser $parser, string $target, string $template = ''
+		) use ( $interlanguageLinksLookup ) {
 
 			$interlanguageListParserFunction = new InterlanguageListParserFunction(
 				$interlanguageLinksLookup
@@ -96,9 +109,13 @@ class ParserFunctionFactory {
 	 *
 	 * @return array
 	 */
-	public function newAnnotatedLanguageParserFunctionDefinition( InterlanguageLinksLookup $interlanguageLinksLookup ) {
+	public function newAnnotatedLanguageParserFunctionDefinition(
+		InterlanguageLinksLookup $interlanguageLinksLookup
+	) {
 
-		$annotatedLanguageParserFunctionDefinition = function( $parser, $template = '' ) use ( $interlanguageLinksLookup ) {
+		$annotatedLanguageParserFunctionDefinition = function(
+			Parser $parser, string $template = ''
+		) use ( $interlanguageLinksLookup ) {
 
 			$annotatedLanguageParserFunction = new AnnotatedLanguageParserFunction(
 				$interlanguageLinksLookup

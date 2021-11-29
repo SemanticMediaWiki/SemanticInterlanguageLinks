@@ -4,6 +4,7 @@ namespace SIL\Tests;
 
 use Language;
 use SIL\HookRegistry;
+use SMW\Tests\PHPUnitCompat;
 use Title;
 
 /**
@@ -16,6 +17,8 @@ use Title;
  * @author mwjames
  */
 class HookRegistryTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	private $cache;
 	private $store;
@@ -69,7 +72,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		$instance->register();
 
 		$this->doTestParserFirstCallInit( $instance, $parser );
-		$this->doTestNewRevisionFromEditComplete( $instance );
+		$this->doTestRevisionFromEditComplete( $instance );
 		$this->doTestSkinTemplateGetLanguageLink( $instance );
 		$this->doTestPageContentLanguage( $instance );
 		$this->doTestArticleFromTitle( $instance );
@@ -116,9 +119,9 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function doTestNewRevisionFromEditComplete( $instance ) {
+	public function doTestRevisionFromEditComplete( $instance ) {
 
-		$handler = 'NewRevisionFromEditComplete';
+		$handler = 'RevisionFromEditComplete';
 
 		$title = Title::newFromText( __METHOD__ );
 

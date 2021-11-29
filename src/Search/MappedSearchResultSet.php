@@ -54,8 +54,10 @@ class MappedSearchResultSet extends SearchResultSet {
 			return false;
 		}
 
-		if ( ( list( $key, $match ) = each( $this->searchMatches ) ) !== false ) {
-
+		$key = key( $this->searchMatches );
+		$match = current( $this->searchMatches );
+		if ( $key !== null && $match !== false ) {
+			next( $this->searchMatches );
 			if ( $match instanceOf SearchResult ) {
 				return $match;
 			}

@@ -3,6 +3,7 @@
 namespace SIL\Tests;
 
 use SIL\InterlanguageLinkParserFunction;
+use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\InterlanguageLinkParserFunction
@@ -14,6 +15,8 @@ use SIL\InterlanguageLinkParserFunction;
  * @author mwjames
  */
 class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	private $languageLinkAnnotator;
 	private $siteLanguageLinksParserOutputAppender;
