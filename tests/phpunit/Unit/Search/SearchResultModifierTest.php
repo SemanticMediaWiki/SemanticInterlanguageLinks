@@ -21,7 +21,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	use PHPUnitCompat;
 
 	protected function setUp() : void {
-		$this->markTestSkipped( 'Use of SearchEngine::defaultNamespaces was deprecated in MediaWiki 1.27.' );
 	}
 
 	public function testCanConstruct() {

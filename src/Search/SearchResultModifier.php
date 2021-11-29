@@ -5,6 +5,7 @@ namespace SIL\Search;
 use Html;
 use LanguageNames;
 use Language;
+use MediaWiki\MediaWikiServices;
 use XmlSelect;
 use Xml;
 use SearchResultSet;
@@ -44,7 +45,9 @@ class SearchResultModifier {
 		$profiles['sil'] = [
 			'message' => 'sil-search-profile',
 			'tooltip' => 'sil-search-profile-tooltip',
-			'namespaces' => \SearchEngine::defaultNamespaces()
+			'namespaces' => MediaWikiServices::getInstance()->getSearchEngineConfig()
+														   ->defaultNamespaces()
+
 		];
 
 		return true;
