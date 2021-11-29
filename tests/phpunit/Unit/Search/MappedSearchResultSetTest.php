@@ -18,9 +18,6 @@ use SMW\DIProperty;
  */
 class MappedSearchResultSetTest extends \PHPUnit_Framework_TestCase {
 
-	protected function setUp() : void {
-	}
-
 	public function testCanConstruct() {
 
 		$searchMatches = [];

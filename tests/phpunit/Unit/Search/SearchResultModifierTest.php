@@ -20,9 +20,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 	use PHPUnitCompat;
 
-	protected function setUp() : void {
-	}
-
 	public function testCanConstruct() {
 
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
