@@ -39,7 +39,8 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 		);
 
 		$this->pageCreator = UtilityFactory::getInstance()->newPageCreator();
-		$this->semanticDataValidator = UtilityFactory::getInstance()->newValidatorFactory()->newSemanticDataValidator();
+		$this->semanticDataValidator = UtilityFactory::getInstance()->newValidatorFactory()
+																   ->newSemanticDataValidator();
 
 		// Manipulate the interwiki prefix on-the-fly
 		$GLOBALS['wgHooks']['InterwikiLoadPrefix'][] = function( $prefix, &$interwiki ) {
@@ -244,12 +245,14 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 		$text = $this->pageCreator->getEditInfo()->getOutput()->getText();
 
 		$this->assertContains(
-			'title="InterlanguageLinkByLanguageParserTargetEn">InterlanguageLinkByLanguageParserTargetEn</a>',
+			'title="InterlanguageLinkByLanguageParserTargetEn">'
+			. 'InterlanguageLinkByLanguageParserTargetEn</a>',
 			$text
 		);
 
 		$this->assertNotContains(
-			'title="InterlanguageLinkByLanguageParserTargetJa">InterlanguageLinkByLanguageParserTargetJa</a>',
+			'title="InterlanguageLinkByLanguageParserTargetJa">'
+			. 'InterlanguageLinkByLanguageParserTargetJa</a>',
 			$text
 		);
 
