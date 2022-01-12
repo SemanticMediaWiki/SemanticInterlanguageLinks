@@ -50,7 +50,7 @@ class SemanticInterlanguageLinks {
 		] );
 
 		$cacheKeyProvider = new CacheKeyProvider(
-			$GLOBALS['wgCachePrefix'] === false ? wfWikiID() : $GLOBALS['wgCachePrefix']
+			$GLOBALS['wgCachePrefix'] === false ? WikiMap::getCurrentWikiId() : $GLOBALS['wgCachePrefix']
 		);
 
 		$hookRegistry = new HookRegistry(

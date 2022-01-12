@@ -23,7 +23,7 @@ This [video](https://vimeo.com/115871518) demonstrates the functionality of the 
 ## Requirements
 
 - PHP 7.1 or later
-- MediaWiki 1.31 or later
+- MediaWiki 1.35 or later
 - [Semantic MediaWiki][smw] 3.0 or later
 
 ## Installation
