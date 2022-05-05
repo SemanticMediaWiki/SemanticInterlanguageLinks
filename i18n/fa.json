@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Alirezaaa",
+			"Beginneruser",
 			"DEXi",
 			"Mahdy Saffar",
 			"Reza1615"
@@ -11,7 +12,7 @@
 	"sil-property-ill-alias-reference": "منبع میان‌زبان",
 	"sil-property-iwl-alias-language": "زبان میان‌ویکی",
 	"sil-property-iwl-alias-reference": "منبع میان‌ویکی",
-	"sil-property-alias-container": "پیوند میان‌زبانی دارد",
+	"sil-property-alias-container": "پیوند بین‌زبانی دارد",
 	"sil-search-profile": "با زبان",
 	"sil-search-profile-tooltip": "پالایش مقالات با تفسیر زبان",
 	"sil-search-languagefilter-label": "پالایش با زبان",
