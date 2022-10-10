@@ -5,6 +5,7 @@
 			"Cwlin0416",
 			"Deathkon",
 			"Kly",
+			"Lakejason0",
 			"Liuxinyu970226"
 		]
 	},
@@ -24,8 +25,8 @@
 	"sil-interlanguagelink-invalidlanguagecode": "「$1」不被認為是有效的語言代碼。",
 	"sil-interlanguagelink-multiplecalls-different-languagecode": "解析函數被調用多次，但使用了一個不同的語言程式碼（“$1”），這應當避免，因為頁面內容通常由一種語言編寫。",
 	"sil-interlanguagelink-languagetargetcombination-exists": "組合「$1」：「$2」已存在於頁面「$3」中，因此沒有創建額外的跨語言注釋。",
-	"sil-interlanguagelist-missing-linkreference": "解析函式缺少一個有效參照。",
-	"sil-interlanguagelist-missing-template": "解析函式缺少輸出模板。",
+	"sil-interlanguagelist-missing-linkreference": "解析器函數缺少一個有效參照。",
+	"sil-interlanguagelist-missing-template": "解析器函數缺少輸出模板。",
 	"sil-interlanguageparser-linkreference-error": "解析函數從「$1」創建一個標題對象時出現問題。",
 	"sil-search-profile": "按語言",
 	"sil-search-profile-tooltip": "按語言注釋過濾條目",
