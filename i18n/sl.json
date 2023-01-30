@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"sil-desc": "Razširitev za [https://www.semantic-mediawiki.org Semantični MediaWiki] za ustvarjanje in upravljanje medjezikovnih povezav",
+	"sil-property-ill-alias-language": "Jezik vsebine strani",
+	"sil-property-ill-alias-reference": "Medjezikovni sklic",
+	"sil-property-iwl-alias-language": "Interviki jezik",
+	"sil-property-iwl-alias-reference": "Interviki sklic",
+	"sil-property-alias-container": "Ima medjezikovno povezavo",
+	"smw-pa-property-predefined__sil_container": "»$1« je vnaprej določena lastnost, ki predstavlja vsebniško entiteto za opis informacij, povezanih z medjezikovnimi povezavami, in jo zagotavlja razširitev [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_ill_lang": "»$1« je vnaprej določena lastnost, ki vsebuje označeno oznako jezika in jo zagotavlja razširitev [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantične medjezikovne povezave].",
+	"smw-pa-property-predefined__sil_ill_ref": "»$1« je vnaprej določena lastnost, ki vsebuje poljuben sklic in jo zagotavlja razširitev [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantične medjezikovne povezave].",
+	"smw-pa-property-predefined-long__sil_ill_ref": "Entitete z istim sklicem so medsebojno povezane in se pričakuje, da bodo predstavljale podobno vsebino v različnih jezikih.",
+	"smw-pa-property-predefined__sil_iwl_lang": "»$1« je vnaprej določena lastnost, ki predstavlja oznako jezika, izpeljano iz interviki povezave, in jo zagotavlja razširitev [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantične medjezikovne povezave].",
+	"smw-pa-property-predefined__sil_iwl_ref": "»$1« je vnaprej določena lastnost, ki predstavlja ciljno stran, izpeljano iz interviki povezave, in jo zagotavlja razširitev [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantične medjezikovne povezave].",
+	"sil-interlanguagelink-hideinterlanguagelinks": "Funkcije razčlenjevalnika ni mogoče uporabiti, ker je nastavljen <code>$wgHideInterlanguageLinks</code>.",
+	"sil-interlanguagelink-invalidlanguagecode": "»$1« ni bilo prepoznano kot veljavna oznaka jezika.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "Funkcija razčlenjevalnika je bila klicana večkrat, vendar z drugačno oznako jezika (»$1«), ki se ji je treba izogibati, saj se na splošno pričakuje, da bo vsebina strani predstavljena z enim samim jezikom.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "Kombinacija »$1«:»$2« za stran »$3« že obstaja, zato ni bila ustvarjena nobena dodatna medjezikovna označitev.",
+	"sil-interlanguagelist-missing-linkreference": "Funkciji razčlenjevalnika manjka veljaven sklic.",
+	"sil-interlanguagelist-missing-template": "Funkciji razčlenjevalnika manjka izhodna predloga.",
+	"sil-interlanguageparser-linkreference-error": "Funkcija razčlenjevalnika je naletala težavo pri ustvarjanju naslovnega objekta iz »$1«.",
+	"sil-search-profile": "Po jeziku",
+	"sil-search-profile-tooltip": "Omogoča filtriranje člankov po označitvi jezika",
+	"sil-search-languagefilter-label": "Filtriraj po jeziku",
+	"sil-search-nolanguagefilter": "Ni jezikovega filtra",
+	"sil-categorypage-languagefilter-active": "Ta kategorija vsebuje informacije (stran, podkategorijo in sliko), ki so filtrirane po jeziku »$1«."
+}
