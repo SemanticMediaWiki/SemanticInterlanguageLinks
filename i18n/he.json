@@ -1,14 +1,33 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Guycn2",
 			"המקיסט"
 		]
 	},
 	"sil-desc": "הרחבת [https://www.semantic-mediawiki.org מדיה־ויקי סמנטית] שמטרתה ליצור ולנהל קישורים בכל השפות",
 	"sil-property-ill-alias-language": "שפת התוכן של הדף",
-	"sil-property-alias-container": "בעל קישור רב-לשוני",
+	"sil-property-ill-alias-reference": "מקור בין־לשוני",
+	"sil-property-iwl-alias-language": "שפת בין־ויקי",
+	"sil-property-iwl-alias-reference": "הפניית בין־ויקי",
+	"sil-property-alias-container": "בעל קישור בין־לשוני",
+	"smw-pa-property-predefined__sil_container": "\"$1\" הוא מאפיין מוגדר מראש שמייצג ישות מכילה לתיאור מידע הקשור לקישורים בין שפות והוא מסופק על־ידי ההרחבה [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_ill_lang": "\"$1\" הוא מאפיין מוגדר מראש שמכיל קוד שפה מוער והוא מסופק על־ידי ההרחבה [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_ill_ref": "\"$1\" הוא מאפיין מוגדר מראש שמכיל התייחסות שרירותית והוא מסופק על־ידי ההרחבה [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined-long__sil_ill_ref": "ישויות עם אותה התייחסות מקושרות זו לזו וצפויות לייצג תוכן דומה בשפות שונות.",
+	"smw-pa-property-predefined__sil_iwl_lang": "\"$1\" הוא מאפיין מוגדר מראש והוא מיוצג קוד שפה שמוסק מקישור בין־ויקי והוא מסופק על־ידי ההרחבה [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"smw-pa-property-predefined__sil_iwl_ref": "\"$1\" הוא מאפיין מוגדר מראש והוא מייצג דף יעד שמוסק מקישור בין־ויקי והוא מסופק על־ידי ההרחבה [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
+	"sil-interlanguagelink-hideinterlanguagelinks": "לא ניתן להשתמש בפונקציית המפענח כי מוגדר <code>$wgHideInterlanguageLinks</code>.",
+	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" לא זוהה בתור קוד שפה תקין.",
+	"sil-interlanguagelink-multiplecalls-different-languagecode": "פונקציית המפענח נקראה כמה פעמים אבל עם קוד שפה שונה (\"$1\"), ויש להימנע מזה מכיוון שתוכן של דף בדרך־כלל צפוי להיות מיוצג על־ידי שפה אחת.",
+	"sil-interlanguagelink-languagetargetcombination-exists": "הצירוף \"$1\":\"$2\" כבר קיים עבור הדף \"$3\" ולכן לא נוצרה הערה נוספת בין־לשונית.",
+	"sil-interlanguagelist-missing-linkreference": "לפונקציית המפענח חסרה התייחסות חוקית.",
+	"sil-interlanguagelist-missing-template": "בפונקציית המפענח חסרה תבנית פלט.",
+	"sil-interlanguageparser-linkreference-error": "לפונקציית המפענח הייתה בעיה ליצור עצם כותרת מתוך \"$1\".",
 	"sil-search-profile": "לפי שפה",
+	"sil-search-profile-tooltip": "לסנן ערכים לפי הערת שפה",
 	"sil-search-languagefilter-label": "סינון לפי שפה",
-	"sil-search-nolanguagefilter": "אין מסנן שפה"
+	"sil-search-nolanguagefilter": "אין מסנן שפה",
+	"sil-categorypage-languagefilter-active": "הקטגוריה הזאת מכילה מידע (דף, קטגוריית־משנה ותמונה) שמסונן לפי השפה \"$1\"."
 }
