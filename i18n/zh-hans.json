@@ -5,16 +5,16 @@
 			"Liuxinyu970226"
 		]
 	},
-	"sil-desc": "用于创建和管理跨语言链接的[https://www.semantic-mediawiki.org 语义MediaWiki]扩展",
+	"sil-desc": "创建和管理跨语言链接的[https://www.semantic-mediawiki.org 语义MediaWiki]扩展",
 	"sil-property-ill-alias-language": "页面内容语言",
 	"sil-property-ill-alias-reference": "跨语言引用",
 	"sil-property-iwl-alias-language": "跨wiki语言",
 	"sil-property-iwl-alias-reference": "跨wiki引用",
-	"sil-property-alias-container": "拥有跨语言链接",
+	"sil-property-alias-container": "有跨语言链接",
 	"smw-pa-property-predefined__sil_container": "“$1”是[https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links 语义跨语言链接]扩展提供的表示描述跨语言链接相关信息的容器实体的预定义属性。",
-	"smw-pa-property-predefined__sil_ill_lang": "“$1”是[https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links 语义跨语言链接]扩展提供的容纳注释用语言代码的预定义属性。",
+	"smw-pa-property-predefined__sil_ill_lang": "“$1”是[https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links 语义跨语言链接]扩展提供的容纳注释的语言代码的预定义属性。",
 	"smw-pa-property-predefined__sil_ill_ref": "“$1”是[https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links 语义跨语言链接]扩展提供的容纳任意引用的预定义属性。",
-	"smw-pa-property-predefined-long__sil_ill_ref": "有相同引用的实体会相互链接，并预期表示不同语言中的类似内容。",
+	"smw-pa-property-predefined-long__sil_ill_ref": "有相同引用的实体会相互链接，并预期表示不同语言里的相似内容。",
 	"smw-pa-property-predefined__sil_iwl_lang": "“$1”是[https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links 语义跨语言链接]扩展提供的表示衍生自跨wiki链接的语言代码的预定义属性。",
 	"smw-pa-property-predefined__sil_iwl_ref": "“$1”是[https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links 语义跨语言链接]扩展提供的表示衍生自跨wiki链接的目标页面的预定义属性。",
 	"sil-interlanguagelink-hideinterlanguagelinks": "由于<code>$wgHideInterlanguageLinks</code>已设置，因此无法使用解析器函数。",
@@ -27,6 +27,6 @@
 	"sil-search-profile": "按语言",
 	"sil-search-profile-tooltip": "按语言注释筛选条目",
 	"sil-search-languagefilter-label": "按语言筛选",
-	"sil-search-nolanguagefilter": "无语言筛选",
+	"sil-search-nolanguagefilter": "没有语言筛选",
 	"sil-categorypage-languagefilter-active": "此分类含有按“$1”语言筛选的信息（页面、子分类和图像）。"
 }
