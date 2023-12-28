@@ -117,7 +117,7 @@ class PageContentLanguageDbModifier {
 			 $connection = wfGetDB( DB_MASTER );
 		}
 
-		$connection->onTransactionIdle( function() use ( $connection, $expectedLanguageCode, $dbPageLanguage, $title ) {
+		$connection->onTransactionCommitOrIdle( function() use ( $connection, $expectedLanguageCode, $dbPageLanguage, $title ) {
 
 			$pageId = $title->getArticleID();
 
