@@ -5,6 +5,7 @@ namespace SIL;
 use LinkCache;
 use Title;
 use DatabaseBase;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Handling Title::getDbPageLanguageCode and Special:PageLanguage to avoid possible
@@ -93,7 +94,7 @@ class PageContentLanguageDbModifier {
 	private function getDbPageLanguageCode() {
 
 		if ( $this->linkCache === null ) {
-			$this->linkCache = LinkCache::singleton();
+			$this->linkCache = MediaWikiServices::getInstance()->getLinkCache();
 		}
 
 		// check, if the page language could be saved in the database, and if so and
