@@ -100,7 +100,7 @@ class HookRegistry {
 		$interlanguageLinksLookup->setStore( $store );
 
 		/**
-		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks.md
+		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.property.initproperties.md
 		 */
 		$this->handlers['SMW::Property::initProperties'] = function ( $baseRegistry ) {
 
@@ -165,7 +165,7 @@ class HookRegistry {
 		};
 
 		/**
-		 * https://www.mediawiki.org/wiki/Manual:Hooks/ArticleDelete
+		 * https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.sqlstore.beforedeletesubjectcomplete.md
 		 */
 		$this->handlers['SMW::SQLStore::BeforeDeleteSubjectComplete'] = function ( $store, $title ) use ( $interlanguageLinksLookup ) {
 
@@ -176,7 +176,7 @@ class HookRegistry {
 		};
 
 		/**
-		 * https://www.mediawiki.org/wiki/Manual:Hooks/TitleMoveComplete
+		 * https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.sqlstore.beforechangetitlecomplete.md
 		 */
 		$this->handlers['SMW::SQLStore::BeforeChangeTitleComplete'] = function ( $store, $oldTitle, $newTitle, $pageid, $redirid ) use ( $interlanguageLinksLookup ) {
 
