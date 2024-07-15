@@ -233,7 +233,8 @@ class HookRegistry {
 		 */
 		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
 
-			$pageLang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
+			$langFactory = MediaWikiServices::getInstance()->getLanguageFactory();
+			$pageLang = $langFactory->getLanguage( $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
 				$title,
 				$pageLang
 			) );
