@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use MediaWiki\MediaWikiServices;
 use Onoi\Cache\Cache;
 use SMW\Store;
 use SMW\ApplicationFactory;
@@ -9,7 +10,6 @@ use SMW\InMemoryPoolCache;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
 use SIL\Category\LanguageFilterCategoryPage;
-use Hooks;
 use Language;
 
 /**
@@ -44,7 +44,7 @@ class HookRegistry {
 	 * @return boolean
 	 */
 	public function isRegistered( $name ) {
-		return Hooks::isRegistered( $name );
+		return MediaWikiServices::getInstance()->getHookContainer()->isRegistered( $name );
 	}
 
 	/**
@@ -62,8 +62,9 @@ class HookRegistry {
 	 * @since  1.0
 	 */
 	public function register() {
+		$hooks = MediaWikiServices::getInstance()->getHookContainer();
 		foreach ( $this->handlers as $name => $callback ) {
-			Hooks::register( $name, $callback );
+			$hooks->register( $name, $callback );
 		}
 	}
 
