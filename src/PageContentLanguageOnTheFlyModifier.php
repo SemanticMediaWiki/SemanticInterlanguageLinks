@@ -66,7 +66,7 @@ class PageContentLanguageOnTheFlyModifier {
 		$hash = $this->getHashFrom( $title );
 
 		// Convert language codes from BCP 47 to lowercase to ensure that codes
-		// are matchable against `Language::fetchLanguageNames` for languages like
+		// are matchable against `LanguageNameUtils->getLanguageNames` for languages like
 		// zh-Hans etc.
 		if ( ( $cachedLanguageCode = $this->intermediaryCache->fetch( $hash ) ) ) {
 			return strtolower( $cachedLanguageCode );

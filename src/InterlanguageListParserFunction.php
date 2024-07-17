@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use MediaWiki\MediaWikiServices;
 use Title;
 use Language;
 
@@ -86,6 +87,7 @@ class InterlanguageListParserFunction {
 		$result = '';
 		$templateText = '';
 		$i = 0;
+		$langUtils = MediaWikiServices::getInstance()->getLanguageNameUtils();
 
 		foreach ( $languageTargetLinks as $languageCode => $targetLink ) {
 
@@ -94,7 +96,7 @@ class InterlanguageListParserFunction {
 			$wikitext .= "|#=" . $i++;
 			$wikitext .= "|target-link=" . $this->modifyTargetLink( $targetLink );
 			$wikitext .= "|lang-code=" . Localizer::asBCP47FormattedLanguageCode( $languageCode );
-			$wikitext .= "|lang-name=" . Language::fetchLanguageName( $languageCode );
+			$wikitext .= "|lang-name=" . $langUtils->getLanguageName( $languageCode );
 
 			$templateText .= '{{' . $template . $wikitext . '}}';
 		}

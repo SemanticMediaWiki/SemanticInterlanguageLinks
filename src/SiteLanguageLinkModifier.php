@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use MediaWiki\MediaWikiServices;
 use Title;
 use Language;
 
@@ -53,7 +54,7 @@ class SiteLanguageLinkModifier {
 			return false;
 		}
 
-		$languageName = Language::fetchLanguageName( $languageCode );
+		$languageName = MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageName( $languageCode );
 
 		$languageLink = [
 			'href'  => Title::newFromText( $target )->getFullURL(),
