@@ -3,6 +3,7 @@
 namespace SIL;
 
 use Onoi\Cache\CacheFactory;
+use MediaWiki\MediaWikiServices;
 use Title;
 use Language;
 
@@ -181,7 +182,7 @@ class InterlanguageLinkParserFunction {
 			return false;
 		}
 
-		return Language::isSupportedLanguage( $languageCode );
+		return MediaWikiServices::getInstance()->getLanguageNameUtils()->isSupportedLanguage( $languageCode );
 	}
 
 	private function createErrorMessageFor( $messageKey, $arg1 = '', $arg2 = '', $arg3 = '',$arg4 = '' ) {

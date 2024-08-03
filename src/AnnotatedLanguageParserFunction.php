@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use MediaWiki\MediaWikiServices;
 use Title;
 use Language;
 
@@ -72,7 +73,7 @@ class AnnotatedLanguageParserFunction {
 
 		$wikitext .= "|target-link=" . $this->modifyTargetLink( $source );
 		$wikitext .= "|lang-code=" . Localizer::asBCP47FormattedLanguageCode( $languageCode );
-		$wikitext .= "|lang-name=" . Language::fetchLanguageName( $languageCode );
+		$wikitext .= "|lang-name=" . MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageName( $languageCode );
 
 		$templateText .= '{{' . $template . $wikitext . '}}';
 

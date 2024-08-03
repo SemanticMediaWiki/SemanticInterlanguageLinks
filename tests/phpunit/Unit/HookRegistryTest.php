@@ -3,6 +3,7 @@
 namespace SIL\Tests;
 
 use Language;
+use MediaWiki\MediaWikiServices;
 use SIL\HookRegistry;
 use SMW\Tests\PHPUnitCompat;
 use Title;
@@ -187,7 +188,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	public function doTestPageContentLanguage( $instance ) {
 
 		$handler = 'PageContentLanguage';
-		$pageLang = Language::factory( 'en' );
+		$pageLang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
 
 		$title = Title::newFromText( __METHOD__ );
 

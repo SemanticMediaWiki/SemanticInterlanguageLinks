@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use MediaWiki\MediaWikiServices;
 use Onoi\Cache\Cache;
 use SMW\Store;
 use SMW\ApplicationFactory;
@@ -9,7 +10,6 @@ use SMW\InMemoryPoolCache;
 use SIL\Search\SearchResultModifier;
 use SIL\Search\LanguageResultMatchFinder;
 use SIL\Category\LanguageFilterCategoryPage;
-use Hooks;
 use Language;
 
 /**
@@ -44,7 +44,7 @@ class HookRegistry {
 	 * @return boolean
 	 */
 	public function isRegistered( $name ) {
-		return Hooks::isRegistered( $name );
+		return MediaWikiServices::getInstance()->getHookContainer()->isRegistered( $name );
 	}
 
 	/**
@@ -62,8 +62,9 @@ class HookRegistry {
 	 * @since  1.0
 	 */
 	public function register() {
+		$hooks = MediaWikiServices::getInstance()->getHookContainer();
 		foreach ( $this->handlers as $name => $callback ) {
-			Hooks::register( $name, $callback );
+			$hooks->register( $name, $callback );
 		}
 	}
 
@@ -99,7 +100,7 @@ class HookRegistry {
 		$interlanguageLinksLookup->setStore( $store );
 
 		/**
-		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks.md
+		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.property.initproperties.md
 		 */
 		$this->handlers['SMW::Property::initProperties'] = function ( $baseRegistry ) {
 
@@ -164,7 +165,7 @@ class HookRegistry {
 		};
 
 		/**
-		 * https://www.mediawiki.org/wiki/Manual:Hooks/ArticleDelete
+		 * https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.sqlstore.beforedeletesubjectcomplete.md
 		 */
 		$this->handlers['SMW::SQLStore::BeforeDeleteSubjectComplete'] = function ( $store, $title ) use ( $interlanguageLinksLookup ) {
 
@@ -175,7 +176,7 @@ class HookRegistry {
 		};
 
 		/**
-		 * https://www.mediawiki.org/wiki/Manual:Hooks/TitleMoveComplete
+		 * https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.sqlstore.beforechangetitlecomplete.md
 		 */
 		$this->handlers['SMW::SQLStore::BeforeChangeTitleComplete'] = function ( $store, $oldTitle, $newTitle, $pageid, $redirid ) use ( $interlanguageLinksLookup ) {
 
@@ -230,14 +231,13 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentLanguage
 		 */
-		$this->handlers['PageContentLanguage'] = function ( $title, Language &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
+		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
 
-		    // PageContentLanguage now requires pageLang of type Language
-			// https://phabricator.wikimedia.org/T214358
-			$pageLang = Language::factory( $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
+			$contentLang = $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
 				$title,
 				$pageLang
-			) );
+			);
+			$pageLang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $contentLang );
 
 			return true;
 		};

@@ -116,7 +116,7 @@ class SearchResultModifier {
 	 */
 	public function createHtmlLanguageFilterSelector( $defaultLanguagefilter ) {
 
-		$languages = Language::fetchLanguageNames();
+		$languages = MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageNames();
 
 		ksort( $languages );
 

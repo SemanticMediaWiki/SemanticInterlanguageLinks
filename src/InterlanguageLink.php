@@ -34,7 +34,7 @@ class InterlanguageLink {
 	 * @param string|null $languageCode
 	 * @param Title|string $linkReference
 	 */
-	public function __construct( $languageCode = null, $linkReference ) {
+	public function __construct( $languageCode = null, $linkReference = null ) {
 		$this->languageCode = $languageCode;
 		$this->linkReference = $linkReference instanceOf Title ? $linkReference : Title::newFromText( $linkReference );
 	}
