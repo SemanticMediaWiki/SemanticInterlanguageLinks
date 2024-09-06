@@ -114,7 +114,7 @@ class PageContentLanguageDbModifier {
 		$title = $this->title;
 
 		if ( $connection === null ) {
-			 $connection = wfGetDB( DB_MASTER );
+			 $connection = wfGetDB( DB_PRIMARY );
 		}
 
 		$connection->onTransactionCommitOrIdle( function() use ( $connection, $expectedLanguageCode, $dbPageLanguage, $title ) {
