@@ -12,7 +12,7 @@
 	"sil-property-iwl-alias-reference": "Referencia d'interwiki",
 	"sil-property-alias-container": "Tien enllaz interllingüísticu",
 	"smw-pa-property-predefined__sil_container": "«$1» ye una propiedá predefinida que representa una entidá contenedora pa describir la información rellacionada col enllaz interlingüísticu y proporciónala la estensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Enllaces Semánticos Interllingüísticos].",
-	"smw-pa-property-predefined__sil_ill_lang": "«$1» ye una propiedá predefinida que contien un códigu de llingua anotáu y proporciónala la estensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Enllaces Semánticos Interllingüísticos].",
+	"smw-pa-property-predefined__sil_ill_lang": "«$1» ye una propiedá predefinida que contién un códigu de llingua anotáu y proporciónala la estensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Enllaces Semánticos Interllingüísticos].",
 	"smw-pa-property-predefined__sil_ill_ref": "«$1» ye una propiedá predefinida que contién una referencia arbitraria y proporciónala la estensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Enllaces Semánticos Interllingüísticos].",
 	"smw-pa-property-predefined-long__sil_ill_ref": "Les entidaes cola mesma referencia tán enllazaes ente elles y espérase que representen conteníu asemeyáu en distintes llingües.",
 	"smw-pa-property-predefined__sil_iwl_lang": "«$1» ye una propiedá predefinida que representa un códigu de llingua deriváu d'un enllaz interllingüísticu y proporciónala la estensión [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Enllaces Semánticos Interllingüísticos].",
