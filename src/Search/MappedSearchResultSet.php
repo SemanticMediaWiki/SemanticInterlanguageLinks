@@ -4,11 +4,10 @@ namespace SIL\Search;
 
 use SearchResult;
 use SearchResultSet;
-
 use Title;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -26,7 +25,7 @@ class MappedSearchResultSet extends SearchResultSet {
 	private $termMatches;
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	private $count;
 
@@ -35,7 +34,7 @@ class MappedSearchResultSet extends SearchResultSet {
 	 *
 	 * @param SearchResult[] $searchMatches
 	 * @param array $termMatches
-	 * @param integer $count
+	 * @param int $count
 	 */
 	public function __construct( $searchMatches, $termMatches, $count = 0 ) {
 		$this->searchMatches = $searchMatches;
@@ -46,10 +45,9 @@ class MappedSearchResultSet extends SearchResultSet {
 	/**
 	 * @since 1.0
 	 *
-	 * @return SearchResult|boolean
+	 * @return SearchResult|bool
 	 */
 	public function next() {
-
 		if ( $this->searchMatches === false || $this->searchMatches === [] ) {
 			return false;
 		}
@@ -58,11 +56,11 @@ class MappedSearchResultSet extends SearchResultSet {
 		$match = current( $this->searchMatches );
 		if ( $key !== null && $match !== false ) {
 			next( $this->searchMatches );
-			if ( $match instanceOf SearchResult ) {
+			if ( $match instanceof SearchResult ) {
 				return $match;
 			}
 
-			if ( $match instanceOf Title ) {
+			if ( $match instanceof Title ) {
 				return SearchResult::newFromTitle( $match );
 			}
 		}
@@ -95,7 +93,7 @@ class MappedSearchResultSet extends SearchResultSet {
 	/**
 	 * @since 1.0
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getTotalHits() {
 		return $this->count;

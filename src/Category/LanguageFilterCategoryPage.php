@@ -2,15 +2,15 @@
 
 namespace SIL\Category;
 
-use SIL\InterlanguageLinksLookup;
 use CategoryPage;
-use Title;
 use Html;
+use SIL\InterlanguageLinksLookup;
+use Title;
 
 /**
  * Modifies the content display of a category page
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -18,12 +18,13 @@ use Html;
 class LanguageFilterCategoryPage extends CategoryPage {
 
 	/**
+	 * @var string
 	 * @see CategoryPage::$mCategoryViewerClass
 	 */
 	protected $mCategoryViewerClass = '\SIL\Category\LanguageFilterCategoryViewer';
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private $isCategoryFilterByLanguage = true;
 
@@ -35,7 +36,7 @@ class LanguageFilterCategoryPage extends CategoryPage {
 	/**
 	 * @since  1.0
 	 *
-	 * @param boolean $isCategoryFilterByLanguage
+	 * @param bool $isCategoryFilterByLanguage
 	 */
 	public function isCategoryFilterByLanguage( $isCategoryFilterByLanguage ) {
 		$this->isCategoryFilterByLanguage = $isCategoryFilterByLanguage;
@@ -45,7 +46,6 @@ class LanguageFilterCategoryPage extends CategoryPage {
 	 * @see CategoryPage::openShowCategory
 	 */
 	public function openShowCategory() {
-
 		if ( $this->hasPageLanguageForTarget( $this->getTitle() ) ) {
 
 			// If findPageLanguageForTarget returned a positive result
@@ -74,7 +74,6 @@ class LanguageFilterCategoryPage extends CategoryPage {
 	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
 	 */
 	public function modifyCategoryView( &$page, InterlanguageLinksLookup $interlanguageLinksLookup ) {
-
 		if ( $this->getTitle()->getNamespace() !== NS_CATEGORY ||
 			!$this->isCategoryFilterByLanguage ||
 			!$interlanguageLinksLookup->hasSilAnnotationFor( $this->getTitle() ) ) {

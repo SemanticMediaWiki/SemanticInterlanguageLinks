@@ -8,15 +8,14 @@ use SIL\AnnotatedLanguageParserFunction;
  * @covers \SIL\AnnotatedLanguageParserFunction
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class AnnotatedLanguageParserFunctionTest extends \PHPUnit_Framework_TestCase {
+class AnnotatedLanguageParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -28,42 +27,40 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testParseOnMissingAnnotatedLanguage() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue( '' ) );
+			->willReturn( '' );
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( \Title::newFromText( 'Foo' ) ) );
+			->willReturn( \Title::newFromText( 'Foo' ) );
 
 		$instance = new AnnotatedLanguageParserFunction(
 			$interlanguageLinksLookup
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			'',
 			$instance->parse( \Title::newFromText( 'Foo' ), 'FakeTemplate' )
 		);
 	}
 
 	public function testParseOnAnnotatedLanguageWithoutTemplate() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( \Title::newFromText( 'Foo' ) ) );
+			->willReturn( \Title::newFromText( 'Foo' ) );
 
 		$instance = new AnnotatedLanguageParserFunction(
 			$interlanguageLinksLookup
@@ -78,18 +75,17 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testParseOnAnnotatedLanguageWithTemplate() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( \Title::newFromText( 'Foo' ) ) );
+			->willReturn( \Title::newFromText( 'Foo' ) );
 
 		$instance = new AnnotatedLanguageParserFunction(
 			$interlanguageLinksLookup

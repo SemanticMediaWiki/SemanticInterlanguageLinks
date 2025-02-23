@@ -2,6 +2,7 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\MediaWikiServices;
 use SIL\InterlanguageListParserFunction;
 use SMW\Tests\PHPUnitCompat;
 
@@ -9,17 +10,16 @@ use SMW\Tests\PHPUnitCompat;
  * @covers \SIL\InterlanguageListParserFunction
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
+class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 
 	public function testCanConstruct() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -33,7 +33,6 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTryParseThatCausesErrorMessage() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -59,18 +58,17 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testParseForEmptyLanguageTargetLinks() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( 'Foo' ) );
+			->willReturn( 'Foo' );
 
 		$instance = new InterlanguageListParserFunction(
 			$interlanguageLinksLookup
@@ -86,18 +84,17 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider languageTargetLinksTemplateProvider
 	 */
 	public function testParseForValidLanguageTargetLinks( $targetLink, $expected ) {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
-			->will( $this->returnValue( $targetLink ) );
+			->willReturn( $targetLink );
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( 'Foo' ) );
+			->willReturn( 'Foo' );
 
 		$instance = new InterlanguageListParserFunction(
 			$interlanguageLinksLookup
@@ -110,7 +107,6 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function languageTargetLinksTemplateProvider() {
-
 		$provider = [];
 
 		$provider[] = [
@@ -140,7 +136,8 @@ class InterlanguageListParserFunctionTest extends \PHPUnit_Framework_TestCase {
 			'|lang-name=中文（简体）‎}}'
 		];
 
-		$categoryNS = $GLOBALS['wgContLang']->getNsText( NS_CATEGORY );
+		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
+		$categoryNS = $contLang->getNsText( NS_CATEGORY );
 
 		$provider[] = [
 			[ 'zh-hans' => \Title::newFromText( 'Category:汉字' ) ],

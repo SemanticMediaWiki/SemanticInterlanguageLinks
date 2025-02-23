@@ -5,18 +5,17 @@ namespace SIL\Tests;
 use MediaWiki\MediaWikiServices;
 use SIL\ParserFunctionFactory;
 use Title;
-use ParserOptions;
 
 /**
  * @covers \SIL\ParserFunctionFactory
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
+class ParserFunctionFactoryTest extends \PHPUnit\Framework\TestCase {
 
 	private $parser;
 
@@ -28,7 +27,6 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'\SIL\ParserFunctionFactory',
 			new ParserFunctionFactory()
@@ -36,7 +34,6 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNewInterlanguageLinkParserFunctionDefinition() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -49,7 +46,7 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new ParserFunctionFactory();
 
-		list( $name, $definition, $flag ) = $instance->newInterlanguageLinkParserFunctionDefinition(
+		[ $name, $definition, $flag ] = $instance->newInterlanguageLinkParserFunctionDefinition(
 			$interlanguageLinksLookup,
 			$pageContentLanguageOnTheFlyModifier
 		);
@@ -72,7 +69,6 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNewInterlanguageListParserFunctionDefinition() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -81,7 +77,7 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new ParserFunctionFactory();
 
-		list( $name, $definition, $flag ) = $instance->newInterlanguageListParserFunctionDefinition(
+		[ $name, $definition, $flag ] = $instance->newInterlanguageListParserFunctionDefinition(
 			$interlanguageLinksLookup
 		);
 
@@ -103,7 +99,6 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNewAnnotatedLanguageParserFunctionDefinition() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -112,7 +107,7 @@ class ParserFunctionFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$instance = new ParserFunctionFactory();
 
-		list( $name, $definition, $flag ) = $instance->newAnnotatedLanguageParserFunctionDefinition(
+		[ $name, $definition, $flag ] = $instance->newAnnotatedLanguageParserFunctionDefinition(
 			$interlanguageLinksLookup
 		);
 

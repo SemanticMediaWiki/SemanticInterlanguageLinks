@@ -2,25 +2,21 @@
 
 namespace SIL\Tests;
 
-use SIL\SiteLanguageLinksParserOutputAppender;
 use SIL\InterlanguageLink;
-
-use SMW\DIWikiPage;
-use SMWDIBlob as DIBlob;
+use SIL\SiteLanguageLinksParserOutputAppender;
 
 /**
  * @covers \SIL\SiteLanguageLinksParserOutputAppender
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestCase {
+class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -39,7 +35,6 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 	}
 
 	public function testAddLanguageTargetLinksToOutput() {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
@@ -55,8 +50,8 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
-			->with( $this->equalTo( $interlanguageLink ) )
-			->will( $this->returnValue( [ 'fr' => 'Bar' ] ) );
+			->with( $interlanguageLink )
+			->willReturn( [ 'fr' => 'Bar' ] );
 
 		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
@@ -67,7 +62,6 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 	}
 
 	public function testCompareLanguageTargetLinksForExistingLanguageEntry() {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Yui' );
 
 		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
@@ -83,8 +77,8 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
-			->with( $this->equalTo( $interlanguageLink ) )
-			->will( $this->returnValue( [ 'en' => \Title::newFromText( 'Foo' ) ] ) );
+			->with( $interlanguageLink )
+			->willReturn( [ 'en' => \Title::newFromText( 'Foo' ) ] );
 
 		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
@@ -101,7 +95,6 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 	}
 
 	public function testAddLanguageTargetLinksToOutputFromStoreForMultipleInvocation() {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
@@ -110,7 +103,7 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 
 		$parserOutput->expects( $this->once() )
 			->method( 'addLanguageLink' )
-			->with( $this->equalTo( 'sil:vi:Yan' ) );
+			->with( 'sil:vi:Yan' );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -118,8 +111,8 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit_Framework_TestC
 
 		$interlanguageLinksLookup->expects( $this->atLEastOnce() )
 			->method( 'queryLanguageTargetLinks' )
-			->with( $this->equalTo( $interlanguageLink ) )
-			->will( $this->returnValue( [ 'vi' => \Title::newFromText( 'Yan' ) ] ) );
+			->with( $interlanguageLink )
+			->willReturn( [ 'vi' => \Title::newFromText( 'Yan' ) ] );
 
 		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,

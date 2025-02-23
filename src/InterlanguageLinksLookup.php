@@ -2,17 +2,16 @@
 
 namespace SIL;
 
+use SMW\DataValueFactory;
+use SMW\DIProperty;
+use SMW\DIWikiPage;
 use SMW\Query\Language\Conjunction;
 use SMW\Query\Language\SomeProperty;
 use SMW\Query\Language\ValueDescription;
-use SMW\DataValueFactory;
+use SMW\Query\PrintRequest;
 use SMW\Store;
-use SMW\DIWikiPage;
-use SMW\DIProperty;
-use SMWPrintRequest as PrintRequest;
-use SMWPropertyValue as PropertyValue;
-use SMWQuery as Query;
 use SMWDIBlob as DIBlob;
+use SMWQuery as Query;
 use Title;
 
 /**
@@ -26,14 +25,14 @@ use Title;
  * No other component of SIL should communicate to the store directly and let
  * the lookup class to handle those requests.
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
 class InterlanguageLinksLookup {
 
-	const NO_LANG = '';
+	public const NO_LANG = '';
 
 	/**
 	 * @var LanguageTargetLinksCache
@@ -63,7 +62,6 @@ class InterlanguageLinksLookup {
 		$this->store = $store;
 	}
 
-
 	/**
 	 * @since 1.2
 	 *
@@ -81,7 +79,6 @@ class InterlanguageLinksLookup {
 	 * @param Title $title
 	 */
 	public function resetLookupCacheBy( Title $title ) {
-
 		$this->languageTargetLinksCache->deleteLanguageTargetLinksFromCache(
 			$this->findFullListOfReferenceTargetLinks( $title )
 		);
@@ -97,8 +94,7 @@ class InterlanguageLinksLookup {
 	 * @param Title|null $title
 	 * @param string $languageCode
 	 */
-	public function pushPageLanguageToLookupCache( Title $title = null, $languageCode ) {
-
+	public function pushPageLanguageToLookupCache( ?Title $title = null, $languageCode ) {
 		if ( $title !== null && $this->languageTargetLinksCache->getPageLanguageFromCache( $title ) === $languageCode ) {
 			return;
 		}
@@ -118,7 +114,6 @@ class InterlanguageLinksLookup {
 	 * @return array
 	 */
 	public function queryLanguageTargetLinks( InterlanguageLink $interlanguageLink, Title $target = null ) {
-
 		$languageTargetLinks = $this->languageTargetLinksCache->getLanguageTargetLinksFromCache(
 			$interlanguageLink
 		);
@@ -156,7 +151,6 @@ class InterlanguageLinksLookup {
 	 * @return string
 	 */
 	public function findPageLanguageForTarget( Title $title ) {
-
 		// @note $title->getPageLanguage()->getLanguageCode() cannot be called
 		// here as this would cause a recursive chain
 
@@ -181,10 +175,9 @@ class InterlanguageLinksLookup {
 	 *
 	 * @param Title $title
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function hasSilAnnotationFor( Title $title ) {
-
 		$propertyValues = $this->store->getPropertyValues(
 			DIWikiPage::newFromTitle( $title ),
 			new DIProperty( PropertyRegistry::SIL_CONTAINER )
@@ -201,10 +194,9 @@ class InterlanguageLinksLookup {
 	 * @return DIWikiPage[]|[]
 	 */
 	public function findFullListOfReferenceTargetLinks( Title $title ) {
-
 		$linkReferences = [];
 
-		try{
+		try {
 			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
 		} catch ( \Exception $e ) {
 			return $linkReferences;
@@ -236,7 +228,6 @@ class InterlanguageLinksLookup {
 	 * @return QueryResult
 	 */
 	private function getQueryResultForInterlanguageLink( InterlanguageLink $interlanguageLink ) {
-
 		$description = new Conjunction();
 
 		$languageDataValue = $interlanguageLink->newLanguageDataValue();
@@ -269,7 +260,7 @@ class InterlanguageLinksLookup {
 			$query->setOption( Query::NO_CACHE, true );
 		}
 
-		//	$query->sort = true;
+		// $query->sort = true;
 		//	$query->sortkey = array( $languageDataValue->getProperty()->getLabel() => 'asc' );
 
 		// set query limit to certain threshold
@@ -278,7 +269,6 @@ class InterlanguageLinksLookup {
 	}
 
 	private function iterateQueryResultToFindLanguageTargetLinks( $queryResult, array &$languageTargetLinks ) {
-
 		while ( $resultArray = $queryResult->getNext() ) {
 			foreach ( $resultArray as $row ) {
 
@@ -294,8 +284,7 @@ class InterlanguageLinksLookup {
 	}
 
 	private function lookupLastPageLanguageForTarget( Title $title ) {
-
-		try{
+		try {
 			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
 		} catch ( \Exception $e ) {
 			return self::NO_LANG;
@@ -319,7 +308,7 @@ class InterlanguageLinksLookup {
 
 		$languageCodeValue = end( $propertyValues );
 
-		if ( $languageCodeValue instanceOf DIBlob ) {
+		if ( $languageCodeValue instanceof DIBlob ) {
 			return $languageCodeValue->getString();
 		}
 

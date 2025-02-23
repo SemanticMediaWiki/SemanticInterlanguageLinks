@@ -2,15 +2,12 @@
 
 namespace SIL;
 
-use Onoi\Cache\CacheFactory;
 use MediaWiki\MediaWikiServices;
+use SMW\Localizer\Localizer;
 use Title;
-use Language;
-
-use SMW\Localizer;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -43,12 +40,12 @@ class InterlanguageLinkParserFunction {
 	private $pageContentLanguageDbModifier;
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private $interlanguageLinksHideState = false;
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private $inRevisionMode = false;
 
@@ -72,7 +69,7 @@ class InterlanguageLinkParserFunction {
 	/**
 	 * @since 1.0
 	 *
-	 * @param boolean $interlanguageLinksHideState
+	 * @param bool $interlanguageLinksHideState
 	 */
 	public function setInterlanguageLinksHideState( $interlanguageLinksHideState ) {
 		$this->interlanguageLinksHideState = $interlanguageLinksHideState;
@@ -84,7 +81,7 @@ class InterlanguageLinkParserFunction {
 	 *
 	 * @since 1.2
 	 *
-	 * @param boolean $inRevisionMode
+	 * @param bool $inRevisionMode
 	 */
 	public function setRevisionModeState( $inRevisionMode ) {
 		$this->inRevisionMode = $inRevisionMode;
@@ -99,7 +96,6 @@ class InterlanguageLinkParserFunction {
 	 * @return null|string
 	 */
 	public function parse( $languageCode, $linkReference ) {
-
 		$languageCode = Localizer::asBCP47FormattedLanguageCode( $languageCode );
 
 		// Keep reference while editing is on going to avoid a possible lag when
@@ -127,7 +123,6 @@ class InterlanguageLinkParserFunction {
 	}
 
 	private function getTitleFrom( $isSupportedLanguage, $languageCode, $linkReference ) {
-
 		if ( $this->inRevisionMode || !$this->languageLinkAnnotator->canAddAnnotation() ) {
 			return '';
 		}
@@ -150,7 +145,6 @@ class InterlanguageLinkParserFunction {
 	}
 
 	private function createSiteLanguageLinks( InterlanguageLink $interlanguageLink ) {
-
 		$knownTargetLink = $this->siteLanguageLinksParserOutputAppender->tryAddLanguageTargetLinksToOutput(
 			$interlanguageLink,
 			$this->title
@@ -175,7 +169,6 @@ class InterlanguageLinkParserFunction {
 	}
 
 	private function isSupportedLanguage( $languageCode ) {
-
 		$languageCode = trim( mb_strtolower( $languageCode ) );
 
 		if ( strlen( $languageCode ) == 0 ) {
@@ -185,7 +178,7 @@ class InterlanguageLinkParserFunction {
 		return MediaWikiServices::getInstance()->getLanguageNameUtils()->isSupportedLanguage( $languageCode );
 	}
 
-	private function createErrorMessageFor( $messageKey, $arg1 = '', $arg2 = '', $arg3 = '',$arg4 = '' ) {
+	private function createErrorMessageFor( $messageKey, $arg1 = '', $arg2 = '', $arg3 = '', $arg4 = '' ) {
 		return '<div class="smw-callout smw-callout-error">' . wfMessage(
 			$messageKey,
 			$arg1,

@@ -9,15 +9,14 @@ use Title;
  * @covers \SIL\PageContentLanguageDbModifier
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.3
  *
  * @author mwjames
  */
-class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
+class PageContentLanguageDbModifierTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -29,7 +28,6 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNotMarkedAsPageLanguageByDB() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$connection = $this->getMockBuilder( '\DatabaseBase' )
@@ -49,12 +47,11 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testForceUpdateOfPageLanguageOnDifferentLanguageCode() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$connection = $this->getMockBuilder( '\DatabaseBase' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'update' ] )
+			->onlyMethods( [ 'update' ] )
 			->getMockForAbstractClass();
 
 		$connection->expects( $this->once() )
@@ -66,7 +63,7 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$linkCache->expects( $this->once() )
 			->method( 'getGoodLinkFieldObj' )
-			->will( $this->returnValue(  'fr' ) );
+			->willReturn( 'fr' );
 
 		$instance = new PageContentLanguageDbModifier(
 			$title,
@@ -79,12 +76,11 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoUpdateOnSameLanguageCode() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$connection = $this->getMockBuilder( '\DatabaseBase' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'update' ] )
+			->onlyMethods( [ 'update' ] )
 			->getMockForAbstractClass();
 
 		$connection->expects( $this->never() )
@@ -96,7 +92,7 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$linkCache->expects( $this->once() )
 			->method( 'getGoodLinkFieldObj' )
-			->will( $this->returnValue(  'en' ) );
+			->willReturn( 'en' );
 
 		$instance = new PageContentLanguageDbModifier(
 			$title,

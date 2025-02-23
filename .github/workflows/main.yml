@@ -2,91 +2,84 @@ name: build
 
 on:
   push:
-    branches:
-      - "**"
+    branches: [ master ]
   pull_request:
-    branches:
-      - "**"
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-20.04
+
+  test:
+
+    runs-on: ubuntu-22.04
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       matrix:
         include:
-          - mediawiki_version: 1.35
-            database_type: sqlite
+          - mediawiki_version: '1.39'
+            smw_version: dev-master
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:10"
+            coverage: false
             experimental: false
-          - mediawiki_version: 1.35
+          - mediawiki_version: '1.40'
+            smw_version: dev-master
+            php_version: 8.1
             database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: true
             experimental: false
-          - mediawiki_version: 1.36
+          - mediawiki_version: '1.41'
+            smw_version: dev-master
+            php_version: 8.1
             database_type: mysql
-            experimental: true
-          - mediawiki_version: 1.37
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.42'
+            smw_version: dev-master
+            php_version: 8.1
             database_type: mysql
-            experimental: true
-
-    container:
-      image: mediawiki:${{ matrix.mediawiki_version }}
-      options: --link some-${{ matrix.database_type }}:${{ matrix.database_type }}
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
+          - mediawiki_version: '1.43'
+            smw_version: dev-master
+            php_version: 8.1
+            database_type: mysql
+            database_image: "mariadb:11.2"
+            coverage: false
+            experimental: false
 
     env:
-      mwExtensionUnderTest: SemanticInterlanguageLinks
-      mwDepExtensions: SemanticMediaWiki
-      make: make -f conf/extensions/SemanticInterlanguageLinks/Makefile
-      COMPOSER_VERSION: 2
-      MW_INSTALL_PATH: /var/www/html
-      MW_EXT_PATH: /var/www/html/extensions
-      DB_ROOT_USER: root
-      DB_ROOT_PWD: database
-      MW_DB_TYPE: ${{ matrix.database_type }}
-      MW_DB_SERVER: ${{ matrix.database_type }}
-      mwVer: ${{matrix.mediawiki_version}}
-      MW_DB_PATH: /var/www/data
-      MW_DB_USER: wiki
-      MW_DB_PWD: wiki
-      MW_DB_NAME: wiki
-      VERBOSE: 1
-
-    services:
-      some-mysql:
-        image: mariadb:latest
-        env:
-          MARIADB_ROOT_PASSWORD: ${{ env.DB_ROOT_PWD }}
+      MW_VERSION: ${{ matrix.mediawiki_version }}
+      SMW_VERSION: ${{ matrix.smw_version }}
+      PHP_VERSION: ${{ matrix.php_version }}
+      DB_TYPE: ${{ matrix.database_type }}
+      DB_IMAGE: ${{ matrix.database_image }}
 
     steps:
-      - name: Checkout Extension
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          repository: SemanticMediaWiki/${{ env.mwExtensionUnderTest }}
-          path: conf/extensions/${{ env.mwExtensionUnderTest }}
+          submodules: recursive
+   
+      - name: Update submodules
+        run: git submodule update --init --remote
 
-      - name: Checkout SMW
-        uses: actions/checkout@v2
+      - name: Run tests
+        run: make ci
+        if: matrix.coverage == false
+
+      - name: Run tests with coverage
+        run: make ci-coverage
+        if: matrix.coverage == true
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v4
         with:
-          repository: SemanticMediaWiki/SemanticMediaWiki
-          path: conf/extensions/SemanticMediaWiki
-
-      - name: Get Composer
-        run: ${{ env.make }} composerBinaryInContainer
-
-      - name: MediaWiki Composer Update
-        run: ${{ env.make }} runComposerInContainer
-
-      - name: MediaWiki Install
-        run: ${{ env.make }} installExtensionInContainer
-
-      - name: Enable Debug Output
-        run: ${{ env.make }} enableDebugOutput
-
-      - name: Install SemanticMediaWiki
-        run: ${{ env.make }} enableSemanticsAndUpdate
-
-      - name: Fool the Makefile
-        run: ${{ env.make }} buildOnGithub
-
-      - name: Run Tests
-        run: ${{ env.make }} testInContainer
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/php/coverage.xml
+        if: matrix.coverage == true

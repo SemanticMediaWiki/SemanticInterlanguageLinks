@@ -2,12 +2,12 @@
 
 namespace SIL;
 
-use SMW\ApplicationFactory;
 use Parser;
 use ParserOutput;
+use SMW\Services\ServicesFactory as ApplicationFactory;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -26,11 +26,9 @@ class ParserFunctionFactory {
 		InterlanguageLinksLookup $interlanguageLinksLookup,
 		PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier
 	) {
-
-		$interlanguageLinkParserFunctionDefinition = function(
+		$interlanguageLinkParserFunctionDefinition = static function (
 			Parser $parser, string $languageCode, string $linkReference = ''
 		) use ( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
-
 			$pageContentLanguageDbModifier = new PageContentLanguageDbModifier(
 				$parser->getTitle()
 			);
@@ -87,11 +85,9 @@ class ParserFunctionFactory {
 	public function newInterlanguageListParserFunctionDefinition(
 		InterlanguageLinksLookup $interlanguageLinksLookup
 	) {
-
-		$interlanguageListParserFunctionDefinition = function(
+		$interlanguageListParserFunctionDefinition = static function (
 			Parser $parser, string $target, string $template = ''
 		) use ( $interlanguageLinksLookup ) {
-
 			$interlanguageListParserFunction = new InterlanguageListParserFunction(
 				$interlanguageLinksLookup
 			);
@@ -112,11 +108,9 @@ class ParserFunctionFactory {
 	public function newAnnotatedLanguageParserFunctionDefinition(
 		InterlanguageLinksLookup $interlanguageLinksLookup
 	) {
-
-		$annotatedLanguageParserFunctionDefinition = function(
+		$annotatedLanguageParserFunctionDefinition = static function (
 			Parser $parser, string $template = ''
 		) use ( $interlanguageLinksLookup ) {
-
 			$annotatedLanguageParserFunction = new AnnotatedLanguageParserFunction(
 				$interlanguageLinksLookup
 			);

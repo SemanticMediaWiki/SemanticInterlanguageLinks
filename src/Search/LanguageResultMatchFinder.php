@@ -2,13 +2,11 @@
 
 namespace SIL\Search;
 
+use SearchResultSet;
 use SIL\InterlanguageLinksLookup;
 
-use SearchResultSet;
-use Title;
-
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -38,7 +36,6 @@ class LanguageResultMatchFinder {
 	 * @return MappedSearchResultSet|null
 	 */
 	public function matchResultsToLanguage( SearchResultSet $matches, $languageCode ) {
-
 		$mappedMatches = [];
 
 		while ( $searchresult = $matches->next() ) {

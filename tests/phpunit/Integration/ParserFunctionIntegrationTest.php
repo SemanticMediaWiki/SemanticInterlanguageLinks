@@ -2,28 +2,25 @@
 
 namespace SIL\Tests\Integration;
 
-use SMW\Tests\MwDBaseUnitTestCase;
-use SMW\Tests\Utils\UtilityFactory;
-
-use SMW\Tests\PHPUnitCompat;
-use SMW\DIWikiPage;
 use SMW\DIProperty;
-
+use SMW\DIWikiPage;
+use SMW\Tests\PHPUnitCompat;
+use SMW\Tests\SMWIntegrationTestCase;
+use SMW\Tests\Utils\UtilityFactory;
 use Title;
 
 /**
  * @group semantic-interlanguage-links
  * @group semantic-mediawiki-integration
- *
- * @group mediawiki-database
+ * @group Database
  * @group medium
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
+class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 
 	use PHPUnitCompat;
 
@@ -31,7 +28,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	private $semanticDataValidator;
 	private $subjects = [];
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->markTestSkipped(
@@ -40,11 +37,10 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 
 		$this->pageCreator = UtilityFactory::getInstance()->newPageCreator();
 		$this->semanticDataValidator = UtilityFactory::getInstance()->newValidatorFactory()
-																   ->newSemanticDataValidator();
+			->newSemanticDataValidator();
 
 		// Manipulate the interwiki prefix on-the-fly
-		$GLOBALS['wgHooks']['InterwikiLoadPrefix'][] = function( $prefix, &$interwiki ) {
-
+		$GLOBALS['wgHooks']['InterwikiLoadPrefix'][] = static function ( $prefix, &$interwiki ) {
 			if ( $prefix !== 'en' ) {
 				return true;
 			}
@@ -62,8 +58,7 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 		};
 	}
 
-	protected function tearDown() : void {
-
+	protected function tearDown(): void {
 		UtilityFactory::getInstance()->newPageDeleter()->doDeletePoolOfPages( $this->subjects );
 		unset( $GLOBALS['wgHooks']['InterwikiLoadPrefix'] );
 
@@ -71,7 +66,6 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	}
 
 	public function testUseInterlanguageLinkParserInPage() {
-
 		$subject = DIWikiPage::newFromText( __METHOD__ );
 
 		$this->pageCreator
@@ -97,7 +91,6 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	}
 
 	public function testInterlanguageLinkParserToUseRedirect() {
-
 		$subject = DIWikiPage::newFromText( __METHOD__ );
 
 		$this->pageCreator
@@ -128,7 +121,6 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	}
 
 	public function testUseInterwikiLanguageLinkInPage() {
-
 		$subject = DIWikiPage::newFromTitle( Title::newFromText( __METHOD__ ) );
 
 		$this->pageCreator
@@ -154,7 +146,6 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	}
 
 	public function testUseInterlanguageListParserForTemplateInclusion() {
-
 		$subject  = Title::newFromText( 'InterlanguageList' );
 		$targetEn = Title::newFromText( 'InterlanguageListParserTargetEn' );
 		$targetJa = Title::newFromText( 'InterlanguageListParserTargetJa' );
@@ -192,7 +183,6 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	}
 
 	public function testQuerySubjectsForWildcardPageContentLanguage() {
-
 		$subject  = Title::newFromText( 'InterlanguageLinkByAsk' );
 		$targetEn = Title::newFromText( 'InterlanguageLinkParserTargetEn' );
 		$targetJa = Title::newFromText( 'InterlanguageLinkParserTargetJa' );
@@ -225,7 +215,6 @@ class ParserFunctionIntegrationTest extends MwDBaseUnitTestCase {
 	}
 
 	public function testQuerySubjectsForSpecificPageContentLanguage() {
-
 		$subject  = Title::newFromText( 'InterlanguageLinkByLanguage' );
 		$targetEn = Title::newFromText( 'InterlanguageLinkByLanguageParserTargetEn' );
 		$targetJa = Title::newFromText( 'InterlanguageLinkByLanguageParserTargetJa' );

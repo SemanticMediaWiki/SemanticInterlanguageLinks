@@ -3,24 +3,20 @@
 namespace SIL\Tests;
 
 use SIL\InterwikiLanguageLinkFetcher;
-use SIL\PropertyRegistry;
-
-use Title;
 
 /**
  * @covers \SIL\InterwikiLanguageLinkFetcher
  *
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
+class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -32,7 +28,6 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyLanguageLinks() {
-
 		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -48,7 +43,6 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testIgnoreSILLink() {
-
 		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -64,7 +58,6 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testInvalidInterwikiLink() {
-
 		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -80,7 +73,6 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testValidInterwikiLink() {
-
 		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -98,7 +90,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit_Framework_TestCase {
 
 		$title->expects( $this->any() )
 			->method( 'getInterwiki' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		$parserOutput = new \ParserOutput();
 		$parserOutput->setLanguageLinks( [ $title ] );

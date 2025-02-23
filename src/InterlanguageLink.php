@@ -5,13 +5,11 @@ namespace SIL;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
-
 use SMWDIBlob as DIBlob;
-
 use Title;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -32,11 +30,11 @@ class InterlanguageLink {
 	 * @since 1.0
 	 *
 	 * @param string|null $languageCode
-	 * @param Title|string $linkReference
+	 * @param Title|string|null $linkReference
 	 */
 	public function __construct( $languageCode = null, $linkReference = null ) {
 		$this->languageCode = $languageCode;
-		$this->linkReference = $linkReference instanceOf Title ? $linkReference : Title::newFromText( $linkReference );
+		$this->linkReference = $linkReference instanceof Title ? $linkReference : Title::newFromText( $linkReference );
 	}
 
 	/**
@@ -63,7 +61,7 @@ class InterlanguageLink {
 	 * @return string
 	 */
 	public function getContainerId() {
-		return 'ill.'. $this->getLanguageCode();
+		return 'ill.' . $this->getLanguageCode();
 	}
 
 	/**

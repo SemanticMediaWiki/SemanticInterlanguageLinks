@@ -4,10 +4,9 @@ namespace SIL;
 
 use MediaWiki\MediaWikiServices;
 use Title;
-use Language;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -40,15 +39,14 @@ class SiteLanguageLinkModifier {
 	 *
 	 * @param array &$languageLink
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function modifyLanguageLink( &$languageLink ) {
-
 		if ( !isset( $languageLink['text'] ) || strpos( $languageLink['text'], 'sil:' ) === false ) {
 			return false;
 		}
 
-		list( $internalId, $languageCode, $target ) = explode( ':', $languageLink['text'], 3 );
+		[ $internalId, $languageCode, $target ] = explode( ':', $languageLink['text'], 3 );
 
 		if ( $internalId !== 'sil' ) {
 			return false;

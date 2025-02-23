@@ -4,16 +4,13 @@ namespace SIL;
 
 use MediaWiki\MediaWikiServices;
 use Onoi\Cache\Cache;
-use SMW\Store;
-use SMW\ApplicationFactory;
-use SMW\InMemoryPoolCache;
-use SIL\Search\SearchResultModifier;
-use SIL\Search\LanguageResultMatchFinder;
 use SIL\Category\LanguageFilterCategoryPage;
-use Language;
+use SMW\InMemoryPoolCache;
+use SMW\Services\ServicesFactory as ApplicationFactory;
+use SMW\Store;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -41,7 +38,7 @@ class HookRegistry {
 	 *
 	 * @param string $name
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function isRegistered( $name ) {
 		return MediaWikiServices::getInstance()->getHookContainer()->isRegistered( $name );
@@ -52,7 +49,7 @@ class HookRegistry {
 	 *
 	 * @param string $name
 	 *
-	 * @return Callable|false
+	 * @return callable|false
 	 */
 	public function getHandlerFor( $name ) {
 		return isset( $this->handlers[$name] ) ? $this->handlers[$name] : false;
@@ -71,10 +68,9 @@ class HookRegistry {
 	/**
 	 * @since  1.0
 	 *
-	 * @param array &$configuration
+	 * @param array &$config
 	 */
 	public static function onBeforeConfigCompletion( &$config ) {
-
 		if ( !isset( $config['smwgFulltextSearchPropertyExemptionList'] ) ) {
 			return;
 		}
@@ -87,7 +83,6 @@ class HookRegistry {
 	}
 
 	private function addCallbackHandlers( $store, $cache, $cacheKeyProvider ) {
-
 		$languageTargetLinksCache = new LanguageTargetLinksCache(
 			$cache,
 			$cacheKeyProvider
@@ -102,8 +97,7 @@ class HookRegistry {
 		/**
 		 * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.property.initproperties.md
 		 */
-		$this->handlers['SMW::Property::initProperties'] = function ( $baseRegistry ) {
-
+		$this->handlers['SMW::Property::initProperties'] = static function ( $baseRegistry ) {
 			$propertyRegistry = new PropertyRegistry();
 
 			$propertyRegistry->register(
@@ -116,8 +110,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ArticleFromTitle
 		 */
-		$this->handlers['ArticleFromTitle'] = function ( $title, &$page ) use( $interlanguageLinksLookup ) {
-
+		$this->handlers['ArticleFromTitle'] = static function ( $title, &$page ) use( $interlanguageLinksLookup ) {
 			$languageFilterCategoryPage = new LanguageFilterCategoryPage( $title );
 			$languageFilterCategoryPage->isCategoryFilterByLanguage( $GLOBALS['silgEnabledCategoryFilterByLanguage'] );
 			$languageFilterCategoryPage->modifyCategoryView( $page, $interlanguageLinksLookup );
@@ -129,7 +122,6 @@ class HookRegistry {
 	}
 
 	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
-
 		$pageContentLanguageOnTheFlyModifier = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
 			InMemoryPoolCache::getInstance()->getPoolCacheFor( PageContentLanguageOnTheFlyModifier::POOLCACHE_ID )
@@ -138,24 +130,23 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 		 */
-		$this->handlers['ParserFirstCallInit'] = function ( &$parser ) use( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
-
+		$this->handlers['ParserFirstCallInit'] = static function ( &$parser ) use( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
 			$parserFunctionFactory = new ParserFunctionFactory();
 
-			list( $name, $definition, $flag ) = $parserFunctionFactory->newInterlanguageLinkParserFunctionDefinition(
+			[ $name, $definition, $flag ] = $parserFunctionFactory->newInterlanguageLinkParserFunctionDefinition(
 				$interlanguageLinksLookup,
 				$pageContentLanguageOnTheFlyModifier
 			);
 
 			$parser->setFunctionHook( $name, $definition, $flag );
 
-			list( $name, $definition, $flag ) = $parserFunctionFactory->newInterlanguageListParserFunctionDefinition(
+			[ $name, $definition, $flag ] = $parserFunctionFactory->newInterlanguageListParserFunctionDefinition(
 				$interlanguageLinksLookup
 			);
 
 			$parser->setFunctionHook( $name, $definition, $flag );
 
-			list( $name, $definition, $flag ) = $parserFunctionFactory->newAnnotatedLanguageParserFunctionDefinition(
+			[ $name, $definition, $flag ] = $parserFunctionFactory->newAnnotatedLanguageParserFunctionDefinition(
 				$interlanguageLinksLookup
 			);
 
@@ -167,8 +158,7 @@ class HookRegistry {
 		/**
 		 * https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.sqlstore.beforedeletesubjectcomplete.md
 		 */
-		$this->handlers['SMW::SQLStore::BeforeDeleteSubjectComplete'] = function ( $store, $title ) use ( $interlanguageLinksLookup ) {
-
+		$this->handlers['SMW::SQLStore::BeforeDeleteSubjectComplete'] = static function ( $store, $title ) use ( $interlanguageLinksLookup ) {
 			$interlanguageLinksLookup->setStore( $store );
 			$interlanguageLinksLookup->resetLookupCacheBy( $title );
 
@@ -178,8 +168,7 @@ class HookRegistry {
 		/**
 		 * https://github.com/SemanticMediaWiki/SemanticMediaWiki/blob/master/docs/technical/hooks/hook.sqlstore.beforechangetitlecomplete.md
 		 */
-		$this->handlers['SMW::SQLStore::BeforeChangeTitleComplete'] = function ( $store, $oldTitle, $newTitle, $pageid, $redirid ) use ( $interlanguageLinksLookup ) {
-
+		$this->handlers['SMW::SQLStore::BeforeChangeTitleComplete'] = static function ( $store, $oldTitle, $newTitle, $pageid, $redirid ) use ( $interlanguageLinksLookup ) {
 			$interlanguageLinksLookup->setStore( $store );
 
 			$interlanguageLinksLookup->resetLookupCacheBy( $oldTitle );
@@ -191,8 +180,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ArticlePurge
 		 */
-		$this->handlers['ArticlePurge']= function ( &$wikiPage ) use ( $interlanguageLinksLookup ) {
-
+		$this->handlers['ArticlePurge'] = static function ( &$wikiPage ) use ( $interlanguageLinksLookup ) {
 			$interlanguageLinksLookup->resetLookupCacheBy(
 				$wikiPage->getTitle()
 			);
@@ -204,8 +192,7 @@ class HookRegistry {
 		 * https://www.mediawiki.org/wiki/Manual:Hooks/RevisionFromEditComplete
 		 */
 		$this->handlers['RevisionFromEditComplete']
-		= function ( $wikiPage ) use ( $interlanguageLinksLookup ) {
-
+		= static function ( $wikiPage ) use ( $interlanguageLinksLookup ) {
 			$interlanguageLinksLookup->resetLookupCacheBy(
 				$wikiPage->getTitle()
 			);
@@ -216,8 +203,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SkinTemplateGetLanguageLink
 		 */
-		$this->handlers['SkinTemplateGetLanguageLink'] = function ( &$languageLink, $languageLinkTitle, $title ) {
-
+		$this->handlers['SkinTemplateGetLanguageLink'] = static function ( &$languageLink, $languageLinkTitle, $title ) {
 			$siteLanguageLinkModifier = new SiteLanguageLinkModifier(
 				$languageLinkTitle,
 				$title
@@ -231,8 +217,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentLanguage
 		 */
-		$this->handlers['PageContentLanguage'] = function ( $title, &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
-
+		$this->handlers['PageContentLanguage'] = static function ( $title, &$pageLang ) use ( $pageContentLanguageOnTheFlyModifier ) {
 			$contentLang = $pageContentLanguageOnTheFlyModifier->getPageContentLanguage(
 				$title,
 				$pageLang
@@ -245,8 +230,7 @@ class HookRegistry {
 		/**
 		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserAfterTidy
 		 */
-		$this->handlers['ParserAfterTidy'] = function ( &$parser, &$text ) {
-
+		$this->handlers['ParserAfterTidy'] = static function ( &$parser, &$text ) {
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
 				$parser->getOutput()
@@ -267,6 +251,5 @@ class HookRegistry {
 			return true;
 		};
 	}
-
 
 }

@@ -8,15 +8,14 @@ use SIL\Category\LanguageFilterCategoryPage;
  * @covers \SIL\Category\LanguageFilterCategoryPage
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
+class LanguageFilterCategoryPageTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$LanguageFilterCategoryPage = $this->getMockBuilder( '\SIL\Category\LanguageFilterCategoryPage' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -28,7 +27,6 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testDisabledCategoryFilter() {
-
 		$instance = new LanguageFilterCategoryPage( \Title::newFromText( 'Foo', NS_CATEGORY ) );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -47,7 +45,6 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testDisabledForNonCategoryNamespace() {
-
 		$instance = new LanguageFilterCategoryPage( \Title::newFromText( 'Foo', NS_MAIN ) );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -66,7 +63,6 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testEnabledCategoryFilter() {
-
 		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -75,7 +71,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->once() )
 				->method( 'hasSilAnnotationFor' )
-				->will( $this->returnValue( true ) );
+				->willReturn( true );
 
 		$context = $this->getMockBuilder( '\IContextSource' )
 			->disableOriginalConstructor()
@@ -102,7 +98,6 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testInfoMessageByOpenShowCategoryForEnabledLanguageFilter() {
-
 		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -111,11 +106,11 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 				->method( 'hasSilAnnotationFor' )
-				->will( $this->returnValue( true ) );
+				->willReturn( true );
 
-		$interlanguageLinksLookup->expects( $this->exactly( 1 ) )
+		$interlanguageLinksLookup->expects( $this->once() )
 				->method( 'findPageLanguageForTarget' )
-				->will( $this->returnValue( 'foo' ) );
+				->willReturn( 'foo' );
 
 		$outputPage = $this->getMockBuilder( '\OutputPage' )
 			->disableOriginalConstructor()
@@ -127,7 +122,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 
 		$context->expects( $this->once() )
 				->method( 'getOutput' )
-				->will( $this->returnValue( $outputPage ) );
+				->willReturn( $outputPage );
 
 		$instance = new LanguageFilterCategoryPage( $title );
 
@@ -142,7 +137,6 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoInfoMessageByOpenShowCategoryForNonAvailableLanguage() {
-
 		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -151,7 +145,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->never() )
 				->method( 'findPageLanguageForTarget' )
-				->will( $this->returnValue( false ) );
+				->willReturn( false );
 
 		$context = $this->getMockBuilder( '\IContextSource' )
 			->disableOriginalConstructor()
@@ -169,7 +163,6 @@ class LanguageFilterCategoryPageTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoInfoMessageByOpenShowCategory() {
-
 		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$context = $this->getMockBuilder( '\IContextSource' )

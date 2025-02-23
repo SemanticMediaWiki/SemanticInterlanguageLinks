@@ -13,30 +13,29 @@ define( 'SIL_PROP_IWL_REF', 'Interwiki reference' );
 define( 'SIL_PROP_IWL_LANG', 'Interwiki language' );
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
 class PropertyRegistry {
 
-	const SIL_CONTAINER = '__sil_container';
+	public const SIL_CONTAINER = '__sil_container';
 
-	const SIL_ILL_LANG  = '__sil_ill_lang';
-	const SIL_ILL_REF   = '__sil_ill_ref';
+	public const SIL_ILL_LANG  = '__sil_ill_lang';
+	public const SIL_ILL_REF   = '__sil_ill_ref';
 
-	const SIL_IWL_LANG  = '__sil_iwl_lang';
-	const SIL_IWL_REF   = '__sil_iwl_ref';
+	public const SIL_IWL_LANG  = '__sil_iwl_lang';
+	public const SIL_IWL_REF   = '__sil_iwl_ref';
 
 	/**
 	 * @since 1.0
 	 *
 	 * @param CorePropertyRegistry $propertyRegistry
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function register( CorePropertyRegistry $propertyRegistry ) {
-
 		$propertyDefinitions = [
 
 			self::SIL_CONTAINER => [
@@ -86,7 +85,7 @@ class PropertyRegistry {
 		];
 
 		foreach ( $propertyDefinitions as $propertyId => $definition ) {
-			$this->addPropertyDefinitionFor( $propertyRegistry, $propertyId, $definition  );
+			$this->addPropertyDefinitionFor( $propertyRegistry, $propertyId, $definition );
 		}
 
 		foreach ( $propertyDefinitions as $propertyId => $definition ) {
@@ -103,7 +102,6 @@ class PropertyRegistry {
 	}
 
 	private function addPropertyDefinitionFor( $propertyRegistry, $propertyId, $definition ) {
-
 		$propertyRegistry->registerProperty(
 			$propertyId,
 			$definition['type'],

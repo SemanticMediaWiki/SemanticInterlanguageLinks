@@ -5,7 +5,7 @@ namespace SIL;
 use ParserOutput;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -32,7 +32,6 @@ class InterwikiLanguageLinkFetcher {
 	 * @return ParserOutput $parserOutput
 	 */
 	public function fetchLanguagelinksFromParserOutput( ParserOutput $parserOutput ) {
-
 		if ( $parserOutput->getLanguageLinks() === [] || $parserOutput->getLanguageLinks() === null ) {
 			return;
 		}
@@ -48,7 +47,6 @@ class InterwikiLanguageLinkFetcher {
 	}
 
 	private function addAnnotationForInterwikiLanguageLink( $languageLink ) {
-
 		$interwikiLanguageLink = new InterwikiLanguageLink( $languageLink );
 
 		if ( $interwikiLanguageLink->getLanguageCode() === '' ) {

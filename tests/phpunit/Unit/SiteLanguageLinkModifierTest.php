@@ -3,30 +3,23 @@
 namespace SIL\Tests;
 
 use SIL\SiteLanguageLinkModifier;
-use SIL\InterlanguageLink;
-
-use SMW\DIWikiPage;
-use SMWDIBlob as DIBlob;
 use SMW\Tests\PHPUnitCompat;
-
-use Title;
 
 /**
  * @covers \SIL\SiteLanguageLinkModifier
  *
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
+class SiteLanguageLinkModifierTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 
 	public function testCanConstruct() {
-
 		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -42,7 +35,6 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testModifyLanguageLinkForNoTextEntry() {
-
 		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -71,7 +63,6 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider invalidLanguageLinkProvider
 	 */
 	public function testModifyLanguageLinkForInvalidSilEntry( $languageLink, $expected ) {
-
 		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -99,7 +90,6 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider validLanguageLinkProvider
 	 */
 	public function testModifyLanguageLinkForValidSilEntry( $languageLink, $expected ) {
-
 		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -124,7 +114,6 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function invalidLanguageLinkProvider() {
-
 		$provider = [];
 
 		$provider[] = [
@@ -141,7 +130,6 @@ class SiteLanguageLinkModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function validLanguageLinkProvider() {
-
 		$provider = [];
 
 		$provider[] = [

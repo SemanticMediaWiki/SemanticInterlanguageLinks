@@ -1,6 +1,6 @@
 <?php
 
-if ( php_sapi_name() !== 'cli' ) {
+if ( PHP_SAPI !== 'cli' && PHP_SAPI !== 'phpdbg' ) {
 	die( 'Not an entry point' );
 }
 
@@ -9,7 +9,7 @@ date_default_timezone_set( 'UTC' );
 ini_set( 'display_errors', 1 );
 
 $autoloaderClassPath = getenv( "MW_INSTALL_PATH" ) . '/extensions/SemanticMediaWiki/tests/autoloader.php';
-if ( !is_readable( $autoloaderClassPath  ) ) {
+if ( !is_readable( $autoloaderClassPath ) ) {
 	die( 'The Semantic MediaWiki test autoloader is not available' );
 }
 

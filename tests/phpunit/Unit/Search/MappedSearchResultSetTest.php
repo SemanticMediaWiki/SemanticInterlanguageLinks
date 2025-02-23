@@ -4,22 +4,19 @@ namespace SIL\Tests\Search;
 
 use SIL\Search\MappedSearchResultSet;
 
-use SMW\DIProperty;
-
 /**
  * @covers \SIL\Search\MappedSearchResultSet
  *
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class MappedSearchResultSetTest extends \PHPUnit_Framework_TestCase {
+class MappedSearchResultSetTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$searchMatches = [];
 		$termMatches = [];
 
@@ -30,13 +27,12 @@ class MappedSearchResultSetTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyResulSet() {
-
 		$searchMatches = [];
 		$termMatches = [];
 
 		$instance = new MappedSearchResultSet( $searchMatches, $termMatches, 42 );
 
-		$this->assertEquals(
+		$this->assertSame(
 			0,
 			$instance->numRows()
 		);
@@ -60,7 +56,6 @@ class MappedSearchResultSetTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNextSearchResult() {
-
 		$searchResult = $this->getMockBuilder( '\SearchResult' )
 			->disableOriginalConstructor()
 			->getMock();

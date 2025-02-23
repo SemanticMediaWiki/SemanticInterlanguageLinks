@@ -3,7 +3,6 @@
 namespace SIL\Tests\Search;
 
 use SIL\Search\SearchResultModifier;
-use SMW\DIProperty;
 use SMW\Tests\PHPUnitCompat;
 
 /**
@@ -11,17 +10,16 @@ use SMW\Tests\PHPUnitCompat;
  *
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
+class SearchResultModifierTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 
 	public function testCanConstruct() {
-
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -33,7 +31,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddSearchProfile() {
-
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -49,14 +46,13 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 			$profiles
 		);
 
-		$this->assertInternalType(
-			'array',
+		$this->assertIsArray(
+
 			$profiles['sil']['namespaces']
 		);
 	}
 
 	public function testAddSearchFormForSILProfile() {
-
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -69,8 +65,8 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$request->expects( $this->once() )
 			->method( 'getVal' )
-			->with( $this->equalTo( 'languagefilter' ) )
-			->will( $this->returnValue( 'vi' ) );
+			->with( 'languagefilter' )
+			->willReturn( 'vi' );
 
 		$context = $this->getMockBuilder( '\IContextSource' )
 			->disableOriginalConstructor()
@@ -78,7 +74,7 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$context->expects( $this->once() )
 			->method( 'getRequest' )
-			->will( $this->returnValue( $request ) );
+			->willReturn( $request );
 
 		$specialSearch = $this->getMockBuilder( '\SpecialSearch' )
 			->disableOriginalConstructor()
@@ -86,13 +82,13 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$specialSearch->expects( $this->once() )
 			->method( 'getContext' )
-			->will( $this->returnValue( $context ) );
+			->willReturn( $context );
 
 		$specialSearch->expects( $this->once() )
 			->method( 'setExtraParam' )
 			->with(
-				$this->equalTo( 'languagefilter' ),
-				$this->equalTo( 'vi' ) );
+				'languagefilter',
+				'vi' );
 
 		$form = '';
 		$opts = [ 'Foo' => 'Bar' ];
@@ -113,7 +109,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoSearchFormForNonSILProfile() {
-
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -133,7 +128,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddLanguageFilterToPowerBox() {
-
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -146,8 +140,8 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$request->expects( $this->once() )
 			->method( 'getVal' )
-			->with( $this->equalTo( 'languagefilter' ) )
-			->will( $this->returnValue( 'en' ) );
+			->with( 'languagefilter' )
+			->willReturn( 'en' );
 
 		$this->assertTrue(
 			$instance->addLanguageFilterToPowerBox( $request, $showSections )
@@ -160,7 +154,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoPostFilteringForNonSILProfile() {
-
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -173,8 +166,8 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$request->expects( $this->once() )
 			->method( 'getVal' )
-			->with( $this->equalTo( 'profile' ) )
-			->will( $this->returnValue( 'foo' ) );
+			->with( 'profile' )
+			->willReturn( 'foo' );
 
 		$titleMatches = false;
 		$textMatches = false;
@@ -188,7 +181,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider validProfileProvider
 	 */
 	public function testTryPostFilteringByValidProfileForValidLanguageCode( $profile ) {
-
 		$titleMatches = $this->getMockBuilder( '\SearchResultSet' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -204,14 +196,14 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 		$languageResultMatchFinder->expects( $this->at( 0 ) )
 			->method( 'matchResultsToLanguage' )
 			->with(
-				$this->equalTo( $titleMatches ),
-				$this->equalTo( 'zh-Hans' ) );
+				$titleMatches,
+				'zh-Hans' );
 
 		$languageResultMatchFinder->expects( $this->at( 1 ) )
 			->method( 'matchResultsToLanguage' )
 			->with(
-				$this->equalTo( $textMatches ),
-				$this->equalTo( 'zh-Hans' ) );
+				$textMatches,
+				'zh-Hans' );
 
 		$instance = new SearchResultModifier( $languageResultMatchFinder );
 
@@ -221,13 +213,13 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$request->expects( $this->at( 0 ) )
 			->method( 'getVal' )
-			->with( $this->equalTo( 'profile' ) )
-			->will( $this->returnValue( $profile ) );
+			->with( 'profile' )
+			->willReturn( $profile );
 
 		$request->expects( $this->at( 1 ) )
 			->method( 'getVal' )
-			->with( $this->equalTo( 'languagefilter' ) )
-			->will( $this->returnValue( 'zh-hans' ) );
+			->with( 'languagefilter' )
+			->willReturn( 'zh-hans' );
 
 		$this->assertTrue(
 			$instance->applyLanguageFilterToResultMatches( $request, $titleMatches, $textMatches )
@@ -235,15 +227,14 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCreateHtmlLanguageFilterSelector() {
-
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$instance = new SearchResultModifier( $languageResultMatchFinder );
 
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
+
 			$instance->createHtmlLanguageFilterSelector( 'en' )
 		);
 	}
@@ -252,7 +243,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider invalidLanguageCodeProvider
 	 */
 	public function testTryPostFilteringForSILProfileByInvalidLanguageCode( $invalidLanguageCode ) {
-
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -265,13 +255,13 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$request->expects( $this->at( 0 ) )
 			->method( 'getVal' )
-			->with( $this->equalTo( 'profile' ) )
-			->will( $this->returnValue( 'sil' ) );
+			->with( 'profile' )
+			->willReturn( 'sil' );
 
 		$request->expects( $this->at( 1 ) )
 			->method( 'getVal' )
-			->with( $this->equalTo( 'languagefilter' ) )
-			->will( $this->returnValue( $invalidLanguageCode ) );
+			->with( 'languagefilter' )
+			->willReturn( $invalidLanguageCode );
 
 		$titleMatches = false;
 		$textMatches = false;
@@ -282,7 +272,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function invalidLanguageCodeProvider() {
-
 		$provider = [
 			[ null ],
 			[ '' ],
@@ -294,7 +283,6 @@ class SearchResultModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function validProfileProvider() {
-
 		$provider = [
 			[ 'sil' ],
 			[ 'advanced' ]

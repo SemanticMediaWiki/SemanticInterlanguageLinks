@@ -4,9 +4,7 @@ namespace SIL\Tests;
 
 use SIL\InterwikiLanguageLink;
 use SIL\PropertyRegistry;
-
 use SMW\Tests\PHPUnitCompat;
-
 use Title;
 
 /**
@@ -14,12 +12,12 @@ use Title;
  *
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
+class InterwikiLanguageLinkTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 
@@ -35,7 +33,6 @@ class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'\SIL\InterwikiLanguageLink',
 			new InterwikiLanguageLink( 'en:Foo' )
@@ -43,14 +40,13 @@ class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testConstructorArgumentGetter() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$title->expects( $this->once() )
 			->method( 'getInterwiki' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		$instance = new InterwikiLanguageLink( $title );
 
@@ -66,22 +62,21 @@ class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testConstructDataValue() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$title->expects( $this->any() )
 			->method( 'getInterwiki' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		$title->expects( $this->any() )
 			->method( 'getNamespace' )
-			->will( $this->returnValue( NS_MAIN ) );
+			->willReturn( NS_MAIN );
 
 		$title->expects( $this->any() )
 			->method( 'getDBKey' )
-			->will( $this->returnValue( 'Foo' ) );
+			->willReturn( 'Foo' );
 
 		$instance = new InterwikiLanguageLink( $title );
 
@@ -117,18 +112,17 @@ class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetHash() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$title->expects( $this->any() )
 			->method( 'getInterwiki' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		$title->expects( $this->any() )
 			->method( 'getPrefixedText' )
-			->will( $this->returnValue( 'Foo' ) );
+			->willReturn( 'Foo' );
 
 		$instance = new InterwikiLanguageLink( $title );
 
@@ -139,14 +133,13 @@ class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetContainerId() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$title->expects( $this->once() )
 			->method( 'getInterwiki' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		$instance = new InterwikiLanguageLink( $title );
 
@@ -157,7 +150,6 @@ class InterwikiLanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetInterwikiReference() {
-
 		$linkReference = Title::newFromText( 'en:Foo' );
 
 		$instance = new InterwikiLanguageLink( 'en:Foo' );

@@ -4,22 +4,20 @@ namespace SIL\Tests;
 
 use SIL\PropertyRegistry;
 use SMW\PropertyRegistry as SemanticMediaWikiPropertyRegistry;
-use SMW\DIProperty;
 
 /**
  * @covers \SIL\PropertyRegistry
  *
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class PropertyRegistryTest extends \PHPUnit_Framework_TestCase {
+class PropertyRegistryTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			PropertyRegistry::class,
 			new PropertyRegistry()
@@ -27,7 +25,6 @@ class PropertyRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testILLRegister() {
-
 		$semanticMediaWikiPropertyRegistry = SemanticMediaWikiPropertyRegistry::getInstance();
 
 		$propertyRegistry = $this->getMockBuilder( '\SMW\PropertyRegistry' )
@@ -51,7 +48,6 @@ class PropertyRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testIWLRegister() {
-
 		$semanticMediaWikiPropertyRegistry = SemanticMediaWikiPropertyRegistry::getInstance();
 
 		$propertyRegistry = $this->getMockBuilder( '\SMW\PropertyRegistry' )
