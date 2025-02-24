@@ -94,7 +94,7 @@ class InterlanguageLinksLookup {
 	 * @param Title|null $title
 	 * @param string $languageCode
 	 */
-	public function pushPageLanguageToLookupCache( ?Title $title = null, $languageCode ) {
+	public function pushPageLanguageToLookupCache( ?Title $title, $languageCode ) {
 		if ( $title !== null && $this->languageTargetLinksCache->getPageLanguageFromCache( $title ) === $languageCode ) {
 			return;
 		}

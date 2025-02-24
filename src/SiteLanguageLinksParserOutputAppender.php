@@ -105,7 +105,7 @@ class SiteLanguageLinksParserOutputAppender {
 	 *
 	 * @return bool|string
 	 */
-	private function compareTargetToCurrentLanguage( ?Title $target = null, $selectedTargetLinkForCurrentLanguage ) {
+	private function compareTargetToCurrentLanguage( ?Title $target, $selectedTargetLinkForCurrentLanguage ) {
 		if ( $selectedTargetLinkForCurrentLanguage instanceof Title ) {
 			 $selectedTargetLinkForCurrentLanguage = $selectedTargetLinkForCurrentLanguage->getPrefixedText();
 		}

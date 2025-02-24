@@ -26,7 +26,7 @@ class ParserFunctionFactory {
 		InterlanguageLinksLookup $interlanguageLinksLookup,
 		PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier
 	) {
-		$interlanguageLinkParserFunctionDefinition = static function (
+		$interlanguageLinkParserFunctionDefinition = function (
 			Parser $parser, string $languageCode, string $linkReference = ''
 		) use ( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
 			$pageContentLanguageDbModifier = new PageContentLanguageDbModifier(
@@ -38,7 +38,7 @@ class ParserFunctionFactory {
 				isset( $GLOBALS['wgPageLanguageUseDB'] ) ? $GLOBALS['wgPageLanguageUseDB'] : false
 			);
 
-			$parserOutput = $parser->getOutput() ?? new ParserOutput;
+			$parserOutput = $this->getParserOutputSafe( $parser ) ?? new ParserOutput;
 
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
@@ -119,6 +119,23 @@ class ParserFunctionFactory {
 		};
 
 		return [ 'annotatedlanguage', $annotatedLanguageParserFunctionDefinition, Parser::SFH_NO_HASH ];
+	}
+
+	private function getParserOutputSafe( ?Parser $parser ): ?ParserOutput {
+		try {
+			/**
+			 * Returns early if the parser has no options, because output
+			 * relies on the options.
+			 *
+			 * @see Parser::resetOutput
+			 */
+			if ( version_compare( MW_VERSION, '1.42', '>=' ) && $parser->getOptions() === null ) {
+				return null;
+			}
+			return $parser->getOutput();
+		} catch ( Error $e ) {
+			return null;
+		}
 	}
 
 }

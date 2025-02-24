@@ -3,6 +3,7 @@
 namespace SIL\Tests\Category;
 
 use ContentHandler;
+use MediaWiki\MediaWikiServices;
 use RequestContext;
 use SIL\Category\LanguageFilterCategoryViewer;
 use Title;
@@ -163,21 +164,21 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 	 * @return WikiPage
 	 */
 	protected function getExistingTestPage( Title $title ) {
-		$page = WikiPage::factory( $title );
+		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 
 		// If page doesn't exist, create it.
 		if ( !$page->exists() ) {
 			$user = RequestContext::getMain()->getUser();
 			$page->doUserEditContent(
 				ContentHandler::makeContent(
-					'LFCVTContent',
+					'Test content for LFCVT',
 					$title,
 					// Regardless of how the wiki is configure or what extensions are present,
 					// force this page to be a wikitext one.
 					CONTENT_MODEL_WIKITEXT
 				),
 				$user,
-				'LFCVTPageSummary',
+				'Summary of LFCVT',
 				EDIT_NEW | EDIT_SUPPRESS_RC
 			);
 		}

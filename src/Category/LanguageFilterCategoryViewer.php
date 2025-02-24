@@ -70,17 +70,19 @@ class LanguageFilterCategoryViewer extends CategoryViewer {
 			return true;
 		}
 
-		if ( !Title::castFromPageIdentity( $this->page )->interlanguageLinksLookup->hasSilAnnotationFor( $title ) ) {
+		$titleFromPage = Title::castFromPageIdentity( $this->page );
+
+		if ( !$titleFromPage->interlanguageLinksLookup->hasSilAnnotationFor( $title ) ) {
 			return false;
 		}
 
-		$categoryLanguageCode = Title::castFromPageIdentity( $this->page )->interlanguageLinksLookup->findPageLanguageForTarget( $this->title );
+		$categoryLanguageCode = $titleFromPage->interlanguageLinksLookup->findPageLanguageForTarget( $titleFromPage );
 
 		if ( $categoryLanguageCode === null || $categoryLanguageCode === '' ) {
 			return true;
 		}
 
-		if ( $categoryLanguageCode === Title::castFromPageIdentity( $this->page )->interlanguageLinksLookup->findPageLanguageForTarget( $title ) ) {
+		if ( $categoryLanguageCode === $titleFromPage->interlanguageLinksLookup->findPageLanguageForTarget( $title ) ) {
 			return true;
 		}
 

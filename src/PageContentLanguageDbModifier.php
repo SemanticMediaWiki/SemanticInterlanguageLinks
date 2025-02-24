@@ -2,10 +2,10 @@
 
 namespace SIL;
 
-use DatabaseBase;
 use LinkCache;
 use MediaWiki\MediaWikiServices;
 use Title;
+use Wikimedia\Rdbms\Database;
 
 /**
  * Handling Title::getDbPageLanguageCode and Special:PageLanguage to avoid possible
@@ -29,7 +29,7 @@ class PageContentLanguageDbModifier {
 	private $title;
 
 	/**
-	 * @var DatabaseBase
+	 * @var Database
 	 */
 	private $connection;
 
@@ -52,10 +52,10 @@ class PageContentLanguageDbModifier {
 	 * @since 1.3
 	 *
 	 * @param Title $title
-	 * @param DatabaseBase|null $connection
+	 * @param Database|null $connection
 	 * @param LinkCache|null $linkCache
 	 */
-	public function __construct( Title $title, ?DatabaseBase $connection = null, ?LinkCache $linkCache = null ) {
+	public function __construct( Title $title, ?Database $connection = null, ?LinkCache $linkCache = null ) {
 		$this->title = $title;
 		$this->connection = $connection;
 		$this->linkCache = $linkCache;
@@ -115,7 +115,7 @@ class PageContentLanguageDbModifier {
 		$title = $this->title;
 
 		if ( $connection === null ) {
-			 $connection = wfGetDB( DB_PRIMARY );
+			$connection = wfGetDB( DB_PRIMARY );
 		}
 
 		$method = __METHOD__;
