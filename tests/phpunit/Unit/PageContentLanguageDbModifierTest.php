@@ -4,7 +4,6 @@ namespace SIL\Tests;
 
 use SIL\PageContentLanguageDbModifier;
 use Title;
-use Wikimedia\Rdbms\Database\DatabaseFlags;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -59,8 +58,10 @@ class PageContentLanguageDbModifierTest extends \PHPUnit\Framework\TestCase {
 		$connection->expects( $this->once() )
 			->method( 'update' );
 
-		$wdb = TestingAccessWrapper::newFromObject( $connection );
-		$wdb->flagsHolder = new DatabaseFlags( 0 );
+		if ( version_compare( MW_VERSION, '1.39', '>' ) ) {
+			$wdb = TestingAccessWrapper::newFromObject( $connection );
+			$wdb->flagsHolder = new Wikimedia\Rdbms\Database\DatabaseFlags( 0 );
+		}
 
 		$linkCache = $this->getMockBuilder( '\LinkCache' )
 			->disableOriginalConstructor()
