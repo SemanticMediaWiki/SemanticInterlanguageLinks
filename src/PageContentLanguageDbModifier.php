@@ -55,7 +55,7 @@ class PageContentLanguageDbModifier {
 	 * @param DatabaseBase|null $connection
 	 * @param LinkCache|null $linkCache
 	 */
-	public function __construct( Title $title, DatabaseBase $connection = null, LinkCache $linkCache = null ) {
+	public function __construct( Title $title, ?DatabaseBase $connection = null, ?LinkCache $linkCache = null ) {
 		$this->title = $title;
 		$this->connection = $connection;
 		$this->linkCache = $linkCache;

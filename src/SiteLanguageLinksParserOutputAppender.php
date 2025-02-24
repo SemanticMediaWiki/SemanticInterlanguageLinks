@@ -61,7 +61,7 @@ class SiteLanguageLinksParserOutputAppender {
 	 *
 	 * @return string
 	 */
-	public function tryAddLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink, Title $target = null ) {
+	public function tryAddLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink, ?Title $target = null ) {
 		$knownTargetLink = '';
 		$selectedTargetLinkForCurrentLanguage = false;
 

@@ -113,7 +113,7 @@ class InterlanguageLinksLookup {
 	 *
 	 * @return array
 	 */
-	public function queryLanguageTargetLinks( InterlanguageLink $interlanguageLink, Title $target = null ) {
+	public function queryLanguageTargetLinks( InterlanguageLink $interlanguageLink, ?Title $target = null ) {
 		$languageTargetLinks = $this->languageTargetLinksCache->getLanguageTargetLinksFromCache(
 			$interlanguageLink
 		);

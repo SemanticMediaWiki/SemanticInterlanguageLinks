@@ -133,7 +133,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 			'|#=0' .
 			'|target-link=分类：汉字' .
 			'|lang-code=zh-Hans' .
-			'|lang-name=中文（简体）‎}}'
+			'|lang-name=中文（简体）}}'
 		];
 
 		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
@@ -145,7 +145,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 			'|#=0' .
 			"|target-link=:$categoryNS:汉字" .
 			'|lang-code=zh-Hans' .
-			'|lang-name=中文（简体）‎}}'
+			'|lang-name=中文（简体）}}'
 		];
 
 		$provider[] = [

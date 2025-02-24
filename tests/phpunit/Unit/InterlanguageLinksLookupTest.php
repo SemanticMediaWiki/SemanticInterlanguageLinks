@@ -44,6 +44,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 	public function testRedirectTargetFor() {
 		$title = Title::newFromText( __METHOD__ );
+		$diWikiPage = DIWikiPage::newFromTitle( $title );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
 			->disableOriginalConstructor()
@@ -56,14 +57,14 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$store->expects( $this->once() )
 			->method( 'getRedirectTarget' )
-			->with( DIWikiPage::newFromTitle( $title ) )
-			->willReturn( DIWikiPage::newFromTitle( $title ) );
+			->with( $diWikiPage )
+			->willReturn( $diWikiPage );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
 
 		$this->assertEquals(
-			$title,
+			$diWikiPage->getTitle(),
 			$instance->getRedirectTargetFor( $title )
 		);
 	}

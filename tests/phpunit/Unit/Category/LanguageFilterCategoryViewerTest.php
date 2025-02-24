@@ -2,8 +2,11 @@
 
 namespace SIL\Tests\Category;
 
+use ContentHandler;
+use RequestContext;
 use SIL\Category\LanguageFilterCategoryViewer;
 use Title;
+use WikiPage;
 
 /**
  * @covers \SIL\Category\LanguageFilterCategoryViewer
@@ -120,6 +123,12 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 	public function testAddSubcategoryForNoInterlanguageLinksLookup() {
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
+		// We have to create the page now in order for
+		// getPageByReference() to return true.
+		// This is due to https://github.com/wikimedia/mediawiki/commit/c259c37033d3f16aa949855d25178e76578bb586
+		$existingPage = $this->getExistingTestPage( $title );
+		$identity = $existingPage->getTitle()->toPageIdentity();
+
 		$category = $this->getMockBuilder( '\Category' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -130,7 +139,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 
 		$category->expects( $this->any() )
 			->method( 'getPage' )
-			->willReturn( Title::newFromText( 'Bar' ) );
+			->willReturn( $identity );
 
 		$instance = new LanguageFilterCategoryViewer(
 			$title,
@@ -142,6 +151,38 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 		$this->assertNotEmpty(
 			$instance->children
 		);
+	}
+
+	/**
+	 * Returns a WikiPage representing an existing page.
+	 *
+	 * From https://github.com/stronk7/mediawiki/blob/master/tests/phpunit/MediaWikiIntegrationTestCase.php#L250
+	 * With modifications
+	 *
+	 * @param Title $title
+	 * @return WikiPage
+	 */
+	protected function getExistingTestPage( Title $title ) {
+		$page = WikiPage::factory( $title );
+
+		// If page doesn't exist, create it.
+		if ( !$page->exists() ) {
+			$user = RequestContext::getMain()->getUser();
+			$page->doUserEditContent(
+				ContentHandler::makeContent(
+					'LFCVTContent',
+					$title,
+					// Regardless of how the wiki is configure or what extensions are present,
+					// force this page to be a wikitext one.
+					CONTENT_MODEL_WIKITEXT
+				),
+				$user,
+				'LFCVTPageSummary',
+				EDIT_NEW | EDIT_SUPPRESS_RC
+			);
+		}
+
+		return $page;
 	}
 
 	public function testTryAddSubcategoryForNoLanguageMatch() {
