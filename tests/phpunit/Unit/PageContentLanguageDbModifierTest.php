@@ -60,7 +60,7 @@ class PageContentLanguageDbModifierTest extends \PHPUnit\Framework\TestCase {
 
 		if ( version_compare( MW_VERSION, '1.39', '>' ) ) {
 			$wdb = TestingAccessWrapper::newFromObject( $connection );
-			$wdb->flagsHolder = new Wikimedia\Rdbms\Database\DatabaseFlags( 0 );
+			$wdb->flagsHolder = new \Wikimedia\Rdbms\Database\DatabaseFlags( 0 );
 		}
 
 		$linkCache = $this->getMockBuilder( '\LinkCache' )
