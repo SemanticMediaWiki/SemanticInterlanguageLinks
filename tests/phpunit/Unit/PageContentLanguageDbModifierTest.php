@@ -58,7 +58,7 @@ class PageContentLanguageDbModifierTest extends \PHPUnit\Framework\TestCase {
 		$connection->expects( $this->once() )
 			->method( 'update' );
 
-		if ( version_compare( MW_VERSION, '1.39', '>' ) ) {
+		if ( version_compare( MW_VERSION, '1.40', '>=' ) ) {
 			$wdb = TestingAccessWrapper::newFromObject( $connection );
 			$wdb->flagsHolder = new \Wikimedia\Rdbms\Database\DatabaseFlags( 0 );
 		}
