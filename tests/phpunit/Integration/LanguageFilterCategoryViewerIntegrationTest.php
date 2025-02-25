@@ -2,37 +2,37 @@
 
 namespace SIL\Tests\Integration;
 
-use SMW\Tests\MwDBaseUnitTestCase;
-use SMW\Tests\Utils\UtilityFactory;
-use SMW\Tests\PHPUnitCompat;
-use Title;
 use Article;
 use RequestContext;
+use SMW\Tests\PHPUnitCompat;
+use SMW\Tests\SMWIntegrationTestCase;
+use SMW\Tests\Utils\UtilityFactory;
+use Title;
 
 /**
  * @group semantic-interlanguage-links
  * @group semantic-mediawiki-integration
+ * @group Database
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
+class LanguageFilterCategoryViewerIntegrationTest extends SMWIntegrationTestCase {
 
 	use PHPUnitCompat;
 
 	private $pageCreator;
 	private $subjects = [];
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->pageCreator = UtilityFactory::getInstance()->newpageCreator();
 	}
 
-	protected function tearDown() : void {
-
+	protected function tearDown(): void {
 		UtilityFactory::getInstance()
 			->newPageDeleter()
 			->doDeletePoolOfPages( $this->subjects );
@@ -41,7 +41,6 @@ class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
 	}
 
 	public function testCategoryViewerToDisplayAll() {
-
 		$category = Title::newFromText( 'CategoryViewerToDisplayAll', NS_CATEGORY );
 		$targetEn = Title::newFromText( 'CategoryViewerToDisplayAllTargetEn' );
 		$targetJa = Title::newFromText( 'CategoryViewerToDisplayAllTargetJa' );
@@ -79,7 +78,6 @@ class LanguageFilterCategoryViewerIntegrationTest extends MwDBaseUnitTestCase {
 	}
 
 	public function testCategoryViewerToDisplayByLanguageOnly() {
-
 		$category = Title::newFromText( 'CategoryViewerByLanguage', NS_CATEGORY );
 		$targetEn = Title::newFromText( 'CategoryViewerByLanguageTargetEn' );
 		$targetJa = Title::newFromText( 'CategoryViewerByLanguageTargetJa' );

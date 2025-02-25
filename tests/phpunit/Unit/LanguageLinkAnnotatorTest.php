@@ -2,9 +2,9 @@
 
 namespace SIL\Tests;
 
-use SIL\LanguageLinkAnnotator;
 use SIL\InterlanguageLink;
 use SIL\InterwikiLanguageLink;
+use SIL\LanguageLinkAnnotator;
 use SIL\PropertyRegistry;
 use SMW\DIWikiPage;
 
@@ -12,12 +12,12 @@ use SMW\DIWikiPage;
  * @covers \SIL\LanguageLinkAnnotator
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
+class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -31,7 +31,6 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -46,14 +45,13 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider differentLanguageAnnotationProvider
 	 */
 	public function testHasDifferentLanguageAnnotation( $pValues, $expected ) {
-
 		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$semanticData->expects( $this->once() )
 			->method( 'getPropertyValues' )
-			->will( $this->returnValue( $pValues ) );
+			->willReturn( $pValues );
 
 		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
 			->disableOriginalConstructor()
@@ -61,7 +59,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 
 		$parserData->expects( $this->once() )
 			->method( 'getSemanticData' )
-			->will( $this->returnValue( $semanticData ) );
+			->willReturn( $semanticData );
 
 		$instance = new LanguageLinkAnnotator( $parserData );
 
@@ -75,9 +73,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-
 	public function testAddAnnotationForInterlanguageLink() {
-
 		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -88,11 +84,11 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 
 		$parserData->expects( $this->once() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( \Title::newFromText( 'Foo' ) ) );
+			->willReturn( \Title::newFromText( 'Foo' ) );
 
 		$parserData->expects( $this->once() )
 			->method( 'getSemanticData' )
-			->will( $this->returnValue( $semanticData ) );
+			->willReturn( $semanticData );
 
 		$parserData->expects( $this->once() )
 			->method( 'pushSemanticDataToParserOutput' );
@@ -108,7 +104,6 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddAnnotationForInterwikiLanguageLink() {
-
 		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -119,11 +114,11 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 
 		$parserData->expects( $this->once() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( \Title::newFromText( 'Foo' ) ) );
+			->willReturn( \Title::newFromText( 'Foo' ) );
 
 		$parserData->expects( $this->once() )
 			->method( 'getSemanticData' )
-			->will( $this->returnValue( $semanticData ) );
+			->willReturn( $semanticData );
 
 		$parserData->expects( $this->once() )
 			->method( 'pushSemanticDataToParserOutput' );
@@ -139,7 +134,6 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanAddAnnotation() {
-
 		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -147,7 +141,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 		// SMW 3.0
 		$parserData->expects( $this->any() )
 			->method( 'canUse' )
-			->will( $this->returnValue( false ) );
+			->willReturn( false );
 
 		$instance = new LanguageLinkAnnotator( $parserData );
 
@@ -157,9 +151,8 @@ class LanguageLinkAnnotatorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function differentLanguageAnnotationProvider() {
-
 		$provider[] = [
-			[ new DIWikiPage( 'Foo', NS_MAIN, '' , 'ill.en' ) ],
+			[ new DIWikiPage( 'Foo', NS_MAIN, '', 'ill.en' ) ],
 			true
 		];
 

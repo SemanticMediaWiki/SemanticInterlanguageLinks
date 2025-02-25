@@ -3,7 +3,7 @@
 namespace SIL;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -14,7 +14,7 @@ class CacheKeyProvider {
 	 * Update the version to force a recache for all items due to
 	 * required changes
 	 */
-	const VERSION = '1.1';
+	public const VERSION = '1.1';
 
 	/**
 	 * @var string|null
@@ -35,7 +35,7 @@ class CacheKeyProvider {
 	 *
 	 * @param string $key
 	 *
-	 * @return  string
+	 * @return string
 	 */
 	public function getSiteCacheKey( $key ) {
 		return $this->cachePrefix . ':sil:site:' . md5( $key . self::VERSION );
@@ -46,7 +46,7 @@ class CacheKeyProvider {
 	 *
 	 * @param string $key
 	 *
-	 * @return  string
+	 * @return string
 	 */
 	public function getPageLanguageCacheBlobKey( $key = '' ) {
 		return $this->cachePrefix . ':sil:blob:' . md5( $key . self::VERSION );
@@ -56,9 +56,9 @@ class CacheKeyProvider {
 	 * @since 1.0
 	 *
 	 * @param string $key
-	 * @param boolean $stable
+	 * @param bool $stable
 	 *
-	 * @return  string
+	 * @return string
 	 */
 	public function getPageCacheKey( $key, $stable = true ) {
 		return $this->cachePrefix . ':sil:page:' . md5( $key . ( $stable ? '' : self::VERSION ) );

@@ -2,19 +2,23 @@
 
 namespace SIL\Tests\Category;
 
+use ContentHandler;
+use MediaWiki\MediaWikiServices;
+use RequestContext;
 use SIL\Category\LanguageFilterCategoryViewer;
 use Title;
+use WikiPage;
 
 /**
  * @covers \SIL\Category\LanguageFilterCategoryViewer
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
+class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 
 	private $context;
 
@@ -35,15 +39,14 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$this->context->expects( $this->any() )
 				->method( 'getConfig' )
-				->will( $this->returnValue( $config ) );
+				->willReturn( $config );
 
 		$this->context->expects( $this->any() )
 				->method( 'getOutput' )
-				->will( $this->returnValue( $outputPage ) );
+				->willReturn( $outputPage );
 	}
 
 	public function testCanConstruct() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$this->assertInstanceOf(
@@ -53,7 +56,6 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddPageForNoInterlanguageLinksLookup() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar' );
 
@@ -62,7 +64,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			$this->context
 		);
 
-		$instance->addPage( $target, 'B', '' );
+		$instance->addPage( $target, 'B', 0 );
 
 		$this->assertNotEmpty(
 			$instance->articles
@@ -70,7 +72,6 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddImageForNoInterlanguageLinksLookup() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar', NS_FILE );
 
@@ -79,7 +80,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			$this->context
 		);
 
-		$instance->addImage( $target, 'B', '' );
+		$instance->addImage( $target, 'B', 0 );
 
 		$this->assertNotEmpty(
 			$instance->imgsNoGallery
@@ -87,7 +88,6 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTryAddImageForNoLanguageMatch() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar', NS_FILE );
 
@@ -97,15 +97,15 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 				->method( 'hasSilAnnotationFor' )
-				->will( $this->returnValue( true ) );
+				->willReturn( true );
 
 		$interlanguageLinksLookup->expects( $this->at( 0 ) )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue( 'no' ) );
+			->willReturn( 'no' );
 
 		$interlanguageLinksLookup->expects( $this->at( 1 ) )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue( 'match' ) );
+			->willReturn( 'match' );
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
@@ -114,7 +114,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			$this->context
 		);
 
-		$instance->addImage( $target, 'B', '' );
+		$instance->addImage( $target, 'B', 0 );
 
 		$this->assertEmpty(
 			$instance->imgsNoGallery
@@ -122,8 +122,13 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddSubcategoryForNoInterlanguageLinksLookup() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
+
+		// We have to create the page now in order for
+		// getPageByReference() to return true.
+		// This is due to https://github.com/wikimedia/mediawiki/commit/c259c37033d3f16aa949855d25178e76578bb586
+		$existingPage = $this->getExistingTestPage( $title );
+		$identity = $existingPage->getTitle()->toPageIdentity();
 
 		$category = $this->getMockBuilder( '\Category' )
 			->disableOriginalConstructor()
@@ -131,7 +136,11 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$category->expects( $this->any() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( Title::newFromText( 'Bar' ) ) );
+			->willReturn( Title::newFromText( 'Bar' ) );
+
+		$category->expects( $this->any() )
+			->method( 'getPage' )
+			->willReturn( $identity );
 
 		$instance = new LanguageFilterCategoryViewer(
 			$title,
@@ -145,8 +154,39 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testTryAddSubcategoryForNoLanguageMatch() {
+	/**
+	 * Returns a WikiPage representing an existing page.
+	 *
+	 * From https://github.com/stronk7/mediawiki/blob/master/tests/phpunit/MediaWikiIntegrationTestCase.php#L250
+	 * With modifications
+	 *
+	 * @param Title $title
+	 * @return WikiPage
+	 */
+	protected function getExistingTestPage( Title $title ) {
+		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 
+		// If page doesn't exist, create it.
+		if ( !$page->exists() ) {
+			$user = RequestContext::getMain()->getUser();
+			$page->doUserEditContent(
+				ContentHandler::makeContent(
+					'Test content for LFCVT',
+					$title,
+					// Regardless of how the wiki is configure or what extensions are present,
+					// force this page to be a wikitext one.
+					CONTENT_MODEL_WIKITEXT
+				),
+				$user,
+				'Summary of LFCVT',
+				EDIT_NEW | EDIT_SUPPRESS_RC
+			);
+		}
+
+		return $page;
+	}
+
+	public function testTryAddSubcategoryForNoLanguageMatch() {
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -155,15 +195,15 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 				->method( 'hasSilAnnotationFor' )
-				->will( $this->returnValue( true ) );
+				->willReturn( true );
 
 		$interlanguageLinksLookup->expects( $this->at( 0 ) )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue( 'no' ) );
+			->willReturn( 'no' );
 
 		$interlanguageLinksLookup->expects( $this->at( 1 ) )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue( 'match' ) );
+			->willReturn( 'match' );
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
@@ -173,7 +213,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$category->expects( $this->once() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( Title::newFromText( 'Bar' ) ) );
+			->willReturn( Title::newFromText( 'Bar' ) );
 
 		$instance = new LanguageFilterCategoryViewer(
 			$title,
@@ -188,7 +228,6 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddPageForEmptyLanguage() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar' );
 
@@ -198,12 +237,12 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 				->method( 'hasSilAnnotationFor' )
-				->will( $this->returnValue( true ) );
+				->willReturn( true );
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 			->method( 'findPageLanguageForTarget' )
-			->with( $this->equalTo( $title ) )
-			->will( $this->returnValue( '' ) );
+			->with( $title )
+			->willReturn( '' );
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
@@ -212,7 +251,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			$this->context
 		);
 
-		$instance->addPage( $target, 'B', '' );
+		$instance->addPage( $target, 'B', 0 );
 
 		$this->assertNotEmpty(
 			$instance->articles
@@ -220,7 +259,6 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddPageForLanguageMatch() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar' );
 
@@ -230,17 +268,17 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 				->method( 'hasSilAnnotationFor' )
-				->will( $this->returnValue( true ) );
+				->willReturn( true );
 
 		$interlanguageLinksLookup->expects( $this->at( 1 ) )
 			->method( 'findPageLanguageForTarget' )
-			->with( $this->equalTo( $title ) )
-			->will( $this->returnValue( 'vi' ) );
+			->with( $title )
+			->willReturn( 'vi' );
 
 		$interlanguageLinksLookup->expects( $this->at( 2 ) )
 			->method( 'findPageLanguageForTarget' )
-			->with( $this->equalTo( $target ) )
-			->will( $this->returnValue( 'vi' ) );
+			->with( $target )
+			->willReturn( 'vi' );
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
@@ -249,7 +287,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			$this->context
 		);
 
-		$instance->addPage( $target, 'B', '' );
+		$instance->addPage( $target, 'B', 0 );
 
 		$this->assertNotEmpty(
 			$instance->articles
@@ -257,7 +295,6 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTryAddPageForNoLanguageMatch() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar' );
 
@@ -267,17 +304,17 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 				->method( 'hasSilAnnotationFor' )
-				->will( $this->returnValue( true ) );
+				->willReturn( true );
 
 		$interlanguageLinksLookup->expects( $this->at( 1 ) )
 			->method( 'findPageLanguageForTarget' )
-			->with( $this->equalTo( $title ) )
-			->will( $this->returnValue( 'vi' ) );
+			->with( $title )
+			->willReturn( 'vi' );
 
 		$interlanguageLinksLookup->expects( $this->at( 2 ) )
 			->method( 'findPageLanguageForTarget' )
-			->with( $this->equalTo( $target ) )
-			->will( $this->returnValue( 'en' ) );
+			->with( $target )
+			->willReturn( 'en' );
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
@@ -286,7 +323,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			$this->context
 		);
 
-		$instance->addPage( $target, 'B', '' );
+		$instance->addPage( $target, 'B', 0 );
 
 		$this->assertEmpty(
 			$instance->articles
@@ -294,7 +331,6 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTryAddPageForNoAnnotationMatch() {
-
 		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 		$target = Title::newFromText( 'Bar' );
 
@@ -304,7 +340,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 				->method( 'hasSilAnnotationFor' )
-				->will( $this->returnValue( false ) );
+				->willReturn( false );
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
@@ -313,7 +349,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit_Framework_TestCase {
 			$this->context
 		);
 
-		$instance->addPage( $target, 'B', '' );
+		$instance->addPage( $target, 'B', 0 );
 
 		$this->assertEmpty(
 			$instance->articles

@@ -3,9 +3,9 @@
 namespace SIL;
 
 use LinkCache;
-use Title;
-use DatabaseBase;
 use MediaWiki\MediaWikiServices;
+use Title;
+use Wikimedia\Rdbms\Database;
 
 /**
  * Handling Title::getDbPageLanguageCode and Special:PageLanguage to avoid possible
@@ -16,7 +16,7 @@ use MediaWiki\MediaWikiServices;
  * could create a possible deviation between SIL annotation and the stored DB
  * `page_lang`.
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.3
  *
  * @author mwjames
@@ -29,7 +29,7 @@ class PageContentLanguageDbModifier {
 	private $title;
 
 	/**
-	 * @var DatabaseBase
+	 * @var Database
 	 */
 	private $connection;
 
@@ -39,7 +39,7 @@ class PageContentLanguageDbModifier {
 	private $linkCache;
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private $isDbPageLanguage = false;
 
@@ -52,10 +52,10 @@ class PageContentLanguageDbModifier {
 	 * @since 1.3
 	 *
 	 * @param Title $title
-	 * @param DatabaseBase|null $connection
+	 * @param Database|null $connection
 	 * @param LinkCache|null $linkCache
 	 */
-	public function __construct( Title $title, DatabaseBase $connection = null, LinkCache $linkCache = null ) {
+	public function __construct( Title $title, ?Database $connection = null, ?LinkCache $linkCache = null ) {
 		$this->title = $title;
 		$this->connection = $connection;
 		$this->linkCache = $linkCache;
@@ -64,7 +64,7 @@ class PageContentLanguageDbModifier {
 	/**
 	 * @since 1.3
 	 *
-	 * @param boolean $isDbPageLanguage
+	 * @param bool $isDbPageLanguage
 	 */
 	public function markAsPageLanguageByDB( $isDbPageLanguage ) {
 		$this->isDbPageLanguage = $isDbPageLanguage;
@@ -76,7 +76,6 @@ class PageContentLanguageDbModifier {
 	 * @param string $expectedLanguageCode
 	 */
 	public function updatePageLanguage( $expectedLanguageCode ) {
-
 		if ( !$this->isDbPageLanguage ) {
 			return null;
 		}
@@ -90,9 +89,10 @@ class PageContentLanguageDbModifier {
 		}
 	}
 
-	// @see Title::getDbPageLanguageCode
+	/**
+	 * @see Title::getDbPageLanguageCode
+	 */
 	private function getDbPageLanguageCode() {
-
 		if ( $this->linkCache === null ) {
 			$this->linkCache = MediaWikiServices::getInstance()->getLinkCache();
 		}
@@ -107,18 +107,19 @@ class PageContentLanguageDbModifier {
 		return $this->dbPageLanguage;
 	}
 
-	// @see Special:PageLanguage::onSubmit
+	/**
+	 * @see Special:PageLanguage::onSubmit
+	 */
 	private function doUpdate( $expectedLanguageCode, $dbPageLanguage ) {
-
 		$connection = $this->connection;
 		$title = $this->title;
 
 		if ( $connection === null ) {
-			 $connection = wfGetDB( DB_PRIMARY );
+			$connection = wfGetDB( DB_PRIMARY );
 		}
 
-		$connection->onTransactionCommitOrIdle( function() use ( $connection, $expectedLanguageCode, $dbPageLanguage, $title ) {
-
+		$method = __METHOD__;
+		$connection->onTransactionCommitOrIdle( static function () use ( $connection, $expectedLanguageCode, $dbPageLanguage, $title, $method ) {
 			$pageId = $title->getArticleID();
 
 			$connection->update(
@@ -130,7 +131,7 @@ class PageContentLanguageDbModifier {
 					'page_id'   => $pageId,
 					'page_lang' => $dbPageLanguage
 				],
-				__METHOD__
+				$method
 			);
 		} );
 	}

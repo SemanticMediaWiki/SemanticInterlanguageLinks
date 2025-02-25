@@ -4,20 +4,20 @@ namespace SIL\Tests;
 
 use SIL\PageContentLanguageDbModifier;
 use Title;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \SIL\PageContentLanguageDbModifier
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.3
  *
  * @author mwjames
  */
-class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
+class PageContentLanguageDbModifierTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -29,10 +29,9 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNotMarkedAsPageLanguageByDB() {
-
 		$title = Title::newFromText( __METHOD__ );
 
-		$connection = $this->getMockBuilder( '\DatabaseBase' )
+		$connection = $this->getMockBuilder( '\Wikimedia\Rdbms\Database' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
@@ -49,16 +48,20 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testForceUpdateOfPageLanguageOnDifferentLanguageCode() {
-
 		$title = Title::newFromText( __METHOD__ );
 
-		$connection = $this->getMockBuilder( '\DatabaseBase' )
+		$connection = $this->getMockBuilder( '\Wikimedia\Rdbms\Database' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'update' ] )
+			->onlyMethods( [ 'update' ] )
 			->getMockForAbstractClass();
 
 		$connection->expects( $this->once() )
 			->method( 'update' );
+
+		if ( version_compare( MW_VERSION, '1.40', '>=' ) ) {
+			$wdb = TestingAccessWrapper::newFromObject( $connection );
+			$wdb->flagsHolder = new \Wikimedia\Rdbms\Database\DatabaseFlags( 0 );
+		}
 
 		$linkCache = $this->getMockBuilder( '\LinkCache' )
 			->disableOriginalConstructor()
@@ -66,7 +69,7 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$linkCache->expects( $this->once() )
 			->method( 'getGoodLinkFieldObj' )
-			->will( $this->returnValue(  'fr' ) );
+			->willReturn( 'fr' );
 
 		$instance = new PageContentLanguageDbModifier(
 			$title,
@@ -79,12 +82,11 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoUpdateOnSameLanguageCode() {
-
 		$title = Title::newFromText( __METHOD__ );
 
-		$connection = $this->getMockBuilder( '\DatabaseBase' )
+		$connection = $this->getMockBuilder( '\Wikimedia\Rdbms\Database' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'update' ] )
+			->onlyMethods( [ 'update' ] )
 			->getMockForAbstractClass();
 
 		$connection->expects( $this->never() )
@@ -96,7 +98,7 @@ class PageContentLanguageDbModifierTest extends \PHPUnit_Framework_TestCase {
 
 		$linkCache->expects( $this->once() )
 			->method( 'getGoodLinkFieldObj' )
-			->will( $this->returnValue(  'en' ) );
+			->willReturn( 'en' );
 
 		$instance = new PageContentLanguageDbModifier(
 			$title,

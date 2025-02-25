@@ -1,9 +1,9 @@
 <?php
 
-use SIL\HookRegistry;
-use SIL\CacheKeyProvider;
-use SMW\ApplicationFactory;
 use Onoi\Cache\CacheFactory;
+use SIL\CacheKeyProvider;
+use SIL\HookRegistry;
+use SMW\Services\ServicesFactory as ApplicationFactory;
 
 /**
  * @codeCoverageIgnore
@@ -14,7 +14,6 @@ class SemanticInterlanguageLinks {
 	 * @since 1.3
 	 */
 	public static function initExtension( $credits = [] ) {
-
 		// Load DefaultSettings
 		require_once __DIR__ . '/DefaultSettings.php';
 
@@ -32,7 +31,6 @@ class SemanticInterlanguageLinks {
 	 * @since 1.3
 	 */
 	public static function onExtensionFunction() {
-
 		// Legacy
 		if ( isset( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] ) ) {
 			$GLOBALS['silgEnabledCategoryFilterByLanguage'] = $GLOBALS['egSILEnabledCategoryFilterByLanguage'];

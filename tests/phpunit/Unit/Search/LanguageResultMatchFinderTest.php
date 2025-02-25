@@ -3,7 +3,6 @@
 namespace SIL\Tests\Search;
 
 use SIL\Search\LanguageResultMatchFinder;
-
 use Title;
 
 /**
@@ -11,15 +10,14 @@ use Title;
  *
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
+class LanguageResultMatchFinderTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -31,7 +29,6 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoMatchResultsToLanguageForNonEmptySearchResultSetThatContainsNullLanguage() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -48,7 +45,6 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoMatchResultsToLanguageForValidSearchResultSetThatContainsNullLanguage() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -61,7 +57,7 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$searchresult->expects( $this->once() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( Title::newFromText( __METHOD__ ) ) );
+			->willReturn( Title::newFromText( __METHOD__ ) );
 
 		$searchResultSet = $this->getMockBuilder( '\SearchResultSet' )
 			->disableOriginalConstructor()
@@ -69,7 +65,7 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$searchResultSet->expects( $this->any() )
 			->method( 'next' )
-			->will( $this->onConsecutiveCalls( $searchresult, false ) );
+			->willReturnOnConsecutiveCalls( $searchresult, false );
 
 		$this->assertNull(
 			$instance->matchResultsToLanguage( $searchResultSet, 'en' )
@@ -77,7 +73,6 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testMatchResultsToLanguageForValidSearchResultSet() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -86,13 +81,13 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 			->method( 'hasSilAnnotationFor' )
-			->with( $this->equalTo( $title ) )
-			->will( $this->returnValue( true ) );
+			->with( $title )
+			->willReturn( true );
 
 		$interlanguageLinksLookup->expects( $this->atLeastOnce() )
 			->method( 'findPageLanguageForTarget' )
-			->with( $this->equalTo( $title ) )
-			->will( $this->returnValue( 'mhr' ) );
+			->with( $title )
+			->willReturn( 'mhr' );
 
 		$instance = new LanguageResultMatchFinder( $interlanguageLinksLookup );
 
@@ -102,7 +97,7 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$searchresult->expects( $this->atLeastOnce() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$searchResultSet = $this->getMockBuilder( '\SearchResultSet' )
 			->disableOriginalConstructor()
@@ -110,7 +105,7 @@ class LanguageResultMatchFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$searchResultSet->expects( $this->any() )
 			->method( 'next' )
-			->will( $this->onConsecutiveCalls( $searchresult, $searchresult, false ) );
+			->willReturnOnConsecutiveCalls( $searchresult, $searchresult, false );
 
 		$this->assertInstanceOf(
 			'\SIL\Search\MappedSearchResultSet',

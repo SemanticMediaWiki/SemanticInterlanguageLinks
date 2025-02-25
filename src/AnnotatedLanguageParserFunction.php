@@ -3,13 +3,11 @@
 namespace SIL;
 
 use MediaWiki\MediaWikiServices;
+use SMW\Localizer\Localizer;
 use Title;
-use Language;
-
-use SMW\Localizer;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.4
  *
  * @author mwjames
@@ -39,7 +37,6 @@ class AnnotatedLanguageParserFunction {
 	 * @return string
 	 */
 	public function parse( Title $source, $template ) {
-
 		$source = $this->interlanguageLinksLookup->getRedirectTargetFor( $source );
 
 		if ( $source === null ) {
@@ -66,7 +63,6 @@ class AnnotatedLanguageParserFunction {
 	}
 
 	private function createTemplateInclusionCode( $source, $languageCode, $template ) {
-
 		$result = '';
 		$templateText = '';
 		$wikitext = '';
@@ -81,8 +77,7 @@ class AnnotatedLanguageParserFunction {
 	}
 
 	private function modifyTargetLink( $targetLink ) {
-
-		if ( !$targetLink instanceOf Title ) {
+		if ( !$targetLink instanceof Title ) {
 			$targetLink = Title::newFromText( $targetLink );
 		}
 

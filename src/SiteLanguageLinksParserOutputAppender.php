@@ -2,11 +2,11 @@
 
 namespace SIL;
 
-use Title;
 use ParserOutput;
+use Title;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -45,7 +45,7 @@ class SiteLanguageLinksParserOutputAppender {
 	/**
 	 * @since 1.0
 	 *
-	 * @param Title $target
+	 * @param Title $title
 	 *
 	 * @return Title
 	 */
@@ -61,8 +61,7 @@ class SiteLanguageLinksParserOutputAppender {
 	 *
 	 * @return string
 	 */
-	public function tryAddLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink, Title $target = null ) {
-
+	public function tryAddLanguageTargetLinksToOutput( InterlanguageLink $interlanguageLink, ?Title $target = null ) {
 		$knownTargetLink = '';
 		$selectedTargetLinkForCurrentLanguage = false;
 
@@ -104,10 +103,9 @@ class SiteLanguageLinksParserOutputAppender {
 	 * for the requested language and the current article as target that invoked
 	 * INTERLANGUAGELINK parser.
 	 *
-	 * @return boolean|string
+	 * @return bool|string
 	 */
-	private function compareTargetToCurrentLanguage( Title $target = null, $selectedTargetLinkForCurrentLanguage ) {
-
+	private function compareTargetToCurrentLanguage( ?Title $target, $selectedTargetLinkForCurrentLanguage ) {
 		if ( $selectedTargetLinkForCurrentLanguage instanceof Title ) {
 			 $selectedTargetLinkForCurrentLanguage = $selectedTargetLinkForCurrentLanguage->getPrefixedText();
 		}
@@ -117,7 +115,7 @@ class SiteLanguageLinksParserOutputAppender {
 			$title = Title::newFromText( $selectedTargetLinkForCurrentLanguage );
 
 			if ( $title->isRedirect() ) {
-			//	 $this->interlanguageLinksLookup->resetLookupCacheBy( $target );
+			// $this->interlanguageLinksLookup->resetLookupCacheBy( $target );
 				 return false;
 			}
 
@@ -132,7 +130,6 @@ class SiteLanguageLinksParserOutputAppender {
 	 * was not added by SIL
 	 */
 	private function addLanguageLinksToOutput( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
-
 		$languageTargetLinks = $this->sanitizeLanguageTargetLinks(
 			$interlanguageLink,
 			$languageTargetLinks
@@ -157,7 +154,6 @@ class SiteLanguageLinksParserOutputAppender {
 	}
 
 	private function sanitizeLanguageTargetLinks( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
-
 		unset( $languageTargetLinks[ $interlanguageLink->getLanguageCode() ] );
 		ksort( $languageTargetLinks );
 

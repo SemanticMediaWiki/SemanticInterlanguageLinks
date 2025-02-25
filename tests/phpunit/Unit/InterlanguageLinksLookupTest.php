@@ -2,8 +2,8 @@
 
 namespace SIL\Tests;
 
-use SIL\InterlanguageLinksLookup;
 use SIL\InterlanguageLink;
+use SIL\InterlanguageLinksLookup;
 use SMW\DataValueFactory;
 use SMW\DIWikiPage;
 use SMW\PropertyRegistry;
@@ -14,12 +14,12 @@ use Title;
  * @covers \SIL\InterlanguageLinksLookup
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
+class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 	private $store;
 
@@ -32,7 +32,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -44,8 +43,8 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testRedirectTargetFor() {
-
 		$title = Title::newFromText( __METHOD__ );
+		$diWikiPage = DIWikiPage::newFromTitle( $title );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
 			->disableOriginalConstructor()
@@ -53,28 +52,27 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store = $this->getMockBuilder( '\SMW\Store' )
 			->disableOriginalConstructor()
-			->setMethods( [ 'getRedirectTarget' ] )
+			->onlyMethods( [ 'getRedirectTarget' ] )
 			->getMockForAbstractClass();
 
 		$store->expects( $this->once() )
 			->method( 'getRedirectTarget' )
-			->with( $this->equalTo( DIWikiPage::newFromTitle( $title ) ) )
-			->will( $this->returnValue( DIWikiPage::newFromTitle( $title ) ) );
+			->with( $diWikiPage )
+			->willReturn( $diWikiPage );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
 
 		$this->assertEquals(
-			$title,
+			$diWikiPage->getTitle(),
 			$instance->getRedirectTargetFor( $title )
 		);
 	}
 
 	public function testFindValidPageLanguageForTarget() {
-
 		$title = Title::newFromText( __METHOD__ );
 
-		$verifyPropertyTypeId = function( $property ) {
+		$verifyPropertyTypeId = static function ( $property ) {
 			return $property->findPropertyTypeID() === '_txt';
 		};
 
@@ -88,15 +86,15 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( $this->equalTo( DIWikiPage::newFromTitle( $title ) ) )
-			->will( $this->returnValue( [ new DIWikiPage( 'Foo', NS_MAIN ) ] ) );
+			->with( DIWikiPage::newFromTitle( $title ) )
+			->willReturn( [ new DIWikiPage( 'Foo', NS_MAIN ) ] );
 
 		$store->expects( $this->at( 1 ) )
 			->method( 'getPropertyValues' )
 			->with(
-				$this->equalTo( new DIWikiPage( 'Foo', NS_MAIN ) ),
+				new DIWikiPage( 'Foo', NS_MAIN ),
 				$this->callback( $verifyPropertyTypeId ) )
-			->will( $this->returnValue( [ new DIBlob( 'en' ), new DIBlob( 'ja' ) ] ) );
+			->willReturn( [ new DIBlob( 'en' ), new DIBlob( 'ja' ) ] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -108,7 +106,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testInvalidValueToFindNoPageLanguageForTarget() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
@@ -121,13 +118,13 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( $this->equalTo( DIWikiPage::newFromTitle( $title ) ) )
-			->will( $this->returnValue( [ new DIWikiPage( 'Foo', NS_MAIN ) ] ) );
+			->with( DIWikiPage::newFromTitle( $title ) )
+			->willReturn( [ new DIWikiPage( 'Foo', NS_MAIN ) ] );
 
 		$store->expects( $this->at( 1 ) )
 			->method( 'getPropertyValues' )
-			->with( $this->equalTo( new DIWikiPage( 'Foo', NS_MAIN ) ) )
-			->will( $this->returnValue( [ new DIWikiPage( 'invalid', NS_MAIN ) ] ) );
+			->with( new DIWikiPage( 'Foo', NS_MAIN ) )
+			->willReturn( [ new DIWikiPage( 'invalid', NS_MAIN ) ] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -139,7 +136,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testFindNoPageLanguageForTarget() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
@@ -152,8 +148,8 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( $this->equalTo( DIWikiPage::newFromTitle( $title ) ) )
-			->will( $this->returnValue( [] ) );
+			->with( DIWikiPage::newFromTitle( $title ) )
+			->willReturn( [] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -165,7 +161,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testFindPageLanguageForTargetFromCache() {
-
 		$target = Title::newFromText( __METHOD__ );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
@@ -174,8 +169,8 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$languageTargetLinksCache->expects( $this->once() )
 			->method( 'getPageLanguageFromCache' )
-			->with( $this->equalTo( $target ) )
-			->will( $this->returnValue( 'foo' ) );
+			->with( $target )
+			->willReturn( 'foo' );
 
 		$store = $this->getMockBuilder( '\SMW\Store' )
 			->disableOriginalConstructor()
@@ -191,7 +186,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testFindFullListOfReferenceTargetLinksSpecificTarget() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
@@ -204,13 +198,13 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( $this->equalTo( DIWikiPage::newFromTitle( $title ) ) )
-			->will( $this->returnValue( [ new DIWikiPage( 'Foo', NS_MAIN ) ] ) );
+			->with( DIWikiPage::newFromTitle( $title ) )
+			->willReturn( [ new DIWikiPage( 'Foo', NS_MAIN ) ] );
 
 		$store->expects( $this->at( 1 ) )
 			->method( 'getPropertyValues' )
-			->with( $this->equalTo( new DIWikiPage( 'Foo', NS_MAIN ) ) )
-			->will( $this->returnValue( [ new DIWikiPage( 'Bar', NS_MAIN ) ] ) );
+			->with( new DIWikiPage( 'Foo', NS_MAIN ) )
+			->willReturn( [ new DIWikiPage( 'Bar', NS_MAIN ) ] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -222,7 +216,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testFindNoLinkReferencesForTarget() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
@@ -235,8 +228,8 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( $this->equalTo( DIWikiPage::newFromTitle( $title ) ) )
-			->will( $this->returnValue( [] ) );
+			->with( DIWikiPage::newFromTitle( $title ) )
+			->willReturn( [] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -247,14 +240,13 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testVerifyQueryStringByQueryingLanguageTargetLinks() {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
-		$verifyQueryCallback = function( $query ) {
+		$verifyQueryCallback = static function ( $query ) {
 			return $query->getQueryString() === '[[Interlanguage reference::Foo]]';
 		};
 
-		$queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -269,7 +261,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 		$store->expects( $this->once() )
 			->method( 'getQueryResult' )
 			->with( $this->callback( $verifyQueryCallback ) )
-			->will( $this->returnValue( $queryResult ) );
+			->willReturn( $queryResult );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -278,34 +270,33 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testQueryLanguageTargetLinks() {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$blobValue = DataValueFactory::getInstance()->newDataValueByType( '_txt' );
 		$blobValue->setUserValue( 'vi' );
 
-		$resultArray = $this->getMockBuilder( '\SMWResultArray' )
+		$resultArray = $this->getMockBuilder( '\SMW\Query\Result\ResultArray' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$resultArray->expects( $this->any() )
 			->method( 'getNextDataValue' )
-			->will( $this->onConsecutiveCalls( $blobValue, false )  );
+			->willReturnOnConsecutiveCalls( $blobValue, false );
 
 		$resultArray->expects( $this->any() )
 			->method( 'getResultSubject' )
-			->will( $this->returnValue( new DIWikiPage( 'Bar', NS_MAIN ) ) );
+			->willReturn( new DIWikiPage( 'Bar', NS_MAIN ) );
 
-		$queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$queryResult->expects( $this->any() )
 			->method( 'getNext' )
-			->will( $this->onConsecutiveCalls(
+			->willReturnOnConsecutiveCalls(
 				[ $resultArray ],
 				[ $resultArray ],
-				false ) );
+				false );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
 			->disableOriginalConstructor()
@@ -317,7 +308,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store->expects( $this->once() )
 			->method( 'getQueryResult' )
-			->will( $this->returnValue( $queryResult ) );
+			->willReturn( $queryResult );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -326,17 +317,16 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testQueryLanguageTargetLinksContainsCurrentTargetOnly() {
-
 		$currentTarget = Title::newFromText( 'Bar' );
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
-		$queryResult = $this->getMockBuilder( '\SMWQueryResult' )
+		$queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$queryResult->expects( $this->any() )
 			->method( 'getNext' )
-			->will( $this->onConsecutiveCalls( false ) );
+			->willReturnOnConsecutiveCalls( false );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
 			->disableOriginalConstructor()
@@ -348,7 +338,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$store->expects( $this->once() )
 			->method( 'getQueryResult' )
-			->will( $this->returnValue( $queryResult ) );
+			->willReturn( $queryResult );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -364,7 +354,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetLanguageTargetLinksFromCache() {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$languageTargetLinks = [
@@ -378,15 +367,14 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$languageTargetLinksCache->expects( $this->once() )
 			->method( 'getLanguageTargetLinksFromCache' )
-			->with( $this->equalTo( $interlanguageLink ) )
-			->will( $this->returnValue( $languageTargetLinks ) );
+			->with( $interlanguageLink )
+			->willReturn( $languageTargetLinks );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->queryLanguageTargetLinks( $interlanguageLink );
 	}
 
 	public function testTryCachedPageLanguageForTarget() {
-
 		$target = Title::newFromText( 'Foo' );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
@@ -395,8 +383,8 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$languageTargetLinksCache->expects( $this->once() )
 			->method( 'getPageLanguageFromCache' )
-			->with( $this->equalTo( $target ) )
-			->will( $this->returnValue( 'en' ) );
+			->with( $target )
+			->willReturn( 'en' );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 
@@ -405,30 +393,8 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 			$instance->findPageLanguageForTarget( $target )
 		);
 	}
-/*
-	public function testTryFalseCachedPageLanguageForTarget() {
-
-		$target = Title::newFromText( 'Foo' );
-
-		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$languageTargetLinksCache->expects( $this->once() )
-			->method( 'getPageLanguageFromCache' )
-			->with( $this->equalTo( $target ) )
-			->will( $this->returnValue( false ) );
-
-		$languageTargetLinksCache->expects( $this->once() )
-			->method( 'pushPageLanguageToCache' );
-
-		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
-		$instance->findPageLanguageForTarget( $target );
-	}
-*/
 
 	public function testInvalidateCachedLanguageTargetLinks() {
-
 		$target = Title::newFromText( 'Foo' );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
@@ -440,7 +406,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 
 		$languageTargetLinksCache->expects( $this->once() )
 			->method( 'deletePageLanguageForTargetFromCache' )
-			->with( $this->equalTo( $target ) );
+			->with( $target );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $this->store );
@@ -449,7 +415,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTryLookupForUngregisteredProperty() {
-
 		PropertyRegistry::clear();
 
 		$target = Title::newFromText( 'Foo' );
@@ -473,7 +438,6 @@ class InterlanguageLinksLookupTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTryFindListOfReferenceTargetLinksForUngregisteredProperty() {
-
 		PropertyRegistry::clear();
 
 		$target = Title::newFromText( 'Foo' );

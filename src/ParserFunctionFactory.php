@@ -2,12 +2,12 @@
 
 namespace SIL;
 
-use SMW\ApplicationFactory;
 use Parser;
 use ParserOutput;
+use SMW\Services\ServicesFactory as ApplicationFactory;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -26,11 +26,9 @@ class ParserFunctionFactory {
 		InterlanguageLinksLookup $interlanguageLinksLookup,
 		PageContentLanguageOnTheFlyModifier $pageContentLanguageOnTheFlyModifier
 	) {
-
-		$interlanguageLinkParserFunctionDefinition = function(
+		$interlanguageLinkParserFunctionDefinition = function (
 			Parser $parser, string $languageCode, string $linkReference = ''
 		) use ( $interlanguageLinksLookup, $pageContentLanguageOnTheFlyModifier ) {
-
 			$pageContentLanguageDbModifier = new PageContentLanguageDbModifier(
 				$parser->getTitle()
 			);
@@ -40,7 +38,7 @@ class ParserFunctionFactory {
 				isset( $GLOBALS['wgPageLanguageUseDB'] ) ? $GLOBALS['wgPageLanguageUseDB'] : false
 			);
 
-			$parserOutput = $parser->getOutput() ?? new ParserOutput;
+			$parserOutput = $this->getParserOutputSafe( $parser ) ?? new ParserOutput;
 
 			$parserData = ApplicationFactory::getInstance()->newParserData(
 				$parser->getTitle(),
@@ -87,11 +85,9 @@ class ParserFunctionFactory {
 	public function newInterlanguageListParserFunctionDefinition(
 		InterlanguageLinksLookup $interlanguageLinksLookup
 	) {
-
-		$interlanguageListParserFunctionDefinition = function(
+		$interlanguageListParserFunctionDefinition = static function (
 			Parser $parser, string $target, string $template = ''
 		) use ( $interlanguageLinksLookup ) {
-
 			$interlanguageListParserFunction = new InterlanguageListParserFunction(
 				$interlanguageLinksLookup
 			);
@@ -112,11 +108,9 @@ class ParserFunctionFactory {
 	public function newAnnotatedLanguageParserFunctionDefinition(
 		InterlanguageLinksLookup $interlanguageLinksLookup
 	) {
-
-		$annotatedLanguageParserFunctionDefinition = function(
+		$annotatedLanguageParserFunctionDefinition = static function (
 			Parser $parser, string $template = ''
 		) use ( $interlanguageLinksLookup ) {
-
 			$annotatedLanguageParserFunction = new AnnotatedLanguageParserFunction(
 				$interlanguageLinksLookup
 			);
@@ -125,6 +119,23 @@ class ParserFunctionFactory {
 		};
 
 		return [ 'annotatedlanguage', $annotatedLanguageParserFunctionDefinition, Parser::SFH_NO_HASH ];
+	}
+
+	private function getParserOutputSafe( ?Parser $parser ): ?ParserOutput {
+		try {
+			/**
+			 * Returns early if the parser has no options, because output
+			 * relies on the options.
+			 *
+			 * @see Parser::resetOutput
+			 */
+			if ( version_compare( MW_VERSION, '1.42', '>=' ) && $parser->getOptions() === null ) {
+				return null;
+			}
+			return $parser->getOutput();
+		} catch ( Error $e ) {
+			return null;
+		}
 	}
 
 }

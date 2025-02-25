@@ -8,15 +8,14 @@ use SIL\PageContentLanguageOnTheFlyModifier;
  * @covers \SIL\PageContentLanguageOnTheFlyModifier
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCase {
+class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -32,7 +31,6 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 	}
 
 	public function testGetValidPageContentLanguage() {
-
 		$pageLanguage = '';
 
 		$title = $this->getMockBuilder( '\Title' )
@@ -49,7 +47,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue(  'zh-Hans' ) );
+			->willReturn( 'zh-Hans' );
 
 		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
@@ -63,7 +61,6 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 	}
 
 	public function testGetValidPageContentLanguageFromCache() {
-
 		$pageLanguage = '';
 
 		$title = $this->getMockBuilder( '\Title' )
@@ -76,7 +73,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 
 		$cache->expects( $this->once() )
 			->method( 'fetch' )
-			->will( $this->returnValue(  'zh-Hans' ) );
+			->willReturn( 'zh-Hans' );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -97,7 +94,6 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 	}
 
 	public function testGetPageContentLanguageToReturnLanguageCode() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -116,7 +112,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 
 		$pageLanguage->expects( $this->once() )
 			->method( 'getCode' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
@@ -133,7 +129,6 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 	 * @dataProvider invalidLanguageCodeProvider
 	 */
 	public function testPageContentLanguageOnInvalidLanguage( $invalidLanguageCode ) {
-
 		$pageLanguage = '';
 
 		$title = $this->getMockBuilder( '\Title' )
@@ -150,7 +145,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'findPageLanguageForTarget' )
-			->will( $this->returnValue( $invalidLanguageCode ) );
+			->willReturn( $invalidLanguageCode );
 
 		$instance = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
@@ -163,14 +158,13 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 	}
 
 	public function testAddToIntermediaryCache() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$title->expects( $this->once() )
 			->method( 'getPrefixedText' )
-			->will( $this->returnValue( 'Foo' ) );
+			->willReturn( 'Foo' );
 
 		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
@@ -180,7 +174,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 			->method( 'save' )
 			->with(
 				$this->anything(),
-				$this->equalTo( 'BAR' ) );
+				'BAR' );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -195,7 +189,6 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit_Framework_TestCas
 	}
 
 	public function invalidLanguageCodeProvider() {
-
 		$provider = [
 			[ null ],
 			[ '' ],

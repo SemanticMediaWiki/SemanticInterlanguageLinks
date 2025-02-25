@@ -2,7 +2,6 @@
 
 namespace SIL\Tests;
 
-use Language;
 use MediaWiki\MediaWikiServices;
 use SIL\HookRegistry;
 use SMW\Tests\PHPUnitCompat;
@@ -12,12 +11,12 @@ use Title;
  * @covers \SIL\HookRegistry
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class HookRegistryTest extends \PHPUnit_Framework_TestCase {
+class HookRegistryTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 
@@ -42,7 +41,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'\SIL\HookRegistry',
 			new HookRegistry( $this->store, $this->cache, $this->cacheKeyProvider )
@@ -50,7 +48,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testRegister() {
-
 		$title = Title::newFromText( __METHOD__ );
 
 		$parserOutput = $this->getMockBuilder( '\ParserOutput' )
@@ -63,11 +60,11 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$parser->expects( $this->any() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$parser->expects( $this->any() )
 			->method( 'getOutput' )
-			->will( $this->returnValue( $parserOutput ) );
+			->willReturn( $parserOutput );
 
 		$instance = new HookRegistry( $this->store, $this->cache, $this->cacheKeyProvider );
 		$instance->register();
@@ -86,7 +83,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testOnBeforeConfigCompletion() {
-
 		$config = [
 			'smwgFulltextSearchPropertyExemptionList' => []
 		];
@@ -107,7 +103,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestParserFirstCallInit( $instance, $parser ) {
-
 		$handler = 'ParserFirstCallInit';
 
 		$this->assertTrue(
@@ -121,7 +116,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestRevisionFromEditComplete( $instance ) {
-
 		$handler = 'RevisionFromEditComplete';
 
 		$title = Title::newFromText( __METHOD__ );
@@ -132,7 +126,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$wikipage->expects( $this->any() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$this->assertTrue(
 			$instance->isRegistered( $handler )
@@ -145,7 +139,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestArticlePurge( $instance ) {
-
 		$handler = 'ArticlePurge';
 
 		$title = Title::newFromText( __METHOD__ );
@@ -156,7 +149,7 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 
 		$wikipage->expects( $this->any() )
 			->method( 'getTitle' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$this->assertTrue(
 			$instance->isRegistered( $handler )
@@ -169,7 +162,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestSkinTemplateGetLanguageLink( $instance ) {
-
 		$handler = 'SkinTemplateGetLanguageLink';
 
 		$title = Title::newFromText( __METHOD__ );
@@ -186,7 +178,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestPageContentLanguage( $instance ) {
-
 		$handler = 'PageContentLanguage';
 		$pageLang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
 
@@ -203,7 +194,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestArticleFromTitle( $instance ) {
-
 		$handler = 'ArticleFromTitle';
 
 		$title = Title::newFromText( __METHOD__ );
@@ -220,7 +210,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestParserAfterTidy( $instance, $parser ) {
-
 		$handler = 'ParserAfterTidy';
 		$text = '';
 
@@ -235,7 +224,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestInitProperties( $instance ) {
-
 		$handler = 'SMW::Property::initProperties';
 
 		$propertyRegistry = $this->getMockBuilder( '\SMW\PropertyRegistry' )
@@ -253,7 +241,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestSQLStoreBeforeDeleteSubjectCompletes( $instance ) {
-
 		$handler = 'SMW::SQLStore::BeforeDeleteSubjectComplete';
 		$title = Title::newFromText( __METHOD__ );
 
@@ -268,7 +255,6 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function doTestSQLStoreBeforeChangeTitleComplete( $instance ) {
-
 		$handler = 'SMW::SQLStore::BeforeChangeTitleComplete';
 		$title = Title::newFromText( __METHOD__ );
 
@@ -283,8 +269,8 @@ class HookRegistryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	private function assertThatHookIsExcutable( \Closure $handler, $arguments ) {
-		$this->assertInternalType(
-			'boolean',
+		$this->assertIsBool(
+
 			call_user_func_array( $handler, $arguments )
 		);
 	}

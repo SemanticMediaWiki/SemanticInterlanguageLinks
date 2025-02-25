@@ -5,16 +5,14 @@ namespace SIL;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
-
 use SMWDIBlob as DIBlob;
-
 use Title;
 
 /**
  * Represents an object for a manual annotation such as [[en:Foo]] where
  * en: is being specified as interwiki
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -32,7 +30,7 @@ class InterwikiLanguageLink {
 	 * @param string $interwikiLink
 	 */
 	public function __construct( $interwikiLink ) {
-		$this->interwikiLink = $interwikiLink instanceOf Title ? $interwikiLink : Title::newFromText( $interwikiLink );
+		$this->interwikiLink = $interwikiLink instanceof Title ? $interwikiLink : Title::newFromText( $interwikiLink );
 	}
 
 	/**
@@ -59,7 +57,7 @@ class InterwikiLanguageLink {
 	 * @return string
 	 */
 	public function getContainerId() {
-		return 'iwl.'. $this->getLanguageCode();
+		return 'iwl.' . $this->getLanguageCode();
 	}
 
 	/**

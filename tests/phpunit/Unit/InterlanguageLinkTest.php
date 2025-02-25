@@ -5,7 +5,6 @@ namespace SIL\Tests;
 use SIL\InterlanguageLink;
 use SIL\PropertyRegistry;
 use SMW\Tests\PHPUnitCompat;
-
 use Title;
 
 /**
@@ -13,17 +12,16 @@ use Title;
  *
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
+class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'\SIL\InterlanguageLink',
 			new InterlanguageLink( 'en', 'Foo' )
@@ -31,7 +29,6 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testConstructorArgumentGetter() {
-
 		$instance = new InterlanguageLink( 'en', 'Foo' );
 
 		$this->assertEquals(
@@ -46,7 +43,6 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testConstructDataValue() {
-
 		$instance = new InterlanguageLink( 'en', 'Foo' );
 
 		$this->assertInstanceOf(
@@ -81,7 +77,6 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetHash() {
-
 		$instance = new InterlanguageLink( 'en', 'Foo' );
 
 		$this->assertContains(
@@ -91,7 +86,6 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetContainerId() {
-
 		$instance = new InterlanguageLink( 'en', 'Foo' );
 
 		$this->assertContains(
@@ -101,7 +95,6 @@ class InterlanguageLinkTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetLinkReference() {
-
 		$linkReference = Title::newFromText( __METHOD__ );
 
 		$instance = new InterlanguageLink( 'en', $linkReference );

@@ -2,12 +2,12 @@
 
 namespace SIL;
 
+use SMW\DIProperty;
 use SMW\ParserData;
 use SMW\Subobject;
-use SMW\DIProperty;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -33,10 +33,9 @@ class LanguageLinkAnnotator {
 	 *
 	 * @param InterlanguageLink $interlanguageLink
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function hasDifferentLanguageAnnotation( InterlanguageLink $interlanguageLink ) {
-
 		$propertyValues = $this->parserData->getSemanticData()->getPropertyValues(
 			new DIProperty( PropertyRegistry::SIL_CONTAINER )
 		);
@@ -53,10 +52,9 @@ class LanguageLinkAnnotator {
 	/**
 	 * @since 1.3
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function canAddAnnotation() {
-
 		if ( method_exists( $this->parserData, 'canModifySemanticData' ) ) {
 			return $this->parserData->canModifySemanticData();
 		}
@@ -75,7 +73,6 @@ class LanguageLinkAnnotator {
 	 * @param InterlanguageLink $interlanguageLink
 	 */
 	public function addAnnotationForInterlanguageLink( InterlanguageLink $interlanguageLink ) {
-
 		$subobject = new Subobject( $this->parserData->getTitle() );
 		$subobject->setEmptyContainerForId( $interlanguageLink->getContainerId() );
 
@@ -102,7 +99,6 @@ class LanguageLinkAnnotator {
 	 * @param InterwikiLanguageLink $interwikiLanguageLink
 	 */
 	public function addAnnotationForInterwikiLanguageLink( InterwikiLanguageLink $interwikiLanguageLink ) {
-
 		$subobject = new Subobject( $this->parserData->getTitle() );
 		$subobject->setEmptyContainerForId( $interwikiLanguageLink->getContainerId() );
 

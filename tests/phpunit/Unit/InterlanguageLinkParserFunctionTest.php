@@ -9,12 +9,12 @@ use SMW\Tests\PHPUnitCompat;
  * @covers \SIL\InterlanguageLinkParserFunction
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
+class InterlanguageLinkParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 
@@ -32,7 +32,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$this->languageLinkAnnotator->expects( $this->any() )
 			->method( 'canAddAnnotation' )
-			->will( $this->returnValue( true ) );
+			->willReturn( true );
 
 		$this->siteLanguageLinksParserOutputAppender = $this->getMockBuilder( '\SIL\SiteLanguageLinksParserOutputAppender' )
 			->disableOriginalConstructor()
@@ -48,7 +48,6 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -66,7 +65,6 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTryParseThatCausesErrorMessage() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -81,15 +79,15 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$instance->setInterlanguageLinksHideState( true );
 
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
+
 			$instance->parse( 'en', 'Foo' )
 		);
 
 		$instance->setInterlanguageLinksHideState( false );
 
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
+
 			$instance->parse( '%42$', 'Foo' )
 		);
 
@@ -105,7 +103,6 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testParseToCreateErrorMessageForKnownTarget() {
-
 		$title = \Title::newFromText( __METHOD__ );
 
 		$this->languageLinkAnnotator->expects( $this->never() )
@@ -113,15 +110,15 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$this->siteLanguageLinksParserOutputAppender->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->with(	$this->equalTo( \Title::newFromText( 'Foo' ) ) )
-			->will( $this->returnValue( $title ) );
+			->with(	\Title::newFromText( 'Foo' ) )
+			->willReturn( $title );
 
 		$this->siteLanguageLinksParserOutputAppender->expects( $this->once() )
 			->method( 'tryAddLanguageTargetLinksToOutput' )
 			->with(
 				$this->anything(),
-				$this->equalTo( $title ) )
-			->will( $this->returnValue( 'Foo' ) );
+				$title )
+			->willReturn( 'Foo' );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
@@ -140,12 +137,11 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testMultipleParseCalls() {
-
 		$title = \Title::newFromText( __METHOD__ );
 
 		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
@@ -167,16 +163,15 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testMultipleParseCallsWithDifferentLanguagesTriggersErrorMessage() {
-
 		$title = \Title::newFromText( __METHOD__ );
 
 		$this->languageLinkAnnotator->expects( $this->any() )
 			->method( 'hasDifferentLanguageAnnotation' )
-			->will( $this->onConsecutiveCalls( false, true ) );
+			->willReturnOnConsecutiveCalls( false, true );
 
 		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
@@ -195,7 +190,6 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testParse() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -205,7 +199,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
@@ -224,7 +218,6 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testValidLanguageCodeByLowerCaseComparison() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -234,7 +227,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
@@ -253,14 +246,13 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testRevisionMode() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$this->siteLanguageLinksParserOutputAppender->expects( $this->any() )
 			->method( 'getRedirectTargetFor' )
-			->will( $this->returnValue( $title ) );
+			->willReturn( $title );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
@@ -278,7 +270,6 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAnnotationModeIsDisabled() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -289,7 +280,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 
 		$languageLinkAnnotator->expects( $this->once() )
 			->method( 'canAddAnnotation' )
-			->will( $this->returnValue( false ) );
+			->willReturn( false );
 
 		$instance = new InterlanguageLinkParserFunction(
 			$title,
@@ -305,7 +296,6 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddLanguageCodeToPageContentLanguageIntermediaryCache() {
-
 		$title = $this->getMockBuilder( '\Title' )
 			->disableOriginalConstructor()
 			->getMock();

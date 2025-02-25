@@ -3,24 +3,20 @@
 namespace SIL;
 
 use Onoi\Cache\Cache;
-use SMW\Store;
-use SMW\DIWikiPage;
-use SMW\DIProperty;
-
 use Title;
 
 /**
  * Modifies the content language based on the SIL annotation found
  * for the selected page.
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
 class PageContentLanguageOnTheFlyModifier {
 
-	const POOLCACHE_ID = 'sil.pagecontentlanguage';
+	public const POOLCACHE_ID = 'sil.pagecontentlanguage';
 
 	/**
 	 * @var InterlanguageLinksLookup
@@ -47,7 +43,7 @@ class PageContentLanguageOnTheFlyModifier {
 	 * @since 1.3
 	 *
 	 * @param Title $title
-	 * @param string &languageCode
+	 * @param string $languageCode
 	 */
 	public function addToIntermediaryCache( Title $title, $languageCode ) {
 		$this->intermediaryCache->save( $this->getHashFrom( $title ), $languageCode );
@@ -57,12 +53,11 @@ class PageContentLanguageOnTheFlyModifier {
 	 * @since 1.0
 	 *
 	 * @param Title $title
-	 * @param Language|string &$pageLanguage
+	 * @param Language|string $pageLanguage
 	 *
 	 * @return string
 	 */
 	public function getPageContentLanguage( Title $title, $pageLanguage ) {
-
 		$hash = $this->getHashFrom( $title );
 
 		// Convert language codes from BCP 47 to lowercase to ensure that codes
@@ -90,7 +85,7 @@ class PageContentLanguageOnTheFlyModifier {
 	}
 
 	private function getHashFrom( Title $title ) {
-		return md5( $title->getPrefixedText() );
+		return md5( $title->getPrefixedText() ?? '' );
 	}
 
 }

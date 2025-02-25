@@ -15,7 +15,7 @@ use Title;
  * requests to be stored in-memory while other information are stored on a
  * persistence layer to increase lookup performance for succeeding requests.
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -71,7 +71,7 @@ class LanguageTargetLinksCache {
 	 *
 	 * @param Title $title
 	 *
-	 * @param boolean|string
+	 * @return bool|string
 	 */
 	public function getPageLanguageFromCache( Title $title ) {
 		return $this->fetch( $title );
@@ -84,7 +84,6 @@ class LanguageTargetLinksCache {
 	 * @param string $languageCode
 	 */
 	public function pushPageLanguageToCache( Title $title, $languageCode ) {
-
 		$normalizedLanguageTargetLink = [
 			$languageCode => $title->getPrefixedText()
 		];
@@ -97,10 +96,9 @@ class LanguageTargetLinksCache {
 	 *
 	 * @param InterlanguageLink $interlanguageLink
 	 *
-	 * @return boolean|array
+	 * @return bool|array
 	 */
 	public function getLanguageTargetLinksFromCache( InterlanguageLink $interlanguageLink ) {
-
 		// Call to a member function getPrefixedText() on null in ...SemanticInterlanguageLinks/src/LanguageTargetLinksCache.php on line 105
 		if ( $interlanguageLink->getLinkReference() === null ) {
 			return false;
@@ -128,7 +126,6 @@ class LanguageTargetLinksCache {
 	 * @param array $languageTargetLinks
 	 */
 	public function saveLanguageTargetLinksToCache( InterlanguageLink $interlanguageLink, array $languageTargetLinks ) {
-
 		$normalizedLanguageTargetLinks = [];
 
 		foreach ( $languageTargetLinks as $languageCode => $title ) {
@@ -158,7 +155,6 @@ class LanguageTargetLinksCache {
 	 * @param DIWikiPage[] $linkReferences
 	 */
 	public function deleteLanguageTargetLinksFromCache( array $linkReferences ) {
-
 		foreach ( $linkReferences as $linkReference ) {
 
 			if ( !$linkReference instanceof DIWikiPage ) {
@@ -195,7 +191,6 @@ class LanguageTargetLinksCache {
 	}
 
 	private function fetch( Title $title ) {
-
 		$pageCacheKey = $this->cacheKeyProvider->getPageCacheKey(
 			$title->getPrefixedText(),
 			$this->pageLanguageCacheStrategy === 'blob'
@@ -211,7 +206,6 @@ class LanguageTargetLinksCache {
 	}
 
 	private function save( array $normalizedLanguageTargetLinks ) {
-
 		if ( $this->pageLanguageCacheStrategy !== 'blob' ) {
 
 			foreach ( $normalizedLanguageTargetLinks as $languageCode => $target ) {
@@ -237,7 +231,6 @@ class LanguageTargetLinksCache {
 	}
 
 	private function delete( Title $title ) {
-
 		$this->cache->delete(
 			$this->cacheKeyProvider->getSiteCacheKey( $title->getPrefixedText() )
 		);
@@ -258,7 +251,6 @@ class LanguageTargetLinksCache {
 	}
 
 	private function getPageLanguageCacheBlob() {
-
 		$pageLanguageCacheBlob = $this->cache->fetch(
 			$this->cacheKeyProvider->getPageLanguageCacheBlobKey()
 		);

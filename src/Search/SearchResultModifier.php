@@ -3,18 +3,15 @@
 namespace SIL\Search;
 
 use Html;
-use LanguageNames;
-use Language;
 use MediaWiki\MediaWikiServices;
-use XmlSelect;
-use Xml;
 use SearchResultSet;
+use SMW\Localizer\Localizer;
 use SpecialSearch;
-
-use SMW\Localizer;
+use Xml;
+use XmlSelect;
 
 /**
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
@@ -41,7 +38,6 @@ class SearchResultModifier {
 	 * @param array &$profiles
 	 */
 	public function addSearchProfile( array &$profiles ) {
-
 		$profiles['sil'] = [
 			'message' => 'sil-search-profile',
 			'tooltip' => 'sil-search-profile-tooltip',
@@ -57,14 +53,13 @@ class SearchResultModifier {
 	 * @since 1.0
 	 *
 	 * @param SpecialSearch $search
-	 * @param string $profile,
+	 * @param string $profile
 	 * @param string &$form
 	 * @param array $opts
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function addSearchProfileForm( SpecialSearch $search, $profile, &$form, $opts ) {
-
 		if ( $profile !== 'sil' ) {
 			return true;
 		}
@@ -96,10 +91,9 @@ class SearchResultModifier {
 	 * @param WebRequest $request
 	 * @param array &$showSections
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function addLanguageFilterToPowerBox( $request, &$showSections ) {
-
 		$showSections['sil-languagefilter'] = $this->createHtmlLanguageFilterSelector(
 			$request->getVal( 'languagefilter' )
 		);
@@ -115,7 +109,6 @@ class SearchResultModifier {
 	 * @return string
 	 */
 	public function createHtmlLanguageFilterSelector( $defaultLanguagefilter ) {
-
 		$languages = MediaWikiServices::getInstance()->getLanguageNameUtils()->getLanguageNames();
 
 		ksort( $languages );
@@ -135,20 +128,19 @@ class SearchResultModifier {
 			'languagefilter'
 		) . '&#160;';
 
-		return  $label . $selector;
+		return $label . $selector;
 	}
 
 	/**
 	 * @since 1.0
 	 *
 	 * @param WebRequest $request
-	 * @param SearchResultSet|false $titleMatches
-	 * @param SearchResultSet|false $textMatches
+	 * @param SearchResultSet|false &$titleMatches
+	 * @param SearchResultSet|false &$textMatches
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function applyLanguageFilterToResultMatches( $request, &$titleMatches, &$textMatches ) {
-
 		if ( !in_array( $request->getVal( 'profile' ), [ 'sil', 'advanced' ] ) ) {
 			return false;
 		}
@@ -159,14 +151,14 @@ class SearchResultModifier {
 			return false;
 		}
 
-		if ( $titleMatches instanceOf SearchResultSet ) {
+		if ( $titleMatches instanceof SearchResultSet ) {
 			$titleMatches = $this->languageResultMatchFinder->matchResultsToLanguage(
 				$titleMatches,
 				$languageCode
 			);
 		}
 
-		if ( $textMatches instanceOf SearchResultSet ) {
+		if ( $textMatches instanceof SearchResultSet ) {
 			$textMatches = $this->languageResultMatchFinder->matchResultsToLanguage(
 				$textMatches,
 				$languageCode

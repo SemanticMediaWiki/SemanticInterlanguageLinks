@@ -17,10 +17,10 @@ $magicWords['en'] = [
 /**
  * German (Deutsch)
  */
- $magicWords['de'] = [
+$magicWords['de'] = [
 	'interlanguagelink' => [ 0, 'SPRACHLINK:' ],
 	'interlanguagelist' => [ 0, 'SPRACHLISTE:' ],
- 	'annotatedlanguage' => [ 0, 'SEITENSPRACHE:' ],
+	'annotatedlanguage' => [ 0, 'SEITENSPRACHE:' ],
 ];
 
 /**

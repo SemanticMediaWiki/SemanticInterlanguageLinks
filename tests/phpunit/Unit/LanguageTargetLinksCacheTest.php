@@ -2,24 +2,25 @@
 
 namespace SIL\Tests;
 
-use SIL\LanguageTargetLinksCache;
-use SIL\InterlanguageLink;
-use SIL\CacheKeyProvider;
-use SMW\DIWikiPage;
-use Onoi\Cache\CacheFactory;
 use HashBagOStuff;
+use MediaWiki\MediaWikiServices;
+use Onoi\Cache\CacheFactory;
+use SIL\CacheKeyProvider;
+use SIL\InterlanguageLink;
+use SIL\LanguageTargetLinksCache;
+use SMW\DIWikiPage;
 use Title;
 
 /**
  * @covers \SIL\LanguageTargetLinksCache
  * @group semantic-interlanguage-links
  *
- * @license GNU GPL v2+
+ * @license GPL-2.0-or-later
  * @since 1.0
  *
  * @author mwjames
  */
-class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
+class LanguageTargetLinksCacheTest extends \PHPUnit\Framework\TestCase {
 
 	private $cache;
 	private $cacheKeyProvider;
@@ -32,7 +33,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanConstruct() {
-
 		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
@@ -51,7 +51,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider pageLanguageCacheStrategyProvider
 	 */
 	public function testRoundtrip( $pageLanguageCacheStrategy ) {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$languageTargetLinks = [
@@ -95,7 +94,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider pageLanguageCacheStrategyProvider
 	 */
 	public function testTryToGetLanguageTargetLinksForUnknownLanguageCode( $pageLanguageCacheStrategy ) {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$languageTargetLinks = [
@@ -123,7 +121,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider pageLanguageCacheStrategyProvider
 	 */
 	public function testTryToGetLanguageTargetLinksForNullLanguageCode( $pageLanguageCacheStrategy ) {
-
 		$interlanguageLink = new InterlanguageLink( null, 'Foo' );
 
 		$languageTargetLinks = [
@@ -152,7 +149,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider pageLanguageCacheStrategyProvider
 	 */
 	public function testTryToGetLanguageTargetLinksFromEmptyLinksCache( $pageLanguageCacheStrategy ) {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 		$languageTargetLinks = [];
 
@@ -177,7 +173,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider pageLanguageCacheStrategyProvider
 	 */
 	public function testDeleteLanguageTargetLinks( $pageLanguageCacheStrategy ) {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$languageTargetLinks = [
@@ -212,8 +207,8 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider pageLanguageCacheStrategyProvider
 	 */
 	public function testDeletePageLanguageForMatchedTarget( $pageLanguageCacheStrategy ) {
-
-		$helpNS = $GLOBALS['wgContLang']->getNsText( NS_HELP );
+		$contLang = MediaWikiServices::getInstance()->getContentLanguage();
+		$helpNS = $contLang->getNsText( NS_HELP );
 
 		$title = Title::newFromText( 'Bar', NS_HELP );
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
@@ -256,7 +251,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider pageLanguageCacheStrategyProvider
 	 */
 	public function testNoLanguageTargetLinksDeleteForNonMatchedTarget( $pageLanguageCacheStrategy ) {
-
 		$interlanguageLink = new InterlanguageLink( 'en', 'Foo' );
 
 		$languageTargetLinks = [
@@ -294,7 +288,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider pageLanguageCacheStrategyProvider
 	 */
 	public function testUpdatePageLanguageToCache( $pageLanguageCacheStrategy ) {
-
 		$id = 'foo:sil:page:';
 		$data = 'bo';
 
@@ -312,8 +305,8 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 		$cache->expects( $this->once() )
 			->method( 'save' )
 			->with(
-				$this->stringContains( $id ) ,
-				$this->equalTo( $data ) );
+				$this->stringContains( $id ),
+				$data );
 
 		$cacheKeyProvider = $this->cacheKeyProvider;
 
@@ -324,7 +317,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTryToGetLanguageTargetLinksFromCacheOnNullLinkReference() {
-
 		$interlanguageLink = $this->getMockBuilder( '\SIL\InterlanguageLink' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -346,7 +338,6 @@ class LanguageTargetLinksCacheTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function pageLanguageCacheStrategyProvider() {
-
 		$provider = [
 			[ 'blob' ],
 			[ 'non-blob' ]
