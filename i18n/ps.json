@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmed-Najib-Biabani-Ibrahimkhel"
+			"Ahmed-Najib-Biabani-Ibrahimkhel",
+			"شاه زمان پټان"
 		]
 	},
 	"sil-property-ill-alias-language": "د مخ د مېنځپانگې ژبه",
 	"sil-property-ill-alias-reference": "د ژبو خپلمنځي سرچينې",
 	"sil-property-iwl-alias-language": "ويکي خپلمنځي ژبه",
 	"sil-property-iwl-alias-reference": "ويکي خپلمنځي سرچينه",
-	"sil-property-alias-container": "د ژب خپلمنځي تړنې لري",
+	"sil-property-alias-container": "ژبو خپلمنځي وېبتړنې لري",
 	"sil-search-profile": "د ژبې له مخې",
 	"sil-search-languagefilter-label": "چاڼگر د ژبې له مخې",
 	"sil-search-nolanguagefilter": "ژب چاڼگر نشته"
