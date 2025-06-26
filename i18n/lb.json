@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"sil-property-ill-alias-language": "Sprooch vum Inhalt vun der Säit",
@@ -10,7 +11,7 @@
 	"sil-property-iwl-alias-reference": "Interwiki-Referenz",
 	"sil-property-alias-container": "Huet e Sproochlinken",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" gouf net als valabele Sproochcode erkannt.",
-	"sil-interlanguagelist-missing-linkreference": "D'Parser-Funktioun huet keng valabel Referenz.",
+	"sil-interlanguagelist-missing-linkreference": "Der Parserfunktioun feelt eng gülteg Referenz.",
 	"sil-search-profile": "no Sprooch",
 	"sil-search-languagefilter-label": "Filter no der Sprooch",
 	"sil-search-nolanguagefilter": "Kee Sproochfilter",
