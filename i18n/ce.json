@@ -17,7 +17,7 @@
 	"smw-pa-property-predefined__sil_iwl_lang": "«$1» — хьалххе билгалйаьккхина билгало йу, иза йу меттан код, иза схьаэцна йу интервики-хьажорган тӀера, иза аьтто луш бу шордаро [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"smw-pa-property-predefined__sil_iwl_ref": "«$1» — хьалххе билгалйаьккхина билгало йу, иза йуьззина агӀо йу, интервики-хьажорган тӀера схьаоьцуш йолу, аьтто луш бу шордаро [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Interlanguage_Links Semantic Interlanguage Links].",
 	"sil-interlanguagelink-hideinterlanguagelinks": "Функцин парсер лело йиш йац, хӀунда аьлча <code>$wgHideInterlanguageLinks</code> дӀахӀоттийна йу.",
-	"sil-interlanguagelink-invalidlanguagecode": "\"$1\" нийса меттан код санна къобалйина йац.",
+	"sil-interlanguagelink-invalidlanguagecode": "«$1» нийса меттан код санна тӀеэцна йац.",
 	"sil-interlanguagelink-multiplecalls-different-languagecode": "Функцин парсер маситтазза кхайкхина амма кхечу меттан кодца («$1»), цуьнах лардала деза, хӀунда аьлча агӀонан чулацам йерриг цхьана маттахь гайта беза.",
 	"sil-interlanguagelink-languagetargetcombination-exists": "«$1»:«$2» комбинаци хӀинцале а йолуш йу «$3» агӀонна, цундела кхин меттанашна йукъара аннотаци ца кхоьллина.",
 	"sil-interlanguagelist-missing-linkreference": "Функцин парсерна кхин а тӀе хьажорг йац.",
