@@ -22,7 +22,10 @@
 	"sil-interlanguagelink-languagetargetcombination-exists": "«$1»:«$2» комбинаци хӀинцале а йолуш йу «$3» агӀонна, цундела кхин меттанашна йукъара аннотаци ца кхоьллина.",
 	"sil-interlanguagelist-missing-linkreference": "Функцин парсерна кхин а тӀе хьажорг йац.",
 	"sil-interlanguagelist-missing-template": "Функцин парсерна арайаларан кеп йац.",
+	"sil-interlanguageparser-linkreference-error": "Функцин парсерна гӀалаташ нисделира «$1 объектан корта кхоллуш.",
 	"sil-search-profile": "Меттаца",
+	"sil-search-profile-tooltip": "Йаззамашна меттанца фильтр, Аннотаци",
 	"sil-search-languagefilter-label": "Маттаца фильтр:",
-	"sil-search-nolanguagefilter": "Фильтран мотт бац"
+	"sil-search-nolanguagefilter": "Фильтран мотт бац",
+	"sil-categorypage-languagefilter-active": "ХӀокху категори чохь йу информаци (агӀонаш а, бухара категореш а суьрташ а) $1 мотт хаьржича фильтраци йеш йолу."
 }
