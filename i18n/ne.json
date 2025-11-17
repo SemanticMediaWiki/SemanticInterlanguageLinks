@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"बडा काजी"
+		]
+	},
+	"sil-property-ill-alias-language": "पृष्ठ सामग्रीको भाषा",
+	"sil-property-ill-alias-reference": "अन्तरभाषा सन्दर्भ",
+	"sil-property-iwl-alias-language": "अन्तरविकि भाषा",
+	"sil-property-iwl-alias-reference": "अन्तरविकि सन्दर्भ",
+	"sil-property-alias-container": "अन्तरभाषिक कडी छ",
+	"sil-search-profile": "भाषा अनुसार",
+	"sil-search-profile-tooltip": "भाषा टिप्पणीद्वारा लेखहरू फिल्टर गर्नुहोस्",
+	"sil-search-languagefilter-label": "भाषाअनुसार फिल्टर गर्नुहोस्",
+	"sil-search-nolanguagefilter": "कुनै भाषा फिल्टर छैन",
+	"sil-categorypage-languagefilter-active": "यस श्रेणीले जानकारी (पृष्ठ, उपश्रेणी, र छवि) समावेश गर्दछ जुन \"$1\" भाषा द्वारा फिल्टर गरिएको छ।"
+}
