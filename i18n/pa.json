@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cabal"
+		]
+	},
+	"sil-property-ill-alias-language": "ਸਫ਼ੇ ਦੀ ਸਮੱਗਰੀ ਭਾਸ਼ਾ",
+	"sil-property-ill-alias-reference": "ਅੰਤਰ-ਭਾਸ਼ਾਈ ਸੰਦਰਭ",
+	"sil-property-iwl-alias-language": "ਅੰਤਰਵਿਕੀ ਬੋਲੀ",
+	"sil-property-iwl-alias-reference": "ਅੰਤਰਵਿਕੀ ਹਵਾਲੇ",
+	"sil-property-alias-container": "ਅੰਤਰ-ਭਾਸ਼ਾਈ ਕੜੀ ਹੈ",
+	"sil-search-profile": "ਬੋਲੀ ਮੁਤਾਬਕ",
+	"sil-search-languagefilter-label": "ਬੋਲੀ ਮੁਤਾਬਕ ਛਾਣੋ",
+	"sil-search-nolanguagefilter": "ਕੋਈ ਬੋਲੀ ਛਾਣਨੀ ਨਹੀਂ"
+}
