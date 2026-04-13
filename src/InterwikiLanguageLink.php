@@ -2,11 +2,11 @@
 
 namespace SIL;
 
+use MediaWiki\Title\Title;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
 use SMWDIBlob as DIBlob;
-use Title;
 
 /**
  * Represents an object for a manual annotation such as [[en:Foo]] where
