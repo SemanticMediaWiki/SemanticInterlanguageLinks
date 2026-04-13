@@ -4,7 +4,6 @@ namespace SIL\Tests;
 
 use MediaWiki\Title\Title;
 use SIL\SiteLanguageLinkModifier;
-use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\SiteLanguageLinkModifier
@@ -17,8 +16,6 @@ use SMW\Tests\PHPUnitCompat;
  * @author mwjames
  */
 class SiteLanguageLinkModifierTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 		$titleForExternalLanguageLink = $this->getMockBuilder( Title::class )
@@ -108,7 +105,7 @@ class SiteLanguageLinkModifierTest extends \PHPUnit\Framework\TestCase {
 			$instance->modifyLanguageLink( $languageLink )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			$expected,
 			$languageLink
 		);
