@@ -3,6 +3,7 @@
 namespace SIL\Tests;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SIL\InterlanguageListParserFunction;
 use SMW\Tests\PHPUnitCompat;
 
@@ -119,7 +120,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 		];
 
 		$provider[] = [
-			[ 'ja' => \Title::newFromText( 'テスト' ) ],
+			[ 'ja' => Title::newFromText( 'テスト' ) ],
 			'{{FakeTemplate' .
 			'|#=0' .
 			'|target-link=テスト' .
@@ -128,7 +129,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 		];
 
 		$provider[] = [
-			[ 'zh-hans' => \Title::newFromText( '分类：汉字' ) ],
+			[ 'zh-hans' => Title::newFromText( '分类：汉字' ) ],
 			'{{FakeTemplate' .
 			'|#=0' .
 			'|target-link=分类：汉字' .
@@ -140,7 +141,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 		$categoryNS = $contLang->getNsText( NS_CATEGORY );
 
 		$provider[] = [
-			[ 'zh-hans' => \Title::newFromText( 'Category:汉字' ) ],
+			[ 'zh-hans' => Title::newFromText( 'Category:汉字' ) ],
 			'{{FakeTemplate' .
 			'|#=0' .
 			"|target-link=:$categoryNS:汉字" .
