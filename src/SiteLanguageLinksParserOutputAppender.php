@@ -2,8 +2,8 @@
 
 namespace SIL;
 
+use MediaWiki\Title\Title;
 use ParserOutput;
-use Title;
 
 /**
  * @license GPL-2.0-or-later
