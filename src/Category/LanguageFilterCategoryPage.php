@@ -3,9 +3,9 @@
 namespace SIL\Category;
 
 use CategoryPage;
-use Html;
+use MediaWiki\Html\Html;
+use MediaWiki\Title\Title;
 use SIL\InterlanguageLinksLookup;
-use Title;
 
 /**
  * Modifies the content display of a category page
