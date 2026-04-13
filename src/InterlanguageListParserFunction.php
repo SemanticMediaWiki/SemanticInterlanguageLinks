@@ -3,8 +3,8 @@
 namespace SIL;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SMW\Localizer\Localizer;
-use Title;
 
 /**
  * @license GPL-2.0-or-later
