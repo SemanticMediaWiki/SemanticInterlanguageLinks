@@ -75,7 +75,7 @@ class InterwikiLanguageLink {
 	 * @return DataValue
 	 */
 	public function newLanguageDataValue() {
-		return DataValueFactory::getInstance()->newDataItemValue(
+		return DataValueFactory::getInstance()->newDataValueByItem(
 			new DIBlob( $this->getLanguageCode() ),
 			new DIProperty( PropertyRegistry::SIL_IWL_LANG )
 		);
@@ -87,7 +87,7 @@ class InterwikiLanguageLink {
 	 * @return DataValue
 	 */
 	public function newInterwikiReferenceDataValue() {
-		return DataValueFactory::getInstance()->newDataItemValue(
+		return DataValueFactory::getInstance()->newDataValueByItem(
 			DIWikiPage::newFromTitle( $this->getInterwikiReference() ),
 			new DIProperty( PropertyRegistry::SIL_IWL_REF )
 		);
