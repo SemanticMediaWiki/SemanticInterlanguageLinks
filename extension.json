@@ -25,6 +25,9 @@
 	"AutoloadNamespaces": {
 		"SIL\\": "src/"
 	},
+	"TestAutoloadNamespaces": {
+		"SIL\\Tests\\": "tests/phpunit/"
+	},
 	"ExtensionFunctions": [
 		"SemanticInterlanguageLinks::onExtensionFunction"
 	],
