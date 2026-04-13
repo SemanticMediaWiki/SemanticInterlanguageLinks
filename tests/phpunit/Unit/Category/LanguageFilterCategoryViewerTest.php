@@ -32,17 +32,17 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 
 		if ( version_compare( MW_VERSION, '1.44', '=' ) ) {
 			$config->method( 'get' )
-			    ->willReturnMap( [
-			        [ MainConfigNames::CategoryPagingLimit, 200 ],
-			        [ MainConfigNames::CategoryMagicGallery, false ],
-			        [ MainConfigNames::CategoryLinksSchemaMigrationStage, SCHEMA_COMPAT_READ_OLD ],
-			    ] );
+				->willReturnMap( [
+					[ MainConfigNames::CategoryPagingLimit, 200 ],
+					[ MainConfigNames::CategoryMagicGallery, false ],
+					[ MainConfigNames::CategoryLinksSchemaMigrationStage, SCHEMA_COMPAT_READ_OLD ],
+				] );
 		} else {
 			$config->method( 'get' )
-			    ->willReturnMap( [
-			        [ MainConfigNames::CategoryPagingLimit, 200 ],
-			        [ MainConfigNames::CategoryMagicGallery, false ],
-			    ] );
+				->willReturnMap( [
+					[ MainConfigNames::CategoryPagingLimit, 200 ],
+					[ MainConfigNames::CategoryMagicGallery, false ],
+				] );
 		}
 		$outputPage = $this->getMockBuilder( '\OutputPage' )
 			->disableOriginalConstructor()
