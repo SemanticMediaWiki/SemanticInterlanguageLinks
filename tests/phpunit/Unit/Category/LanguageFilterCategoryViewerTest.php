@@ -3,6 +3,7 @@
 namespace SIL\Tests\Category;
 
 use ContentHandler;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use RequestContext;
@@ -29,6 +30,20 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		if ( version_compare( MW_VERSION, '1.44', '=' )
+			$config->method( 'get' )
+			    ->willReturnMap( [
+			        [ MainConfigNames::CategoryPagingLimit, 200 ],
+			        [ MainConfigNames::CategoryMagicGallery, false ],
+			        [ MainConfigNames::CategoryLinksSchemaMigrationStage, SCHEMA_COMPAT_READ_OLD ],
+			    ] );
+		} else {
+			$config->method( 'get' )
+			    ->willReturnMap( [
+			        [ MainConfigNames::CategoryPagingLimit, 200 ],
+			        [ MainConfigNames::CategoryMagicGallery, false ],
+			    ] );
+		}
 		$outputPage = $this->getMockBuilder( '\OutputPage' )
 			->disableOriginalConstructor()
 			->getMock();
