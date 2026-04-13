@@ -5,7 +5,6 @@ namespace SIL\Tests\Integration;
 use Article;
 use MediaWiki\Title\Title;
 use RequestContext;
-use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\SMWIntegrationTestCase;
 use SMW\Tests\Utils\UtilityFactory;
 
@@ -20,8 +19,6 @@ use SMW\Tests\Utils\UtilityFactory;
  * @author mwjames
  */
 class LanguageFilterCategoryViewerIntegrationTest extends SMWIntegrationTestCase {
-
-	use PHPUnitCompat;
 
 	private $pageCreator;
 	private $subjects = [];
@@ -64,12 +61,12 @@ class LanguageFilterCategoryViewerIntegrationTest extends SMWIntegrationTestCase
 
 		$text = $instance->getContext()->getOutput()->getHTML();
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'title="CategoryViewerToDisplayAllTargetEn">CategoryViewerToDisplayAllTargetEn</a>',
 			$text
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'title="CategoryViewerToDisplayAllTargetJa">CategoryViewerToDisplayAllTargetJa</a>',
 			$text
 		);
@@ -102,7 +99,7 @@ class LanguageFilterCategoryViewerIntegrationTest extends SMWIntegrationTestCase
 
 		$text = $instance->getContext()->getOutput()->getHTML();
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'title="CategoryViewerByLanguageTargetEn">CategoryViewerByLanguageTargetEn</a>',
 			$text
 		);
