@@ -5,7 +5,7 @@ namespace SIL\Category;
 use Category;
 use CategoryViewer;
 use MediaWiki\Page\PageReference;
-use Title;
+use MediaWiki\Title\Title;
 
 /**
  * Modifies list of available pages based on the language a category has assigned
