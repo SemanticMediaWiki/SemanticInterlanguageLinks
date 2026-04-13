@@ -2,6 +2,7 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\PageContentLanguageOnTheFlyModifier;
 
 /**
@@ -33,7 +34,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 	public function testGetValidPageContentLanguage() {
 		$pageLanguage = '';
 
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -63,7 +64,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 	public function testGetValidPageContentLanguageFromCache() {
 		$pageLanguage = '';
 
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -94,7 +95,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 	}
 
 	public function testGetPageContentLanguageToReturnLanguageCode() {
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -131,7 +132,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 	public function testPageContentLanguageOnInvalidLanguage( $invalidLanguageCode ) {
 		$pageLanguage = '';
 
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -158,7 +159,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 	}
 
 	public function testAddToIntermediaryCache() {
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
