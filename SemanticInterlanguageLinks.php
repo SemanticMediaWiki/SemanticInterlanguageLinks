@@ -1,6 +1,6 @@
 <?php
 
-use  MediaWiki\WikiMap\WikiMap; 
+use MediaWiki\WikiMap\WikiMap; 
 use Onoi\Cache\CacheFactory;
 use SIL\CacheKeyProvider;
 use SIL\HookRegistry;
