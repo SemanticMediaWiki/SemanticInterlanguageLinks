@@ -4,7 +4,7 @@ namespace SIL;
 
 use LinkCache;
 use MediaWiki\MediaWikiServices;
-use Title;
+use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\Database;
 
 /**
