@@ -2,10 +2,10 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\InterlanguageLink;
 use SIL\PropertyRegistry;
 use SMW\Tests\PHPUnitCompat;
-use Title;
 
 /**
  * @covers \SIL\InterlanguageLink
@@ -37,7 +37,7 @@ class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\Title',
+			Title::class,
 			$instance->getLinkReference()
 		);
 	}
