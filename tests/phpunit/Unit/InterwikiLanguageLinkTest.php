@@ -5,7 +5,6 @@ namespace SIL\Tests;
 use MediaWiki\Title\Title;
 use SIL\InterwikiLanguageLink;
 use SIL\PropertyRegistry;
-use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\InterwikiLanguageLink
@@ -18,8 +17,6 @@ use SMW\Tests\PHPUnitCompat;
  * @author mwjames
  */
 class InterwikiLanguageLinkTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -126,7 +123,7 @@ class InterwikiLanguageLinkTest extends \PHPUnit\Framework\TestCase {
 
 		$instance = new InterwikiLanguageLink( $title );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'en#Foo',
 			$instance->getHash()
 		);
@@ -143,7 +140,7 @@ class InterwikiLanguageLinkTest extends \PHPUnit\Framework\TestCase {
 
 		$instance = new InterwikiLanguageLink( $title );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'iwl.en',
 			$instance->getContainerId()
 		);
