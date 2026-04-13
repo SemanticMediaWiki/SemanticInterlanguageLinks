@@ -4,9 +4,9 @@ namespace SIL\Tests\Category;
 
 use ContentHandler;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use RequestContext;
 use SIL\Category\LanguageFilterCategoryViewer;
-use Title;
 use WikiPage;
 
 /**
