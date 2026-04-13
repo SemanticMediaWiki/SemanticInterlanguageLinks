@@ -3,11 +3,11 @@
 namespace SIL\Tests\Integration;
 
 use Article;
+use MediaWiki\Title\Title;
 use RequestContext;
 use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\SMWIntegrationTestCase;
 use SMW\Tests\Utils\UtilityFactory;
-use Title;
 
 /**
  * @group semantic-interlanguage-links
