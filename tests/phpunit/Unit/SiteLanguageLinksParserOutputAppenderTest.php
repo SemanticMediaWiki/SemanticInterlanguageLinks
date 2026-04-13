@@ -2,6 +2,7 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\InterlanguageLink;
 use SIL\SiteLanguageLinksParserOutputAppender;
 
@@ -78,7 +79,7 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit\Framework\TestC
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'queryLanguageTargetLinks' )
 			->with( $interlanguageLink )
-			->willReturn( [ 'en' => \Title::newFromText( 'Foo' ) ] );
+			->willReturn( [ 'en' => Title::newFromText( 'Foo' ) ] );
 
 		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
@@ -112,7 +113,7 @@ class SiteLanguageLinksParserOutputAppenderTest extends \PHPUnit\Framework\TestC
 		$interlanguageLinksLookup->expects( $this->atLEastOnce() )
 			->method( 'queryLanguageTargetLinks' )
 			->with( $interlanguageLink )
-			->willReturn( [ 'vi' => \Title::newFromText( 'Yan' ) ] );
+			->willReturn( [ 'vi' => Title::newFromText( 'Yan' ) ] );
 
 		$instance = new SiteLanguageLinksParserOutputAppender(
 			$parserOutput,
