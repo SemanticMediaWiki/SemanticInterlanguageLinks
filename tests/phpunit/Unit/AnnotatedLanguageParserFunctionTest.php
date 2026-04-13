@@ -2,6 +2,7 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\AnnotatedLanguageParserFunction;
 
 /**
@@ -37,7 +38,7 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->willReturn( \Title::newFromText( 'Foo' ) );
+			->willReturn( Title::newFromText( 'Foo' ) );
 
 		$instance = new AnnotatedLanguageParserFunction(
 			$interlanguageLinksLookup
@@ -45,7 +46,7 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$this->assertSame(
 			'',
-			$instance->parse( \Title::newFromText( 'Foo' ), 'FakeTemplate' )
+			$instance->parse( Title::newFromText( 'Foo' ), 'FakeTemplate' )
 		);
 	}
 
@@ -60,7 +61,7 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->willReturn( \Title::newFromText( 'Foo' ) );
+			->willReturn( Title::newFromText( 'Foo' ) );
 
 		$instance = new AnnotatedLanguageParserFunction(
 			$interlanguageLinksLookup
@@ -70,7 +71,7 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$this->assertEquals(
 			$expected,
-			$instance->parse( \Title::newFromText( 'Foo' ), '' )
+			$instance->parse( Title::newFromText( 'Foo' ), '' )
 		);
 	}
 
@@ -85,7 +86,7 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$interlanguageLinksLookup->expects( $this->once() )
 			->method( 'getRedirectTargetFor' )
-			->willReturn( \Title::newFromText( 'Foo' ) );
+			->willReturn( Title::newFromText( 'Foo' ) );
 
 		$instance = new AnnotatedLanguageParserFunction(
 			$interlanguageLinksLookup
@@ -95,7 +96,7 @@ class AnnotatedLanguageParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$this->assertEquals(
 			[ $expected, "noparse" => false, "isHTML" => false ],
-			$instance->parse( \Title::newFromText( 'Foo' ), 'FakeTemplate' )
+			$instance->parse( Title::newFromText( 'Foo' ), 'FakeTemplate' )
 		);
 	}
 
