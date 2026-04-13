@@ -2,6 +2,7 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\SiteLanguageLinkModifier;
 use SMW\Tests\PHPUnitCompat;
 
@@ -20,11 +21,11 @@ class SiteLanguageLinkModifierTest extends \PHPUnit\Framework\TestCase {
 	use PHPUnitCompat;
 
 	public function testCanConstruct() {
-		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
+		$titleForExternalLanguageLink = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
-		$titleToTargetLink = $this->getMockBuilder( '\Title' )
+		$titleToTargetLink = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -35,11 +36,11 @@ class SiteLanguageLinkModifierTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testModifyLanguageLinkForNoTextEntry() {
-		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
+		$titleForExternalLanguageLink = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
-		$titleToTargetLink = $this->getMockBuilder( '\Title' )
+		$titleToTargetLink = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -63,11 +64,11 @@ class SiteLanguageLinkModifierTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider invalidLanguageLinkProvider
 	 */
 	public function testModifyLanguageLinkForInvalidSilEntry( $languageLink, $expected ) {
-		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
+		$titleForExternalLanguageLink = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
-		$titleToTargetLink = $this->getMockBuilder( '\Title' )
+		$titleToTargetLink = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -90,11 +91,11 @@ class SiteLanguageLinkModifierTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider validLanguageLinkProvider
 	 */
 	public function testModifyLanguageLinkForValidSilEntry( $languageLink, $expected ) {
-		$titleForExternalLanguageLink = $this->getMockBuilder( '\Title' )
+		$titleForExternalLanguageLink = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
-		$titleToTargetLink = $this->getMockBuilder( '\Title' )
+		$titleToTargetLink = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
