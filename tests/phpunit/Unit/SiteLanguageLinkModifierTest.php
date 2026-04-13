@@ -107,7 +107,7 @@ class SiteLanguageLinkModifierTest extends \PHPUnit\Framework\TestCase {
 
 		$this->assertStringContainsString(
 			$expected,
-			$languageLink
+			implode( ' ', $languageLink )
 		);
 	}
 
