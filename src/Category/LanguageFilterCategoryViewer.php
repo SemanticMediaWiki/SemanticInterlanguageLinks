@@ -2,8 +2,8 @@
 
 namespace SIL\Category;
 
-use Category;
-use CategoryViewer;
+use MediaWiki\Category\Category;
+use MediaWiki\Category\CategoryViewer;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Title\Title;
 
