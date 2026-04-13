@@ -5,7 +5,6 @@ namespace SIL\Tests;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use SIL\InterlanguageListParserFunction;
-use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\InterlanguageListParserFunction
@@ -17,8 +16,6 @@ use SMW\Tests\PHPUnitCompat;
  * @author mwjames
  */
 class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -42,17 +39,17 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 			$interlanguageLinksLookup
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="smw-callout smw-callout-error"',
 			$instance->parse( '', 'Foo' )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="smw-callout smw-callout-error"',
 			$instance->parse( 'Foo', '' )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="smw-callout smw-callout-error"',
 			$instance->parse( '{[[:Template:Foo]]', 'en' )
 		);
