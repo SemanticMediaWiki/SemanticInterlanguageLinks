@@ -2,10 +2,10 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\InterwikiLanguageLink;
 use SIL\PropertyRegistry;
 use SMW\Tests\PHPUnitCompat;
-use Title;
 
 /**
  * @covers \SIL\InterwikiLanguageLink
@@ -40,7 +40,7 @@ class InterwikiLanguageLinkTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testConstructorArgumentGetter() {
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -56,13 +56,13 @@ class InterwikiLanguageLinkTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\Title',
+			Title::class,
 			$instance->getInterwikiReference()
 		);
 	}
 
 	public function testConstructDataValue() {
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -112,7 +112,7 @@ class InterwikiLanguageLinkTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGetHash() {
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -133,7 +133,7 @@ class InterwikiLanguageLinkTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testGetContainerId() {
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
