@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use MediaWiki\Title\Title;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
@@ -12,7 +13,6 @@ use SMW\Query\PrintRequest;
 use SMW\Store;
 use SMWDIBlob as DIBlob;
 use SMWQuery as Query;
-use Title;
 
 /**
  * This class is the most critical component of SIL as it combines the store
