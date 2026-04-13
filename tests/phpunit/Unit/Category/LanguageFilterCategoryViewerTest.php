@@ -30,7 +30,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		if ( version_compare( MW_VERSION, '1.44', '=' ) ) {
+		if ( version_compare( MW_VERSION, '1.44', '>=' ) && version_compare( MW_VERSION, '1.45', '<' ) ) {
 			$config->method( 'get' )
 				->willReturnMap( [
 					[ MainConfigNames::CategoryPagingLimit, 200 ],
