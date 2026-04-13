@@ -3,9 +3,9 @@
 namespace SIL\Tests;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SIL\HookRegistry;
 use SMW\Tests\PHPUnitCompat;
-use Title;
 
 /**
  * @covers \SIL\HookRegistry
