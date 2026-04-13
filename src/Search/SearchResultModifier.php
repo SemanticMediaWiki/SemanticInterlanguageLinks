@@ -2,13 +2,13 @@
 
 namespace SIL\Search;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Specials\SpecialSearch;
+use MediaWiki\Xml\Xml;
+use MediaWiki\Xml\XmlSelect;
 use SearchResultSet;
 use SMW\Localizer\Localizer;
-use SpecialSearch;
-use Xml;
-use XmlSelect;
 
 /**
  * @license GPL-2.0-or-later
