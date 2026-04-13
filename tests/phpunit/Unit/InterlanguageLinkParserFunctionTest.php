@@ -4,7 +4,6 @@ namespace SIL\Tests;
 
 use MediaWiki\Title\Title;
 use SIL\InterlanguageLinkParserFunction;
-use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\InterlanguageLinkParserFunction
@@ -16,8 +15,6 @@ use SMW\Tests\PHPUnitCompat;
  * @author mwjames
  */
 class InterlanguageLinkParserFunctionTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	private $languageLinkAnnotator;
 	private $siteLanguageLinksParserOutputAppender;
@@ -92,12 +89,12 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit\Framework\TestCase {
 			$instance->parse( '%42$', 'Foo' )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'-error',
 			$instance->parse( '', 'Foo' )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'-error',
 			$instance->parse( 'en', '{[[:Template:Foo]]' )
 		);
@@ -131,7 +128,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$instance->setInterlanguageLinksHideState( false );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'-error',
 			$instance->parse( 'en', 'Foo' )
 		);
@@ -152,12 +149,12 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit\Framework\TestCase {
 			$this->pageContentLanguageDbModifier
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="sil-interlanguagelink"',
 			$instance->parse( 'en', 'Foo' )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="sil-interlanguagelink"',
 			$instance->parse( 'en', 'Foo' )
 		);
@@ -184,7 +181,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$instance->parse( 'en', 'Foo' );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'-error',
 			$instance->parse( 'fr', 'Foo' )
 		);
@@ -212,7 +209,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$instance->setInterlanguageLinksHideState( false );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="sil-interlanguagelink"',
 			$instance->parse( 'en', 'Foo' )
 		);
@@ -240,7 +237,7 @@ class InterlanguageLinkParserFunctionTest extends \PHPUnit\Framework\TestCase {
 
 		$instance->setInterlanguageLinksHideState( false );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="sil-interlanguagelink"',
 			$instance->parse( 'zh-Hans', 'Foo' )
 		);
