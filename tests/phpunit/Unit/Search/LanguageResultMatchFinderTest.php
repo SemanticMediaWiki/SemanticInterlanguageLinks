@@ -2,8 +2,8 @@
 
 namespace SIL\Tests\Search;
 
+use MediaWiki\Title\Title;
 use SIL\Search\LanguageResultMatchFinder;
-use Title;
 
 /**
  * @covers \SIL\Search\LanguageResultMatchFinder
