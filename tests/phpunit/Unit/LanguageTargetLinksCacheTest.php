@@ -4,12 +4,12 @@ namespace SIL\Tests;
 
 use HashBagOStuff;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use Onoi\Cache\CacheFactory;
 use SIL\CacheKeyProvider;
 use SIL\InterlanguageLink;
 use SIL\LanguageTargetLinksCache;
 use SMW\DIWikiPage;
-use Title;
 
 /**
  * @covers \SIL\LanguageTargetLinksCache
