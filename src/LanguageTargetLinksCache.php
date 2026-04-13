@@ -6,7 +6,6 @@ use MediaWiki\Title\Title;
 use Onoi\Cache\Cache;
 use SMW\DIWikiPage;
 
-
 /**
  * To make a page view responsive and avoid a repetitive or exhausting query
  * process, this class is expected to cache all objects necessary and be
