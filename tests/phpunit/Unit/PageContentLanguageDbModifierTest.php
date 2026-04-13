@@ -2,8 +2,8 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\PageContentLanguageDbModifier;
-use Title;
 use Wikimedia\TestingAccessWrapper;
 
 /**
