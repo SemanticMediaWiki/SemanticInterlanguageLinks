@@ -108,11 +108,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
 
 		$parserOutput = new ParserOutput();
-		$parserOutput->setLanguageLinks( [ $title ] );
-
-		print_r( $parserOutput->getLanguageLinks() );
-		print_r( Title::newFromText( 'en:en' ) );
-		print_r( Title::newFromText( 'Foo' ) );
+		$parserOutput->addLanguageLink( $title );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
