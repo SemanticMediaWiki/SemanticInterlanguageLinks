@@ -2,9 +2,9 @@
 
 namespace SIL;
 
-use MediaWiki\Title\Title;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\ParserOutputLinkTypes;
+use MediaWiki\Title\Title;
 
 /**
  * @license GPL-2.0-or-later
