@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use MediaWiki\Title\Title;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\ParserOutputLinkTypes;
 
