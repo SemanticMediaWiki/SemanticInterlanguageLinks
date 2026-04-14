@@ -2,6 +2,7 @@
 
 namespace SIL;
 
+use MediaWiki\Linker\LinkTarget;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleValue;
 use SMW\DataValueFactory;
@@ -28,10 +29,10 @@ class InterwikiLanguageLink {
 	/**
 	 * @since 1.0
 	 *
-	 * @param TitleValue $interwikiLink
+	 * @param TitleValue|string $interwikiLink
 	 */
 	public function __construct( $interwikiLink ) {
-		$this->interwikiLink = Title::castFromLinkTarget( $interwikiLink );
+		$this->interwikiLink = $interwikiLink instanceof LinkTarget ? Title::castFromLinkTarget( $interwikiLink ) : Title::newFromText( $interwikiLink );
 	}
 
 	/**
