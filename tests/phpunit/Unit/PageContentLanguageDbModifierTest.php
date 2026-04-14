@@ -18,7 +18,7 @@ use Wikimedia\TestingAccessWrapper;
 class PageContentLanguageDbModifierTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 
