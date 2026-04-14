@@ -3,6 +3,7 @@
 namespace SIL\Tests;
 
 use MediaWiki\Interwiki\ClassicInterwikiLookup;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Title\Title;
@@ -99,7 +100,11 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 				'iw_local' => 1
 			],
 		] );
-		\MediaWiki\MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( '_MediaWikiTitleCodec' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'TitleParser' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'UserNameUtils' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'UserFactory' );
 
 		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
 			->disableOriginalConstructor()
