@@ -21,6 +21,44 @@ use SIL\InterwikiLanguageLinkFetcher;
  */
 class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 
+	private $interwikiCache = null;
+
+	protected function setUp(): void {
+		global $wgInterwikiCache;
+
+		parent::setUp();
+
+		// We don't have MediaWikiIntegrationTestCase's methods available, so we have to do it ourself.
+		$this->interwikiCache = $wgInterwikiCache;
+		$wgInterwikiCache = ClassicInterwikiLookup::buildCdbHash( [
+			[
+				'iw_prefix' => 'en',
+				'iw_url' => '//en.wikipedia.org/wiki/$1',
+				'iw_local' => 1
+			],
+		] );
+		// UserFactory holds UserNameUtils holds
+		// TitleParser (aka _MediaWikiTitleCodec) holds InterwikiLookup
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( '_MediaWikiTitleCodec' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'TitleParser' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'UserNameUtils' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'UserFactory' );
+	}
+
+	protected function tearDown(): void {
+		global $wgInterwikiCache;
+
+		$wgInterwikiCache = $this->interwikiCache;
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( '_MediaWikiTitleCodec' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'TitleParser' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'UserNameUtils' );
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'UserFactory' );
+
+		parent::tearDown();
+	}
+
 	public function testCanConstruct() {
 		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
 			->disableOriginalConstructor()
@@ -41,6 +79,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
 		$parserOutput = new ParserOutput();
+
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
 	}
@@ -61,17 +100,6 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testInvalidInterwikiLink() {
-		$GLOBALS['wgInterwikiCache'] = ClassicInterwikiLookup::buildCdbHash( [
-			[
-				'iw_prefix' => 'iw-test',
-				'iw_url' => 'http://www.example.org/$1',
-				'iw_api' => '',
-				'iw_wikiid' => 'foo',
-				'iw_local' => 1,
-			],
-		] );
-		\MediaWiki\MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
-
 		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -82,30 +110,11 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$parserOutput = new ParserOutput();
 		$parserOutput->addLanguageLink( 'invalid:Foo' );
 
-		print_r( 'test1' );
-		print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) );
-		// print_r( Title::castFromLinkTarget( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link'] )->isValid() ? 'works' : 'failed' );
-		$test = Title::castFromLinkTarget( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link'] );
-		print_r( \MediaWiki\MediaWikiServices::getInstance()->getInterwikiLookup()->isValidInterwiki( $test->getInterwiki() ) ? 'worked' : 'failed' );
-
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
 	}
 
 	public function testValidInterwikiLink() {
-		$GLOBALS['wgInterwikiCache'] = ClassicInterwikiLookup::buildCdbHash( [
-			[
-				'iw_prefix' => 'en',
-				'iw_url' => '//en.wikipedia.org/wiki/$1',
-				'iw_local' => 1
-			],
-		] );
-		MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
-		MediaWikiServices::getInstance()->resetServiceForTesting( '_MediaWikiTitleCodec' );
-		MediaWikiServices::getInstance()->resetServiceForTesting( 'TitleParser' );
-		MediaWikiServices::getInstance()->resetServiceForTesting( 'UserNameUtils' );
-		MediaWikiServices::getInstance()->resetServiceForTesting( 'UserFactory' );
-
 		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -127,12 +136,6 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 
 		$parserOutput = new ParserOutput();
 		$parserOutput->addLanguageLink( $title );
-
-		// print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) );
-		print_r( 'test2' );
-		// print_r( Title::castFromLinkTarget( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link'] )->isValid() ? 'works' : 'failed' );
-		$test = Title::castFromLinkTarget( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link'] );
-		print_r( \MediaWiki\MediaWikiServices::getInstance()->getInterwikiLookup()->isValidInterwiki( $test->getInterwiki() ) ? 'worked' : 'failed' );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
