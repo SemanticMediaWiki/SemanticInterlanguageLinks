@@ -228,9 +228,10 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		$identity = Title::newFromText( 'Bar' )->toPageIdentity();
 		$category->expects( $this->once() )
 			->method( 'getPage' )
-			->willReturn( Title::newFromText( 'Bar' ) );
+			->willReturn( $identity );
 
 		$instance = new LanguageFilterCategoryViewer(
 			$title,
