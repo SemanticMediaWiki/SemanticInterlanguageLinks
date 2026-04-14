@@ -39,11 +39,11 @@ class InterwikiLanguageLinkFetcher {
 
 		foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) as $languageLink ) {
 
-			if ( strpos( $languageLink, 'sil:' ) !== false ) {
+			if ( !$languageLink || strpos( $languageLink['link'], 'sil:' ) !== false ) {
 				continue;
 			}
 
-			$this->addAnnotationForInterwikiLanguageLink( $languageLink );
+			$this->addAnnotationForInterwikiLanguageLink( $languageLink['link'] );
 		}
 	}
 
