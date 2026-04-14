@@ -3,6 +3,7 @@
 namespace SIL\Tests;
 
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Title\Title;
 use SIL\InterwikiLanguageLinkFetcher;
 
@@ -96,6 +97,8 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 
 		$parserOutput = new ParserOutput();
 		$parserOutput->addLanguageLink( $title );
+
+		print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
