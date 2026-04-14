@@ -71,7 +71,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 
 		print_r( 'test1' );
 		print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) );
-		print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link']->isValid() ? 'works' : 'failed' );
+		print_r( Title::castFromLinkTarget( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link'] )->isValid() ? 'works' : 'failed' );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
@@ -102,7 +102,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 
 		// print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) );
 		print_r( 'test2' );
-		print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link']->isValid() ? 'works' : 'failed' );
+		print_r( Title::castFromLinkTarget( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link'] )->isValid() ? 'works' : 'failed' );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
