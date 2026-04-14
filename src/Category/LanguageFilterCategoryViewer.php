@@ -42,7 +42,8 @@ class LanguageFilterCategoryViewer extends CategoryViewer {
 	 * @see CategoryViewer::addSubcategoryObject
 	 */
 	public function addSubcategoryObject( Category $cat, $sortkey, $pageLength ) {
-		if ( !$this->canMatchCategoryLanguageToPageLanguage( $cat->getTitle() ) ) {
+		$title = Title::newFromPageIdentity( $cat->getPage() );
+		if ( !$this->canMatchCategoryLanguageToPageLanguage( $title ) ) {
 			return null;
 		}
 
