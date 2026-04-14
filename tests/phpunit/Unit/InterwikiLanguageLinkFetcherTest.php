@@ -39,8 +39,6 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
 		$parserOutput = new ParserOutput();
-		$parserOutput->setLanguageLinks( [] );
-
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
 	}
@@ -54,7 +52,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
 		$parserOutput = new ParserOutput();
-		$parserOutput->setLanguageLinks( [ 'sil:en:Foo' ] );
+		$parserOutput->addLanguageLink( 'sil:en:Foo' );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
@@ -69,7 +67,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
 		$parserOutput = new ParserOutput();
-		$parserOutput->setLanguageLinks( [ 'invalid:Foo' ] );
+		$parserOutput->addLanguageLink( 'invalid:Foo' );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
