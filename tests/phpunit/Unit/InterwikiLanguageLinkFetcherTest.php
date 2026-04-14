@@ -99,7 +99,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 
 		$mockLookup = $this->createMock( InterwikiLookup::class );
 		$mockLookup->method( 'isValidInterwiki' )
-			->willReturnCallback( fn ( $key ) => $key === 'en' );
+			->willReturnCallback( static fn ( $key ) => $key === 'en' );
 
 		$services->redefineService(
 			'InterwikiLookup',
