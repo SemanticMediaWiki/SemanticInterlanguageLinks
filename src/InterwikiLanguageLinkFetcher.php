@@ -40,12 +40,18 @@ class InterwikiLanguageLinkFetcher {
 
 		foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) as $languageLink ) {
 
-			if ( !$languageLink || !$languageLink['link'] ) {
+			$languageLink = $languageLink['link'] ?? '';
+			if ( !$languageLink ) {
 				continue;
 			}
 
-			$languageLink = Title::castFromLinkTarget( $languageLink['link'] );
-			if ( strpos( $languageLink, 'sil:' ) !== false ) {
+			$languageLink = Title::makeTitleSafe(
+				$languageLink->getNamespace(),
+				$languageLink->getText(),
+				$languageLink->getFragment(),
+				$languageLink->getInterwiki()
+			);
+			if ( $languageLink === null || strpos( $languageLink, 'sil:' ) !== false ) {
 				continue;
 			}
 
