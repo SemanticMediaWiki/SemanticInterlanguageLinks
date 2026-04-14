@@ -40,7 +40,7 @@ class InterwikiLanguageLink {
 	 */
 	public function getLanguageCode() {
 		$interwiki = $this->interwikiLink->getInterwiki();
-		if ( \MediaWiki\MediaWikiServices::getInstance()->getInterwikiLookup()->isValidInterwiki( $interwiki ) ) {
+		if ( !\MediaWiki\MediaWikiServices::getInstance()->getInterwikiLookup()->isValidInterwiki( $interwiki ) ) {
 			return '';
 		}
 		return $interwiki;
