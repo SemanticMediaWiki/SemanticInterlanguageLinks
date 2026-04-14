@@ -3,6 +3,7 @@
 namespace SIL\Tests\Category;
 
 use ContentHandler;
+use MediaWiki\Category\Category;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
@@ -145,7 +146,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 		$existingPage = $this->getExistingTestPage( $title );
 		$identity = $existingPage->getTitle()->toPageIdentity();
 
-		$category = $this->getMockBuilder( '\Category' )
+		$category = $this->getMockBuilder( Category::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -227,7 +228,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$category = $this->getMockBuilder( '\Category' )
+		$category = $this->getMockBuilder( Category::class )
 			->disableOriginalConstructor()
 			->getMock();
 
