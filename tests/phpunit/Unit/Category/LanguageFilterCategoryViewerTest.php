@@ -151,10 +151,6 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 			->getMock();
 
 		$category->expects( $this->any() )
-			->method( 'getTitle' )
-			->willReturn( Title::newFromText( 'Bar' ) );
-
-		$category->expects( $this->any() )
 			->method( 'getPage' )
 			->willReturn( $identity );
 
@@ -233,7 +229,7 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 			->getMock();
 
 		$category->expects( $this->once() )
-			->method( 'getTitle' )
+			->method( 'getPage' )
 			->willReturn( Title::newFromText( 'Bar' ) );
 
 		$instance = new LanguageFilterCategoryViewer(
