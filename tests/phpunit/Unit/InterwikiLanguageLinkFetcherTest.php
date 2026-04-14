@@ -69,6 +69,8 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$parserOutput = new ParserOutput();
 		$parserOutput->addLanguageLink( 'invalid:Foo' );
 
+		print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) );
+
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
 	}
@@ -96,7 +98,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$parserOutput = new ParserOutput();
 		$parserOutput->addLanguageLink( $title );
 
-		print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) );
+		// print_r( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
