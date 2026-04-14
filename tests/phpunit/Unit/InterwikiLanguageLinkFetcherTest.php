@@ -59,6 +59,17 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testInvalidInterwikiLink() {
+		$GLOBALS['wgInterwikiCache'] = ClassicInterwikiLookup::buildCdbHash( [
+			[
+				'iw_prefix' => 'iw-test',
+				'iw_url' => 'http://www.example.org/$1',
+				'iw_api' => '',
+				'iw_wikiid' => 'foo',
+				'iw_local' => 1,
+			],
+		] );
+		\MediaWiki\MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
+
 		$languageLinkAnnotator = $this->getMockBuilder( '\SIL\LanguageLinkAnnotator' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -80,6 +91,17 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testValidInterwikiLink() {
+		$GLOBALS['wgInterwikiCache'] = ClassicInterwikiLookup::buildCdbHash( [
+			[
+				'iw_prefix' => 'iw-test',
+				'iw_url' => 'http://www.example.org/$1',
+				'iw_api' => '',
+				'iw_wikiid' => 'foo',
+				'iw_local' => 1,
+			],
+		] );
+		\MediaWiki\MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
+
 		$parserData = $this->getMockBuilder( '\SMW\ParserData' )
 			->disableOriginalConstructor()
 			->getMock();
