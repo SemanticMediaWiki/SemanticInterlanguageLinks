@@ -39,11 +39,7 @@ class InterwikiLanguageLink {
 	 * @return string
 	 */
 	public function getLanguageCode() {
-		$interwiki = $this->interwikiLink->getInterwiki();
-		if ( !\MediaWiki\MediaWikiServices::getInstance()->getInterwikiLookup()->isValidInterwiki( $interwiki ) ) {
-			return '';
-		}
-		return $interwiki;
+		return $this->interwikiLink->getInterwiki();
 	}
 
 	/**
