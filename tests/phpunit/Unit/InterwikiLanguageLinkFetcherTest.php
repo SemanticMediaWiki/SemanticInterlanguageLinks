@@ -97,11 +97,8 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$parserOutput = new ParserOutput();
 		$parserOutput->setLanguageLinks( [ $title ] );
 
-		global $wgInterwikiMap;
-		$wgInterwikiMap['en'] = 'https://en.wikipedia.org/wiki/$1';
-
 		print_r( $parserOutput->getLanguageLinks() );
-		print_r( Title::newFromText( 'en:Foo' ) );
+		print_r( Title::newFromText( 'en:en' ) );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
