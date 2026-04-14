@@ -7,6 +7,7 @@ use MediaWiki\Category\Category;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use RequestContext;
 use SIL\Category\LanguageFilterCategoryViewer;
 use WikiPage;
