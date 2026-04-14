@@ -3,6 +3,7 @@
 namespace SIL\Tests;
 
 use MediaWiki\Interwiki\InterwikiLookup;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
 use SIL\InterwikiLanguageLinkFetcher;
