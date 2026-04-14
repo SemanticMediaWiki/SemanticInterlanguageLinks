@@ -2,7 +2,6 @@
 
 namespace SIL\Tests;
 
-use MediaWiki\Title\Title;
 use SIL\InterwikiLanguageLinkFetcher;
 
 /**
@@ -85,16 +84,8 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$languageLinkAnnotator->expects( $this->once() )
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
-		$title = $this->getMockBuilder( Title::class )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$title->expects( $this->any() )
-			->method( 'getInterwiki' )
-			->willReturn( 'en' );
-
 		$parserOutput = new \ParserOutput();
-		$parserOutput->setLanguageLinks( [ $title->getPrefixedText() ] );
+		$parserOutput->setLanguageLinks( [ 'en:Foo' ] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
