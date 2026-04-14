@@ -2,7 +2,8 @@
 
 namespace SIL;
 
-use ParserOutput;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\ParserOutputLinkTypes;
 
 /**
  * @license GPL-2.0-or-later
@@ -36,7 +37,7 @@ class InterwikiLanguageLinkFetcher {
 			return;
 		}
 
-		foreach ( $parserOutput->getLanguageLinks() as $languageLink ) {
+		foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE ) as $languageLink ) {
 
 			if ( strpos( $languageLink, 'sil:' ) !== false ) {
 				continue;
