@@ -2,7 +2,7 @@
 
 namespace SIL\Tests;
 
-use MediaWiki\Interwiki\InterwikiLookup;
+use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
@@ -96,18 +96,16 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 			->method( 'getInterwiki' )
 			->willReturn( 'en' );
 
+		$GLOBALS['wgInterwikiCache'] = ClassicInterwikiLookup::buildCdbHash( [
+			[
+				'iw_prefix' => 'en',
+				'iw_url' => 'http://www.example.org/$1',
+				'iw_api' => '',
+				'iw_wikiid' => 'foo',
+				'iw_local' => 1,
+			],
+		] );
 		MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
-
-		$services = MediaWikiServices::getInstance();
-
-		$mockLookup = $this->createMock( InterwikiLookup::class );
-		$mockLookup->method( 'isValidInterwiki' )
-			->willReturnCallback( static fn ( $key ) => $key === 'en' );
-
-		$services->redefineService(
-			'InterwikiLookup',
-			static fn () => $mockLookup
-		);
 
 		$parserOutput = new ParserOutput();
 		$parserOutput->setLanguageLinks( [ $title ] );
