@@ -3,7 +3,6 @@
 namespace SIL;
 
 use MediaWiki\Title\Title;
-use MediaWiki\Title\TitleValue;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
