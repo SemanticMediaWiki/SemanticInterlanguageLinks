@@ -183,7 +183,12 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 
 		// If page doesn't exist, create it.
 		if ( !$page->exists() ) {
-			$user = RequestContext::getMain()->getUser();
+			$tempUserCreator = MediaWikiServices::getInstance()->getTempUserCreator();
+			if ( $tempUserCreator->isEnabled() ) {
+				$user = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
+			} else {
+				$user = RequestContext::getMain()->getUser();
+			}
 			$page->doUserEditContent(
 				ContentHandler::makeContent(
 					'Test content for LFCVT',
