@@ -2,6 +2,8 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Title\Title;
 use SIL\InterwikiLanguageLinkFetcher;
 
 /**
@@ -35,7 +37,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$languageLinkAnnotator->expects( $this->never() )
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
-		$parserOutput = new \ParserOutput();
+		$parserOutput = new ParserOutput();
 		$parserOutput->setLanguageLinks( [] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
@@ -50,7 +52,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$languageLinkAnnotator->expects( $this->never() )
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
-		$parserOutput = new \ParserOutput();
+		$parserOutput = new ParserOutput();
 		$parserOutput->setLanguageLinks( [ 'sil:en:Foo' ] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
@@ -65,7 +67,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$languageLinkAnnotator->expects( $this->never() )
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
-		$parserOutput = new \ParserOutput();
+		$parserOutput = new ParserOutput();
 		$parserOutput->setLanguageLinks( [ 'invalid:Foo' ] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
@@ -84,8 +86,18 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$languageLinkAnnotator->expects( $this->once() )
 			->method( 'addAnnotationForInterwikiLanguageLink' );
 
-		$parserOutput = new \ParserOutput();
-		$parserOutput->setLanguageLinks( [ 'en:Foo' ] );
+		$title = $this->getMockBuilder( Title::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$title->expects( $this->any() )
+			->method( 'getInterwiki' )
+			->willReturn( 'en' );
+
+		$parserOutput = new ParserOutput();
+		$parserOutput->setLanguageLinks( [ $title ] );
+
+		print_r( $parserOutput->getLanguageLinks() );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
