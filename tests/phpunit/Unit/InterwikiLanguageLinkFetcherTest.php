@@ -94,16 +94,16 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		$title->expects( $this->any() )
 			->method( 'getInterwiki' )
 			->willReturn( 'en' );
-		
+
 		$services = MediaWikiServices::getInstance();
-		
+
 		$mockLookup = $this->createMock( InterwikiLookup::class );
 		$mockLookup->method( 'isValidInterwiki' )
-			->willReturnCallback( fn( $key ) => $key === 'en' );
-		
+			->willReturnCallback( fn ( $key ) => $key === 'en' );
+
 		$services->redefineService(
 			'InterwikiLookup',
-			static fn() => $mockLookup
+			static fn () => $mockLookup
 		);
 
 		$parserOutput = new ParserOutput();
