@@ -20,6 +20,7 @@
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
+            <file>SemanticInterlanguageLinks.php</file>
         </whitelist>
     </filter>
     <php>
