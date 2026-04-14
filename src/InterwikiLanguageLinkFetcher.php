@@ -51,6 +51,9 @@ class InterwikiLanguageLinkFetcher {
 				$languageLink->getFragment(),
 				$languageLink->getInterwiki()
 			);
+			print_r( 'hello' );
+			print_r( $languageLink );
+			print_r( strpos( $languageLink, 'sil:' ) );
 			if ( $languageLink === null || strpos( $languageLink, 'sil:' ) !== false ) {
 				continue;
 			}
