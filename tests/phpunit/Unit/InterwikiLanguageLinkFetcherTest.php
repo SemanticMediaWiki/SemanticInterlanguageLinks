@@ -96,6 +96,8 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 			->method( 'getInterwiki' )
 			->willReturn( 'en' );
 
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'InterwikiLookup' );
+
 		$services = MediaWikiServices::getInstance();
 
 		$mockLookup = $this->createMock( InterwikiLookup::class );
