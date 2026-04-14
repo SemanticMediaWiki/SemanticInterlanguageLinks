@@ -2,6 +2,7 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Title\Title;
