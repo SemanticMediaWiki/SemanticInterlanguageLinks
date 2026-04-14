@@ -106,7 +106,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 		print_r( 'test2' );
 		// print_r( Title::castFromLinkTarget( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link'] )->isValid() ? 'works' : 'failed' );
 		$test = Title::castFromLinkTarget( $parserOutput->getLinkList( ParserOutputLinkTypes::LANGUAGE )[0]['link'] );
-		print_r( Title::getInterwikiLookup()->isValidInterwiki( $test->getInterwiki() ) ? 'worked' : 'failed' );
+		print_r( \MediaWiki\MediaWikiServices::getInstance()->getInterwikiLookup()->isValidInterwiki( $test->getInterwiki() ) ? 'worked' : 'failed' );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
