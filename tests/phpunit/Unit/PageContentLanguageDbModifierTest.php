@@ -2,8 +2,8 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\PageContentLanguageDbModifier;
-use Title;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -18,7 +18,7 @@ use Wikimedia\TestingAccessWrapper;
 class PageContentLanguageDbModifierTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanConstruct() {
-		$title = $this->getMockBuilder( '\Title' )
+		$title = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 

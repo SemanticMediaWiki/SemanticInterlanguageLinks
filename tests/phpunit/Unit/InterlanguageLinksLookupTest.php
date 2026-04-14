@@ -2,13 +2,13 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\InterlanguageLink;
 use SIL\InterlanguageLinksLookup;
 use SMW\DataValueFactory;
 use SMW\DIWikiPage;
 use SMW\PropertyRegistry;
 use SMWDIBlob as DIBlob;
-use Title;
 
 /**
  * @covers \SIL\InterlanguageLinksLookup

@@ -2,9 +2,9 @@
 
 namespace SIL\Search;
 
+use MediaWiki\Title\Title;
 use SearchResult;
 use SearchResultSet;
-use Title;
 
 /**
  * @license GPL-2.0-or-later

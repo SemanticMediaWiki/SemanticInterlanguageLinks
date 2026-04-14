@@ -2,10 +2,9 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\InterlanguageLink;
 use SIL\PropertyRegistry;
-use SMW\Tests\PHPUnitCompat;
-use Title;
 
 /**
  * @covers \SIL\InterlanguageLink
@@ -18,8 +17,6 @@ use Title;
  * @author mwjames
  */
 class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
@@ -37,7 +34,7 @@ class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\Title',
+			Title::class,
 			$instance->getLinkReference()
 		);
 	}
@@ -79,7 +76,7 @@ class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
 	public function testGetHash() {
 		$instance = new InterlanguageLink( 'en', 'Foo' );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'en#Foo',
 			$instance->getHash()
 		);
@@ -88,7 +85,7 @@ class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
 	public function testGetContainerId() {
 		$instance = new InterlanguageLink( 'en', 'Foo' );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'ill.en',
 			$instance->getContainerId()
 		);

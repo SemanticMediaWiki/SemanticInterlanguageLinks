@@ -2,6 +2,7 @@
 
 namespace SIL\Tests\Search;
 
+use MediaWiki\Title\Title;
 use SIL\Search\MappedSearchResultSet;
 
 /**
@@ -60,7 +61,7 @@ class MappedSearchResultSetTest extends \PHPUnit\Framework\TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$fakeTitle = $this->getMockBuilder( '\Title' )
+		$fakeTitle = $this->getMockBuilder( Title::class )
 			->disableOriginalConstructor()
 			->getMock();
 

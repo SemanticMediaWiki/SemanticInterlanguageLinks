@@ -2,8 +2,8 @@
 
 namespace SIL;
 
+use MediaWiki\Title\Title;
 use Onoi\Cache\Cache;
-use Title;
 
 /**
  * Modifies the content language based on the SIL annotation found

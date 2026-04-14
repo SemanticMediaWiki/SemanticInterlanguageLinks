@@ -2,7 +2,6 @@
 
 namespace SIL\Tests\Integration;
 
-use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\Utils\UtilityFactory;
 
 /**
@@ -18,8 +17,6 @@ use SMW\Tests\Utils\UtilityFactory;
  */
 class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
 
-	use PHPUnitCompat;
-
 	/**
 	 * @covers I18nJsonFileIntegrity
 	 * @dataProvider i18nFileProvider
@@ -28,12 +25,10 @@ class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
 		$jsonFileReader = UtilityFactory::getInstance()->newJsonFileReader( $file );
 
 		$this->assertIsInt(
-
 			$jsonFileReader->getModificationTime()
 		);
 
 		$this->assertIsArray(
-
 			$jsonFileReader->read()
 		);
 	}

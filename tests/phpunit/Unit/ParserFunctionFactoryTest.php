@@ -3,8 +3,8 @@
 namespace SIL\Tests;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SIL\ParserFunctionFactory;
-use Title;
 
 /**
  * @covers \SIL\ParserFunctionFactory

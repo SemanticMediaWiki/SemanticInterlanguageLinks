@@ -3,8 +3,8 @@
 namespace SIL\Tests;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SIL\InterlanguageListParserFunction;
-use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\InterlanguageListParserFunction
@@ -16,8 +16,6 @@ use SMW\Tests\PHPUnitCompat;
  * @author mwjames
  */
 class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -41,17 +39,17 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 			$interlanguageLinksLookup
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="smw-callout smw-callout-error"',
 			$instance->parse( '', 'Foo' )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="smw-callout smw-callout-error"',
 			$instance->parse( 'Foo', '' )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'div class="smw-callout smw-callout-error"',
 			$instance->parse( '{[[:Template:Foo]]', 'en' )
 		);
@@ -119,7 +117,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 		];
 
 		$provider[] = [
-			[ 'ja' => \Title::newFromText( 'テスト' ) ],
+			[ 'ja' => Title::newFromText( 'テスト' ) ],
 			'{{FakeTemplate' .
 			'|#=0' .
 			'|target-link=テスト' .
@@ -128,7 +126,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 		];
 
 		$provider[] = [
-			[ 'zh-hans' => \Title::newFromText( '分类：汉字' ) ],
+			[ 'zh-hans' => Title::newFromText( '分类：汉字' ) ],
 			'{{FakeTemplate' .
 			'|#=0' .
 			'|target-link=分类：汉字' .
@@ -140,7 +138,7 @@ class InterlanguageListParserFunctionTest extends \PHPUnit\Framework\TestCase {
 		$categoryNS = $contLang->getNsText( NS_CATEGORY );
 
 		$provider[] = [
-			[ 'zh-hans' => \Title::newFromText( 'Category:汉字' ) ],
+			[ 'zh-hans' => Title::newFromText( 'Category:汉字' ) ],
 			'{{FakeTemplate' .
 			'|#=0' .
 			"|target-link=:$categoryNS:汉字" .

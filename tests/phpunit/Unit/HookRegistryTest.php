@@ -3,9 +3,8 @@
 namespace SIL\Tests;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SIL\HookRegistry;
-use SMW\Tests\PHPUnitCompat;
-use Title;
 
 /**
  * @covers \SIL\HookRegistry
@@ -17,8 +16,6 @@ use Title;
  * @author mwjames
  */
 class HookRegistryTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	private $cache;
 	private $store;
@@ -270,7 +267,6 @@ class HookRegistryTest extends \PHPUnit\Framework\TestCase {
 
 	private function assertThatHookIsExcutable( \Closure $handler, $arguments ) {
 		$this->assertIsBool(
-
 			call_user_func_array( $handler, $arguments )
 		);
 	}

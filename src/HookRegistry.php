@@ -124,7 +124,7 @@ class HookRegistry {
 	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
 		$pageContentLanguageOnTheFlyModifier = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
-			InMemoryPoolCache::getInstance()->getPoolCacheFor( PageContentLanguageOnTheFlyModifier::POOLCACHE_ID )
+			InMemoryPoolCache::getInstance()->getPoolCacheById( PageContentLanguageOnTheFlyModifier::POOLCACHE_ID )
 		);
 
 		/**

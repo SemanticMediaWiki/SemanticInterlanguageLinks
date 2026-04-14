@@ -2,11 +2,11 @@
 
 namespace SIL;
 
+use MediaWiki\Title\Title;
 use SMW\DataValueFactory;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
 use SMWDIBlob as DIBlob;
-use Title;
 
 /**
  * Represents an object for a manual annotation such as [[en:Foo]] where
@@ -27,7 +27,7 @@ class InterwikiLanguageLink {
 	/**
 	 * @since 1.0
 	 *
-	 * @param string $interwikiLink
+	 * @param Title|string $interwikiLink
 	 */
 	public function __construct( $interwikiLink ) {
 		$this->interwikiLink = $interwikiLink instanceof Title ? $interwikiLink : Title::newFromText( $interwikiLink );
@@ -75,7 +75,7 @@ class InterwikiLanguageLink {
 	 * @return DataValue
 	 */
 	public function newLanguageDataValue() {
-		return DataValueFactory::getInstance()->newDataItemValue(
+		return DataValueFactory::getInstance()->newDataValueByItem(
 			new DIBlob( $this->getLanguageCode() ),
 			new DIProperty( PropertyRegistry::SIL_IWL_LANG )
 		);
@@ -87,7 +87,7 @@ class InterwikiLanguageLink {
 	 * @return DataValue
 	 */
 	public function newInterwikiReferenceDataValue() {
-		return DataValueFactory::getInstance()->newDataItemValue(
+		return DataValueFactory::getInstance()->newDataValueByItem(
 			DIWikiPage::newFromTitle( $this->getInterwikiReference() ),
 			new DIProperty( PropertyRegistry::SIL_IWL_REF )
 		);

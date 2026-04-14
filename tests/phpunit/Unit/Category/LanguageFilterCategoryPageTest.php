@@ -2,6 +2,7 @@
 
 namespace SIL\Tests\Category;
 
+use MediaWiki\Title\Title;
 use SIL\Category\LanguageFilterCategoryPage;
 
 /**
@@ -27,7 +28,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testDisabledCategoryFilter() {
-		$instance = new LanguageFilterCategoryPage( \Title::newFromText( 'Foo', NS_CATEGORY ) );
+		$instance = new LanguageFilterCategoryPage( Title::newFromText( 'Foo', NS_CATEGORY ) );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -45,7 +46,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testDisabledForNonCategoryNamespace() {
-		$instance = new LanguageFilterCategoryPage( \Title::newFromText( 'Foo', NS_MAIN ) );
+		$instance = new LanguageFilterCategoryPage( Title::newFromText( 'Foo', NS_MAIN ) );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -63,7 +64,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testEnabledCategoryFilter() {
-		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
+		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -98,7 +99,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testInfoMessageByOpenShowCategoryForEnabledLanguageFilter() {
-		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
+		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -137,7 +138,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testNoInfoMessageByOpenShowCategoryForNonAvailableLanguage() {
-		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
+		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
 			->disableOriginalConstructor()
@@ -163,7 +164,7 @@ class LanguageFilterCategoryPageTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testNoInfoMessageByOpenShowCategory() {
-		$title = \Title::newFromText( 'Foo', NS_CATEGORY );
+		$title = Title::newFromText( 'Foo', NS_CATEGORY );
 
 		$context = $this->getMockBuilder( '\IContextSource' )
 			->disableOriginalConstructor()

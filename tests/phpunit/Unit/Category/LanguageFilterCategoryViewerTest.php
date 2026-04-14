@@ -3,10 +3,13 @@
 namespace SIL\Tests\Category;
 
 use ContentHandler;
+use MediaWiki\Category\Category;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use RequestContext;
 use SIL\Category\LanguageFilterCategoryViewer;
-use Title;
 use WikiPage;
 
 /**
@@ -29,6 +32,20 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
+		if ( version_compare( MW_VERSION, '1.44', '>=' ) && version_compare( MW_VERSION, '1.45', '<' ) ) {
+			$config->method( 'get' )
+				->willReturnMap( [
+					[ MainConfigNames::CategoryPagingLimit, 200 ],
+					[ MainConfigNames::CategoryMagicGallery, false ],
+					[ MainConfigNames::CategoryLinksSchemaMigrationStage, SCHEMA_COMPAT_READ_OLD ],
+				] );
+		} else {
+			$config->method( 'get' )
+				->willReturnMap( [
+					[ MainConfigNames::CategoryPagingLimit, 200 ],
+					[ MainConfigNames::CategoryMagicGallery, false ],
+				] );
+		}
 		$outputPage = $this->getMockBuilder( '\OutputPage' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -130,13 +147,9 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 		$existingPage = $this->getExistingTestPage( $title );
 		$identity = $existingPage->getTitle()->toPageIdentity();
 
-		$category = $this->getMockBuilder( '\Category' )
+		$category = $this->getMockBuilder( Category::class )
 			->disableOriginalConstructor()
 			->getMock();
-
-		$category->expects( $this->any() )
-			->method( 'getTitle' )
-			->willReturn( Title::newFromText( 'Bar' ) );
 
 		$category->expects( $this->any() )
 			->method( 'getPage' )
@@ -168,7 +181,12 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 
 		// If page doesn't exist, create it.
 		if ( !$page->exists() ) {
-			$user = RequestContext::getMain()->getUser();
+			$tempUserCreator = MediaWikiServices::getInstance()->getTempUserCreator();
+			if ( $tempUserCreator->isEnabled() ) {
+				$user = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
+			} else {
+				$user = RequestContext::getMain()->getUser();
+			}
 			$page->doUserEditContent(
 				ContentHandler::makeContent(
 					'Test content for LFCVT',
@@ -207,13 +225,14 @@ class LanguageFilterCategoryViewerTest extends \PHPUnit\Framework\TestCase {
 
 		$title->interlanguageLinksLookup = $interlanguageLinksLookup;
 
-		$category = $this->getMockBuilder( '\Category' )
+		$category = $this->getMockBuilder( Category::class )
 			->disableOriginalConstructor()
 			->getMock();
 
+		$identity = Title::newFromText( 'Bar' )->toPageIdentity();
 		$category->expects( $this->once() )
-			->method( 'getTitle' )
-			->willReturn( Title::newFromText( 'Bar' ) );
+			->method( 'getPage' )
+			->willReturn( $identity );
 
 		$instance = new LanguageFilterCategoryViewer(
 			$title,

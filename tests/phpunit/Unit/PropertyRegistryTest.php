@@ -35,15 +35,15 @@ class PropertyRegistryTest extends \PHPUnit\Framework\TestCase {
 		$instance->register( $propertyRegistry );
 
 		$this->assertNotEmpty(
-			$semanticMediaWikiPropertyRegistry->findPropertyLabel( PropertyRegistry::SIL_ILL_LANG )
+			$semanticMediaWikiPropertyRegistry->findPropertyLabelById( PropertyRegistry::SIL_ILL_LANG )
 		);
 
 		$this->assertNotEmpty(
-			$semanticMediaWikiPropertyRegistry->findPropertyLabel( PropertyRegistry::SIL_ILL_REF )
+			$semanticMediaWikiPropertyRegistry->findPropertyLabelById( PropertyRegistry::SIL_ILL_REF )
 		);
 
 		$this->assertNotEmpty(
-			$semanticMediaWikiPropertyRegistry->findPropertyLabel( PropertyRegistry::SIL_CONTAINER )
+			$semanticMediaWikiPropertyRegistry->findPropertyLabelById( PropertyRegistry::SIL_CONTAINER )
 		);
 	}
 
@@ -58,15 +58,15 @@ class PropertyRegistryTest extends \PHPUnit\Framework\TestCase {
 		$instance->register( $propertyRegistry );
 
 		$this->assertNotEmpty(
-			$semanticMediaWikiPropertyRegistry->findPropertyLabel( PropertyRegistry::SIL_IWL_LANG )
+			$semanticMediaWikiPropertyRegistry->findPropertyLabelById( PropertyRegistry::SIL_IWL_LANG )
 		);
 
 		$this->assertNotEmpty(
-			$semanticMediaWikiPropertyRegistry->findPropertyLabel( PropertyRegistry::SIL_IWL_REF )
+			$semanticMediaWikiPropertyRegistry->findPropertyLabelById( PropertyRegistry::SIL_IWL_REF )
 		);
 
 		$this->assertNotEmpty(
-			$semanticMediaWikiPropertyRegistry->findPropertyLabel( PropertyRegistry::SIL_CONTAINER )
+			$semanticMediaWikiPropertyRegistry->findPropertyLabelById( PropertyRegistry::SIL_CONTAINER )
 		);
 	}
 

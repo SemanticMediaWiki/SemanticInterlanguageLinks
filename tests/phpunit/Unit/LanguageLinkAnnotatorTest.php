@@ -2,6 +2,7 @@
 
 namespace SIL\Tests;
 
+use MediaWiki\Title\Title;
 use SIL\InterlanguageLink;
 use SIL\InterwikiLanguageLink;
 use SIL\LanguageLinkAnnotator;
@@ -84,7 +85,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 
 		$parserData->expects( $this->once() )
 			->method( 'getTitle' )
-			->willReturn( \Title::newFromText( 'Foo' ) );
+			->willReturn( Title::newFromText( 'Foo' ) );
 
 		$parserData->expects( $this->once() )
 			->method( 'getSemanticData' )
@@ -114,7 +115,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 
 		$parserData->expects( $this->once() )
 			->method( 'getTitle' )
-			->willReturn( \Title::newFromText( 'Foo' ) );
+			->willReturn( Title::newFromText( 'Foo' ) );
 
 		$parserData->expects( $this->once() )
 			->method( 'getSemanticData' )

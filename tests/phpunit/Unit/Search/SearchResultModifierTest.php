@@ -3,7 +3,6 @@
 namespace SIL\Tests\Search;
 
 use SIL\Search\SearchResultModifier;
-use SMW\Tests\PHPUnitCompat;
 
 /**
  * @covers \SIL\Search\SearchResultModifier
@@ -16,8 +15,6 @@ use SMW\Tests\PHPUnitCompat;
  * @author mwjames
  */
 class SearchResultModifierTest extends \PHPUnit\Framework\TestCase {
-
-	use PHPUnitCompat;
 
 	public function testCanConstruct() {
 		$languageResultMatchFinder = $this->getMockBuilder( '\SIL\Search\LanguageResultMatchFinder' )
@@ -47,7 +44,6 @@ class SearchResultModifierTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$this->assertIsArray(
-
 			$profiles['sil']['namespaces']
 		);
 	}
@@ -97,12 +93,12 @@ class SearchResultModifierTest extends \PHPUnit\Framework\TestCase {
 			$instance->addSearchProfileForm( $specialSearch, 'sil', $form, $opts )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'languagefilter',
 			$form
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'Foo',
 			$form
 		);
@@ -234,7 +230,6 @@ class SearchResultModifierTest extends \PHPUnit\Framework\TestCase {
 		$instance = new SearchResultModifier( $languageResultMatchFinder );
 
 		$this->assertIsString(
-
 			$instance->createHtmlLanguageFilterSelector( 'en' )
 		);
 	}

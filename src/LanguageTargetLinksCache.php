@@ -2,9 +2,9 @@
 
 namespace SIL;
 
+use MediaWiki\Title\Title;
 use Onoi\Cache\Cache;
 use SMW\DIWikiPage;
-use Title;
 
 /**
  * To make a page view responsive and avoid a repetitive or exhausting query

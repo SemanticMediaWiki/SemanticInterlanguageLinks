@@ -3,12 +3,11 @@
 namespace SIL\Tests\Integration;
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
-use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\SMWIntegrationTestCase;
 use SMW\Tests\Utils\UtilityFactory;
-use Title;
 
 /**
  * @group semantic-interlanguage-links
@@ -22,8 +21,6 @@ use Title;
  * @author mwjames
  */
 class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
-
-	use PHPUnitCompat;
 
 	private $pageCreator;
 	private $semanticDataValidator;
@@ -172,12 +169,12 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 
 		$text = $this->pageCreator->getEditInfo()->getOutput()->getText();
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'title="InterlanguageListParserTargetEn">English</a>',
 			$text
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'title="InterlanguageListParserTargetJa">日本語</a>',
 			$text
 		);
@@ -204,12 +201,12 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 
 		$text = $this->pageCreator->getEditInfo()->getOutput()->getText();
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'title="InterlanguageLinkParserTargetEn">InterlanguageLinkParserTargetEn</a>',
 			$text
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'title="InterlanguageLinkParserTargetJa">InterlanguageLinkParserTargetJa</a>',
 			$text
 		);
@@ -236,13 +233,13 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 
 		$text = $this->pageCreator->getEditInfo()->getOutput()->getText();
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'title="InterlanguageLinkByLanguageParserTargetEn">'
 			. 'InterlanguageLinkByLanguageParserTargetEn</a>',
 			$text
 		);
 
-		$this->assertNotContains(
+		$this->assertStringContainsString(
 			'title="InterlanguageLinkByLanguageParserTargetJa">'
 			. 'InterlanguageLinkByLanguageParserTargetJa</a>',
 			$text
