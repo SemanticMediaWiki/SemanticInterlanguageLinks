@@ -5,7 +5,6 @@ namespace SIL\Tests;
 use MediaWiki\Interwiki\ClassicInterwikiLookup;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
-use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Title\Title;
 use SIL\InterwikiLanguageLinkFetcher;
 
