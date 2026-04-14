@@ -94,7 +94,7 @@ class InterwikiLanguageLinkFetcherTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( 'en' );
 
 		$parserOutput = new \ParserOutput();
-		$parserOutput->setLanguageLinks( [ $title ] );
+		$parserOutput->setLanguageLinks( [ $title->getPrefixedText() ] );
 
 		$instance = new InterwikiLanguageLinkFetcher( $languageLinkAnnotator );
 		$instance->fetchLanguagelinksFromParserOutput( $parserOutput );
