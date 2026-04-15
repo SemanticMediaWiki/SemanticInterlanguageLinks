@@ -1,8 +1,8 @@
 # Semantic Interlanguage Links
 
+[![CI](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/actions/workflows/main.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/actions/workflows/main.yml)
 [![Build Status](https://secure.travis-ci.org/SemanticMediaWiki/SemanticInterlanguageLinks.svg?branch=master)](http://travis-ci.org/SemanticMediaWiki/SemanticInterlanguageLinks)
 [![Code Coverage](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticInterlanguageLinks/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticInterlanguageLinks/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticInterlanguageLinks/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticInterlanguageLinks/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-interlanguage-links/version.png)](https://packagist.org/packages/mediawiki/semantic-interlanguage-links)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-interlanguage-links/d/total.png)](https://packagist.org/packages/mediawiki/semantic-interlanguage-links)
 
@@ -22,9 +22,9 @@ This [video](https://vimeo.com/115871518) demonstrates the functionality of the 
 
 ## Requirements
 
-- PHP 7.1 or later
-- MediaWiki 1.35 or later
-- [Semantic MediaWiki][smw] 3.0 or later
+- PHP 8.1 or later
+- MediaWiki 1.43 or later
+- [Semantic MediaWiki][smw] 6.0 or later
 
 ## Installation
 
