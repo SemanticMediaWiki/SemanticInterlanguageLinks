@@ -38,7 +38,9 @@ class LanguageResultMatchFinder {
 	public function matchResultsToLanguage( SearchResultSet $matches, $languageCode ) {
 		$mappedMatches = [];
 
-		while ( $searchresult = $matches->next() ) {
+		$matches = $matches->extractResults();
+
+		foreach ( $matches as $searchresult ) {
 
 			$title = $searchresult->getTitle();
 
