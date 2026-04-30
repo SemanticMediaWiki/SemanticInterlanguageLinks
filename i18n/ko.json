@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Nuevo Paso",
+			"Tensama0415",
 			"Ykhwong"
 		]
 	},
@@ -11,6 +12,9 @@
 	"sil-property-iwl-alias-language": "인터위키 언어",
 	"sil-property-iwl-alias-reference": "인터위키 참조",
 	"sil-property-alias-container": "언어 간 링크가 있습니다",
+	"smw-pa-property-predefined__sil_container": "\"$1\"은 [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Breadcrumb_Links 시맨틱 언어 간 링크] 확장 기능에서 제공하는 미리 정의된 속성으로, 언어 간 링크 관련 정보를 서술하기 위한 컨테이너 개체를 나타냅니다.",
+	"smw-pa-property-predefined__sil_ill_lang": "\"$1\"은 [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Breadcrumb_Links 시맨틱 언어 간 링크] 확장 기능에서 제공하는 미리 정의된 속성으로, 주석 처리된 언어 코드를 포함합니다.",
+	"smw-pa-property-predefined__sil_ill_ref": "\"$1\"은 [https://www.semantic-mediawiki.org/wiki/Extension:Semantic_Breadcrumb_Links 시맨틱 언어 간 링크] 확장 기능에서 제공하는 미리 정의된 속성으로, 임의의 참조를 포함합니다.",
 	"sil-interlanguagelink-hideinterlanguagelinks": "<code>$wgHideInterlanguageLinks</code>가 설정되어 있기 때문에 파서 함수를 사용할 수 없습니다.",
 	"sil-interlanguagelink-invalidlanguagecode": "\"$1\"는 유효한 언어 코드로 인식되지 않습니다.",
 	"sil-interlanguagelist-missing-linkreference": "파서 함수에 유효한 참조가 없습니다.",
