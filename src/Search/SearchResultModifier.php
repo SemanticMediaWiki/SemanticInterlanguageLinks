@@ -145,7 +145,9 @@ class SearchResultModifier {
 			return false;
 		}
 
-		$languageCode = Localizer::asBCP47FormattedLanguageCode( $request->getVal( 'languagefilter' ) );
+		$languageCode = Localizer::asBCP47FormattedLanguageCode(
+			$request->getVal( 'languagefilter' ) ?? ''
+		);
 
 		if ( in_array( $languageCode, [ null, '', '-' ] ) ) {
 			return false;
