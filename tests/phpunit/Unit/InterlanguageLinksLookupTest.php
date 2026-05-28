@@ -73,7 +73,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 		$title = Title::newFromText( __METHOD__ );
 
 		$verifyPropertyTypeId = static function ( $property ) {
-			return $property->findPropertyTypeID() === '_txt';
+			return $property->findPropertyValueType() === '_txt';
 		};
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
