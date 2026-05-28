@@ -94,9 +94,6 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 		$parserData->expects( $this->once() )
 			->method( 'copyToParserOutput' );
 
-		$parserData->expects( $this->once() )
-			->method( 'copyToParserOutput' );
-
 		$instance = new LanguageLinkAnnotator( $parserData );
 
 		$instance->addAnnotationForInterlanguageLink(
@@ -120,9 +117,6 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 		$parserData->expects( $this->once() )
 			->method( 'getSemanticData' )
 			->willReturn( $semanticData );
-
-		$parserData->expects( $this->once() )
-			->method( 'copyToParserOutput' );
 
 		$parserData->expects( $this->once() )
 			->method( 'copyToParserOutput' );
