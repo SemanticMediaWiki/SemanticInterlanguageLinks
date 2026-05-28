@@ -95,7 +95,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 			->method( 'copyToParserOutput' );
 
 		$parserData->expects( $this->once() )
-			->method( 'setSemanticDataStateToParserOutputProperty' );
+			->method( 'copyToParserOutput' );
 
 		$instance = new LanguageLinkAnnotator( $parserData );
 
@@ -125,7 +125,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 			->method( 'copyToParserOutput' );
 
 		$parserData->expects( $this->once() )
-			->method( 'setSemanticDataStateToParserOutputProperty' );
+			->method( 'copyToParserOutput' );
 
 		$instance = new LanguageLinkAnnotator( $parserData );
 
