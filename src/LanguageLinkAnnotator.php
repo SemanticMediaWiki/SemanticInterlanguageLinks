@@ -89,8 +89,7 @@ class LanguageLinkAnnotator {
 			$subobject->getContainer()
 		);
 
-		$this->parserData->pushSemanticDataToParserOutput();
-		$this->parserData->setSemanticDataStateToParserOutputProperty();
+		$this->parserData->copyToParserOutput();
 	}
 
 	/**
@@ -115,8 +114,7 @@ class LanguageLinkAnnotator {
 			$subobject->getContainer()
 		);
 
-		$this->parserData->pushSemanticDataToParserOutput();
-		$this->parserData->setSemanticDataStateToParserOutputProperty();
+		$this->parserData->copyToParserOutput();
 	}
 
 }
