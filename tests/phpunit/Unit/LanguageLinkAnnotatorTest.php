@@ -92,7 +92,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( $semanticData );
 
 		$parserData->expects( $this->once() )
-			->method( 'pushSemanticDataToParserOutput' );
+			->method( 'copyToParserOutput' );
 
 		$parserData->expects( $this->once() )
 			->method( 'setSemanticDataStateToParserOutputProperty' );
@@ -122,7 +122,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 			->willReturn( $semanticData );
 
 		$parserData->expects( $this->once() )
-			->method( 'pushSemanticDataToParserOutput' );
+			->method( 'copyToParserOutput' );
 
 		$parserData->expects( $this->once() )
 			->method( 'setSemanticDataStateToParserOutputProperty' );
