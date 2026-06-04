@@ -19,15 +19,6 @@ class Setup {
 	 * @since 1.3
 	 */
 	public static function onExtensionFunction() {
-		// Legacy
-		if ( isset( $GLOBALS['egSILEnabledCategoryFilterByLanguage'] ) ) {
-			$GLOBALS['silgEnabledCategoryFilterByLanguage'] = $GLOBALS['egSILEnabledCategoryFilterByLanguage'];
-		}
-
-		if ( isset( $GLOBALS['egSILCacheType'] ) ) {
-			$GLOBALS['silgCacheType'] = $GLOBALS['egSILCacheType'];
-		}
-
 		$cacheFactory = new CacheFactory();
 
 		$compositeCache = $cacheFactory->newCompositeCache( [

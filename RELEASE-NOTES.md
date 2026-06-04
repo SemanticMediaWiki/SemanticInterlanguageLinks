@@ -15,6 +15,9 @@ Not yet released.
 * Migrated the extension registration fully into `extension.json` (settings, messages, magic
   words and hooks are now declared declaratively), removing the legacy `DefaultSettings.php` and
   the `SemanticInterlanguageLinks.php` entry point
+* Removed support for the long-deprecated `$egSILCacheType` and
+  `$egSILEnabledCategoryFilterByLanguage` settings; use `$silgCacheType` and
+  `$silgEnabledCategoryFilterByLanguage` instead
 
 ### 2.1.0
 
