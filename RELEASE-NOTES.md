@@ -1,5 +1,18 @@
 This file contains the RELEASE-NOTES of the **Semantic Interlanguage Links** (a.k.a. SIL) extension.
 
+### 3.0.0
+
+Not yet released.
+
+* Added support for Semantic MediaWiki 7.0
+* Raised the minimum requirements
+  * Semantic MediaWiki changed to version 7.0 and later
+  * MediaWiki changed to version 1.43 and later
+  * PHP changed to version 8.1 and later
+* Replaced the deprecated `SMW\DIWikiPage`, `SMW\DIProperty`, `SMW\Subobject`, `SMWQuery`,
+  `SMWDIBlob` and `SMWDataValue` class aliases with their new Semantic MediaWiki 7.0 namespaced
+  class names
+
 ### 2.1.0
 
 Released on April 2, 2020.

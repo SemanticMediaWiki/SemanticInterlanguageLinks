@@ -4,7 +4,7 @@ namespace SIL;
 
 use MediaWiki\Title\Title;
 use Onoi\Cache\Cache;
-use SMW\DIWikiPage;
+use SMW\DataItems\WikiPage;
 
 /**
  * To make a page view responsive and avoid a repetitive or exhausting query
@@ -152,12 +152,12 @@ class LanguageTargetLinksCache {
 	/**
 	 * @since 1.0
 	 *
-	 * @param DIWikiPage[] $linkReferences
+	 * @param WikiPage[] $linkReferences
 	 */
 	public function deleteLanguageTargetLinksFromCache( array $linkReferences ) {
 		foreach ( $linkReferences as $linkReference ) {
 
-			if ( !$linkReference instanceof DIWikiPage ) {
+			if ( !$linkReference instanceof WikiPage ) {
 				continue;
 			}
 

@@ -3,10 +3,10 @@
 namespace SIL;
 
 use MediaWiki\Title\Title;
+use SMW\DataItems\Blob;
+use SMW\DataItems\Property;
+use SMW\DataItems\WikiPage;
 use SMW\DataValueFactory;
-use SMW\DIProperty;
-use SMW\DIWikiPage;
-use SMWDIBlob as DIBlob;
 
 /**
  * @license GPL-2.0-or-later
@@ -80,8 +80,8 @@ class InterlanguageLink {
 	 */
 	public function newLanguageDataValue() {
 		return DataValueFactory::getInstance()->newDataValueByItem(
-			new DIBlob( $this->getLanguageCode() ),
-			new DIProperty( PropertyRegistry::SIL_ILL_LANG )
+			new Blob( $this->getLanguageCode() ),
+			new Property( PropertyRegistry::SIL_ILL_LANG )
 		);
 	}
 
@@ -92,18 +92,18 @@ class InterlanguageLink {
 	 */
 	public function newLinkReferenceDataValue() {
 		return DataValueFactory::getInstance()->newDataValueByItem(
-			DIWikiPage::newFromTitle( $this->getLinkReference() ),
-			new DIProperty( PropertyRegistry::SIL_ILL_REF )
+			WikiPage::newFromTitle( $this->getLinkReference() ),
+			new Property( PropertyRegistry::SIL_ILL_REF )
 		);
 	}
 
 	/**
 	 * @since 1.0
 	 *
-	 * @return DIProperty
+	 * @return Property
 	 */
 	public function newContainerProperty() {
-		return new DIProperty( PropertyRegistry::SIL_CONTAINER );
+		return new Property( PropertyRegistry::SIL_CONTAINER );
 	}
 
 }

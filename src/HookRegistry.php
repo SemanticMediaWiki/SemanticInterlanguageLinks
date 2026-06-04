@@ -4,8 +4,8 @@ namespace SIL;
 
 use MediaWiki\MediaWikiServices;
 use Onoi\Cache\Cache;
+use Onoi\Cache\CacheFactory;
 use SIL\Category\LanguageFilterCategoryPage;
-use SMW\InMemoryPoolCache;
 use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMW\Store;
 
@@ -122,9 +122,11 @@ class HookRegistry {
 	}
 
 	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
+		$cacheFactory = new CacheFactory();
+
 		$pageContentLanguageOnTheFlyModifier = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
-			InMemoryPoolCache::getInstance()->getPoolCacheById( PageContentLanguageOnTheFlyModifier::POOLCACHE_ID )
+			$cacheFactory->newFixedInMemoryLruCache( 500 )
 		);
 
 		/**

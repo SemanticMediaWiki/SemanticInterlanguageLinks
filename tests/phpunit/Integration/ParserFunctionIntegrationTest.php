@@ -4,8 +4,8 @@ namespace SIL\Tests\Integration;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use SMW\DIProperty;
-use SMW\DIWikiPage;
+use SMW\DataItems\Property;
+use SMW\DataItems\WikiPage;
 use SMW\Tests\SMWIntegrationTestCase;
 use SMW\Tests\Utils\UtilityFactory;
 
@@ -66,7 +66,7 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 	}
 
 	public function testUseInterlanguageLinkParserInPage() {
-		$subject = DIWikiPage::newFromText( __METHOD__ );
+		$subject = WikiPage::newFromText( __METHOD__ );
 
 		$this->pageCreator
 			->createPage( $subject->getTitle() )
@@ -75,9 +75,9 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 		$expected = [
 			'propertyCount' => 3,
 			'properties' => [
-				DIProperty::newFromUserLabel( '_SKEY' ),
-				DIProperty::newFromUserLabel( SIL_PROP_ILL_REF ),
-				DIProperty::newFromUserLabel( SIL_PROP_ILL_LANG )
+				Property::newFromUserLabel( '_SKEY' ),
+				Property::newFromUserLabel( SIL_PROP_ILL_REF ),
+				Property::newFromUserLabel( SIL_PROP_ILL_LANG )
 			],
 			'propertyValues' => [ 'en', 'Lorem ipsum', __METHOD__ ]
 		];
@@ -91,7 +91,7 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 	}
 
 	public function testInterlanguageLinkParserToUseRedirect() {
-		$subject = DIWikiPage::newFromText( __METHOD__ );
+		$subject = WikiPage::newFromText( __METHOD__ );
 
 		$this->pageCreator
 			->createPage( Title::newFromText( 'Sil-redirect' ) )
@@ -105,9 +105,9 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 		$expected = [
 			'propertyCount' => 3,
 			'properties' => [
-				DIProperty::newFromUserLabel( '_SKEY' ),
-				DIProperty::newFromUserLabel( SIL_PROP_ILL_REF ),
-				DIProperty::newFromUserLabel( SIL_PROP_ILL_LANG )
+				Property::newFromUserLabel( '_SKEY' ),
+				Property::newFromUserLabel( SIL_PROP_ILL_REF ),
+				Property::newFromUserLabel( SIL_PROP_ILL_LANG )
 			],
 			'propertyValues' => [ 'ja', 'Sil-redirect-2', __METHOD__ ]
 		];
@@ -121,7 +121,7 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 	}
 
 	public function testUseInterwikiLanguageLinkInPage() {
-		$subject = DIWikiPage::newFromTitle( Title::newFromText( __METHOD__ ) );
+		$subject = WikiPage::newFromTitle( Title::newFromText( __METHOD__ ) );
 
 		$this->pageCreator
 			->createPage( $subject->getTitle() )
@@ -130,9 +130,9 @@ class ParserFunctionIntegrationTest extends SMWIntegrationTestCase {
 		$expected = [
 			'propertyCount' => 3,
 			'properties' => [
-				DIProperty::newFromUserLabel( '_SKEY' ),
-				DIProperty::newFromUserLabel( SIL_PROP_IWL_REF ),
-				DIProperty::newFromUserLabel( SIL_PROP_IWL_LANG )
+				Property::newFromUserLabel( '_SKEY' ),
+				Property::newFromUserLabel( SIL_PROP_IWL_REF ),
+				Property::newFromUserLabel( SIL_PROP_IWL_LANG )
 			],
 			'propertyValues' => [ 'en', 'en:Foo', __METHOD__ ]
 		];

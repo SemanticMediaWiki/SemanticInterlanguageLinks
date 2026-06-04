@@ -3,10 +3,10 @@
 namespace SIL;
 
 use MediaWiki\Title\Title;
+use SMW\DataItems\Blob;
+use SMW\DataItems\Property;
+use SMW\DataItems\WikiPage;
 use SMW\DataValueFactory;
-use SMW\DIProperty;
-use SMW\DIWikiPage;
-use SMWDIBlob as DIBlob;
 
 /**
  * Represents an object for a manual annotation such as [[en:Foo]] where
@@ -76,8 +76,8 @@ class InterwikiLanguageLink {
 	 */
 	public function newLanguageDataValue() {
 		return DataValueFactory::getInstance()->newDataValueByItem(
-			new DIBlob( $this->getLanguageCode() ),
-			new DIProperty( PropertyRegistry::SIL_IWL_LANG )
+			new Blob( $this->getLanguageCode() ),
+			new Property( PropertyRegistry::SIL_IWL_LANG )
 		);
 	}
 
@@ -88,18 +88,18 @@ class InterwikiLanguageLink {
 	 */
 	public function newInterwikiReferenceDataValue() {
 		return DataValueFactory::getInstance()->newDataValueByItem(
-			DIWikiPage::newFromTitle( $this->getInterwikiReference() ),
-			new DIProperty( PropertyRegistry::SIL_IWL_REF )
+			WikiPage::newFromTitle( $this->getInterwikiReference() ),
+			new Property( PropertyRegistry::SIL_IWL_REF )
 		);
 	}
 
 	/**
 	 * @since 1.0
 	 *
-	 * @return DIProperty
+	 * @return Property
 	 */
 	public function newContainerProperty() {
-		return new DIProperty( PropertyRegistry::SIL_CONTAINER );
+		return new Property( PropertyRegistry::SIL_CONTAINER );
 	}
 
 }

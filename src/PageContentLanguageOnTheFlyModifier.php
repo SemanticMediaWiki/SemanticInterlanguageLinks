@@ -16,8 +16,6 @@ use Onoi\Cache\Cache;
  */
 class PageContentLanguageOnTheFlyModifier {
 
-	public const POOLCACHE_ID = 'sil.pagecontentlanguage';
-
 	/**
 	 * @var InterlanguageLinksLookup
 	 */
