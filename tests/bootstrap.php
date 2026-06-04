@@ -13,7 +13,7 @@ if ( !is_readable( $autoloaderClassPath ) ) {
 	die( 'The Semantic MediaWiki test autoloader is not available' );
 }
 
-if ( !class_exists( 'SemanticInterlanguageLinks' ) || !defined( 'SIL_VERSION' ) ) {
+if ( !class_exists( 'SIL\Setup' ) ) {
 	die( "\nSemantic Interlanguage Links is not available, please check your Composer or LocalSettings.\n" );
 }
 
@@ -21,7 +21,8 @@ if ( !defined( 'SMW_PHPUNIT_FIRST_COLUMN_WIDTH' ) ) {
 	define( 'SMW_PHPUNIT_FIRST_COLUMN_WIDTH', 30 );
 }
 
-print sprintf( "\n%-27s%s\n", "Semantic Interlanguage Links: ", SIL_VERSION );
+$extensionInfo = json_decode( file_get_contents( __DIR__ . '/../extension.json' ), true );
+print sprintf( "\n%-27s%s\n", "Semantic Interlanguage Links: ", $extensionInfo['version'] ?? 'UNKNOWN' );
 
 $autoloader = require $autoloaderClassPath;
 $autoloader->addPsr4( 'SIL\\Tests\\', __DIR__ . '/phpunit/Unit' );

@@ -12,6 +12,9 @@ Not yet released.
 * Replaced the deprecated `SMW\DIWikiPage`, `SMW\DIProperty`, `SMW\Subobject`, `SMWQuery`,
   `SMWDIBlob` and `SMWDataValue` class aliases with their new Semantic MediaWiki 7.0 namespaced
   class names
+* Migrated the extension registration fully into `extension.json` (settings, messages, magic
+  words and hooks are now declared declaratively), removing the legacy `DefaultSettings.php` and
+  the `SemanticInterlanguageLinks.php` entry point
 
 ### 2.1.0
 

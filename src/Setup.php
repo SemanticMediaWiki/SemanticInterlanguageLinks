@@ -1,32 +1,19 @@
 <?php
 
+namespace SIL;
+
 use MediaWiki\WikiMap\WikiMap;
+use ObjectCache;
 use Onoi\Cache\CacheFactory;
-use SIL\CacheKeyProvider;
-use SIL\HookRegistry;
 use SMW\Services\ServicesFactory as ApplicationFactory;
 
 /**
+ * @license GPL-2.0-or-later
+ * @since 1.3
+ *
  * @codeCoverageIgnore
  */
-class SemanticInterlanguageLinks {
-
-	/**
-	 * @since 1.3
-	 */
-	public static function initExtension( $credits = [] ) {
-		// Load DefaultSettings
-		require_once __DIR__ . '/DefaultSettings.php';
-
-		// See https://phabricator.wikimedia.org/T151136
-		define( 'SIL_VERSION', isset( $credits['version'] ) ? $credits['version'] : 'UNKNOWN' );
-
-		// Register message files
-		$GLOBALS['wgMessagesDirs']['SemanticInterlanguageLinks'] = __DIR__ . '/i18n';
-		$GLOBALS['wgExtensionMessagesFiles']['SemanticInterlanguageLinksMagic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
-
-		$GLOBALS['wgHooks']['SMW::Settings::BeforeInitializationComplete'][] = '\SIL\HookRegistry::onBeforeConfigCompletion';
-	}
+class Setup {
 
 	/**
 	 * @since 1.3

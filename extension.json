@@ -16,24 +16,37 @@
 			"SemanticMediaWiki": ">= 7.0"
 		}
 	},
-	"MessagesDirs": {
-		"SemanticInterlanguageLinks": [
-			"i18n"
-		]
-	},
-	"callback": "SemanticInterlanguageLinks::initExtension",
-	"AutoloadClasses": {
-		"SemanticInterlanguageLinks": "SemanticInterlanguageLinks.php"
-	},
 	"AutoloadNamespaces": {
 		"SIL\\": "src/"
 	},
 	"TestAutoloadNamespaces": {
 		"SIL\\Tests\\": "tests/phpunit/"
 	},
+	"MessagesDirs": {
+		"SemanticInterlanguageLinks": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"SemanticInterlanguageLinksMagic": "i18n/SemanticInterlanguageLinks.magic.php"
+	},
+	"Hooks": {
+		"SMW::Settings::BeforeInitializationComplete": "SIL\\HookRegistry::onBeforeConfigCompletion"
+	},
 	"ExtensionFunctions": [
-		"SemanticInterlanguageLinks::onExtensionFunction"
+		"SIL\\Setup::onExtensionFunction"
 	],
+	"config_prefix": "silg",
+	"config": {
+		"CacheType": {
+			"value": -1,
+			"description": "Cache used to improve query lookups. Defaults to CACHE_ANYTHING (-1)."
+		},
+		"EnabledCategoryFilterByLanguage": {
+			"value": true,
+			"description": "Enable language filtering on the category page."
+		}
+	},
 	"load_composer_autoloader": true,
 	"manifest_version": 2
 }
