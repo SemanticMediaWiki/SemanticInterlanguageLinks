@@ -2,9 +2,9 @@
 
 namespace SIL;
 
-use SMW\DIProperty;
+use SMW\DataItems\Property;
+use SMW\DataModel\Subobject;
 use SMW\ParserData;
-use SMW\Subobject;
 
 /**
  * @license GPL-2.0-or-later
@@ -37,7 +37,7 @@ class LanguageLinkAnnotator {
 	 */
 	public function hasDifferentLanguageAnnotation( InterlanguageLink $interlanguageLink ) {
 		$propertyValues = $this->parserData->getSemanticData()->getPropertyValues(
-			new DIProperty( PropertyRegistry::SIL_CONTAINER )
+			new Property( PropertyRegistry::SIL_CONTAINER )
 		);
 
 		foreach ( $propertyValues as $value ) {

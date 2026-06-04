@@ -9,7 +9,7 @@ use Onoi\Cache\CacheFactory;
 use SIL\CacheKeyProvider;
 use SIL\InterlanguageLink;
 use SIL\LanguageTargetLinksCache;
-use SMW\DIWikiPage;
+use SMW\DataItems\WikiPage;
 
 /**
  * @covers \SIL\LanguageTargetLinksCache
@@ -193,7 +193,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$linkReferences = [
-			new DIWikiPage( 'Foo', NS_MAIN )
+			new WikiPage( 'Foo', NS_MAIN )
 		];
 
 		$instance->deleteLanguageTargetLinksFromCache( $linkReferences );
@@ -271,7 +271,7 @@ class LanguageTargetLinksCacheTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$linkReferences = [
-			new DIWikiPage( 'canNotBeMatched', NS_MAIN ),
+			new WikiPage( 'canNotBeMatched', NS_MAIN ),
 			Title::newFromText( 'invalidMatch' ),
 			'invalidMatch'
 		];

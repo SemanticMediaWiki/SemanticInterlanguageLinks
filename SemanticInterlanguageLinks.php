@@ -25,7 +25,7 @@ class SemanticInterlanguageLinks {
 		$GLOBALS['wgMessagesDirs']['SemanticInterlanguageLinks'] = __DIR__ . '/i18n';
 		$GLOBALS['wgExtensionMessagesFiles']['SemanticInterlanguageLinksMagic'] = __DIR__ . '/i18n/SemanticInterlanguageLinks.magic.php';
 
-		$GLOBALS['wgHooks']['SMW::Config::BeforeCompletion'][] = '\SIL\HookRegistry::onBeforeConfigCompletion';
+		$GLOBALS['wgHooks']['SMW::Settings::BeforeInitializationComplete'][] = '\SIL\HookRegistry::onBeforeConfigCompletion';
 	}
 
 	/**

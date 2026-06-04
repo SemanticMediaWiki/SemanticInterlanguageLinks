@@ -5,10 +5,10 @@ namespace SIL\Tests;
 use MediaWiki\Title\Title;
 use SIL\InterlanguageLink;
 use SIL\InterlanguageLinksLookup;
+use SMW\DataItems\Blob;
+use SMW\DataItems\WikiPage;
 use SMW\DataValueFactory;
-use SMW\DIWikiPage;
 use SMW\PropertyRegistry;
-use SMWDIBlob as DIBlob;
 
 /**
  * @covers \SIL\InterlanguageLinksLookup
@@ -44,7 +44,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 	public function testRedirectTargetFor() {
 		$title = Title::newFromText( __METHOD__ );
-		$diWikiPage = DIWikiPage::newFromTitle( $title );
+		$diWikiPage = WikiPage::newFromTitle( $title );
 
 		$languageTargetLinksCache = $this->getMockBuilder( '\SIL\LanguageTargetLinksCache' )
 			->disableOriginalConstructor()
@@ -86,15 +86,15 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( DIWikiPage::newFromTitle( $title ) )
-			->willReturn( [ new DIWikiPage( 'Foo', NS_MAIN ) ] );
+			->with( WikiPage::newFromTitle( $title ) )
+			->willReturn( [ new WikiPage( 'Foo', NS_MAIN ) ] );
 
 		$store->expects( $this->at( 1 ) )
 			->method( 'getPropertyValues' )
 			->with(
-				new DIWikiPage( 'Foo', NS_MAIN ),
+				new WikiPage( 'Foo', NS_MAIN ),
 				$this->callback( $verifyPropertyTypeId ) )
-			->willReturn( [ new DIBlob( 'en' ), new DIBlob( 'ja' ) ] );
+			->willReturn( [ new Blob( 'en' ), new Blob( 'ja' ) ] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -118,13 +118,13 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( DIWikiPage::newFromTitle( $title ) )
-			->willReturn( [ new DIWikiPage( 'Foo', NS_MAIN ) ] );
+			->with( WikiPage::newFromTitle( $title ) )
+			->willReturn( [ new WikiPage( 'Foo', NS_MAIN ) ] );
 
 		$store->expects( $this->at( 1 ) )
 			->method( 'getPropertyValues' )
-			->with( new DIWikiPage( 'Foo', NS_MAIN ) )
-			->willReturn( [ new DIWikiPage( 'invalid', NS_MAIN ) ] );
+			->with( new WikiPage( 'Foo', NS_MAIN ) )
+			->willReturn( [ new WikiPage( 'invalid', NS_MAIN ) ] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
@@ -148,7 +148,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( DIWikiPage::newFromTitle( $title ) )
+			->with( WikiPage::newFromTitle( $title ) )
 			->willReturn( [] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
@@ -198,19 +198,19 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( DIWikiPage::newFromTitle( $title ) )
-			->willReturn( [ new DIWikiPage( 'Foo', NS_MAIN ) ] );
+			->with( WikiPage::newFromTitle( $title ) )
+			->willReturn( [ new WikiPage( 'Foo', NS_MAIN ) ] );
 
 		$store->expects( $this->at( 1 ) )
 			->method( 'getPropertyValues' )
-			->with( new DIWikiPage( 'Foo', NS_MAIN ) )
-			->willReturn( [ new DIWikiPage( 'Bar', NS_MAIN ) ] );
+			->with( new WikiPage( 'Foo', NS_MAIN ) )
+			->willReturn( [ new WikiPage( 'Bar', NS_MAIN ) ] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
 		$instance->setStore( $store );
 
 		$this->assertEquals(
-			[ new DIWikiPage( 'Bar', NS_MAIN ) ],
+			[ new WikiPage( 'Bar', NS_MAIN ) ],
 			$instance->findFullListOfReferenceTargetLinks( $title )
 		);
 	}
@@ -228,7 +228,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$store->expects( $this->at( 0 ) )
 			->method( 'getPropertyValues' )
-			->with( DIWikiPage::newFromTitle( $title ) )
+			->with( WikiPage::newFromTitle( $title ) )
 			->willReturn( [] );
 
 		$instance = new InterlanguageLinksLookup( $languageTargetLinksCache );
@@ -285,7 +285,7 @@ class InterlanguageLinksLookupTest extends \PHPUnit\Framework\TestCase {
 
 		$resultArray->expects( $this->any() )
 			->method( 'getResultSubject' )
-			->willReturn( new DIWikiPage( 'Bar', NS_MAIN ) );
+			->willReturn( new WikiPage( 'Bar', NS_MAIN ) );
 
 		$queryResult = $this->getMockBuilder( '\SMW\Query\QueryResult' )
 			->disableOriginalConstructor()

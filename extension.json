@@ -1,6 +1,6 @@
 {
 	"name": "SemanticInterlanguageLinks",
-	"version": "2.2.0-alpha",
+	"version": "3.0.0-alpha",
 	"author": [
 		"James Hong Kong",
 		"..."
@@ -11,7 +11,10 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "semantic",
 	"requires": {
-		"MediaWiki": ">= 1.43"
+		"MediaWiki": ">= 1.43",
+		"extensions": {
+			"SemanticMediaWiki": ">= 7.0"
+		}
 	},
 	"MessagesDirs": {
 		"SemanticInterlanguageLinks": [

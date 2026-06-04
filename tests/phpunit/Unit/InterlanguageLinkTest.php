@@ -5,6 +5,8 @@ namespace SIL\Tests;
 use MediaWiki\Title\Title;
 use SIL\InterlanguageLink;
 use SIL\PropertyRegistry;
+use SMW\DataItems\Property;
+use SMW\DataValues\DataValue;
 
 /**
  * @covers \SIL\InterlanguageLink
@@ -43,7 +45,7 @@ class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
 		$instance = new InterlanguageLink( 'en', 'Foo' );
 
 		$this->assertInstanceOf(
-			'\SMWDataValue',
+			DataValue::class,
 			$instance->newLanguageDataValue()
 		);
 
@@ -53,7 +55,7 @@ class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\SMWDataValue',
+			DataValue::class,
 			$instance->newLinkReferenceDataValue()
 		);
 
@@ -63,7 +65,7 @@ class InterlanguageLinkTest extends \PHPUnit\Framework\TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'\SMW\DIProperty',
+			Property::class,
 			$instance->newContainerProperty()
 		);
 

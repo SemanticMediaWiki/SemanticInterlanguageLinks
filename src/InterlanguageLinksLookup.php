@@ -3,16 +3,16 @@
 namespace SIL;
 
 use MediaWiki\Title\Title;
+use SMW\DataItems\Blob;
+use SMW\DataItems\Property;
+use SMW\DataItems\WikiPage;
 use SMW\DataValueFactory;
-use SMW\DIProperty;
-use SMW\DIWikiPage;
 use SMW\Query\Language\Conjunction;
 use SMW\Query\Language\SomeProperty;
 use SMW\Query\Language\ValueDescription;
 use SMW\Query\PrintRequest;
+use SMW\Query\Query;
 use SMW\Store;
-use SMWDIBlob as DIBlob;
-use SMWQuery as Query;
 
 /**
  * This class is the most critical component of SIL as it combines the store
@@ -70,7 +70,7 @@ class InterlanguageLinksLookup {
 	 * @return Title
 	 */
 	public function getRedirectTargetFor( Title $title ) {
-		return $this->store->getRedirectTarget( DIWikiPage::newFromTitle( $title ) )->getTitle();
+		return $this->store->getRedirectTarget( WikiPage::newFromTitle( $title ) )->getTitle();
 	}
 
 	/**
@@ -179,8 +179,8 @@ class InterlanguageLinksLookup {
 	 */
 	public function hasSilAnnotationFor( Title $title ) {
 		$propertyValues = $this->store->getPropertyValues(
-			DIWikiPage::newFromTitle( $title ),
-			new DIProperty( PropertyRegistry::SIL_CONTAINER )
+			WikiPage::newFromTitle( $title ),
+			new Property( PropertyRegistry::SIL_CONTAINER )
 		);
 
 		return $propertyValues !== [];
@@ -191,19 +191,19 @@ class InterlanguageLinksLookup {
 	 *
 	 * @param Title $title
 	 *
-	 * @return DIWikiPage[]|[]
+	 * @return WikiPage[]|[]
 	 */
 	public function findFullListOfReferenceTargetLinks( Title $title ) {
 		$linkReferences = [];
 
 		try {
-			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
+			$property = new Property( PropertyRegistry::SIL_CONTAINER );
 		} catch ( \Exception $e ) {
 			return $linkReferences;
 		}
 
 		$propertyValues = $this->store->getPropertyValues(
-			DIWikiPage::newFromTitle( $title ),
+			WikiPage::newFromTitle( $title ),
 			$property
 		);
 
@@ -215,7 +215,7 @@ class InterlanguageLinksLookup {
 
 			$values = $this->store->getPropertyValues(
 				$containerSubject,
-				new DIProperty( PropertyRegistry::SIL_ILL_REF )
+				new Property( PropertyRegistry::SIL_ILL_REF )
 			);
 
 			$linkReferences = array_merge( $linkReferences, $values );
@@ -252,11 +252,11 @@ class InterlanguageLinksLookup {
 			$description
 		);
 
-		if ( defined( 'SMWQuery::PROC_CONTEXT' ) ) {
+		if ( defined( Query::class . '::PROC_CONTEXT' ) ) {
 			$query->setOption( Query::PROC_CONTEXT, 'SIL.InterlanguageLinksLookup' );
 		}
 
-		if ( defined( 'SMWQuery::NO_CACHE' ) ) {
+		if ( defined( Query::class . '::NO_CACHE' ) ) {
 			$query->setOption( Query::NO_CACHE, true );
 		}
 
@@ -285,13 +285,13 @@ class InterlanguageLinksLookup {
 
 	private function lookupLastPageLanguageForTarget( Title $title ) {
 		try {
-			$property = new DIProperty( PropertyRegistry::SIL_CONTAINER );
+			$property = new Property( PropertyRegistry::SIL_CONTAINER );
 		} catch ( \Exception $e ) {
 			return self::NO_LANG;
 		}
 
 		$propertyValues = $this->store->getPropertyValues(
-			DIWikiPage::newFromTitle( $title ),
+			WikiPage::newFromTitle( $title ),
 			$property
 		);
 
@@ -303,12 +303,12 @@ class InterlanguageLinksLookup {
 
 		$propertyValues = $this->store->getPropertyValues(
 			$containerSubject,
-			new DIProperty( PropertyRegistry::SIL_ILL_LANG )
+			new Property( PropertyRegistry::SIL_ILL_LANG )
 		);
 
 		$languageCodeValue = end( $propertyValues );
 
-		if ( $languageCodeValue instanceof DIBlob ) {
+		if ( $languageCodeValue instanceof Blob ) {
 			return $languageCodeValue->getString();
 		}
 

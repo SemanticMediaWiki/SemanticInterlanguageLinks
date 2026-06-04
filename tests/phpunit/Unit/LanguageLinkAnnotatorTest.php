@@ -7,7 +7,8 @@ use SIL\InterlanguageLink;
 use SIL\InterwikiLanguageLink;
 use SIL\LanguageLinkAnnotator;
 use SIL\PropertyRegistry;
-use SMW\DIWikiPage;
+use SMW\DataItems\WikiPage;
+use SMW\DataModel\SemanticData;
 
 /**
  * @covers \SIL\LanguageLinkAnnotator
@@ -46,7 +47,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider differentLanguageAnnotationProvider
 	 */
 	public function testHasDifferentLanguageAnnotation( $pValues, $expected ) {
-		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
+		$semanticData = $this->getMockBuilder( SemanticData::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -75,7 +76,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testAddAnnotationForInterlanguageLink() {
-		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
+		$semanticData = $this->getMockBuilder( SemanticData::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -102,7 +103,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testAddAnnotationForInterwikiLanguageLink() {
-		$semanticData = $this->getMockBuilder( '\SMW\SemanticData' )
+		$semanticData = $this->getMockBuilder( SemanticData::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -147,7 +148,7 @@ class LanguageLinkAnnotatorTest extends \PHPUnit\Framework\TestCase {
 
 	public function differentLanguageAnnotationProvider() {
 		$provider[] = [
-			[ new DIWikiPage( 'Foo', NS_MAIN, '', 'ill.en' ) ],
+			[ new WikiPage( 'Foo', NS_MAIN, '', 'ill.en' ) ],
 			true
 		];
 

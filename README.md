@@ -1,7 +1,7 @@
 # Semantic Interlanguage Links
 
 [![CI](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/actions/workflows/main.yml/badge.svg)](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/actions/workflows/main.yml)
-[![Code Coverage](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticInterlanguageLinks/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SemanticMediaWiki/SemanticInterlanguageLinks/?branch=master)
+[![codecov](https://codecov.io/gh/SemanticMediaWiki/SemanticInterlanguageLinks/graph/badge.svg)](https://codecov.io/gh/SemanticMediaWiki/SemanticInterlanguageLinks)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/semantic-interlanguage-links/version.png)](https://packagist.org/packages/mediawiki/semantic-interlanguage-links)
 [![Packagist download count](https://poser.pugx.org/mediawiki/semantic-interlanguage-links/d/total.png)](https://packagist.org/packages/mediawiki/semantic-interlanguage-links)
 
@@ -91,7 +91,7 @@ If you want to contribute work to the project please subscribe to the developers
 
 ## Tests
 
-This extension provides unit and integration tests that are run by a [continues integration platform][travis]
+This extension provides unit and integration tests that are run by [GitHub Actions][ci]
 but can also be executed using `composer phpunit` from the extension base directory.
 
 ## License
@@ -100,7 +100,7 @@ but can also be executed using `composer phpunit` from the extension base direct
 
 [smw]: https://github.com/SemanticMediaWiki/SemanticMediaWiki
 [contributors]: https://github.com/SemanticMediaWiki/SemanticLanguageLinks/graphs/contributors
-[travis]: https://travis-ci.org/SemanticMediaWiki/SemanticLanguageLinks
+[ci]: https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/actions
 [gpl-licence]: https://www.gnu.org/copyleft/gpl.html
 [composer]: https://getcomposer.org/
 [composer-local]: https://www.mediawiki.org/wiki/Composer/For_extensions#Specify_the_extensions_to_be_installed

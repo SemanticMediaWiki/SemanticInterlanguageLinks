@@ -37,7 +37,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.x-dev"
+			"dev-master": "3.x-dev"
 		}
 	},
 	"config": {
@@ -67,10 +67,11 @@
 		"phpunit": "php ${MW_INSTALL_PATH:-../..}/tests/phpunit/phpunit.php -c phpunit.xml.dist",
 		"phpunit-coverage": "php ${MW_INSTALL_PATH:-../..}/tests/phpunit/phpunit.php -c phpunit.xml.dist --testdox --coverage-text --coverage-html coverage/php --coverage-clover coverage/php/coverage.xml",
 		"post-test-coverage": [
-			"sed -i 's|/var/www/html/extensions/SemanticResultFormats/||g' coverage/php/coverage.xml",
+			"sed -i 's|/var/www/html/extensions/SemanticInterlanguageLinks/||g' coverage/php/coverage.xml",
 			"find coverage/php -type f -name '*.html' -exec sed -i 's|/var/www/html/extensions/||g' {} +"
 		],
-		"integration": "composer phpunit -- --testsuite=semantic-result-formats-integration",
+		"unit": "composer phpunit -- --testsuite=unit",
+		"integration": "composer phpunit -- --testsuite=integration",
 		"phpcs": "phpcs -ps -d memory_limit=2G",
 		"phpcs-fix": "phpcbf -p",
 		"lint": "parallel-lint . --exclude vendor --exclude node_modules --exclude extensions",
