@@ -13,7 +13,7 @@ if ( !is_readable( $autoloaderClassPath ) ) {
 	die( 'The Semantic MediaWiki test autoloader is not available' );
 }
 
-if ( !class_exists( 'SIL\Setup' ) ) {
+if ( !class_exists( 'SIL\PropertyRegistry' ) ) {
 	die( "\nSemantic Interlanguage Links is not available, please check your Composer or LocalSettings.\n" );
 }
 
