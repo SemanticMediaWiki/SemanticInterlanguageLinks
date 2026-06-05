@@ -5,6 +5,7 @@ namespace SIL\Tests;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use SIL\HookRegistry;
+use Wikimedia\ObjectCache\BagOStuff;
 
 /**
  * @covers \SIL\HookRegistry
@@ -28,7 +29,7 @@ class HookRegistryTest extends \PHPUnit\Framework\TestCase {
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
-		$this->cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$this->cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 

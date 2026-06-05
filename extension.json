@@ -47,6 +47,5 @@
 			"description": "Enable language filtering on the category page."
 		}
 	},
-	"load_composer_autoloader": true,
 	"manifest_version": 2
 }

@@ -2,10 +2,10 @@
 
 namespace SIL;
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\WikiMap\WikiMap;
-use ObjectCache;
-use Onoi\Cache\CacheFactory;
 use SMW\Services\ServicesFactory as ApplicationFactory;
+use Wikimedia\ObjectCache\CachedBagOStuff;
 
 /**
  * @license GPL-2.0-or-later
@@ -19,12 +19,14 @@ class Setup {
 	 * @since 1.3
 	 */
 	public static function onExtensionFunction() {
-		$cacheFactory = new CacheFactory();
+		$objectCacheFactory = MediaWikiServices::getInstance()->getObjectCacheFactory();
 
-		$compositeCache = $cacheFactory->newCompositeCache( [
-			$cacheFactory->newFixedInMemoryLruCache( 500 ),
-			$cacheFactory->newMediaWikiCache( ObjectCache::getInstance( $GLOBALS['silgCacheType'] ) )
-		] );
+		// A process-local cache tier (bounded to 500 entries) over the
+		// configured persistent object cache, mirroring the previous composite.
+		$cache = new CachedBagOStuff(
+			$objectCacheFactory->getInstance( $GLOBALS['silgCacheType'] ),
+			[ 'maxKeys' => 500 ]
+		);
 
 		$cacheKeyProvider = new CacheKeyProvider(
 			$GLOBALS['wgCachePrefix'] === false ? WikiMap::getCurrentWikiId() : $GLOBALS['wgCachePrefix']
@@ -32,7 +34,7 @@ class Setup {
 
 		$hookRegistry = new HookRegistry(
 			ApplicationFactory::getInstance()->getStore(),
-			$compositeCache,
+			$cache,
 			$cacheKeyProvider
 		);
 

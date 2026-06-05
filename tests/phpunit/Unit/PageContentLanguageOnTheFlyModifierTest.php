@@ -4,6 +4,7 @@ namespace SIL\Tests;
 
 use MediaWiki\Title\Title;
 use SIL\PageContentLanguageOnTheFlyModifier;
+use Wikimedia\ObjectCache\BagOStuff;
 
 /**
  * @covers \SIL\PageContentLanguageOnTheFlyModifier
@@ -21,7 +22,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 			->disableOriginalConstructor()
 			->getMock();
 
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -38,7 +39,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 			->disableOriginalConstructor()
 			->getMock();
 
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -68,12 +69,12 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 			->disableOriginalConstructor()
 			->getMock();
 
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$cache->expects( $this->once() )
-			->method( 'fetch' )
+			->method( 'get' )
 			->willReturn( 'zh-Hans' );
 
 		$interlanguageLinksLookup = $this->getMockBuilder( '\SIL\InterlanguageLinksLookup' )
@@ -99,7 +100,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 			->disableOriginalConstructor()
 			->getMock();
 
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -136,7 +137,7 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 			->disableOriginalConstructor()
 			->getMock();
 
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -167,12 +168,12 @@ class PageContentLanguageOnTheFlyModifierTest extends \PHPUnit\Framework\TestCas
 			->method( 'getPrefixedText' )
 			->willReturn( 'Foo' );
 
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$cache->expects( $this->once() )
-			->method( 'save' )
+			->method( 'set' )
 			->with(
 				$this->anything(),
 				'BAR' );

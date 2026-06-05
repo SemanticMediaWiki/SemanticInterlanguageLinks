@@ -3,8 +3,8 @@
 namespace SIL;
 
 use MediaWiki\Title\Title;
-use Onoi\Cache\Cache;
 use SMW\DataItems\WikiPage;
+use Wikimedia\ObjectCache\BagOStuff;
 
 /**
  * To make a page view responsive and avoid a repetitive or exhausting query
@@ -23,7 +23,7 @@ use SMW\DataItems\WikiPage;
 class LanguageTargetLinksCache {
 
 	/**
-	 * @var Cache
+	 * @var BagOStuff
 	 */
 	private $cache;
 
@@ -49,10 +49,10 @@ class LanguageTargetLinksCache {
 	/**
 	 * @since 1.0
 	 *
-	 * @param Cache $cache
+	 * @param BagOStuff $cache
 	 * @param CacheKeyProvider $cacheKeyProvider
 	 */
-	public function __construct( Cache $cache, CacheKeyProvider $cacheKeyProvider ) {
+	public function __construct( BagOStuff $cache, CacheKeyProvider $cacheKeyProvider ) {
 		$this->cache = $cache;
 		$this->cacheKeyProvider = $cacheKeyProvider;
 	}
@@ -104,7 +104,7 @@ class LanguageTargetLinksCache {
 			return false;
 		}
 
-		$cachedLanguageTargetLinks = $this->cache->fetch(
+		$cachedLanguageTargetLinks = $this->cache->get(
 			$this->cacheKeyProvider->getSiteCacheKey( $interlanguageLink->getLinkReference()->getPrefixedText() )
 		);
 
@@ -141,7 +141,7 @@ class LanguageTargetLinksCache {
 			return;
 		}
 
-		$this->cache->save(
+		$this->cache->set(
 			$this->cacheKeyProvider->getSiteCacheKey( $interlanguageLink->getLinkReference()->getPrefixedText() ),
 			$normalizedLanguageTargetLinks
 		);
@@ -165,7 +165,7 @@ class LanguageTargetLinksCache {
 				$linkReference->getTitle()->getPrefixedText()
 			);
 
-			$cachedLanguageTargetLinks = $this->cache->fetch( $siteCacheKey );
+			$cachedLanguageTargetLinks = $this->cache->get( $siteCacheKey );
 
 			if ( !is_array( $cachedLanguageTargetLinks ) ) {
 				continue;
@@ -197,7 +197,7 @@ class LanguageTargetLinksCache {
 		);
 
 		if ( $this->pageLanguageCacheStrategy !== 'blob' ) {
-			return $this->cache->fetch( $pageCacheKey );
+			return $this->cache->get( $pageCacheKey );
 		}
 
 		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
@@ -209,7 +209,7 @@ class LanguageTargetLinksCache {
 		if ( $this->pageLanguageCacheStrategy !== 'blob' ) {
 
 			foreach ( $normalizedLanguageTargetLinks as $languageCode => $target ) {
-				$this->cache->save(
+				$this->cache->set(
 					$this->cacheKeyProvider->getPageCacheKey( $target, false ),
 					$languageCode
 				);
@@ -224,7 +224,7 @@ class LanguageTargetLinksCache {
 			$pageLanguageCacheBlob[ $this->cacheKeyProvider->getPageCacheKey( $target, true ) ] = $languageCode;
 		}
 
-		$this->cache->save(
+		$this->cache->set(
 			$this->cacheKeyProvider->getPageLanguageCacheBlobKey(),
 			$pageLanguageCacheBlob
 		);
@@ -244,14 +244,14 @@ class LanguageTargetLinksCache {
 		$pageLanguageCacheBlob = $this->getPageLanguageCacheBlob();
 		unset( $pageLanguageCacheBlob[ $this->cacheKeyProvider->getPageCacheKey( $title->getPrefixedText(), true ) ] );
 
-		$this->cache->save(
+		$this->cache->set(
 			$this->cacheKeyProvider->getPageLanguageCacheBlobKey(),
 			$pageLanguageCacheBlob
 		);
 	}
 
 	private function getPageLanguageCacheBlob() {
-		$pageLanguageCacheBlob = $this->cache->fetch(
+		$pageLanguageCacheBlob = $this->cache->get(
 			$this->cacheKeyProvider->getPageLanguageCacheBlobKey()
 		);
 

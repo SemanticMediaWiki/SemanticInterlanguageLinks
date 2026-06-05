@@ -2,14 +2,14 @@
 
 namespace SIL\Tests;
 
-use HashBagOStuff;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use Onoi\Cache\CacheFactory;
 use SIL\CacheKeyProvider;
 use SIL\InterlanguageLink;
 use SIL\LanguageTargetLinksCache;
 use SMW\DataItems\WikiPage;
+use Wikimedia\ObjectCache\BagOStuff;
+use Wikimedia\ObjectCache\HashBagOStuff;
 
 /**
  * @covers \SIL\LanguageTargetLinksCache
@@ -28,12 +28,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit\Framework\TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->cache = CacheFactory::getInstance()->newMediaWikiCache( new HashBagOStuff() );
+		$this->cache = new HashBagOStuff();
 		$this->cacheKeyProvider = new CacheKeyProvider( 'foo' );
 	}
 
 	public function testCanConstruct() {
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
@@ -298,12 +298,12 @@ class LanguageTargetLinksCacheTest extends \PHPUnit\Framework\TestCase {
 
 		$title = Title::newFromText( 'Bar', NS_MAIN );
 
-		$cache = $this->getMockBuilder( '\Onoi\Cache\Cache' )
+		$cache = $this->getMockBuilder( BagOStuff::class )
 			->disableOriginalConstructor()
 			->getMockForAbstractClass();
 
 		$cache->expects( $this->once() )
-			->method( 'save' )
+			->method( 'set' )
 			->with(
 				$this->stringContains( $id ),
 				$data );

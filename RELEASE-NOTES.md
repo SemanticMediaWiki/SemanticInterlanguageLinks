@@ -18,6 +18,8 @@ Not yet released.
 * Removed support for the long-deprecated `$egSILCacheType` and
   `$egSILEnabledCategoryFilterByLanguage` settings; use `$silgCacheType` and
   `$silgEnabledCategoryFilterByLanguage` instead
+* Replaced the `onoi/cache` dependency with MediaWiki's native object cache
+  (`BagOStuff`), removing the extension's last third-party runtime dependency
 
 ### 2.1.0
 

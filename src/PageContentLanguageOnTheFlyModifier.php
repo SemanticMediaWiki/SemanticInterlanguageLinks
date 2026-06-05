@@ -3,7 +3,7 @@
 namespace SIL;
 
 use MediaWiki\Title\Title;
-use Onoi\Cache\Cache;
+use Wikimedia\ObjectCache\BagOStuff;
 
 /**
  * Modifies the content language based on the SIL annotation found
@@ -22,7 +22,7 @@ class PageContentLanguageOnTheFlyModifier {
 	private $interlanguageLinksLookup;
 
 	/**
-	 * @var Cache
+	 * @var BagOStuff
 	 */
 	private $intermediaryCache;
 
@@ -30,9 +30,9 @@ class PageContentLanguageOnTheFlyModifier {
 	 * @since 1.0
 	 *
 	 * @param InterlanguageLinksLookup $interlanguageLinksLookup
-	 * @param Cache $intermediaryCache
+	 * @param BagOStuff $intermediaryCache
 	 */
-	public function __construct( InterlanguageLinksLookup $interlanguageLinksLookup, Cache $intermediaryCache ) {
+	public function __construct( InterlanguageLinksLookup $interlanguageLinksLookup, BagOStuff $intermediaryCache ) {
 		$this->interlanguageLinksLookup = $interlanguageLinksLookup;
 		$this->intermediaryCache = $intermediaryCache;
 	}
@@ -44,7 +44,7 @@ class PageContentLanguageOnTheFlyModifier {
 	 * @param string $languageCode
 	 */
 	public function addToIntermediaryCache( Title $title, $languageCode ) {
-		$this->intermediaryCache->save( $this->getHashFrom( $title ), $languageCode );
+		$this->intermediaryCache->set( $this->getHashFrom( $title ), $languageCode );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class PageContentLanguageOnTheFlyModifier {
 		// Convert language codes from BCP 47 to lowercase to ensure that codes
 		// are matchable against `LanguageNameUtils->getLanguageNames` for languages like
 		// zh-Hans etc.
-		if ( ( $cachedLanguageCode = $this->intermediaryCache->fetch( $hash ) ) ) {
+		if ( ( $cachedLanguageCode = $this->intermediaryCache->get( $hash ) ) ) {
 			return strtolower( $cachedLanguageCode );
 		}
 
@@ -77,7 +77,7 @@ class PageContentLanguageOnTheFlyModifier {
 
 		$pageLanguage = strtolower( $pageLanguage );
 
-		$this->intermediaryCache->save( $hash, $pageLanguage );
+		$this->intermediaryCache->set( $hash, $pageLanguage );
 
 		return $pageLanguage;
 	}

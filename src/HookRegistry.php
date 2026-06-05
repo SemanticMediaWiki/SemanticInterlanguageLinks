@@ -3,11 +3,11 @@
 namespace SIL;
 
 use MediaWiki\MediaWikiServices;
-use Onoi\Cache\Cache;
-use Onoi\Cache\CacheFactory;
 use SIL\Category\LanguageFilterCategoryPage;
 use SMW\Services\ServicesFactory as ApplicationFactory;
 use SMW\Store;
+use Wikimedia\ObjectCache\BagOStuff;
+use Wikimedia\ObjectCache\HashBagOStuff;
 
 /**
  * @license GPL-2.0-or-later
@@ -26,10 +26,10 @@ class HookRegistry {
 	 * @since 1.0
 	 *
 	 * @param Store $store
-	 * @param Cache $cache
+	 * @param BagOStuff $cache
 	 * @param CacheKeyProvider $cacheKeyProvider
 	 */
-	public function __construct( Store $store, Cache $cache, CacheKeyProvider $cacheKeyProvider ) {
+	public function __construct( Store $store, BagOStuff $cache, CacheKeyProvider $cacheKeyProvider ) {
 		$this->addCallbackHandlers( $store, $cache, $cacheKeyProvider );
 	}
 
@@ -122,11 +122,9 @@ class HookRegistry {
 	}
 
 	private function registerInterlanguageParserHooks( InterlanguageLinksLookup $interlanguageLinksLookup ) {
-		$cacheFactory = new CacheFactory();
-
 		$pageContentLanguageOnTheFlyModifier = new PageContentLanguageOnTheFlyModifier(
 			$interlanguageLinksLookup,
-			$cacheFactory->newFixedInMemoryLruCache( 500 )
+			new HashBagOStuff( [ 'maxKeys' => 500 ] )
 		);
 
 		/**
