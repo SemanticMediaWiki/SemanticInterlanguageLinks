@@ -20,6 +20,9 @@ Not yet released.
   `$silgEnabledCategoryFilterByLanguage` instead
 * Replaced the `onoi/cache` dependency with MediaWiki's native object cache
   (`BagOStuff`), removing the extension's last third-party runtime dependency
+* Replaced the procedural hook registration (the extension function and the
+  `HookRegistry` class) with declarative `extension.json` hook handlers and a
+  service wiring file, removing the last procedural entry point
 
 ### 2.1.0
 

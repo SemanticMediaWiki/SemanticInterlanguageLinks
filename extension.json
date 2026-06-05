@@ -30,12 +30,50 @@
 	"ExtensionMessagesFiles": {
 		"SemanticInterlanguageLinksMagic": "i18n/SemanticInterlanguageLinks.magic.php"
 	},
-	"Hooks": {
-		"SMW::Settings::BeforeInitializationComplete": "SIL\\HookRegistry::onBeforeConfigCompletion"
-	},
-	"ExtensionFunctions": [
-		"SIL\\Setup::onExtensionFunction"
+	"ServiceWiringFiles": [
+		"src/ServiceWiring.php"
 	],
+	"HookHandlers": {
+		"ParserHooks": {
+			"class": "SIL\\Hooks\\ParserHooks",
+			"services": [
+				"SIL.InterlanguageLinksLookup",
+				"SIL.PageContentLanguageOnTheFlyModifier"
+			]
+		},
+		"CacheInvalidationHooks": {
+			"class": "SIL\\Hooks\\CacheInvalidationHooks",
+			"services": [
+				"SIL.InterlanguageLinksLookup"
+			]
+		},
+		"PageLanguageHooks": {
+			"class": "SIL\\Hooks\\PageLanguageHooks",
+			"services": [
+				"SIL.InterlanguageLinksLookup",
+				"SIL.PageContentLanguageOnTheFlyModifier"
+			]
+		},
+		"PropertyHooks": {
+			"class": "SIL\\Hooks\\PropertyHooks"
+		},
+		"ConfigHooks": {
+			"class": "SIL\\Hooks\\ConfigHooks"
+		}
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "ParserHooks",
+		"ParserAfterTidy": "ParserHooks",
+		"ArticlePurge": "CacheInvalidationHooks",
+		"RevisionFromEditComplete": "CacheInvalidationHooks",
+		"SMW::SQLStore::BeforeDeleteSubjectComplete": "CacheInvalidationHooks",
+		"SMW::SQLStore::BeforeChangeTitleComplete": "CacheInvalidationHooks",
+		"ArticleFromTitle": "PageLanguageHooks",
+		"PageContentLanguage": "PageLanguageHooks",
+		"SkinTemplateGetLanguageLink": "PageLanguageHooks",
+		"SMW::Property::initProperties": "PropertyHooks",
+		"SMW::Settings::BeforeInitializationComplete": "ConfigHooks"
+	},
 	"config_prefix": "silg",
 	"config": {
 		"CacheType": {
