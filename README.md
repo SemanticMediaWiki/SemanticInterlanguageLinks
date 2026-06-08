@@ -23,7 +23,7 @@ This [video](https://vimeo.com/115871518) demonstrates the functionality of the 
 
 - PHP 8.1 or later
 - MediaWiki 1.43 or later
-- [Semantic MediaWiki][smw] 6.0 or later
+- [Semantic MediaWiki][smw] 7.0 or later
 
 ## Installation
 
@@ -41,7 +41,7 @@ create one and add the following content to it:
 ```
 {
 	"require": {
-		"mediawiki/semantic-interlanguage-links": "~2.1"
+		"mediawiki/semantic-interlanguage-links": "~3.0"
 	}
 }
 ```
@@ -49,7 +49,7 @@ create one and add the following content to it:
 If you already have a "composer.local.json" file add the following line to the end of the "require"
 section in your file:
 
-    "mediawiki/semantic-interlanguage-links": "~2.1"
+    "mediawiki/semantic-interlanguage-links": "~3.0"
 
 Remember to add a comma to the end of the preceding line in this section.
 
@@ -85,8 +85,8 @@ Further details and usage examples can be found [here](docs/README.md).
 
 If you want to contribute work to the project please subscribe to the developers mailing list and have a look at the contribution guideline.
 
-* [File an issue](https://github.com/SemanticMediaWiki/SemanticLanguageLinks/issues)
-* [Submit a pull request](https://github.com/SemanticMediaWiki/SemanticLanguageLinks/pulls)
+* [File an issue](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/issues)
+* [Submit a pull request](https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/pulls)
 * Ask a question on [the mailing list](https://www.semantic-mediawiki.org/wiki/Mailing_list)
 
 ## Tests
@@ -99,7 +99,7 @@ but can also be executed using `composer phpunit` from the extension base direct
 [GNU General Public License, version 2 or later][gpl-licence].
 
 [smw]: https://github.com/SemanticMediaWiki/SemanticMediaWiki
-[contributors]: https://github.com/SemanticMediaWiki/SemanticLanguageLinks/graphs/contributors
+[contributors]: https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/graphs/contributors
 [ci]: https://github.com/SemanticMediaWiki/SemanticInterlanguageLinks/actions
 [gpl-licence]: https://www.gnu.org/copyleft/gpl.html
 [composer]: https://getcomposer.org/

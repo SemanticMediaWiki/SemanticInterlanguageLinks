@@ -2,7 +2,7 @@ This file contains the RELEASE-NOTES of the **Semantic Interlanguage Links** (a.
 
 ### 3.0.0
 
-Not yet released.
+Released on June 8, 2026.
 
 * Added support for Semantic MediaWiki 7.0
 * Raised the minimum requirements
@@ -23,6 +23,7 @@ Not yet released.
 * Replaced the procedural hook registration (the extension function and the
   `HookRegistry` class) with declarative `extension.json` hook handlers and a
   service wiring file, removing the last procedural entry point
+* Localization updates from https://translatewiki.net
 
 ### 2.1.0
 
